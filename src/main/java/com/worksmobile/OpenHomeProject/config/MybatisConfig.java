@@ -1,26 +1,19 @@
-package com.worksmobile.OpenHomeProject;
-
+package com.worksmobile.OpenHomeProject.config;
 
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+/*import org.springframework.core.io.Resource;*/
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+/*@MapperScan(value= {"com.worksmobile.OpenHomeProject.dao"})*/
+public class MybatisConfig {
 
-
-@SpringBootApplication
-public class OpenHomeProjectApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(OpenHomeProjectApplication.class, args);
-	}
-	
-	//SqlSessionFactory ºó ¼±¾ð
+/*	//SqlSessionFactory ºó ¼±¾ð
 	@Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
@@ -30,7 +23,7 @@ public class OpenHomeProjectApplication {
         return sessionFactory.getObject();
     }
 	
-/*	 @Bean
+	 @Bean
 	    public SqlSessionFactory sqlSessionFactory(DataSource dataSource)throws Exception{
 	        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 	            sessionFactory.setDataSource(dataSource);
@@ -38,14 +31,12 @@ public class OpenHomeProjectApplication {
 	            Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:/mappers/*mapper.xml");
 	            sessionFactory.setMapperLocations(res);
 	            return sessionFactory.getObject();
-	    }*/
+	    }
 
 	//SqlSessionTemplate ºó ¼±¾ð
     @Bean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {
         final SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate;
-    }
-	
-
+    }*/
 }
