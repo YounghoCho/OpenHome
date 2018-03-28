@@ -21,5 +21,11 @@ public class BoardServiceImp implements BoardService{
 		return dao.board_list();
 	}
 
+	@Override
+	public List<BoardDTO> MessageListProcess() {
+		System.out.println("serviceÅë°ú2");
+		return dao.message_list();
+	}
+
 }
 

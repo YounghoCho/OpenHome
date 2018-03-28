@@ -18,10 +18,11 @@ public class HomeController {
 	public String index() {
 		return "layout";
 	}
-	
+
 	@RequestMapping(value="/home")
-	public ModelAndView gohome() {
+	public ModelAndView gohome() throws Exception{
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("boardlist", service.BoardListProcess());
 		mav.setViewName("homeview");
 		return mav;
 	}
@@ -29,10 +30,9 @@ public class HomeController {
 	@RequestMapping(value="/board")
 	public ModelAndView goboard() throws Exception {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("여기까지 오케이!!!");
-		mav.addObject("boardlist", service.BoardListProcess());
-		System.out.println("여기까지 오케이");
+		mav.addObject("messagelist", service.MessageListProcess());	//addObject("jsp에서 호출할 변수", db에서 가져오는데 사용되는 service.메소드);
 		mav.setViewName("boardview");
 		return mav;
 	}
 }
+

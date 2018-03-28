@@ -11,10 +11,15 @@
 
 			</tr>
 
-			<c:forEach items="${boardlist}" var="boardDTO">
+			<c:forEach items="${messagelist}" var="messageDTO">
 				<tr>
-					<td>${boardDTO.board_num}</td>
-					<td><a href="boardView.do?bno=${boardDTO.board_num}">${boardDTO.board_title}</a></td>
+					<td>${messageDTO.message_num}</td>
+					<td>${messageDTO.board_num}</td>
+					<td>${messageDTO.message_subject}</td>
+					<td>${messageDTO.message_content}</td>
+					<td>${messageDTO.message_date}</td>
+					<td>${messageDTO.message_writer}</td>
+					<td>${messageDTO.message_pwd}</td>
 				</tr>
 			</c:forEach>
 		</table>

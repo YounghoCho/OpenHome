@@ -2,9 +2,15 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+
+<!--namespace,id는 DAOImp에, 그리고 id는 Controller에도 있다.-->
+<!-- mapper는 한개만 온다 -->
 <mapper namespace="board">
 	<select id="board_list" resultType="com.worksmobile.OpenHomeProject.dto.BoardDTO">
 		select * from board
+	</select>
+	
+	<select id="message_list" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		select * from message
 	</select>
 </mapper>

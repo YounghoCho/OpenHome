@@ -25,4 +25,10 @@ public class BoardDAOImp implements BoardDAO {
 		return sqlsession.selectList("board.board_list");
 	}
 
+	@Override
+	public List<BoardDTO> message_list() {
+		System.out.println("daoÅë°ú");
+		return sqlsession.selectList("board.message_list");
+	}
+
 }
