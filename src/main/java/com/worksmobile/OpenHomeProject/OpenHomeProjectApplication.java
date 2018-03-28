@@ -13,8 +13,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import javafx.application.Application;
-
 
 
 @SpringBootApplication
@@ -40,7 +38,7 @@ public class OpenHomeProjectApplication extends SpringBootServletInitializer{
         final SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate;
     }
-<<<<<<< Updated upstream
+
     @Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		// Customize the application or call application.sources(...) to add sources
@@ -48,17 +46,5 @@ public class OpenHomeProjectApplication extends SpringBootServletInitializer{
 		// we actually don't need to override this method.
 		return application;
 	}
-=======
-/*
-    //외장 tomcat 사용 위해   // Used when deploying to a standalone servlet container
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		
-		return builder.sources(Application.class);
-	}
-*/
->>>>>>> Stashed changes
-
-
     
 }

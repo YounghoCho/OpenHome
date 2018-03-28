@@ -16,14 +16,10 @@ public class HomeController {
 	
 	@RequestMapping(value="/index")
 	public String index() {
-<<<<<<< Updated upstream
-		return "layout";
-=======
 		/*ModelAndView mav = new ModelAndView();
 		mav.setViewName("hello");
 		return mav;*/
 		return "hello";
->>>>>>> Stashed changes
 	}
 
 	@RequestMapping(value="/home")
