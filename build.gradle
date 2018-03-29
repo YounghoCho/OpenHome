@@ -10,6 +10,7 @@ buildscript {
 	}
 }
 
+
 apply plugin: 'java'
 //apply plugin: 'eclipse' //내장톰캣 사용시 설정
 apply plugin: 'org.springframework.boot'
