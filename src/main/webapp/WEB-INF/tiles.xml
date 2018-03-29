@@ -12,31 +12,18 @@
         <put-attribute name="menu" value="/WEB-INF/views/template/menu.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/template/body.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" />
-        <!-- <put-attribute name="footer" value="/WEB-INF/views/jsp/footer.jsp" /> -->
     </definition>
     
     <!-- pages -->
     <!-- 여기서 name의 index, login은 Controller에서 RequestMapping 할 때 return해주는 page 이름과 맞춰준다. -->
-<!--     <definition name="homeview" extends="layout">
+    <definition name="homeview" extends="layout">
     	<put-attribute name="title" value="오픈 홈"/>
         <put-attribute name="body" value="/WEB-INF/views/body-home.jsp" />
-    </definition> -->
-    
-	<definition name="homeview" extends="layout">
-    	<put-attribute name="title" value="오픈 홈"/>
-        <put-attribute name="body" value="/index"/>
-    </definition>
-    
+    </definition> 
     
     <definition name="boardview" extends="layout">
     	<put-attribute name="title" value="게시판"/>
-        <put-attribute name="body" value="/WEB-INF/views/body-home.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/body-board.jsp" />
     </definition>
-    
-<!--
-	<definition name="login" extends="layout.default">
-        <put-attribute name="body" value="/WEB-INF/views/jsp/login.jsp" />
-    </definition> 
--->
 
 </tiles-definitions>
