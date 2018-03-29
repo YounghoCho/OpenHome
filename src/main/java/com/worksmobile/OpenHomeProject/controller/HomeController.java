@@ -16,7 +16,10 @@ public class HomeController {
 	
 	@RequestMapping(value="/index")
 	public String index() {
-		return "layout";
+		/*ModelAndView mav = new ModelAndView();
+		mav.setViewName("hello");
+		return mav;*/
+		return "hello";
 	}
 
 	@RequestMapping(value="/home")

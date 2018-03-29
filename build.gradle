@@ -10,11 +10,13 @@ buildscript {
 	}
 }
 
+
 apply plugin: 'java'
-apply plugin: 'eclipse'
+//apply plugin: 'eclipse' //내장톰캣 사용시 설정
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'war'
+apply plugin: 'eclipse-wtp' //외장톰캣 사용시 설정1
+apply plugin: 'war' //외장톰캣 사용시 설정2
 
 group = 'com.worksmobile'
 version = '0.0.1-SNAPSHOT'
@@ -31,7 +33,7 @@ dependencies {
 	compile("org.mybatis:mybatis-spring")
 	compile("org.mybatis:mybatis")
 	
-    compile("mysql:mysql-connector-java:5.1.4")
+    compile("mysql:mysql-connector-java:5.1.46")
     compile('javax.servlet:jstl')
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     compile('org.apache.tiles:tiles-jsp:3.0.4')
