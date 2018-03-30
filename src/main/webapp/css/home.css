@@ -1,0 +1,31 @@
+#wrap .container{
+	border-top:1px solid #ccc;
+	border-left:2px solid #ccc;
+	border-right:2px solid #ccc;
+	border-bottom:4px solid #ccc;
+	width:40%;
+	height:235px;
+	float:left;
+	margin:1%;
+}
+table{
+	table-layout:fixed;
+}
+th{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+td{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.boardtitle:hover{
+	color:#1EC800;
+	text-decoration:none;
+}
+.boardtds:hover{
+	color:#1EC800;
+	text-decoration:none;
+}

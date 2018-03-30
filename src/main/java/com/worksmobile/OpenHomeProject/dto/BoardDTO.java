@@ -5,7 +5,6 @@ import java.util.Date;
 public class BoardDTO {
 
 	private int board_num;
-	private String board_title;
 	private Date board_reg_date;
 	private int board_maker;
 	private int board_list_num;
@@ -20,14 +19,6 @@ public class BoardDTO {
 
 	public void setBoard_num(int board_num) {
 		this.board_num = board_num;
-	}
-
-	public String getBoard_title() {
-		return board_title;
-	}
-
-	public void setBoard_title(String board_title) {
-		this.board_title = board_title;
 	}
 
 	public Date getBoard_reg_date() {

@@ -5,7 +5,16 @@ import java.util.Date;
 public class MessageDTO {
 	private int message_num;
 	private int board_num;
+	private int countAll;
+	public int getCountAll() {
+		return countAll;
+	}
+	public void setCountAll(int countAll) {
+		this.countAll = countAll;
+	}
+	private int ROWNUM;
 	private String message_subject;
+	private String message_sample;	
 	private String message_content;
 	private Date message_date;
 	private String message_writer;
@@ -51,6 +60,18 @@ public class MessageDTO {
 	}
 	public void setMessage_pwd(String message_pwd) {
 		this.message_pwd = message_pwd;
+	}
+	public String getMessage_sample() {
+		return message_sample;
+	}
+	public void setMessage_sample(String message_sample) {
+		this.message_sample = message_sample;
+	}
+	public int getROWNUM() {
+		return ROWNUM;
+	}
+	public void setROWNUM(int rOWNUM) {
+		ROWNUM = rOWNUM;
 	}
 
 	

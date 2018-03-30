@@ -7,10 +7,78 @@
 <!-- mapper는 한개만 온다 -->
 <mapper namespace="board">
 	<select id="board_list" resultType="com.worksmobile.OpenHomeProject.dto.BoardDTO">
-		select * from board
+		SELECT *
+		FROM message	
 	</select>
 	
 	<select id="message_list" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
-		select * from message
+		SELECT 
+			@ROWNUM := @ROWNUM +1 as ROWNUM, <!-- 기존의 ROW number들을 1씩 증가시킨다. 그러려면 0으로 초기화 되야해서, FROM절에서 초기화한다. -->
+			m.board_num, message_subject, message_sample, message_date, message_writer, board_num
+		FROM 
+			message m, ( SELECT @ROWNUM := 0 ) R 	<!-- (SELECT @ROWNUM~ 이녀석이 있어야 비로소 0만 출력되던게 1,2,3 으로 출력된다 -->
+		WHERE
+			board_num=1
 	</select>
+	<select id="message_list2" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		SELECT 
+			@ROWNUM := @ROWNUM +1 as ROWNUM,
+			m.board_num, message_subject, message_sample, message_date, message_writer
+		FROM 
+			message m, ( SELECT @ROWNUM := 0 ) R
+		WHERE
+			board_num=2;
+	</select>	
+	<select id="message_list3" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		SELECT 
+			@ROWNUM := @ROWNUM +1 as ROWNUM,
+			m.board_num, message_subject, message_sample, message_date, message_writer
+		FROM 
+			message m, ( SELECT @ROWNUM := 0 ) R
+		WHERE
+			board_num=3;
+	</select>	
+	<select id="message_list4" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		SELECT 
+			@ROWNUM := @ROWNUM +1 as ROWNUM,
+			m.board_num, message_subject, message_sample, message_date, message_writer
+		FROM 
+			message m, ( SELECT @ROWNUM := 0 ) R
+		WHERE
+			board_num=4;
+	</select>	
+
+
+	<select id="count_list" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		SELECT 
+			COUNT('message_num') as countAll
+		FROM 
+			message
+		WHERE
+			board_num=1;
+	</select>	
+	<select id="count_list2" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		SELECT 
+			COUNT('message_num') as countAll
+		FROM 
+			message
+		WHERE
+			board_num=2;
+	</select>	
+	<select id="count_list3" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		SELECT 
+			COUNT('message_num') as countAll
+		FROM 
+			message
+		WHERE
+			board_num=3;
+	</select>	
+	<select id="count_list4" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		SELECT 
+			COUNT('message_num') as countAll
+		FROM 
+			message
+		WHERE
+			board_num=4;
+	</select>		
 </mapper>

@@ -15,7 +15,7 @@
     </definition>
     
     <!-- pages -->
-    <!-- 여기서 name의 index, login은 Controller에서 RequestMapping 할 때 return해주는 page 이름과 맞춰준다. -->
+    <!-- 여기서 name은, Controller에서 데이터 처리 후 return되는 view name이다. -->
     <definition name="homeview" extends="layout">
     	<put-attribute name="title" value="오픈 홈"/>
         <put-attribute name="body" value="/WEB-INF/views/body-home.jsp" />
@@ -26,4 +26,8 @@
         <put-attribute name="body" value="/WEB-INF/views/body-board.jsp" />
     </definition>
 
+    <definition name="readview" extends="layout">
+    	<put-attribute name="title" value="읽기"/>
+        <put-attribute name="body" value="/WEB-INF/views/body-read.jsp" />
+    </definition> 
 </tiles-definitions>

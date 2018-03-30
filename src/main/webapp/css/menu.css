@@ -1,0 +1,24 @@
+.menudecoration > li{
+	border-left: 1px solid #aaa;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	padding: 10px;
+	font-color: #aaa;
+	font-weight: bold;
+}
+.menudecoration li:hover{
+	background-color: #1EC800
+}
+.menudecoration li:hover a{
+	color: #fff;
+}
+.menudecoration a:link, a:visited{
+	color: #666;
+}
+.menudecoration li a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+a{
+	display:block;	
+}

@@ -1,0 +1,22 @@
+table{
+	table-layout:fixed;
+}
+th{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+td{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.boardtitle{
+	font-weight:bold; 
+	font-size:20px; 
+	margin:5px; 
+}
+.boardtds:hover{
+	color:#1EC800;
+	text-decoration:none;
+}

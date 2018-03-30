@@ -3,54 +3,88 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
+
 <head>
+	<!-- 캐시를 제거해서 실시간으로 css를 반영한다 -->
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
+	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=4">
 </head>
 
-<div>
 
-<div id="wrap" class="container">	<!--auto margin-->
+<div>
+	<!-- 1st -->
+	<div id="wrap" class="container">	<!--auto margin-->
 		<table class="table">
 			<thead>
 			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>날짜</th>
-				<th>조회수</th>
-				</tr>
+				<th><a href="board1" class="boardtitle">게시판1</a></th>
+			</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${boardlist}" var="boardDTO">
+			<c:forEach items="${messagelist}" var="messageDTO" begin="1" end="5" step="1">
 				<tr>
-					<td>${boardDTO.board_num}</td>
-					<td>${boardDTO.board_title}</td>
-					<td>${boardDTO.board_reg_date}</td>
-					<td>${boardDTO.board_maker}</td>
-					<td>${boardDTO.board_list_num}</td>
-					
+					<td><a href="read" class="boardtds">${messageDTO.message_sample}</a></td>
 				</tr>
 			</c:forEach>
-			<tr>
-				<td>2</td>
-				<td>영준</td>
-				<td>동생아</td>
-				<td>우리는</td>
-				<td>배그충</td>
-			</tr>
 			</tbody>
 		</table>
-		
-		<a type="button" class="btn btn-success pull-right">글쓰기</a>
-		<div class="text-center">
-			<ul class="pagination">
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-			</ul>
-		</div>
+	</div>
+	
+	<!-- 2nd -->
+	<div id="wrap" class="container" id="boards">
+		<table class="table">
+			<thead>
+			<tr>
+				<th><a href="board2" class="boardtitle">게시판2</a></th>
+			</tr>
+			</thead>
+			<tbody>
+			<c:forEach items="${messagelist2}" var="messageDTO" begin="1" end="5" step="1">
+				<tr>
+					<td><a href="read" class="boardtds">${messageDTO.message_sample}</a></td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>		
+	</div>
+	
+	<!-- 3rd -->
+	<div id="wrap" class="container" id="boards">
+		<table class="table">
+			<thead>
+			<tr>
+				<th><a href="board3" class="boardtitle">게시판3</a></th>
+			</tr>
+			</thead>
+			<tbody>
+			<c:forEach items="${messagelist3}" var="messageDTO" begin="1" end="5" step="1">
+				<tr>
+					<td><a href="read" class="boardtds">${messageDTO.message_sample}</a></td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+	</div>
+	
+	<!-- 4rd -->
+	<div id="wrap" class="container" id="boards">
+		<table class="table">
+			<thead>
+			<tr>
+				<th><a href="board4" class="boardtitle">게시판4</a></th>
+			</tr>
+			</thead>
+			<tbody>
+			<c:forEach items="${messagelist4}" var="messageDTO" begin="1" end="5" step="1">
+				<tr>
+					<td><a href="read" class="boardtds">${messageDTO.message_sample}</a></td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
 	</div>
 	
 </div>
