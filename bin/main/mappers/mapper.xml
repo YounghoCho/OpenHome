@@ -10,7 +10,7 @@
 	<select id="mapMessagelist" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
 		SELECT 
 			@ROWNUM := @ROWNUM +1 as ROWNUM,
-			m.board_num, message_subject, message_sample, message_date, message_writer
+			m.board_num, m.message_num, message_subject, message_sample, message_date, message_writer
 		FROM 
 			message m, ( SELECT @ROWNUM := 0 ) R
 		WHERE
@@ -26,6 +26,15 @@
 		FROM 
 			message
 		WHERE
-			board_num= #{boardNumberInt};
-	</select>		
+			board_num= #{boardNumberInt}
+	</select>
+			
+	<select id="messageInfo" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
+		SELECT 
+			message_subject, message_content, message_date, message_writer, message_pwd, board_num
+		FROM 
+			message
+		WHERE
+			message_num= #{originalMessageNum}
+	</select>
 </mapper>

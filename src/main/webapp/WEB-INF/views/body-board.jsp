@@ -9,7 +9,7 @@
 	<meta http-equiv="Cache-Control" content="no-cache">
 	<meta http-equiv="Pragma" content="no-cache">
 	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css?ver=1">
-	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/board.css?ver=3">
+	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/board.css?ver=5">
 </head>
 
 <div>
@@ -79,7 +79,7 @@
 			<c:forEach items="${messagelist}" var="messageDTO" begin="${startPage}" end="${countList}" step="1">		
 				<tr>
 					<td>${messageDTO.ROWNUM}</td>
-					<td><a href="read" class="boardtds">${messageDTO.message_subject}</a></td>
+					<td><a href="javascript:goRead(${messageDTO.message_num})" class="boardtds">${messageDTO.message_subject}</a></td>
 					<td>${messageDTO.message_sample}</td>
 					<td>${fn:substring(messageDTO.message_date,0,3)} ${fn:substring(messageDTO.message_date,11,16)}</td>
 					<td>${messageDTO.message_writer}</td>
@@ -130,5 +130,8 @@
 <script>
 function goPage(start){
 	location.href= '?'+ "pages=" + start;
+}
+function goRead(message_num){
+	location.href= 'read?'+ "message_num=" + message_num;
 }
 </script>

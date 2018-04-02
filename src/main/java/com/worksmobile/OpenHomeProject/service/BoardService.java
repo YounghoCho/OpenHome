@@ -11,4 +11,6 @@ public interface BoardService {
 	public List<BoardDTO> MessageList(int boardNumberInt, int currentPageNo);
 
 	public List<BoardDTO> CountList(int boardNumberInt);
+
+	public List<BoardDTO> OriginalMessage(int originalMessageNum);
 }

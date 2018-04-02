@@ -8,4 +8,6 @@ public interface BoardDAO {
 	public List<BoardDTO> funcMessagelist(int boardNumberInt, int currentPageNo);
 
 	public List<BoardDTO> funcCountList(int boardNumberInt);
+
+	public List<BoardDTO> funcOriginalMessage(int originalMessageNum);
 }

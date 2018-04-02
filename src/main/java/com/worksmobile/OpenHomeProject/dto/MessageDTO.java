@@ -6,12 +6,7 @@ public class MessageDTO {
 	private int message_num;
 	private int board_num;
 	private int countAll;
-	public int getCountAll() {
-		return countAll;
-	}
-	public void setCountAll(int countAll) {
-		this.countAll = countAll;
-	}
+
 	private int ROWNUM;
 	private String message_subject;
 	private String message_sample;	
@@ -19,6 +14,14 @@ public class MessageDTO {
 	private Date message_date;
 	private String message_writer;
 	private String message_pwd;
+
+	public int getCountAll() {
+		return countAll;
+	}
+	public void setCountAll(int countAll) {
+		this.countAll = countAll;
+	}
+	
 	public int getMessage_num() {
 		return message_num;
 	}

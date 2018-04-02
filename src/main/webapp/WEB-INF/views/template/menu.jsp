@@ -13,8 +13,6 @@
 	<li><a href="javascript:goBoard(2)">게시판2</a></li>
 	<li><a href="javascript:goBoard(3)">게시판3</a></li>
 	<li><a href="javascript:goBoard(4)">게시판4</a></li>
-	<li><a href="read">읽기 테스트</a></li>
-	
 </ul>
 </div>
 <script>

@@ -24,5 +24,10 @@ public class BoardServiceImp implements BoardService{
 	public List<BoardDTO> CountList(int boardNumberInt) {
 		return dao.funcCountList(boardNumberInt);
 	}
+
+	@Override
+	public List<BoardDTO> OriginalMessage(int originalMessageNum) {
+		return dao.funcOriginalMessage(originalMessageNum);
+	}
 }
 

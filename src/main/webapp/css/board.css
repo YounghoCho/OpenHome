@@ -16,6 +16,9 @@ td{
 	font-size:20px; 
 	margin:5px; 
 }
+.boardtds:link, .boardtds:visited{
+	color: black;
+}
 .boardtds:hover{
 	color:#1EC800;
 	text-decoration:none;

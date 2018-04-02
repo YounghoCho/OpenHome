@@ -13,21 +13,38 @@
 		<table class="table" style="height:400px;">
 			<thead>
 				<tr>
-					<th style="width:100%">게시판1</th>
+					
+					<c:forEach items="${originalMessageInfo}" var="whichBoard">
+						<c:if test="${whichBoard.board_num eq 1}">
+							<th>게시판1</th>
+						</c:if>
+						<c:if test="${whichBoard.board_num eq 2}">
+							<th>게시판2</th>
+						</c:if>
+						<c:if test="${whichBoard.board_num eq 3}">
+							<th>게시판3</th>
+						</c:if>
+						<c:if test="${whichBoard.board_num eq 4}">
+							<th>게시판4</th>
+						</c:if>
+					</c:forEach>
+					
 				</tr>
 			</thead>
-
+			
+			<c:forEach items="${originalMessageInfo}" var="originalMessageInfo">	<!-- how to get ajax? forEach를 써야만 List에서 데이터를 꺼내쓸 수 있다.. -->
 			<tbody>
 			<tr>
-				<td style="height:50px">게시판 제목</td>
+				<td style="height:50px">${originalMessageInfo.message_subject}</td>
 			</tr>
 			<tr>
 				<td style="height:100px">첨부파일 영역</td>
 			</tr>
 			<tr>
-				<td style="height:250px;border-bottom:1px solid #ddd;">본문 영역</td>
+				<td style="height:250px;border-bottom:1px solid #ddd;">${originalMessageInfo.message_content}</td>
 			</tr>
 			</tbody>
+			</c:forEach>
 		</table>
 		<a type="button" class="btn btn-default pull-right" style="margin-right:10px;width:80px;">취소</a>		
 		<a type="button" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a>

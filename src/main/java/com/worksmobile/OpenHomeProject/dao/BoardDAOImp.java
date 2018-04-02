@@ -2,8 +2,6 @@ package com.worksmobile.OpenHomeProject.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,6 +28,15 @@ public class BoardDAOImp implements BoardDAO {
 
 	@Override
 	public List<BoardDTO> funcCountList(int boardNumberInt) {
-		return sqlsession.selectList("board.count_list");
+		HashMap<String, Object> paramMap= new HashMap<>();
+		paramMap.put("boardNumberInt", boardNumberInt);
+		return sqlsession.selectList("board.count_list", paramMap);
+	}
+
+	@Override
+	public List<BoardDTO> funcOriginalMessage(int originalMessageNum) {
+		HashMap<String, Object> paramMap= new HashMap<>();
+		paramMap.put("originalMessageNum", originalMessageNum);
+		return sqlsession.selectList("board.messageInfo", paramMap);
 	}
 }

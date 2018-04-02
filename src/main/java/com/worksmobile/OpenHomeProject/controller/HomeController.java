@@ -48,8 +48,12 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/read")	
-	public ModelAndView goread() throws Exception {
+	public ModelAndView goread(HttpServletRequest req) throws Exception {
+		//### Get Message Num ###
+		int OriginalMessageNum= Integer.parseInt(req.getParameter("message_num"));
+		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("originalMessageInfo", service.OriginalMessage(OriginalMessageNum));
 		mav.setViewName("readview");
 		return mav;
 	}
