@@ -12,29 +12,11 @@
 	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/board.css?ver=3">
 </head>
 
-<!-- Algorithm : which board 1,2,3,4-->	
-			<!-- default : default board is 1 -->
-			<c:set var="value_for_list" value="${messagelist}"/>
-			
-			<c:if test="${messagelist ne null}"> <!-- eq(==), ne(!=) empty(==null) -->
-				<c:set var="value_for_list" value="${messagelist}"/>	
-			</c:if>
-			<c:if test="${messagelist2 ne null}">
-				<c:set var="value_for_list" value="${messagelist2}"/>			
-			</c:if>		
-			<c:if test="${messagelist3 ne null}">
-				<c:set var="value_for_list" value="${messagelist3}"/>			
-			</c:if>		
-			<c:if test="${messagelist4 ne null}">
-				<c:set var="value_for_list" value="${messagelist4}"/>				
-			</c:if>								
-<!-- End Algorithm -->
-
 <div>
 	<div id="wrap" class="container">	<!--auto margin-->
 	
 <!--  Algorithm2 -->
-		<c:forEach items="${value_for_list}" var="titletest" begin="1" end="1" step="1">
+		<c:forEach items="${messagelist}" var="titletest" begin="1" end="1" step="1">
 			<c:if test="${titletest.board_num eq 1}">
 				<div class="boardtitle">게시판1</div>
 			</c:if>
@@ -51,7 +33,8 @@
 <!--  End Algorithm2 -->
 
 <!--  ### Paging Start ###-->
-<c:forEach items="${countlist}" var="totalCount">	
+<c:forEach items="${countlist}" var="totalCount">
+<!-- <c:if test="${now}"/>	 -->	
 	<c:set var="pages" value="1"/>
 	<c:set var="countList" value="10"/>
 	<c:set var="countPage" value="10"/>
@@ -93,7 +76,7 @@
 			</thead>
 			<tbody>
 						
-			<c:forEach items="${value_for_list}" var="messageDTO" begin="${startPage}" end="${countList}" step="1">		
+			<c:forEach items="${messagelist}" var="messageDTO" begin="${startPage}" end="${countList}" step="1">		
 				<tr>
 					<td>${messageDTO.ROWNUM}</td>
 					<td><a href="read" class="boardtds">${messageDTO.message_subject}</a></td>
@@ -120,14 +103,13 @@
 					<!--<c:out value="${status.index}"/>-->
 					<c:choose>
 						<c:when test="${status.index eq startPage}">
-						        <li><a href="#"><b>${status.index}</b></a></li>
+						        <li><a href="javascript:goPage(1)"><b>${status.index}</b></a></li>
 			    		</c:when>
 				    	<c:otherwise>
-			       			 <li><a href="${status.index}">${status.index}</a></li>
+			       			 <li><a href="javascript:goPage(${(status.index-1)*10+1})">${status.index}</a></li>
 			    		</c:otherwise>
 					</c:choose>
 				</c:forEach>		
-
 				<c:if test="${endPage < totalPageInt}">
 					<a href="#">맨뒤</a>	<!-- read/pages=${totalPageInt}  //남은 페이지를 넘겨줌-->
 				</c:if>	
@@ -145,4 +127,8 @@
 <!-- jquery 로드 후 부트스트랩 js 불러온다. -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-
+<script>
+function goPage(start){
+	location.href= '?'+ "pages=" + start;
+}
+</script>
