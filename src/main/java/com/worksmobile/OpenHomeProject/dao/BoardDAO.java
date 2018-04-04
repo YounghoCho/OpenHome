@@ -5,7 +5,7 @@ import com.worksmobile.OpenHomeProject.dto.BoardDTO;
 
 public interface BoardDAO {
 	
-	public List<BoardDTO> funcMessagelist(int boardNumberInt, int currentPageNo);
+	public List<BoardDTO> funcMessagelist(int boardNumberInt, int currentPageNo, int pageSize);
 
 	public List<BoardDTO> funcCountList(int boardNumberInt);
 

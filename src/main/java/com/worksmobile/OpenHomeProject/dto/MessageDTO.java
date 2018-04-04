@@ -6,7 +6,6 @@ public class MessageDTO {
 	private int message_num;
 	private int board_num;
 	private int countAll;
-
 	private int ROWNUM;
 	private String message_subject;
 	private String message_sample;	
@@ -76,6 +75,4 @@ public class MessageDTO {
 	public void setROWNUM(int rOWNUM) {
 		ROWNUM = rOWNUM;
 	}
-
-	
 }

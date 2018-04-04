@@ -1090,13 +1090,14 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  color: #555;
   text-decoration: none;
+  font-weight: bold;
 }
 a:hover,
 a:focus {
-  color: #23527c;
-  text-decoration: underline;
+  color: #1EC800;
+  text-decoration: none;
 }
 a:focus {
   outline: thin dotted;
@@ -4611,11 +4612,24 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
-  color: #337ab7;
+  color: #1EC800;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd;
 }
+.pagination > li > .noneBolder1{
+	 border-top:none;
+	 border-bottom:none;
+	 border-left:none;
+	 color:#999;
+}
+.pagination > li > .noneBolder2{
+	border-top:none;
+	border-bottom:none;
+	border-right:none;
+	color:#999
+}
+
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
   margin-left: 0;

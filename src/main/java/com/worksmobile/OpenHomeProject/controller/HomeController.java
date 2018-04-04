@@ -15,45 +15,33 @@ public class HomeController {
 
 	@RequestMapping(value="/home")
 	public ModelAndView gohome() throws Exception{
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("messagelist", service.MessageList(1,1));
-		mav.addObject("messagelist2", service.MessageList(2,1));
-		mav.addObject("messagelist3", service.MessageList(3,1));
-		mav.addObject("messagelist4", service.MessageList(4,1));				
+		ModelAndView mav = new ModelAndView();			
 		mav.setViewName("homeview");
 		return mav;	
 	}
 
 	@RequestMapping(value="/{board}")	
-	public ModelAndView goboard4(HttpServletRequest req, @PathVariable("board") String board) throws Exception {
+	public ModelAndView goboard(HttpServletRequest req, @PathVariable("board") String board) throws Exception {
 		//### Get Board Number ###
 		String boardNumberString= board.substring(5,6);
-			//System.out.println("board : "+ board);
 		int boardNumberInt= Integer.parseInt(boardNumberString);
-			//System.out.println("1: "+ boardNumberString + "\n2: "+ boardNumberInt);
-
 		//### Get Page Number ###
 		int currentPageNo= 1;
 		if(req.getParameter("pages") !=null)
 			currentPageNo= Integer.parseInt(req.getParameter("pages"));
-			//System.out.println("req.getParameter(\"pages\") : " + req.getParameter("pages"));
-			//System.out.println("currentPAgeNo : " + currentPageNo);
-
 		//### Get DB Result ###
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("messagelist", service.MessageList(boardNumberInt, currentPageNo));
-		mav.addObject("countlist", service.CountList(boardNumberInt));	
+		mav.addObject("boardNumberInt", boardNumberInt);
+		mav.addObject("currentPageNo", currentPageNo);	
 		mav.setViewName("boardview");
 		return mav;
 	}
-
+	
 	@RequestMapping(value="/read")	
 	public ModelAndView goread(HttpServletRequest req) throws Exception {
-		//### Get Message Num ###
-		int OriginalMessageNum= Integer.parseInt(req.getParameter("message_num"));
-		
+		//읽기페이지에 들어올때 넘어오는 파라미터값을 함께 readview페이지로 넘깁니다.
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("originalMessageInfo", service.OriginalMessage(OriginalMessageNum));
+		mav.addObject("message_num", Integer.parseInt(req.getParameter("message_num")));
 		mav.setViewName("readview");
 		return mav;
 	}

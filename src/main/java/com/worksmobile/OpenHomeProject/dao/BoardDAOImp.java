@@ -5,7 +5,6 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.worksmobile.OpenHomeProject.dto.BoardDTO;
 
 @Repository("BoardDAO")
@@ -17,12 +16,12 @@ public class BoardDAOImp implements BoardDAO {
 	public BoardDAOImp() {}
 	
 	@Override
-	public List<BoardDTO> funcMessagelist(int boardNumberInt, int currentPageNo) {
+	public List<BoardDTO> funcMessagelist(int boardNumberInt, int currentPageNo, int pageSize) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> paramMap= new HashMap<>();
 		paramMap.put("boardNumberInt", boardNumberInt);
 		paramMap.put("startNum", currentPageNo);
-		paramMap.put("pageSize", currentPageNo+9);
+		paramMap.put("pageSize", pageSize);
 		return sqlsession.selectList("board.mapMessagelist", paramMap);
 	}
 

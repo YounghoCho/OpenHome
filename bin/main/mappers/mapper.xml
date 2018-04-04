@@ -31,7 +31,7 @@
 			
 	<select id="messageInfo" resultType="com.worksmobile.OpenHomeProject.dto.MessageDTO">
 		SELECT 
-			message_subject, message_content, message_date, message_writer, message_pwd, board_num
+			message_subject, message_content, message_date, message_writer, message_pwd, board_num, message_num
 		FROM 
 			message
 		WHERE
