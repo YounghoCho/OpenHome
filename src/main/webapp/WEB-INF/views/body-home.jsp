@@ -88,7 +88,7 @@
 <!-- body-read -->
 <div>
 	<div id="wrap" class="container read">	<!--auto margin-->
-
+	
 		<table class="table" style="height:400px;">			
 			<tbody>
 			<tr>
@@ -111,15 +111,17 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=3"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=7"></script>
 <script>
+if(${boardNumberInt}==0){ //this is home, the reason why this was made is not to use jQuery.ready() in 2nd, 3rd page.
+	goHomeAjax();		  //From test, obviously network loading time decreased.
+}
+
 /*
  * SPA secret2: when clicking menu, move to SPA
  *              cannot move this codes in home.js, cause cannnot read $[] in js file.
- *				*Also, goBoardAjax() under here, won't work before click trigger button.
 */
-//variable to be passed as a board number(1,2,3...), currentPageNumber(1,11,21...)
-var getFromHomeController=${boardNumberInt};
-var currentPageNo=${currentPageNo};
-goBoardAjax(getFromHomeController, currentPageNo);	
+//From meun-> values come like home(0,1), board1(1,1)...
+if(${boardNumberInt}!=0)//this is not home, board1~4
+	goBoardAjax(${boardNumberInt}, ${currentPageNo});
 </script>

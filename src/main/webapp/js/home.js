@@ -1,5 +1,5 @@
 /////  body-home /////
-$(document).ready(function(){
+function goHomeAjax(){
 	$(".container.home").show();
 	jQuery.ajax({
 		type: "GET",
@@ -29,8 +29,7 @@ $(document).ready(function(){
 			alert("err");
 		}
 	});
-});
-
+}
 ///// body-board /////
 //SPA secret1: when clicking BoardTitle on Home-page, move to SPA
 function goBoardAjax(boardNumberInt, currentPageNo){
