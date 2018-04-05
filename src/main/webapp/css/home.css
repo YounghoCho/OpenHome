@@ -1,4 +1,4 @@
-#wrap .container{
+#wrap .container.home{
 	border-top:1px solid #ccc;
 	border-left:2px solid #ccc;
 	border-right:2px solid #ccc;
@@ -21,6 +21,11 @@ td{
 	text-overflow:ellipsis;
 	white-space:nowrap;
 }
+.boardtitle.tt{
+	font-weight:bold; 
+	font-size:20px; 
+	margin:5px; 
+}
 .boardtitle:hover{
 	color:#1EC800;
 	text-decoration:none;
@@ -28,4 +33,16 @@ td{
 .boardtds:hover{
 	color:#1EC800;
 	text-decoration:none;
+}
+.boardtds:link, .boardtds:visited{
+	color: black;
+}
+.container.home{
+	display:none;
+}
+.container.board{
+	display:none;
+}
+.container.read{
+	display:none;
 }

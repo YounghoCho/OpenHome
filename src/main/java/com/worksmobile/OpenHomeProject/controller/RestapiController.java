@@ -16,7 +16,7 @@ public class RestapiController {
 	@Resource(name="BoardService")
 	private BoardService service;
 
-	//홈 게시판 리스트 읽어오기(home)
+	//call data of home-page for 4 boards
 	@RequestMapping(value="/homelist", method=RequestMethod.GET)
 	@ResponseBody
 	public Object gohomelist() throws Exception{
@@ -30,7 +30,7 @@ public class RestapiController {
 		return result;	
 	}
 
-	//게시판 리스트 읽어오기(board)
+	//call data of board-page for board lists
 	@RequestMapping(value="/boardlist", method=RequestMethod.GET)
 	@ResponseBody
 	public Object goboard4(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -43,7 +43,7 @@ public class RestapiController {
 		return result;
 	}
 	
-	//게시글 내용 읽어오기(read)
+	//call data of board-read for each board's sentences
 	@RequestMapping(value="/readContents", method=RequestMethod.GET)
 	@ResponseBody
 	public Object goreadcontents(HttpServletRequest req, HttpServletResponse res) throws Exception {	

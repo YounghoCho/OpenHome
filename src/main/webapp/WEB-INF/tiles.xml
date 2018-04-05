@@ -20,14 +20,4 @@
     	<put-attribute name="title" value="오픈 홈"/>
         <put-attribute name="body" value="/WEB-INF/views/body-home.jsp" />
     </definition> 
-    
-    <definition name="boardview" extends="layout">
-    	<put-attribute name="title" value="게시판"/>
-        <put-attribute name="body" value="/WEB-INF/views/body-board.jsp" />
-    </definition>
-
-    <definition name="readview" extends="layout">
-    	<put-attribute name="title" value="읽기"/>
-        <put-attribute name="body" value="/WEB-INF/views/body-read.jsp" />
-    </definition> 
 </tiles-definitions>
