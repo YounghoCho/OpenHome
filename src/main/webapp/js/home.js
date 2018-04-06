@@ -29,11 +29,12 @@ function goHomeAjax(){
 			alert("err");
 		}
 	});
+	history.pushState({ data: '1' }, 'title2', '?depth=1');
 }
+
 ///// body-board /////
-//SPA secret1: when clicking BoardTitle on Home-page, move to SPA
 function goBoardAjax(boardNumberInt, currentPageNo){
-	if(boardNumberInt==0) return false; //board0(home)
+	if(boardNumberInt==0) return false;//board0(home)
 	$(".homeMainDiv").hide();
 	$(".container.board").show();
 	jQuery.ajax({
@@ -58,11 +59,11 @@ function goBoardAjax(boardNumberInt, currentPageNo){
 			//list page numbers
 			for(var i=startPage; i<endPage; i++){
 				if(startPage == i){	
-					$("#indexNow").append("<a href=\"javascript:goPage("+startPage+")\">"
+					$("#indexNow").append("<a href=\"javascript:goPage("+boardNumberInt+","+startPage+")\">"
 										+"<b>"+i+"</b></a>");
 				}
 				else{
-					$("#indexOthers").append("<a href=\"javascript:goPage("+((i-1)*10+1)+")\">"
+					$("#indexOthers").append("<a href=\"javascript:goPage("+boardNumberInt+","+((i-1)*10+1)+")\">"
 										+"<b>"+i+"</b></a>");
 				}
 			}			
@@ -91,6 +92,7 @@ function goBoardAjax(boardNumberInt, currentPageNo){
 			alert("lost");
 		}
 	});
+	history.pushState({ data: '2' }, 'title2', '?depth=2');
 };
 
 ///// body-Read /////
@@ -112,9 +114,12 @@ function goRead(message_num){
 			alert("lose:"+err.status);
 		}
 	});
+	history.pushState({ data: '3' }, 'title3', '?depth=3');
 }
 
 //// Pages function ////
-function goPage(start){
-	location.href= '?'+ "pages=" + start; //go to Homecontroller, then currentPage(1,2..) will be changed(not 1,11,21..)
+function goPage(boardNumberInt, start){
+	//the section <'board'+boardNumberInt>must be same with menu goBoard
+	location.href= 'board'+boardNumberInt+"?pages="+start; 	
+	
 }

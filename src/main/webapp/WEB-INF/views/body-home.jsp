@@ -111,17 +111,36 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=7"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=8"></script>
 <script>
-if(${boardNumberInt}==0){ //this is home, the reason why this was made is not to use jQuery.ready() in 2nd, 3rd page.
-	goHomeAjax();		  //From test, obviously network loading time decreased.
-}
 
-/*
- * SPA secret2: when clicking menu, move to SPA
- *              cannot move this codes in home.js, cause cannnot read $[] in js file.
-*/
-//From meun-> values come like home(0,1), board1(1,1)...
-if(${boardNumberInt}!=0)//this is not home, board1~4
+///// locate Page and active Ajax 
+/* cannot use "$" in js file.
+ * boardNumberInt comes from meun.jsp
+ * Make network loading time be decreased.
+ */
+if(${boardNumberInt}==0){
+	goHomeAjax();		  
+}
+if(${boardNumberInt}!=0)
 	goBoardAjax(${boardNumberInt}, ${currentPageNo});
+
+///// Page Back logic /////
+//if fail to go back, relocated to it's board page
+$(window).bind("popstate", function(event) {
+	//if get error as go back, re-locate to it's board
+	try{
+		var index=event.originalEvent.state.data;
+		if(index==2){
+			$(".container.read").hide();
+			$(".container.board").show();
+		}
+		else if(index==1){
+			location.href="board"+${boardNumberInt};
+		}
+	}catch(exception){
+		alert(exception);
+		location.href="board"+${boardNumberInt};
+	}
+});
 </script>
