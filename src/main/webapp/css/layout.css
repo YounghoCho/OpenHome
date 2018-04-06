@@ -1,69 +1,39 @@
+/*layout*/
 *{
 	padding:0px;
 	margin:0px;
 }
-
-body{
-
-}
-
 #wrap{
 	width:100%;
 	height:100%;
 	
 }
-
 #header{
 	/* background-color:red; */
 	position:relative;
 	width:100%;
-	height:100px;
+	height:50px;
 	border-bottom: none;
 }
-
-#center{
-	position: absolute;
-    top: 50px;
-    bottom: 30px;
-/*     left: -1px;
-    right: -1px; */
-    z-index: 20;
-    overflow: hidden;
-    width: 100%;
-   /*  max-width: 1280px; */
-    margin: 0 auto;
-   /*  border-left: 1px solid #5d5d5d;
-    border-right: 1px solid #5d5d5d; */
-    background-color: #fff;
-		
-}
-
 #menu{
-	/* background-color:blue; */
 	position:absolute;
-	top:0;
+	top:50px;
 	right:0;
 	bottom:0;
 	left:0;
 	width:249px;
 	border-right: 1px solid #5d5d5d;
 }
-
-#center-right{
-	position:absolute;
-	top:0;
-	right:0;
-	bottom:0;
-	left:250px;
-}
-
 #top{
-	/* background-color:yellow; */
+	padding:20px;
+	vertical-align:middle;
+	font-weight:bold;
+	font-color:#1EC800;
 	position:relative;
 	border-bottom: none;
 	height:10%;
+	left:249px;
 }
-
 #body{
 	/* background-color:green; */
 	position:relative;
@@ -71,11 +41,95 @@ body{
 	overflow:auto;
 }
 
-#footer{
-	position: absolute;
-    bottom: 0;
-   /*  background-color: purple; */
-    width: 100%;
-    border-top: 1px solid #5d5d5d;
-    height: 29px;
+/*menu*/
+.menudecoration > li{
+	border-left: 1px solid #aaa;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	padding: 10px;
+	font-color: #aaa;
+	font-weight: bold;
+}
+.menudecoration li:hover{
+	background-color: #1EC800
+}
+.menudecoration li:hover a{
+	color: #fff;
+}
+.menudecoration a:link, a:visited{
+	color: #666;
+}
+.menudecoration li a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+a{
+	display:block;	
+}
+
+/*body*/
+.container.home{
+	border-top:1px solid #ccc;
+	border-left:2px solid #ccc;
+	border-right:2px solid #ccc;
+	border-bottom:4px solid #ccc;
+
+	width:40%;
+	height:315px;
+	float:left;
+	margin:1%;
+}
+table{
+	table-layout:fixed;
+}
+th{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+td{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.boardtitle.tt{
+	font-weight:bold; 
+	font-size:20px; 
+	margin:5px; 
+}
+.boardtitle:hover{
+	color:#1EC800;
+	text-decoration:none;
+}
+.boardtds:hover{
+	color:#1EC800;
+	text-decoration:none;
+}
+.boardtds:link, .boardtds:visited{
+	color: black;
+}
+.container.home, .container.board, .container.read, .container.static, .container.realTime{
+	display:none;
+}
+#singleBoard{
+	position:absolute;
+	left:249px;
+}
+.homeMainDiv, .homeReadDiv, .staticGraphDiv, .realTimeGraphDiv{
+	position:absolute;
+	left:249px;
+}
+
+/*graph*/
+.staticGraphDiv, realTimeGraphDiv{
+width:100%;
+}
+	/*static*/
+#container {
+	width:70%;
+	height:500px;
+	margin: 0;
+}
+rect .highcharts-button-box{
+none;
 }

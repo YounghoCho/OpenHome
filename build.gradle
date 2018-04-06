@@ -36,7 +36,6 @@ dependencies {
     compile("mysql:mysql-connector-java:5.1.46")
     compile('javax.servlet:jstl')
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
-    compile('org.apache.tiles:tiles-jsp:3.0.4')
 
 	compile('org.springframework.boot:spring-boot-starter-web')
 	testCompile('org.springframework.boot:spring-boot-starter-test')

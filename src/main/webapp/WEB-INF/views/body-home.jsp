@@ -2,13 +2,40 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=10">
+	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/layout.css?ver=21">
 </head>
+
+<!-- header -->
+<div id="header" style="background-color:#000040;">
+		<a href="board0" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
+			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENWORKS</font>
+</div>
+
+<!-- menu -->
+<div id="menu">
+<ul class="menudecoration">
+	<li><a href="javascript:goBoard(0)">홈</a></li>
+	<li><a href="javascript:goBoard(1)">게시판1</a></li>
+	<li><a href="javascript:goBoard(2)">게시판2</a></li>
+	<li><a href="javascript:goBoard(3)">게시판3</a></li>
+	<li><a href="javascript:goBoard(4)">게시판4</a></li>
+</ul>
+</div>
+<script>
+function goBoard(index){
+	location.href="board"+index;
+}
+</script>
+
+<!-- top -->
+<div id="top">
+	Welcome to OpenWorks
+</div>
 
 <!-- body-home -->
 <div style="margin:10px;" class="homeMainDiv">
 	<!-- 1st -->
-	<div id="wrap" class="container home">
+	<div class="container home">
 		<table class="table">
 			<tr>
 				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(1,1)">게시판1</a></th>
@@ -19,7 +46,7 @@
 		</table>		
 	</div>
 	<!-- 2nd -->
-	<div id="wrap" class="container home">
+	<div class="container home">
 		<table class="table">
 			<tr>
 				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(2,1)">게시판2</a></th>
@@ -30,7 +57,7 @@
 		</table>		
 	</div>
 	<!-- 3rd -->
-	<div id="wrap" class="container home">
+	<div class="container home">
 		<table class="table">
 			<tr>
 				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(3,1)">게시판3</a></th>
@@ -41,7 +68,7 @@
 		</table>
 	</div>
 	<!-- 4rd -->
-	<div id="wrap" class="container home">
+	<div class="container home">
 		<table class="table">
 			<tr>
 				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(4,1)">게시판4</a></th>
@@ -51,11 +78,10 @@
 			</tbody>
 		</table>
 	</div>
-	
 </div>
 
 <!-- body-board -->
-<div>
+<div id="singleBoard">
 	<div id="wrap" class="container board">	<!--auto margin-->
 		<div class="boardtitle tt"></div>
 
@@ -86,7 +112,7 @@
 </div>
 
 <!-- body-read -->
-<div>
+<div class="homeReadDiv">
 	<div id="wrap" class="container read">	<!--auto margin-->
 	
 		<table class="table" style="height:400px;">			
@@ -111,7 +137,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=8"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=9"></script>
 <script>
 
 ///// locate Page and active Ajax 
@@ -139,7 +165,6 @@ $(window).bind("popstate", function(event) {
 			location.href="board"+${boardNumberInt};
 		}
 	}catch(exception){
-		alert(exception);
 		location.href="board"+${boardNumberInt};
 	}
 });
