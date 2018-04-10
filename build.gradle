@@ -12,11 +12,11 @@ buildscript {
 
 
 apply plugin: 'java'
-//apply plugin: 'eclipse' //내장톰캣 사용시 설정
+//apply plugin: 'eclipse' 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'eclipse-wtp' //외장톰캣 사용시 설정1
-apply plugin: 'war' //외장톰캣 사용시 설정2
+apply plugin: 'eclipse-wtp' 
+apply plugin: 'war' 
 
 group = 'com.worksmobile'
 version = '0.0.1-SNAPSHOT'
@@ -36,6 +36,9 @@ dependencies {
     compile("mysql:mysql-connector-java:5.1.46")
     compile('javax.servlet:jstl')
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+    
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.2'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
 
 	compile('org.springframework.boot:spring-boot-starter-web')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
