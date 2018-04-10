@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.worksmobile.OpenHomeProject.dto.BoardDTO;
+import com.worksmobile.OpenHomeProject.dto.File_uploadDTO;
+import com.worksmobile.OpenHomeProject.dto.MessageDTO;
 import com.worksmobile.OpenHomeProject.dto.TrafficDTO;
 
 @Repository("BoardDAO")
@@ -51,5 +53,18 @@ public class BoardDAOImp implements BoardDAO {
 	@Override
 	public List<TrafficDTO> funcGetTrafficCount () {
 		return sqlsession.selectList ("board.getTrafficCount");
+	}
+	
+
+	//게시글 추가
+	@Override
+	public int message_insert(MessageDTO dto) {
+		int num = sqlsession.insert("board.message_insert", dto);
+		return num;
+	}
+
+	@Override
+	public void file_insert(List<File_uploadDTO> fList) {
+		sqlsession.insert("board.file_insert", fList);	
 	}
 }
