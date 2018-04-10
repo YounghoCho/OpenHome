@@ -1,29 +1,40 @@
-/////  body-home /////
+/*--- First Page ---*/
+$(document).ready(function(){
+	goHomeAjax();
+});
+
+/*---  body-home ---*/
 function goHomeAjax(){
-	$(".container.home").show();
+	$(".container.board").hide();
+	$(".container.read").hide();
+	$(".container.home").show();	
 	jQuery.ajax({
 		type: "GET",
-		url: "homelist",
+		url: "api/homeList",
 		dataType: "json",
 		data: "",
 		success: function(res){
 			//Draw Table Data
-				//1st Message
-				for(var i=0; i<res.messagelist1.length; i++)
+			$("#1stMessage > tr > td").remove();
+			$("#2ndMessage > tr > td").remove();
+			$("#3rdMessage > tr > td").remove();
+			$("#4thMessage > tr > td").remove();
+				for(var i=0; i<res.messagelist1.length; i++){
 					$("#1stMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead("+res.messagelist1[i].message_num+")\" class=\"boardtds\">"+res.messagelist1[i].message_sample+"</a></td>"
 							+"<td>"+res.messagelist1[i].message_date.substring(0,10)+"</td></tr>");
-				//2nd Message
-				for(var i=0; i<res.messagelist2.length; i++)
+				}
+				for(var i=0; i<res.messagelist2.length; i++){
 					$("#2ndMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead("+res.messagelist2[i].message_num+")\" class=\"boardtds\">"+res.messagelist2[i].message_sample+"</a></td>"
 							+"<td>"+res.messagelist2[i].message_date.substring(0,10)+"</td></tr>");				
-				//3rd Message
-				for(var i=0; i<res.messagelist3.length; i++)
+				}
+				for(var i=0; i<res.messagelist3.length; i++){
 					$("#3rdMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead("+res.messagelist3[i].message_num+")\" class=\"boardtds\">"+res.messagelist3[i].message_sample+"</a></td>"
 							+"<td>"+res.messagelist3[i].message_date.substring(0,10)+"</td></tr>");
-				//4rd Message
-				for(var i=0; i<res.messagelist4.length; i++)
-					$("#4rdMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead("+res.messagelist4[i].message_num+")\" class=\"boardtds\">"+res.messagelist4[i].message_sample+"</a></td>"
+				}
+				for(var i=0; i<res.messagelist4.length; i++){
+					$("#4thMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead("+res.messagelist4[i].message_num+")\" class=\"boardtds\">"+res.messagelist4[i].message_sample+"</a></td>"
 							+"<td>"+res.messagelist4[i].message_date.substring(0,10)+"</td></tr>");
+				}
 		},
 		error: function(err){
 			alert("err");
@@ -32,14 +43,15 @@ function goHomeAjax(){
 	history.pushState({ data: '1' }, 'title2', '?depth=1');
 }
 
-///// body-board /////
+/*--- body-board ---*/
 function goBoardAjax(boardNumberInt, currentPageNo){
-	if(boardNumberInt==0) return false;//board0(home)
-	$(".homeMainDiv").hide();
+	//alert("Ajax goBoardAajx param boardNumberInt is :"+boardNumberInt+"\nAjax goBoardAajx param currentPageNo is :" + currentPageNo);
+	$(".container.home").hide();
+	$(".container.read").hide();
 	$(".container.board").show();
 	jQuery.ajax({
 		type: "GET",
-		url: "boardlist",
+		url: "api/boardList",
 		dataType: "json",
 		data: "boardNumberInt="+boardNumberInt+"&currentPageNo="+currentPageNo,	// paging lists & from homecontroller
 		success: function(res){
@@ -52,22 +64,24 @@ function goBoardAjax(boardNumberInt, currentPageNo){
 			var totalPage= totalCount/countList;
 			var startPage= ((pages - 1) / 10) * 10 + 1;
 			var endPage= startPage + countPage - 1;
-			//handle exception
+			//Exception Handling
 			if(totalCount % countList > 0){totalPage++;}
 			if(totalPage < pages){pages= totalPage;}
 			if(endPage > totalPage){endPage = totalPage;}
-			//list page numbers
+			$("#indexNow > a").remove();
+			$("#indexOthers > a").remove();
+			//Listing Up Page Numbers
 			for(var i=startPage; i<endPage; i++){
 				if(startPage == i){	
-					$("#indexNow").append("<a href=\"javascript:goPage("+boardNumberInt+","+startPage+")\">"
+					$("#indexNow").append("<a href=\"javascript:goBoardAjax("+boardNumberInt+","+startPage+")\">"
 										+"<b>"+i+"</b></a>");
 				}
 				else{
-					$("#indexOthers").append("<a href=\"javascript:goPage("+boardNumberInt+","+((i-1)*10+1)+")\">"
+					$("#indexOthers").append("<a href=\"javascript:goBoardAjax("+boardNumberInt+","+((i-1)*10+1)+")\">"
 										+"<b>"+i+"</b></a>");
 				}
 			}			
-			//set board title
+			//Setting Board Title
 			var boardIndex=res.messagelist[0].board_num;
 			switch(boardIndex){
 				case 1: $(".boardtitle").html("게시판1"); break;
@@ -75,7 +89,9 @@ function goBoardAjax(boardNumberInt, currentPageNo){
 				case 3: $(".boardtitle").html("게시판3"); break;
 				case 4: $(".boardtitle").html("게시판4"); break;
 			}
-			//set messagelists
+			//Removing Message Lists
+			$(".tbody > tr > td").remove();
+			//Setting Message Lists
 			for(var index=0; index<res.messagelist.length; index++){
 			$(".tbody").append("<tr>"
 					+"<td>"+res.messagelist[index].rownum+"</td><td>"
@@ -85,9 +101,9 @@ function goBoardAjax(boardNumberInt, currentPageNo){
 					+res.messagelist[index].message_date.substring(0,10)+"</td><td>"
 					+res.messagelist[index].message_writer+"</td>"+
 					"</tr>");
-		//Pagin End
 			}
-		},
+		//Pagin End
+		},//Success End
 		error: function(err){
 			alert("lost");
 		}
@@ -95,15 +111,14 @@ function goBoardAjax(boardNumberInt, currentPageNo){
 	history.pushState({ data: '2' }, 'title2', '?depth=2');
 };
 
-///// body-Read /////
-//All read requests come here 'goRead' method
+/*--- body-Read ---*/
 function goRead(message_num){
-	$(".homeMainDiv").hide();
+	$(".container.home").hide();
 	$(".container.board").hide();
 	$(".container.read").show();
 	jQuery.ajax({
 		type: "GET",
-		url: "readContents",
+		url: "api/readContents",
 		dataType: 'json',
 		data: 'message_num='+ message_num,
 		success: function(res){
@@ -117,9 +132,23 @@ function goRead(message_num){
 	history.pushState({ data: '3' }, 'title3', '?depth=3');
 }
 
-//// Pages function ////
-function goPage(boardNumberInt, start){
-	//the section <'board'+boardNumberInt>must be same with menu goBoard
-	location.href= 'board'+boardNumberInt+"?pages="+start; 	
-	
-}
+/*--- Page Back logic ---*/
+$(window).bind("popstate", function(event) {
+	try{
+		var index=event.originalEvent.state.data;
+		if(index==2){
+			$(".container.read").hide();
+			$(".container.home").hide();
+			$(".container.board").show();
+		}
+		else if(index==1){
+			$(".container.read").hide();
+			$(".container.board").hide();
+			$(".container.home").show();
+		}
+	}catch(exception){	
+		$(".container.board").hide();
+		$(".container.read").hide();
+		$(".container.home").show();
+	}
+});

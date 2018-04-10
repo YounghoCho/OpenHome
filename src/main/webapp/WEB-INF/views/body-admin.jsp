@@ -7,23 +7,18 @@
 
 <!-- header -->
 <div id="header" style="background-color:#000040;">
-		<a href="board0" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
+		<a href="${pageContext.request.contextPath}/admin/0" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
 			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENWORKS Admin</font>
 </div>
 
 <!-- menu -->
 <div id="menu">
 <ul class="menudecoration">
-	<li><a href="javascript:goAdmin(0)">게시판 관리</a></li>
-	<li><a href="javascript:goAdmin(1)">게시글 관리</a></li>
-	<li><a href="javascript:goAdmin(2)">트래픽 통계</a></li>
+	<li style="cursor:pointer;"><a onclick="">게시판 관리</a></li>
+	<li style="cursor:pointer;"><a onclick="">게시글 관리</a></li>
+	<li style="cursor:pointer;"><a onclick="javasciprt:staticGraphAjax()">트래픽 통계</a></li>
 </ul>
 </div>
-<script>
-function goAdmin(index){
-	location.href=""+index;
-}
-</script>
 
 <!-- top -->
 <div id="top">
@@ -142,81 +137,9 @@ function goAdmin(index){
 	
 		<div id="container"></div>
 		
-		<script>
-		Highcharts.chart('container', {
-		    title: {
-		        text: 'OPENWORKS 트래픽 그래프'
-		    },
-		    subtitle: {
-		        text: '트래픽 그래프는 과금 정책과 직접적인 관련이 있습니다.'
-		    },
-		    yAxis: {
-		        title: {
-		            text: 'Traffic'
-		        }
-		    },
-		    legend: {
-		        layout: 'vertical',
-		        align: 'right',
-		        verticalAlign: 'middle'
-		    },
-		    plotOptions: {
-		        series: {
-		            label: {
-		                connectorAllowed: false
-		            },
-		            pointStart: 1
-		        }
-		    },
-			credits:{enabled: false},
-		
-		    series: [{
-		        name: '전체 트래픽',
-		        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]	
-		    }, {
-		        name: '페이지 로딩',
-		        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-		    }, {
-		        name: '파일 업로드',
-		        data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-		    }, {
-		        name: '파일 다운로드',
-		        data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-		    }],
-		
-		    responsive: {
-		        rules: [{
-		            condition: {
-		                maxWidth: 500
-		            },
-		            chartOptions: {
-		                legend: {
-		                    layout: 'horizontal',
-		                    align: 'center',
-		                    verticalAlign: 'bottom'
-		                }
-		            }
-		        }]
-		    }
-		});
-		</script>
 	</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver=11"></script>
-<script>
-///// locate Page and active Ajax 
-if(${boardNumberInt}==0){
-	$(".homeMainDiv").html("게시판 관리 페이지 입니다 000");
-	//goHomeAjax();		  
-}
-if(${boardNumberInt}==1){
-	$(".homeMainDiv").html("게시글 관리 페이지 입니다 111");
-	//goBoardAjax(${boardNumberInt}, ${currentPageNo});
-}
-if(${boardNumberInt}==2){
-	staticGraphAjax();
-}
-</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver=18"></script>

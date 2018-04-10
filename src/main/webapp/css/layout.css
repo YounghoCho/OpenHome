@@ -29,6 +29,7 @@
 	vertical-align:middle;
 	font-weight:bold;
 	font-color:#1EC800;
+	font-size:20px;
 	position:relative;
 	border-bottom: none;
 	height:10%;
@@ -75,7 +76,7 @@ a{
 	border-bottom:4px solid #ccc;
 
 	width:40%;
-	height:315px;
+	height:330px;
 	float:left;
 	margin:1%;
 }
@@ -100,6 +101,9 @@ td{
 .boardtitle:hover{
 	color:#1EC800;
 	text-decoration:none;
+}
+.boardtds{
+	font-size:15px;
 }
 .boardtds:hover{
 	color:#1EC800;

@@ -37,4 +37,13 @@
 		WHERE
 			message_num= #{originalMessageNum}
 	</select>
+	
+	<select id="getTraffic" resultType="com.worksmobile.OpenHomeProject.dto.TrafficDTO">
+		SELECT traffic_num, traffic_content_length, traffic_kind, traffic_date, traffic_ip
+		FROM traffic
+	</select>
+	<select id="getTrafficCount" resultType="com.worksmobile.OpenHomeProject.dto.TrafficDTO">
+		SELECT count(*) as countAll
+		FROM traffic
+	</select>
 </mapper>

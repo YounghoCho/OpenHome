@@ -12,40 +12,20 @@ import com.worksmobile.OpenHomeProject.service.BoardService;
 @Controller
 public class HomeController {
 	
-	@Resource(name="BoardService")
+	@Resource(name = "BoardService")
 	private BoardService service;
 
-	@RequestMapping(value="/{board}")	
-	public ModelAndView goboard(HttpServletRequest req, @PathVariable("board") String board) throws Exception {
-		
-		//### Get Board Number ###
-		String boardNumberString= board.substring(5,6);
-		int boardNumberInt= Integer.parseInt(boardNumberString);
-		
-		//### Get Page Number ###
-		int currentPageNo= 1;
-		if(req.getParameter("pages") !=null)
-			currentPageNo= Integer.parseInt(req.getParameter("pages"));
-		
-		//### Get DB Result ###
+	@RequestMapping(value = "/board")	
+	public ModelAndView goboard() throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("boardNumberInt", boardNumberInt);
-		mav.addObject("currentPageNo", currentPageNo);	
 		mav.setViewName("body-home");
-		
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/{board}")
-	public ModelAndView goadmin(@PathVariable("board") int board) throws Exception{
-
-		//### Get Board Number ###
-		int boardNumberInt= board;
-	
-		ModelAndView mav= new ModelAndView();
-		mav.addObject("boardNumberInt", boardNumberInt);	
+	@RequestMapping(value = "/admin")
+	public ModelAndView goadmin() throws Exception{
+		ModelAndView mav = new ModelAndView();
 		mav.setViewName("body-admin");
 		return mav;
 	}
 }
-

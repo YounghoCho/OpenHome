@@ -2,30 +2,25 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/layout.css?ver=21">
+	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/layout.css?ver=25">
 </head>
 
 <!-- header -->
 <div id="header" style="background-color:#000040;">
-		<a href="board0" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
-			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENWORKS</font>
+		<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
+			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENWORKS</font></a>
 </div>
 
 <!-- menu -->
 <div id="menu">
 <ul class="menudecoration">
-	<li><a href="javascript:goBoard(0)">홈</a></li>
-	<li><a href="javascript:goBoard(1)">게시판1</a></li>
-	<li><a href="javascript:goBoard(2)">게시판2</a></li>
-	<li><a href="javascript:goBoard(3)">게시판3</a></li>
-	<li><a href="javascript:goBoard(4)">게시판4</a></li>
+	<li style="cursor:pointer;"onclick="javascript:goHomeAjax()">홈</li>
+	<li style="cursor:pointer;"onclick="goBoardAjax(1, 1)">게시판1</li>
+	<li style="cursor:pointer;"onclick="goBoardAjax(2, 1)">게시판2</li>
+	<li style="cursor:pointer;"onclick="goBoardAjax(3, 1)">게시판3</li>
+	<li style="cursor:pointer;"onclick="goBoardAjax(4, 1)">게시판4</li>
 </ul>
 </div>
-<script>
-function goBoard(index){
-	location.href="board"+index;
-}
-</script>
 
 <!-- top -->
 <div id="top">
@@ -74,7 +69,7 @@ function goBoard(index){
 				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(4,1)">게시판4</a></th>
 				<th>작성날짜</th>
 			</tr>
-			<tbody id="4rdMessage">
+			<tbody id="4thMessage">
 			</tbody>
 		</table>
 	</div>
@@ -137,35 +132,4 @@ function goBoard(index){
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=9"></script>
-<script>
-
-///// locate Page and active Ajax 
-/* cannot use "$" in js file.
- * boardNumberInt comes from meun.jsp
- * Make network loading time be decreased.
- */
-if(${boardNumberInt}==0){
-	goHomeAjax();		  
-}
-if(${boardNumberInt}!=0)
-	goBoardAjax(${boardNumberInt}, ${currentPageNo});
-
-///// Page Back logic /////
-//if fail to go back, relocated to it's board page
-$(window).bind("popstate", function(event) {
-	//if get error as go back, re-locate to it's board
-	try{
-		var index=event.originalEvent.state.data;
-		if(index==2){
-			$(".container.read").hide();
-			$(".container.board").show();
-		}
-		else if(index==1){
-			location.href="board"+${boardNumberInt};
-		}
-	}catch(exception){
-		location.href="board"+${boardNumberInt};
-	}
-});
-</script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=6"></script>
