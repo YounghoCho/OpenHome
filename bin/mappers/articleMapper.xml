@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  
+ * Application java
+ * @Author : Youngho Jo
+ *           Suji    Jang
+ -->	
+<mapper namespace="article">
+	<select id="getArticleList" resultType="com.worksmobile.openhome.model.Message">
+		SELECT 
+			@ROWNUM := @ROWNUM +1 as ROWNUM,
+			a.boardNum, a.articleNum, articleSubject, articleTextContent, articleDate, articleWriter
+		FROM 
+			article a, ( SELECT @ROWNUM := 0 ) R
+		WHERE
+			articleNum = #{boardNumber}
+		LIMIT 
+			#{startNum}, #{pageSize} 
+	</select>		
+
+
+	<select id="getArticleTotalCount" resultType="int">
+		SELECT 
+			COUNT('articleNum') as countAll
+		FROM 
+			article
+		WHERE
+			boardNum = #{boardNumber}
+	</select>
+			
+	<select id="getArticleDetails" resultType="com.worksmobile.openhome.model.Message">
+		SELECT 
+			boardNum, articleNum, articleSubject, articleContent , articleDate, articleWriter, articleAccessPwd 
+		FROM 
+			article
+		WHERE
+			articleNum = #{articleNumber}
+	</select>
+	
+
+	<!-- @author suji -->
+		<insert id="message_insert" parameterType="com.worksmobile.openhome.model.Message" useGeneratedKeys="true" keyProperty="message_num">
+		insert into article(boardNum , articleSubject , articleTextContent , articleContent , articleDate , articleWriter , articleAccessPwd )
+		values(#{board_num}, #{message_subject}, #{message_sample}, #{message_content}, now(), #{message_writer}, #{message_pwd})
+		<selectKey resultType="int" keyProperty="message_num" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="file_insert" parameterType="com.worksmobile.openhome.model.File_uploadDTO">
+			insert into file_upload(message_num, original_file_name, stored_file_name, stored_date, file_size, file_creater) 
+			values
+			<foreach collection="list" item="item" separator=",">
+			(#{item.message_num}, #{item.original_file_name}, #{item.stored_file_name}, now(), #{item.file_size}, #{item.file_creater})
+			</foreach>
+	</insert>
+</mapper>

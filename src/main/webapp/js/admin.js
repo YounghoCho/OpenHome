@@ -3,16 +3,16 @@ function staticGraphAjax(){
 	var traffics = new Array();
 	
 	jQuery.ajax({
-		type: "GET",
-		url: "api/getTrafficList",
-		dataType: "json",
-		data: "",
+		type : "GET",
+		url : "api/trafficData",
+		dataType : "json",
+		data : "",
 		
 		success: function(res){
-			var index = res.resultTraffic[0].traffic_num-1;
-			var length = res.resultTrafficCount[0].countAll;
-			for(var i = index ; i < length ; i++) {
-				traffics[i] = res.resultTraffic[i].traffic_content_length;
+			var index = res.trafficData[0].trafficNum - 1;
+			var length = res.trafficCount;
+			for(var i = index; i < length; i++) {
+				traffics[i] = res.trafficData[i].trafficContentLength;
 				//alert(i+" : "+traffics[0]+" "+traffics[1]);
 			}	
 			//Graph
