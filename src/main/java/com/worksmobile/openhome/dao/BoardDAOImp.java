@@ -7,10 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.worksmobile.openhome.model.BoardDTO;
 import com.worksmobile.openhome.model.File_uploadDTO;
-import com.worksmobile.openhome.model.MessageDTO;
-import com.worksmobile.openhome.model.TrafficDTO;
+import com.worksmobile.openhome.model.Message;
+import com.worksmobile.openhome.model.Traffic;
 
 @Repository("BoardDAO")
 public class BoardDAOImp implements BoardDAO {
@@ -22,7 +21,7 @@ public class BoardDAOImp implements BoardDAO {
 	
 	/*Board*/
 	@Override
-	public List<BoardDTO> funcMessagelist (int boardNumberInt, int currentPageNo, int pageSize) {
+	public List<Message> funcMessagelist (int boardNumberInt, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put ("boardNumberInt", boardNumberInt);
 		paramMap.put ("startNum", currentPageNo);
@@ -31,14 +30,14 @@ public class BoardDAOImp implements BoardDAO {
 		return sqlsession.selectList ("board.mapMessagelist", paramMap);
 	}
 	@Override
-	public List<BoardDTO> funcCountList (int boardNumberInt) {
+	public List<Message> funcCountList (int boardNumberInt) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put ("boardNumberInt", boardNumberInt);
 	
 		return sqlsession.selectList ("board.count_list", paramMap);
 	}
 	@Override
-	public List<BoardDTO> funcOriginalMessage (int originalMessageNum) {
+	public List<Message> funcOriginalMessage (int originalMessageNum) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put ("originalMessageNum", originalMessageNum);
 	
@@ -47,18 +46,18 @@ public class BoardDAOImp implements BoardDAO {
 
 	/*Traffic*/
 	@Override
-	public List<TrafficDTO> funcGetTraffic (){
+	public List<Traffic> funcGetTraffic (){
 		return sqlsession.selectList ("board.getTraffic");
 	}
 	@Override
-	public List<TrafficDTO> funcGetTrafficCount () {
+	public List<Traffic> funcGetTrafficCount () {
 		return sqlsession.selectList ("board.getTrafficCount");
 	}
 	
 
 	//게시글 추가
 	@Override
-	public int message_insert(MessageDTO dto) {
+	public int message_insert(Message dto) {
 		int num = sqlsession.insert("board.message_insert", dto);
 		return num;
 	}

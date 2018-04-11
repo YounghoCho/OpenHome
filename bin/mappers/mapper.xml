@@ -7,7 +7,7 @@
 <!-- mapper는 한개만 온다 -->
 <mapper namespace="board">
 	<!-- 멘토님 -->
-	<select id="mapMessagelist" resultType="com.worksmobile.openhome.model.MessageDTO">
+	<select id="mapMessagelist" resultType="com.worksmobile.openhome.model.Message">
 		SELECT 
 			@ROWNUM := @ROWNUM +1 as ROWNUM,
 			m.board_num, m.message_num, message_subject, message_sample, message_date, message_writer
@@ -20,7 +20,7 @@
 	</select>		
 
 
-	<select id="count_list" resultType="com.worksmobile.openhome.model.MessageDTO">
+	<select id="count_list" resultType="com.worksmobile.openhome.model.Message">
 		SELECT 
 			COUNT('message_num') as countAll
 		FROM 
@@ -29,7 +29,7 @@
 			board_num= #{boardNumberInt}
 	</select>
 			
-	<select id="messageInfo" resultType="com.worksmobile.openhome.model.MessageDTO">
+	<select id="messageInfo" resultType="com.worksmobile.openhome.model.Message">
 		SELECT 
 			message_subject, message_content, message_date, message_writer, message_pwd, board_num, message_num
 		FROM 
@@ -38,17 +38,17 @@
 			message_num= #{originalMessageNum}
 	</select>
 	
-	<select id="getTraffic" resultType="com.worksmobile.openhome.model.TrafficDTO">
+	<select id="getTraffic" resultType="com.worksmobile.openhome.model.Traffic">
 		SELECT traffic_num, traffic_content_length, traffic_kind, traffic_date, traffic_ip
 		FROM traffic
 	</select>
-	<select id="getTrafficCount" resultType="com.worksmobile.openhome.model.TrafficDTO">
+	<select id="getTrafficCount" resultType="com.worksmobile.openhome.model.Traffic">
 		SELECT count(*) as countAll
 		FROM traffic
 	</select>
 	
 	<!-- @author suji -->
-		<insert id="message_insert" parameterType="com.worksmobile.openhome.model.MessageDTO" useGeneratedKeys="true" keyProperty="message_num">
+		<insert id="message_insert" parameterType="com.worksmobile.openhome.model.Message" useGeneratedKeys="true" keyProperty="message_num">
 		insert into message(board_num, message_subject, message_sample, message_content, message_date, message_writer, message_pwd)
 		values(#{board_num}, #{message_subject}, #{message_sample}, #{message_content}, now(), #{message_writer}, #{message_pwd})
 		<selectKey resultType="int" keyProperty="message_num" order="AFTER">

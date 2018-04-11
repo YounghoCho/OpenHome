@@ -14,15 +14,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.worksmobile.openhome.BO.OpenhomeBO;
 import com.worksmobile.openhome.model.File_uploadDTO;
-import com.worksmobile.openhome.model.MessageDTO;
-import com.worksmobile.openhome.service.BoardService;
+import com.worksmobile.openhome.model.Message;
 
 @Controller
 public class HomeController {
 	
 	@Resource(name = "BoardService")
-	private BoardService service;
+	private OpenhomeBO service;
 
 	@RequestMapping(value = "/board")	
 	public ModelAndView goboard() throws Exception {
@@ -47,7 +47,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String gowritepost(MessageDTO mdto, MultipartHttpServletRequest multi) throws Exception { 
+	public String gowritepost(Message mdto, MultipartHttpServletRequest multi) throws Exception { 
 	
 		//--첨부파일 등록--
 		//경로 설정

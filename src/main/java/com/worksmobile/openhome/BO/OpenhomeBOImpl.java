@@ -1,4 +1,4 @@
-package com.worksmobile.openhome.service;
+package com.worksmobile.openhome.BO;
 
 import java.util.List;
 
@@ -7,43 +7,42 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.worksmobile.openhome.dao.BoardDAO;
-import com.worksmobile.openhome.model.BoardDTO;
 import com.worksmobile.openhome.model.File_uploadDTO;
-import com.worksmobile.openhome.model.MessageDTO;
-import com.worksmobile.openhome.model.TrafficDTO;
+import com.worksmobile.openhome.model.Message;
+import com.worksmobile.openhome.model.Traffic;
 
 @Service("BoardService")
-public class BoardServiceImp implements BoardService{
+public class OpenhomeBOImpl implements OpenhomeBO{
 	
 	@Resource(name="BoardDAO")
 	private BoardDAO dao;
 
 	/*Board*/
 	@Override
-	public List<BoardDTO> MessageList(int boardNumberInt, int currentPageNo, int pageSize) {
+	public List<Message> MessageList(int boardNumberInt, int currentPageNo, int pageSize) {
 		return dao.funcMessagelist(boardNumberInt, currentPageNo, pageSize);
 	}
 	@Override
-	public List<BoardDTO> CountList(int boardNumberInt) {
+	public List<Message> CountList(int boardNumberInt) {
 		return dao.funcCountList(boardNumberInt);
 	}
 	@Override
-	public List<BoardDTO> OriginalMessage(int originalMessageNum) {
+	public List<Message> OriginalMessage(int originalMessageNum) {
 		return dao.funcOriginalMessage(originalMessageNum);
 	}
 
 	/*Traffic*/
 	@Override
-	public List<TrafficDTO> getTrafficData() {
+	public List<Traffic> getTrafficData() {
 		return dao.funcGetTraffic();
 	}
 	@Override
-	public List<TrafficDTO> getTrafficCount() {
+	public List<Traffic> getTrafficCount() {
 		return dao.funcGetTrafficCount();
 	}
 	
 	@Override
-	public int MessageInsertProcess(MessageDTO dto) {
+	public int MessageInsertProcess(Message dto) {
 		return dao.message_insert(dto);
 	}
 

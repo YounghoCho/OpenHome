@@ -2,7 +2,7 @@ package com.worksmobile.openhome.model;
 
 import java.util.Date;
 
-public class TrafficDTO {
+public class Traffic {
 	private int traffic_num;
 	private int traffic_content_length;
 	private String traffic_kind;

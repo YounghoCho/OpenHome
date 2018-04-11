@@ -2,7 +2,7 @@ package com.worksmobile.openhome.model;
 
 import java.util.Date;
 
-public class MessageDTO {
+public class Message {
 	private int message_num;
 	private int board_num;
 	private int countAll;

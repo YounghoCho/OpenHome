@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.worksmobile.openhome.service.BoardService;
+import com.worksmobile.openhome.BO.OpenhomeBO;
 
 @RestController
 @RequestMapping("/api")
 public class RestapiController {
 	@Resource(name = "BoardService")
-	private BoardService service;
+	private OpenhomeBO service;
 
 	//call data of home-page for 4 boards
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
