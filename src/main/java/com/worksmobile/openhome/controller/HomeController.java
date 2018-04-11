@@ -32,14 +32,14 @@ public class HomeController {
 	@RequestMapping(value = "/board")	
 	public ModelAndView goBoard() throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("body-home");
+		mav.setViewName("home");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/admin")
 	public ModelAndView goAdmin() throws Exception{
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("body-admin");
+		mav.setViewName("admin");
 		return mav;
 	}
 	

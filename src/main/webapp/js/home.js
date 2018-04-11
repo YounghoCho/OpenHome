@@ -60,7 +60,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 			var pages = 1;
 			var countList = 10;
 			var countPage = 10;
-			var totalCount = res.boardTotalCount;
+			var totalCount = res.getArticleTotalCount;
 			var totalPage = totalCount/countList;
 			var startPage = ((pages - 1) / 10) * 10 + 1;
 			var endPage = startPage + countPage - 1;

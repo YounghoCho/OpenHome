@@ -7,7 +7,7 @@
  * @Author : Youngho Jo
  *           Suji    Jang
  -->	
-<mapper namespace="board">
+<mapper namespace="article">
 	<select id="getArticleList" resultType="com.worksmobile.openhome.model.Message">
 		SELECT 
 			@ROWNUM := @ROWNUM +1 as ROWNUM,
@@ -21,7 +21,7 @@
 	</select>		
 
 
-	<select id="getBoardTotalCount" resultType="int">
+	<select id="getArticleTotalCount" resultType="int">
 		SELECT 
 			COUNT('articleNum') as countAll
 		FROM 
@@ -39,15 +39,7 @@
 			articleNum = #{articleNumber}
 	</select>
 	
-	<select id="getTrafficData" resultType="com.worksmobile.openhome.model.Traffic">
-		SELECT trafficNum, trafficContentLength, trafficKind, trafficDate, trafficIp
-		FROM traffic
-	</select>
-	<select id="getTrafficCount" resultType="int">
-		SELECT count(*) as countAll
-		FROM traffic
-	</select>
-	
+
 	<!-- @author suji -->
 		<insert id="message_insert" parameterType="com.worksmobile.openhome.model.Message" useGeneratedKeys="true" keyProperty="message_num">
 		insert into article(boardNum , articleSubject , articleTextContent , articleContent , articleDate , articleWriter , articleAccessPwd )

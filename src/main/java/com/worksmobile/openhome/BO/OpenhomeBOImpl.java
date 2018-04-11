@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.worksmobile.openhome.dao.BoardDAO;
+import com.worksmobile.openhome.dao.OpenhomeDAO;
 import com.worksmobile.openhome.model.File_uploadDTO;
 import com.worksmobile.openhome.model.Message;
 import com.worksmobile.openhome.model.Traffic;
@@ -19,8 +19,8 @@ import com.worksmobile.openhome.model.Traffic;
 @Service("BoardService")
 public class OpenhomeBOImpl implements OpenhomeBO{
 	
-	@Resource(name="BoardDAO")
-	private BoardDAO dao;
+	@Resource(name="OpenhomeDAO")
+	private OpenhomeDAO dao;
 
 	/*Board*/
 	@Override
@@ -28,8 +28,8 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 		return dao.getArticleList(boardNumber, currentPageNo, pageSize);
 	}
 	@Override
-	public int getBoardTotalCount(int boardNumber) {
-		return dao.getBoardTotalCount(boardNumber);
+	public int getArticleTotalCount(int boardNumber) {
+		return dao.getArticleTotalCount(boardNumber);
 	}
 	@Override
 	public List<Message> getArticleDetails(int articleNumber) {

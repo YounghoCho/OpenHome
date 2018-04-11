@@ -50,7 +50,7 @@ public class RestapiController {
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("articleList", service.getArticleList(boardNumber, currentPageNo, pageSize));
-		result.put("boardTotalCount", service.getBoardTotalCount(boardNumber));
+		result.put("getArticleTotalCount", service.getArticleTotalCount(boardNumber));
 
 		return result;
 	}

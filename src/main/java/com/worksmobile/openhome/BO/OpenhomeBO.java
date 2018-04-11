@@ -18,7 +18,7 @@ public interface OpenhomeBO {
 	
 	/*Board*/
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize);
-	public int getBoardTotalCount(int boardNumber);
+	public int getArticleTotalCount(int boardNumber);
 	public List<Message> getArticleDetails(int articleNumber);
 
 	/*Traffic*/

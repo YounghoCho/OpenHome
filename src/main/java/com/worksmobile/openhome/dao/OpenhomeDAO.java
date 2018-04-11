@@ -16,56 +16,51 @@ import com.worksmobile.openhome.model.File_uploadDTO;
 import com.worksmobile.openhome.model.Message;
 import com.worksmobile.openhome.model.Traffic;
 
-@Repository("BoardDAO")
-public class BoardDAOImp implements BoardDAO{
+@Repository("OpenhomeDAO")
+public class OpenhomeDAO{
+	private static final String NAMESPACE_BOARD = "board.";
+	private static final String NAMESPACE_ARTICLE = "article.";
+	private static final String NAMESPACE_TRAFFIC = "traffic.";
+	private static final String NAMESPACE_ATTACHMENTFILE = "attchmentFile.";
+	
 	
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
-	public BoardDAOImp(){}
-	
 	/*Board*/
-	@Override
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("boardNumber", boardNumber);
 		paramMap.put("startNum", currentPageNo-1);	//currentPageNo is 1(default) but LIMIT(in mapper.xml) must start from 0
 		paramMap.put("pageSize", pageSize);
-		return sqlsession.selectList("board.getArticleList", paramMap);
+		return sqlsession.selectList(NAMESPACE_ARTICLE + "getArticleList", paramMap);
 	}
-	@Override
-	public int getBoardTotalCount(int boardNumber) {
+	public int getArticleTotalCount(int boardNumber) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("boardNumber", boardNumber);
-		return sqlsession.selectOne("board.getBoardTotalCount", paramMap);
+		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticleTotalCount", paramMap);
 	}
-	@Override
 	public List<Message> getArticleDetails(int articleNumber) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("articleNumber", articleNumber);
 	
-		return sqlsession.selectList("board.getArticleDetails", paramMap);
+		return sqlsession.selectList(NAMESPACE_ARTICLE + "getArticleDetails", paramMap);
 	}
 
 	/*Traffic*/
-	@Override
 	public List<Traffic> getTrafficData (){
-		return sqlsession.selectList("board.getTrafficData");
+		return sqlsession.selectList(NAMESPACE_TRAFFIC + "getTrafficData");
 	}
-	@Override
 	public int getTrafficCount () {
-		return sqlsession.selectOne("board.getTrafficCount");
+		return sqlsession.selectOne(NAMESPACE_TRAFFIC + "getTrafficCount");
 	}
 	
 
 	//게시글 추가
-	@Override
 	public int message_insert(Message dto) {
-		int num = sqlsession.insert("board.message_insert", dto);
+		int num = sqlsession.insert(NAMESPACE_ARTICLE + "message_insert", dto);
 		return num;
 	}
-
-	@Override
 	public void file_insert(List<File_uploadDTO> fList) {
 		sqlsession.insert("board.file_insert", fList);	
 	}

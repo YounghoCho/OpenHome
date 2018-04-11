@@ -39,7 +39,7 @@ public class OpenhomeApplication extends SpringBootServletInitializer{
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactory.setMapperLocations(resolver.getResources("classpath:/mappers/*mapper.xml"));
+        sessionFactory.setMapperLocations(resolver.getResources("classpath:/mappers/*Mapper.xml"));
         return sessionFactory.getObject();
     }
 
