@@ -1,3 +1,8 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ *           Suji    Jang
+ */
 package com.worksmobile.openhome.controller;
 import java.io.File;
 import java.util.ArrayList;
@@ -25,14 +30,14 @@ public class HomeController {
 	private OpenhomeBO service;
 
 	@RequestMapping(value = "/board")	
-	public ModelAndView goboard() throws Exception {
+	public ModelAndView goBoard() throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("body-home");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/admin")
-	public ModelAndView goadmin() throws Exception{
+	public ModelAndView goAdmin() throws Exception{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("body-admin");
 		return mav;
@@ -40,14 +45,14 @@ public class HomeController {
 	
 	//@author suji
 	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public ModelAndView gowrite(int board_num) throws Exception {
+	public ModelAndView goWrite(int board_num) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("body-message");
 		return mav;
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String gowritepost(Message mdto, MultipartHttpServletRequest multi) throws Exception { 
+	public String goWritePost(Message mdto, MultipartHttpServletRequest multi) throws Exception { 
 	
 		//--첨부파일 등록--
 		//경로 설정

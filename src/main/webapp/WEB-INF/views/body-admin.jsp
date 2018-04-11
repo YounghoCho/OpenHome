@@ -7,7 +7,7 @@
 
 <!-- header -->
 <div id="header" style="background-color:#000040;">
-		<a href="${pageContext.request.contextPath}/admin/0" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
+		<a href="${pageContext.request.contextPath}/admin" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
 			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENWORKS Admin</font>
 </div>
 

@@ -1,3 +1,8 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ *           Suji    Jang
+ */
 package com.worksmobile.openhome.BO;
 
 import java.util.List;
@@ -19,16 +24,16 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 
 	/*Board*/
 	@Override
-	public List<Message> MessageList(int boardNumberInt, int currentPageNo, int pageSize) {
-		return dao.funcMessagelist(boardNumberInt, currentPageNo, pageSize);
+	public List<Message> getArticleList(int boardNumberInt, int currentPageNo, int pageSize) {
+		return dao.getArticleList(boardNumberInt, currentPageNo, pageSize);
 	}
 	@Override
-	public List<Message> CountList(int boardNumberInt) {
-		return dao.funcCountList(boardNumberInt);
+	public List<Message> getCount(int boardNumberInt) {
+		return dao.getCount(boardNumberInt);
 	}
 	@Override
-	public List<Message> OriginalMessage(int originalMessageNum) {
-		return dao.funcOriginalMessage(originalMessageNum);
+	public List<Message> getArticleDetails(int originalMessageNum) {
+		return dao.getArticleDetails(originalMessageNum);
 	}
 
 	/*Traffic*/

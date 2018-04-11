@@ -1,3 +1,8 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ *           Suji    Jang
+ */
 package com.worksmobile.openhome.dao;
 
 import java.util.HashMap;
@@ -12,46 +17,46 @@ import com.worksmobile.openhome.model.Message;
 import com.worksmobile.openhome.model.Traffic;
 
 @Repository("BoardDAO")
-public class BoardDAOImp implements BoardDAO {
+public class BoardDAOImp implements BoardDAO{
 	
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
-	public BoardDAOImp() {}
+	public BoardDAOImp(){}
 	
 	/*Board*/
 	@Override
-	public List<Message> funcMessagelist (int boardNumberInt, int currentPageNo, int pageSize) {
+	public List<Message> getArticleList(int boardNumberInt, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put ("boardNumberInt", boardNumberInt);
-		paramMap.put ("startNum", currentPageNo);
-		paramMap.put ("pageSize", pageSize);
+		paramMap.put("boardNumberInt", boardNumberInt);
+		paramMap.put("startNum", currentPageNo);
+		paramMap.put("pageSize", pageSize);
 		
-		return sqlsession.selectList ("board.mapMessagelist", paramMap);
+		return sqlsession.selectList("board.getArticleList", paramMap);
 	}
 	@Override
-	public List<Message> funcCountList (int boardNumberInt) {
+	public List<Message> getCount(int boardNumberInt) {
 		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put ("boardNumberInt", boardNumberInt);
+		paramMap.put("boardNumberInt", boardNumberInt);
 	
-		return sqlsession.selectList ("board.count_list", paramMap);
+		return sqlsession.selectList("board.getCount", paramMap);
 	}
 	@Override
-	public List<Message> funcOriginalMessage (int originalMessageNum) {
+	public List<Message> getArticleDetails(int originalMessageNum) {
 		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put ("originalMessageNum", originalMessageNum);
+		paramMap.put("originalMessageNum", originalMessageNum);
 	
-		return sqlsession.selectList ("board.messageInfo", paramMap);
+		return sqlsession.selectList("board.getArticleDetails", paramMap);
 	}
 
 	/*Traffic*/
 	@Override
 	public List<Traffic> funcGetTraffic (){
-		return sqlsession.selectList ("board.getTraffic");
+		return sqlsession.selectList("board.getTraffic");
 	}
 	@Override
 	public List<Traffic> funcGetTrafficCount () {
-		return sqlsession.selectList ("board.getTrafficCount");
+		return sqlsession.selectList("board.getTrafficCount");
 	}
 	
 

@@ -1,3 +1,8 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ *           Suji    Jang
+ */
 package com.worksmobile.openhome.controller;
 
 import java.util.HashMap;
@@ -27,10 +32,10 @@ public class RestapiController {
 		Map<String, Object> result = new HashMap<>();
 		int currentPageNo = 1;
 		int pageSize = 7;
-		result.put("messagelist1", service.MessageList(1, currentPageNo, pageSize)); //boardNumberInt, currentPageNo, pageSize
-		result.put("messagelist2", service.MessageList(2, currentPageNo, pageSize));
-		result.put("messagelist3", service.MessageList(3, currentPageNo, pageSize));
-		result.put("messagelist4", service.MessageList(4, currentPageNo, pageSize));
+		result.put("messagelist1", service.getArticleList(1, currentPageNo, pageSize)); //boardNumberInt, currentPageNo, pageSize
+		result.put("messagelist2", service.getArticleList(2, currentPageNo, pageSize));
+		result.put("messagelist3", service.getArticleList(3, currentPageNo, pageSize));
+		result.put("messagelist4", service.getArticleList(4, currentPageNo, pageSize));
 
 		return result;	
 	}
@@ -44,8 +49,8 @@ public class RestapiController {
 		int pageSize = 10;
 
 		Map<String, Object> result = new HashMap<>();
-		result.put("messagelist", service.MessageList(boardNumberInt, currentPageNo, pageSize));
-		result.put("countlist", service.CountList(boardNumberInt));
+		result.put("messagelist", service.getArticleList(boardNumberInt, currentPageNo, pageSize));
+		result.put("countlist", service.getCount(boardNumberInt));
 
 		return result;
 	}
@@ -56,7 +61,7 @@ public class RestapiController {
 	public Object getContents (HttpServletRequest req, HttpServletResponse res) throws Exception {	
 
 		Map<String, Object> result = new HashMap<>();
-		result.put("originalMessageInfo", service.OriginalMessage(Integer.parseInt(req.getParameter ("message_num"))));
+		result.put("originalMessageInfo", service.getArticleDetails(Integer.parseInt(req.getParameter ("message_num"))));
 		return result;
 	}
 	

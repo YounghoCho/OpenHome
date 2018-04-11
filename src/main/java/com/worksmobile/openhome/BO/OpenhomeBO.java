@@ -1,3 +1,8 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ *           Suji    Jang
+ */
 package com.worksmobile.openhome.BO;
 
 import java.util.List;
@@ -12,9 +17,9 @@ import com.worksmobile.openhome.model.Traffic;
 public interface OpenhomeBO {
 	
 	/*Board*/
-	public List<Message> MessageList (int boardNumberInt, int currentPageNo, int pageSize);
-	public List<Message> CountList (int boardNumberInt);
-	public List<Message> OriginalMessage (int originalMessageNum);
+	public List<Message> getArticleList (int boardNumberInt, int currentPageNo, int pageSize);
+	public List<Message> getCount (int boardNumberInt);
+	public List<Message> getArticleDetails (int originalMessageNum);
 
 	/*Traffic*/
 	public List<Traffic> getTrafficData ();

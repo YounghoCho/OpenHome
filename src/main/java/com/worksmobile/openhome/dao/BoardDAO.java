@@ -1,3 +1,8 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ *           Suji    Jang
+ */
 package com.worksmobile.openhome.dao;
 
 import java.util.List;
@@ -9,9 +14,9 @@ import com.worksmobile.openhome.model.Traffic;
 public interface BoardDAO {
 	
 	/*Board*/
-	public List<Message> funcMessagelist(int boardNumberInt, int currentPageNo, int pageSize);
-	public List<Message> funcCountList(int boardNumberInt);
-	public List<Message> funcOriginalMessage(int originalMessageNum);
+	public List<Message> getArticleList(int boardNumberInt, int currentPageNo, int pageSize);
+	public List<Message> getCount(int boardNumberInt);
+	public List<Message> getArticleDetails(int originalMessageNum);
 
 	/*Traffic*/
 	public List<Traffic> funcGetTraffic();

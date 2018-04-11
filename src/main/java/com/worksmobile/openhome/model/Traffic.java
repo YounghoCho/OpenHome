@@ -1,3 +1,7 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ */
 package com.worksmobile.openhome.model;
 
 import java.util.Date;
