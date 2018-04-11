@@ -1,4 +1,4 @@
-package com.worksmobile.openhome.dto;
+package com.worksmobile.openhome.model;
 
 import org.springframework.web.multipart.MultipartFile;
 

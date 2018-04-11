@@ -7,10 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.worksmobile.openhome.dao.BoardDAO;
-import com.worksmobile.openhome.dto.BoardDTO;
-import com.worksmobile.openhome.dto.File_uploadDTO;
-import com.worksmobile.openhome.dto.MessageDTO;
-import com.worksmobile.openhome.dto.TrafficDTO;
+import com.worksmobile.openhome.model.BoardDTO;
+import com.worksmobile.openhome.model.File_uploadDTO;
+import com.worksmobile.openhome.model.MessageDTO;
+import com.worksmobile.openhome.model.TrafficDTO;
 
 @Service("BoardService")
 public class BoardServiceImp implements BoardService{

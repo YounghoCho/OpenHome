@@ -2,10 +2,10 @@ package com.worksmobile.openhome.dao;
 
 import java.util.List;
 
-import com.worksmobile.openhome.dto.BoardDTO;
-import com.worksmobile.openhome.dto.File_uploadDTO;
-import com.worksmobile.openhome.dto.MessageDTO;
-import com.worksmobile.openhome.dto.TrafficDTO;
+import com.worksmobile.openhome.model.BoardDTO;
+import com.worksmobile.openhome.model.File_uploadDTO;
+import com.worksmobile.openhome.model.MessageDTO;
+import com.worksmobile.openhome.model.TrafficDTO;
 
 public interface BoardDAO {
 	

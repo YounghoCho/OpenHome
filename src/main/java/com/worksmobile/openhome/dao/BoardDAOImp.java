@@ -7,10 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.worksmobile.openhome.dto.BoardDTO;
-import com.worksmobile.openhome.dto.File_uploadDTO;
-import com.worksmobile.openhome.dto.MessageDTO;
-import com.worksmobile.openhome.dto.TrafficDTO;
+import com.worksmobile.openhome.model.BoardDTO;
+import com.worksmobile.openhome.model.File_uploadDTO;
+import com.worksmobile.openhome.model.MessageDTO;
+import com.worksmobile.openhome.model.TrafficDTO;
 
 @Repository("BoardDAO")
 public class BoardDAOImp implements BoardDAO {

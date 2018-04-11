@@ -14,8 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.worksmobile.openhome.dto.File_uploadDTO;
-import com.worksmobile.openhome.dto.MessageDTO;
+import com.worksmobile.openhome.model.File_uploadDTO;
+import com.worksmobile.openhome.model.MessageDTO;
 import com.worksmobile.openhome.service.BoardService;
 
 @Controller
