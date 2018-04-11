@@ -11,46 +11,46 @@
 	<select id="getArticleList" resultType="com.worksmobile.openhome.model.Message">
 		SELECT 
 			@ROWNUM := @ROWNUM +1 as ROWNUM,
-			m.board_num, m.message_num, message_subject, message_sample, message_date, message_writer
+			a.boardNum, a.articleNum, articleSubject, articleTextContent, articleDate, articleWriter
 		FROM 
-			message m, ( SELECT @ROWNUM := 0 ) R
+			article a, ( SELECT @ROWNUM := 0 ) R
 		WHERE
-			board_num= #{boardNumberInt}
+			articleNum = #{boardNumber}
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		
 
 
-	<select id="getCount" resultType="com.worksmobile.openhome.model.Message">
+	<select id="getBoardTotalCount" resultType="int">
 		SELECT 
-			COUNT('message_num') as countAll
+			COUNT('articleNum') as countAll
 		FROM 
-			message
+			article
 		WHERE
-			board_num= #{boardNumberInt}
+			boardNum = #{boardNumber}
 	</select>
 			
 	<select id="getArticleDetails" resultType="com.worksmobile.openhome.model.Message">
 		SELECT 
-			message_subject, message_content, message_date, message_writer, message_pwd, board_num, message_num
+			boardNum, articleNum, articleSubject, articleContent , articleDate, articleWriter, articleAccessPwd 
 		FROM 
-			message
+			article
 		WHERE
-			message_num= #{originalMessageNum}
+			articleNum = #{articleNumber}
 	</select>
 	
-	<select id="getTraffic" resultType="com.worksmobile.openhome.model.Traffic">
-		SELECT traffic_num, traffic_content_length, traffic_kind, traffic_date, traffic_ip
+	<select id="getTrafficData" resultType="com.worksmobile.openhome.model.Traffic">
+		SELECT trafficNum, trafficContentLength, trafficKind, trafficDate, trafficIp
 		FROM traffic
 	</select>
-	<select id="getTrafficCount" resultType="com.worksmobile.openhome.model.Traffic">
+	<select id="getTrafficCount" resultType="int">
 		SELECT count(*) as countAll
 		FROM traffic
 	</select>
 	
 	<!-- @author suji -->
 		<insert id="message_insert" parameterType="com.worksmobile.openhome.model.Message" useGeneratedKeys="true" keyProperty="message_num">
-		insert into message(board_num, message_subject, message_sample, message_content, message_date, message_writer, message_pwd)
+		insert into article(boardNum , articleSubject , articleTextContent , articleContent , articleDate , articleWriter , articleAccessPwd )
 		values(#{board_num}, #{message_subject}, #{message_sample}, #{message_content}, now(), #{message_writer}, #{message_pwd})
 		<selectKey resultType="int" keyProperty="message_num" order="AFTER">
 			SELECT LAST_INSERT_ID()

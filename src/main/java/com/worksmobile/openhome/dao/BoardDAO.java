@@ -14,13 +14,13 @@ import com.worksmobile.openhome.model.Traffic;
 public interface BoardDAO {
 	
 	/*Board*/
-	public List<Message> getArticleList(int boardNumberInt, int currentPageNo, int pageSize);
-	public List<Message> getCount(int boardNumberInt);
-	public List<Message> getArticleDetails(int originalMessageNum);
+	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize);
+	public int getBoardTotalCount(int boardNumber);
+	public List<Message> getArticleDetails(int articleNumber);
 
 	/*Traffic*/
-	public List<Traffic> funcGetTraffic();
-	public List<Traffic> funcGetTrafficCount();
+	public List<Traffic> getTrafficData();
+	public int getTrafficCount();
 	
 	public int message_insert(Message dto);
 	public void file_insert(List<File_uploadDTO> fList);

@@ -17,13 +17,13 @@ import com.worksmobile.openhome.model.Traffic;
 public interface OpenhomeBO {
 	
 	/*Board*/
-	public List<Message> getArticleList (int boardNumberInt, int currentPageNo, int pageSize);
-	public List<Message> getCount (int boardNumberInt);
-	public List<Message> getArticleDetails (int originalMessageNum);
+	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize);
+	public int getBoardTotalCount(int boardNumber);
+	public List<Message> getArticleDetails(int articleNumber);
 
 	/*Traffic*/
-	public List<Traffic> getTrafficData ();
-	public List<Traffic> getTrafficCount ();
+	public List<Traffic> getTrafficData();
+	public int getTrafficCount();
 	
 	public int MessageInsertProcess(Message dto); //게시글 추가
 	public void FileInsertProcess(List<File_uploadDTO> fList); //첨부파일 추가

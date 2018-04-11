@@ -32,46 +32,46 @@ public class RestapiController {
 		Map<String, Object> result = new HashMap<>();
 		int currentPageNo = 1;
 		int pageSize = 7;
-		result.put("messagelist1", service.getArticleList(1, currentPageNo, pageSize)); //boardNumberInt, currentPageNo, pageSize
-		result.put("messagelist2", service.getArticleList(2, currentPageNo, pageSize));
-		result.put("messagelist3", service.getArticleList(3, currentPageNo, pageSize));
-		result.put("messagelist4", service.getArticleList(4, currentPageNo, pageSize));
+		result.put("articleList1", service.getArticleList(1, currentPageNo, pageSize)); //boardNumber, currentPageNo, pageSize
+		result.put("articleList2", service.getArticleList(2, currentPageNo, pageSize));
+		result.put("articleList3", service.getArticleList(3, currentPageNo, pageSize));
+		result.put("articleList4", service.getArticleList(4, currentPageNo, pageSize));
 
 		return result;	
 	}
 
 	//call data of board-page for board lists
-	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
+	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getBoard (HttpServletRequest req, HttpServletResponse res) throws Exception {
-		int boardNumberInt = Integer.parseInt(req.getParameter ("boardNumberInt"));
-		int currentPageNo = Integer.parseInt(req.getParameter ("currentPageNo"));
+	public Object getBoard(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		int boardNumber = Integer.parseInt(req.getParameter("boardNumber"));
+		int currentPageNo = Integer.parseInt(req.getParameter("currentPageNo"));
 		int pageSize = 10;
 
 		Map<String, Object> result = new HashMap<>();
-		result.put("messagelist", service.getArticleList(boardNumberInt, currentPageNo, pageSize));
-		result.put("countlist", service.getCount(boardNumberInt));
+		result.put("articleList", service.getArticleList(boardNumber, currentPageNo, pageSize));
+		result.put("boardTotalCount", service.getBoardTotalCount(boardNumber));
 
 		return result;
 	}
 	
 	//call data of board-read for each board's sentences
-	@RequestMapping(value = "/readContents", method = RequestMethod.GET)
+	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getContents (HttpServletRequest req, HttpServletResponse res) throws Exception {	
+	public Object getContents(HttpServletRequest req, HttpServletResponse res) throws Exception {	
 
 		Map<String, Object> result = new HashMap<>();
-		result.put("originalMessageInfo", service.getArticleDetails(Integer.parseInt(req.getParameter ("message_num"))));
+		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
 	
 	//call Traffic data
-	@RequestMapping(value = "/getTrafficList", method = RequestMethod.GET)
+	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getTraffic (HttpServletRequest req, HttpServletResponse res) throws Exception{
+	public Object getTraffic(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		Map<String, Object> result = new HashMap<>();
-		result.put("resultTraffic", service.getTrafficData());
-		result.put("resultTrafficCount", service.getTrafficCount());
+		result.put("trafficData", service.getTrafficData());
+		result.put("trafficCount", service.getTrafficCount());
 
 		return result;
 	}	

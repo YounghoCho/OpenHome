@@ -24,26 +24,26 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 
 	/*Board*/
 	@Override
-	public List<Message> getArticleList(int boardNumberInt, int currentPageNo, int pageSize) {
-		return dao.getArticleList(boardNumberInt, currentPageNo, pageSize);
+	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
+		return dao.getArticleList(boardNumber, currentPageNo, pageSize);
 	}
 	@Override
-	public List<Message> getCount(int boardNumberInt) {
-		return dao.getCount(boardNumberInt);
+	public int getBoardTotalCount(int boardNumber) {
+		return dao.getBoardTotalCount(boardNumber);
 	}
 	@Override
-	public List<Message> getArticleDetails(int originalMessageNum) {
-		return dao.getArticleDetails(originalMessageNum);
+	public List<Message> getArticleDetails(int articleNumber) {
+		return dao.getArticleDetails(articleNumber);
 	}
 
 	/*Traffic*/
 	@Override
 	public List<Traffic> getTrafficData() {
-		return dao.funcGetTraffic();
+		return dao.getTrafficData();
 	}
 	@Override
-	public List<Traffic> getTrafficCount() {
-		return dao.funcGetTrafficCount();
+	public int getTrafficCount() {
+		return dao.getTrafficCount();
 	}
 	
 	@Override

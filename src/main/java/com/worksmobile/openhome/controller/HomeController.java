@@ -90,11 +90,11 @@ public class HomeController {
 			
 			//dto 생성
 			fdto = new File_uploadDTO();
-			fdto.setMessage_num(mdto.getMessage_num());
+			fdto.setMessage_num(mdto.getArticleNum());
 			fdto.setOriginal_file_name(fileName);
 			fdto.setStored_file_name(newFileName);
 			fdto.setFile_size((int)mFile.getSize());
-			fdto.setFile_creater(mdto.getMessage_writer());
+			fdto.setFile_creater(mdto.getArticleWriter());
 			fList.add(fdto);
 		}
 		

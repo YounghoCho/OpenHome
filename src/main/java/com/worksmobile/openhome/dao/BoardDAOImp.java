@@ -26,37 +26,35 @@ public class BoardDAOImp implements BoardDAO{
 	
 	/*Board*/
 	@Override
-	public List<Message> getArticleList(int boardNumberInt, int currentPageNo, int pageSize) {
+	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("boardNumberInt", boardNumberInt);
-		paramMap.put("startNum", currentPageNo);
+		paramMap.put("boardNumber", boardNumber);
+		paramMap.put("startNum", currentPageNo-1);	//currentPageNo is 1(default) but LIMIT(in mapper.xml) must start from 0
 		paramMap.put("pageSize", pageSize);
-		
 		return sqlsession.selectList("board.getArticleList", paramMap);
 	}
 	@Override
-	public List<Message> getCount(int boardNumberInt) {
+	public int getBoardTotalCount(int boardNumber) {
 		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("boardNumberInt", boardNumberInt);
-	
-		return sqlsession.selectList("board.getCount", paramMap);
+		paramMap.put("boardNumber", boardNumber);
+		return sqlsession.selectOne("board.getBoardTotalCount", paramMap);
 	}
 	@Override
-	public List<Message> getArticleDetails(int originalMessageNum) {
+	public List<Message> getArticleDetails(int articleNumber) {
 		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("originalMessageNum", originalMessageNum);
+		paramMap.put("articleNumber", articleNumber);
 	
 		return sqlsession.selectList("board.getArticleDetails", paramMap);
 	}
 
 	/*Traffic*/
 	@Override
-	public List<Traffic> funcGetTraffic (){
-		return sqlsession.selectList("board.getTraffic");
+	public List<Traffic> getTrafficData (){
+		return sqlsession.selectList("board.getTrafficData");
 	}
 	@Override
-	public List<Traffic> funcGetTrafficCount () {
-		return sqlsession.selectList("board.getTrafficCount");
+	public int getTrafficCount () {
+		return sqlsession.selectOne("board.getTrafficCount");
 	}
 	
 
