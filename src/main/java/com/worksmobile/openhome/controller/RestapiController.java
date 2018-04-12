@@ -5,7 +5,6 @@
  */
 package com.worksmobile.openhome.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.worksmobile.openhome.BO.OpenhomeBO;
+import com.worksmobile.openhome.bo.OpenhomeBO;
 
 @RestController
 @RequestMapping("/api")
@@ -98,7 +97,6 @@ public class RestapiController {
 		Map<String, Object> result = new HashMap<>();
 		String managerId = req.getParameter("managerId");
 		String managerPwd = req.getParameter("managerPwd");
-		System.out.println(managerId + " " + managerPwd);
 		result.put("checkAdminLogin", service.checkAdminLogin(managerId, managerPwd));
 
 		return result;

@@ -3,7 +3,7 @@
  * @Author : Youngho Jo
  *           Suji    Jang
  */
-package com.worksmobile.openhome.BO;
+package com.worksmobile.openhome.bo;
 
 import java.util.List;
 
