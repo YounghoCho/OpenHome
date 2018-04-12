@@ -130,7 +130,7 @@ td{
 .boardtds:link, .boardtds:visited{
 	color: black;
 }
-.container.home, .container.board, .container.read, .container.static, .container.realTime{
+.container.board, .container.read, .container.static, .container.realTime, .homeMainDiv{
 	display:none;
 }
 #singleBoard{

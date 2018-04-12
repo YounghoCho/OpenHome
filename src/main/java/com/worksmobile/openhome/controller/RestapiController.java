@@ -5,6 +5,7 @@
  */
 package com.worksmobile.openhome.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,17 +26,31 @@ public class RestapiController {
 	@Resource(name = "BoardService")
 	private OpenhomeBO service;
 
+	//Menu Lists
+	@RequestMapping(value = "/menuList", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getMenuList() throws Exception{
+		Map<String, Object> result = new HashMap<>();
+		result.put("menuList", service.getMenuList());
+
+		return result;	
+	}
+
 	//Home(4 boards)
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getHomeList() throws Exception{
+	public Object getHomeList(HttpServletRequest req) throws Exception{
+		String[] arrNum = req.getParameterValues("stringArray[]");     		
+		//System.out.println("배열에 들어있는값 : "+Arrays.toString(aStr));//출력1
+		//for(String str : aStr){System.out.println(str);}//출력2
 		Map<String, Object> result = new HashMap<>();
 		int currentPageNo = 1;
 		int pageSize = 7;
-		result.put("articleList1", service.getArticleList(1, currentPageNo, pageSize)); //boardNumber, currentPageNo, pageSize
-		result.put("articleList2", service.getArticleList(2, currentPageNo, pageSize));
-		result.put("articleList3", service.getArticleList(3, currentPageNo, pageSize));
-		result.put("articleList4", service.getArticleList(4, currentPageNo, pageSize));
+		result.put("menuList", service.getMenuList());
+		result.put("articleList1", service.getArticleList(Integer.parseInt(arrNum[1]), currentPageNo, pageSize)); //boardNumber, currentPageNo, pageSize
+		result.put("articleList2", service.getArticleList(Integer.parseInt(arrNum[2]), currentPageNo, pageSize));
+		result.put("articleList3", service.getArticleList(Integer.parseInt(arrNum[3]), currentPageNo, pageSize));
+		result.put("articleList4", service.getArticleList(Integer.parseInt(arrNum[4]), currentPageNo, pageSize));
 
 		return result;	
 	}

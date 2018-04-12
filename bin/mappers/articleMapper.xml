@@ -14,7 +14,7 @@
 		FROM 
 			article a, ( SELECT @ROWNUM := 0 ) R
 		WHERE
-			articleNum = #{boardNumber}
+			boardNum = #{boardNumber}
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		

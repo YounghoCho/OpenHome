@@ -12,6 +12,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.worksmobile.openhome.model.Board;
 import com.worksmobile.openhome.model.File_uploadDTO;
 import com.worksmobile.openhome.model.Message;
 import com.worksmobile.openhome.model.Traffic;
@@ -28,6 +29,11 @@ public class OpenhomeDAO{
 	
 	@Autowired
 	private SqlSessionTemplate sqlsession;
+	
+	/*Menu List*/
+	public List<Board> getMenuList() {
+		return sqlsession.selectList(NAMESPACE_BOARD + "getMenuList");
+	}
 	
 	/*Board*/
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
@@ -74,4 +80,5 @@ public class OpenhomeDAO{
 	public void file_insert(List<File_uploadDTO> fList) {
 		sqlsession.insert("board.file_insert", fList);	
 	}
+
 }

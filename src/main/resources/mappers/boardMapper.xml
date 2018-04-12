@@ -7,5 +7,10 @@
  * @Author : Youngho Jo
  -->	
 <mapper namespace="board">
-	
+		<select id="getMenuList" resultType="com.worksmobile.openhome.model.Board">
+		SELECT 
+			boardOrderNum, boardTitle, boardNum
+		FROM 
+			board
+	</select>
 </mapper>
