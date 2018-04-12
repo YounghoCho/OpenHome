@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.worksmobile.openhome.BO.OpenhomeBO;
+import com.worksmobile.openhome.bo.OpenhomeBO;
 import com.worksmobile.openhome.model.File_uploadDTO;
 import com.worksmobile.openhome.model.Message;
 
