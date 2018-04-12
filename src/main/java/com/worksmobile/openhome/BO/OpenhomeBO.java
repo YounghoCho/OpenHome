@@ -25,9 +25,10 @@ public interface OpenhomeBO {
 	public List<Traffic> getTrafficData();
 	public int getTrafficCount();
 	
+	/*Manager*/
+	public int checkAdminLogin(String managerId, String managerPwd);
+
+	//Suji
 	public int MessageInsertProcess(Message dto); //게시글 추가
 	public void FileInsertProcess(List<File_uploadDTO> fList); //첨부파일 추가
-
-	
-
 }

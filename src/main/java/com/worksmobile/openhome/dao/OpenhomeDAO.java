@@ -21,7 +21,9 @@ public class OpenhomeDAO{
 	private static final String NAMESPACE_BOARD = "board.";
 	private static final String NAMESPACE_ARTICLE = "article.";
 	private static final String NAMESPACE_TRAFFIC = "traffic.";
+	private static final String NAMESPACE_MANAGER = "manager.";
 	private static final String NAMESPACE_ATTACHMENTFILE = "attchmentFile.";
+	
 	
 	
 	@Autowired
@@ -55,8 +57,16 @@ public class OpenhomeDAO{
 		return sqlsession.selectOne(NAMESPACE_TRAFFIC + "getTrafficCount");
 	}
 	
-
-	//게시글 추가
+	/*Manager*/
+	public int checkAdminLogin(String managerId, String managerPwd) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("managerId", managerId);
+		paramMap.put("managerPwd", managerPwd);
+		
+		return sqlsession.selectOne(NAMESPACE_MANAGER + "checkAdminLogin", paramMap);
+	}
+	
+	//SUJi
 	public int message_insert(Message dto) {
 		int num = sqlsession.insert(NAMESPACE_ARTICLE + "message_insert", dto);
 		return num;

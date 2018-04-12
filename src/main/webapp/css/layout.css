@@ -70,8 +70,9 @@ a{
 }
 #mask{
 	position:absolute;
-	left:0; top:0; z-indedx:10;
-	background-color:#000;
+	left:0; top:0; 
+	z-index:10;
+	background-color:#111;
 	display:none;
 }
 .window{

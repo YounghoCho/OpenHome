@@ -25,7 +25,7 @@ public class RestapiController {
 	@Resource(name = "BoardService")
 	private OpenhomeBO service;
 
-	//call data of home-page for 4 boards
+	//Home(4 boards)
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getHomeList() throws Exception{
@@ -40,7 +40,7 @@ public class RestapiController {
 		return result;	
 	}
 
-	//call data of board-page for board lists
+	//Board Articles
 	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoard(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -55,7 +55,7 @@ public class RestapiController {
 		return result;
 	}
 	
-	//call data of board-read for each board's sentences
+	//Board Details
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getContents(HttpServletRequest req, HttpServletResponse res) throws Exception {	
@@ -65,7 +65,7 @@ public class RestapiController {
 		return result;
 	}
 	
-	//call Traffic data
+	//Traffic data
 	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getTraffic(HttpServletRequest req, HttpServletResponse res) throws Exception{
@@ -76,4 +76,16 @@ public class RestapiController {
 		return result;
 	}	
 
+	//Login data
+	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
+	@ResponseBody
+	public Object checkAdminLogin(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		Map<String, Object> result = new HashMap<>();
+		String managerId = req.getParameter("managerId");
+		String managerPwd = req.getParameter("managerPwd");
+		System.out.println(managerId + " " + managerPwd);
+		result.put("checkAdminLogin", service.checkAdminLogin(managerId, managerPwd));
+
+		return result;
+	}	
 }

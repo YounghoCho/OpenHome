@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/layout.css?ver=28">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/layout.css?ver=1">
 </head>
 
 <!-- login -->
@@ -10,9 +10,11 @@
 <div class="window">
 	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">
 		<img src="${pageContext.request.contextPath}/image/logo.png" style="width:65px;margin:5px;"/><br/>
-		<input type="text" id="loginId" placeholder=" ID" style="width:280px;height:50px;margin:5px;"/><br/>
-		<input type="password" id="loginPw" placeholder=" PASSWORD" style="width:280px;height:50px;margin:5px;"/><br/>
-		<a type="button" class="btn btn-success" style="margin:20px;" onclick="javascript:loginAjax()">로그인</a>
+		<input type="text" id="managerId" placeholder="ID" style="width:280px;height:50px;margin:5px;padding-left:5px;"/><br/>
+		<input type="password" id="managerPwd" placeholder="PASSWORD" style="width:280px;height:50px;margin:5px;padding-left:5px;"/><br/>
+		<a type="button" class="btn btn-success" style="margin:5px;width:280px;height:50px;" onclick="javascript:loginAjax()">
+			<div style="margin-top:10px;">로그인</div>
+		</a>
 	</div>
 </div>
 
@@ -20,7 +22,7 @@
 <!-- header -->
 <div id="header" style="background-color:#000040;">
 		<a href="${pageContext.request.contextPath}/admin" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
-			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENWORKS Admin</font>
+			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENHOME Admin</font>
 </div>
 
 <!-- menu -->
@@ -34,7 +36,7 @@
 
 <!-- top -->
 <div id="top">
-	Welcome to OpenWorks
+	Welcome to OPENHOME
 </div>
 
 <!-- body-home -->
@@ -164,10 +166,9 @@ $(document).ready(function(){
 	var maskWidth = $(window).width();
 	$("#mask").css({'width':maskWidth, 'height':maskHeight});
 	$("#mask").fadeIn(1000);
-	$("#mask").fadeTo("slow", 0.8);
-	setTimeout(function(){
-		$('.window').show();
-	}, 1000);
+	$("#mask").fadeTo("slow", 0.9);
+		$('.window').fadeIn(1000);
+
 	//검은막 숨기기
 	//화면 클릭했을때가 아니라 버튼 눌러서 로그인되면 지워지게 해야함.
 	$('.window .close').click(function () {  
@@ -180,18 +181,24 @@ $(document).ready(function(){
 });
 
 function loginAjax(){
-		var id = $("#loginId").val();
-		var pw = $("#loginPw").val();
+		var id = $("#managerId").val();
+		var pwd = $("#managerPwd").val();
 		jQuery.ajax({
 			type : "GET",
-			url : "api/login",
-			dataType : json,	//count로 1개인지 확인
-			data : "managerId=" + id + "&managerPwd=" + pw, 
+			url : "api/adminLogin",
+			dataType : "json",	//count로 1개인지 확인
+			data : "managerId=" + id + "&managerPwd=" + pwd, 
 			success: function(res){
-				alert("win");
-				//if count==0이면 false 메세지
-				//if count==1이면 세션생성하고, mask끄기
-			}
+				if (!res.checkAdminLogin) 
+					alert("입력 정보가 일치하지 않습니다");
+				else{
+					alert("로그인 되었습니다")
+					$('#mask, .window').hide();
+					$('.window').hide();
+					//게시판 관리 호출
+					//boardManageAjax();
+				}
+			},
 			error : function(err){
 				alert(err);
 			}

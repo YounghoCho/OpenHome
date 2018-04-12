@@ -46,15 +46,22 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 		return dao.getTrafficCount();
 	}
 	
+	/*Manager*/
+	@Override
+	public int checkAdminLogin(String managerId, String managerPwd) {
+		return dao.checkAdminLogin(managerId, managerPwd);
+	}
+	
+	//SuJi
 	@Override
 	public int MessageInsertProcess(Message dto) {
 		return dao.message_insert(dto);
 	}
-
 	@Override
 	public void FileInsertProcess(List<File_uploadDTO> fList) {
 		dao.file_insert(fList);
 	}
+
 	
 }
 

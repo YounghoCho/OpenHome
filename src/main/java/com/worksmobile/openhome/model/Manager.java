@@ -6,6 +6,7 @@ public class Manager {
 	private String managerPwd;
 	private String managerName;
 	private String managerPhone;
+	private int checkLoginManager;
 	
 	public int getManagerNum() {
 		return managerNum;
@@ -36,6 +37,12 @@ public class Manager {
 	}
 	public void setManagerPhone(String managerPhone) {
 		this.managerPhone = managerPhone;
+	}
+	public int getCheckLoginManager() {
+		return checkLoginManager;
+	}
+	public void setCheckLoginManager(int checkLoginManager) {
+		this.checkLoginManager = checkLoginManager;
 	}
 	
 	

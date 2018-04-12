@@ -8,7 +8,7 @@
 <!-- header -->
 <div id="header" style="background-color:#000040;">
 		<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
-			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENWORKS</font></a>
+			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENHOME</font></a>
 </div>
 
 <!-- menu -->
@@ -24,7 +24,7 @@
 
 <!-- top -->
 <div id="top">
-	Welcome to OpenWorks
+	Welcome to OPENHOME
 </div>
 
 <!-- body-home -->
