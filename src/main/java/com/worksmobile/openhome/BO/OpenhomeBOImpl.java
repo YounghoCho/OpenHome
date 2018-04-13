@@ -22,13 +22,18 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 	
 	@Resource(name="OpenhomeDAO")
 	private OpenhomeDAO dao;
-	/*Menu List*/
+
+	/*Board*/
 	@Override
 	public List<Board> getMenuList() {
 		return dao.getMenuList();
 	}
-
-	/*Board*/
+	@Override
+	public void removeBoard(int boardNum) {
+		dao.removeBoard(boardNum);
+	}
+	
+	/*Article*/
 	@Override
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		return dao.getArticleList(boardNumber, currentPageNo, pageSize);
@@ -41,18 +46,16 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 	public List<Message> getArticleDetails(int articleNumber) {
 		return dao.getArticleDetails(articleNumber);
 	}
-	
-	/*Admin*/
 	@Override
 	public List<Message> getAllArticles() {
 		return dao.getAllArticles();
 	}
 	@Override
 	public void removeArticle(int articleNum) {
-		System.out.println("in BO");
 		dao.removeArticle(articleNum);
 	}	
 
+	
 	/*Traffic*/
 	@Override
 	public List<Traffic> getTrafficData() {
@@ -78,7 +81,5 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 	public void FileInsertProcess(List<File_uploadDTO> fList) {
 		dao.file_insert(fList);
 	}
-
-
 }
 

@@ -25,7 +25,8 @@ public class RestapiController {
 	@Resource(name = "BoardService")
 	private OpenhomeBO service;
 
-	//Menu Lists
+	/*board*/
+	//Board List
 	@RequestMapping(value = "/menuList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getMenuList() throws Exception{
@@ -33,7 +34,16 @@ public class RestapiController {
 		result.put("menuList", service.getMenuList());
 		return result;	
 	}
-
+	//Board Remove
+	@RequestMapping(value = "/boardRemove", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String removeBoard(HttpServletRequest req) throws Exception {
+		int boardNum = Integer.parseInt(req.getParameter("boardNum"));
+		service.removeBoard(boardNum);
+	return "SUCCESS";
+	}
+	
+	/*Article*/
 	//Home(4 boards)
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
 	@ResponseBody
@@ -52,7 +62,6 @@ public class RestapiController {
 
 		return result;	
 	}
-
 	//Board Articles
 	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
@@ -67,7 +76,6 @@ public class RestapiController {
 
 		return result;
 	}
-	
 	//Board Details
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
@@ -77,9 +85,25 @@ public class RestapiController {
 		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
+	//Admin Article Lists
+	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getAllArticles() throws Exception {	
 
+		Map<String, Object> result = new HashMap<>();
+		result.put("allArticles", service.getAllArticles());
+		return result;
+	}
+	//Admin Article Remove
+	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String removeArticle(HttpServletRequest req) throws Exception {
+		int articleNum = Integer.parseInt(req.getParameter("articleNum"));
+		service.removeArticle(articleNum);
+	return "SUCCESS";
+	}
 	
-	//Traffic data
+	/*Traffic*/
 	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getTraffic(HttpServletRequest req, HttpServletResponse res) throws Exception{
@@ -101,22 +125,4 @@ public class RestapiController {
 
 		return result;
 	}	
-	
-	//Admin Article Lists
-	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
-	@ResponseBody
-	public Object getAllArticles() throws Exception {	
-
-		Map<String, Object> result = new HashMap<>();
-		result.put("allArticles", service.getAllArticles());
-		return result;
-	}
-	//Admin Article Remove
-	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
-	@ResponseBody
-	public String removeArticle(HttpServletRequest req) throws Exception {
-		int articleNum = Integer.parseInt(req.getParameter("articleNum"));
-		service.removeArticle(articleNum);
-	return "SUCCESS";
-	}
 }

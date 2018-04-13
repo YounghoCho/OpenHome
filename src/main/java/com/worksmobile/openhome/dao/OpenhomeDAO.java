@@ -30,12 +30,17 @@ public class OpenhomeDAO{
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
-	/*Menu List*/
+	/*Board*/
 	public List<Board> getMenuList() {
 		return sqlsession.selectList(NAMESPACE_BOARD + "getMenuList");
 	}
+	public void removeBoard(int boardNum) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("boardNum", boardNum);
+		sqlsession.delete(NAMESPACE_BOARD + "removeBoard", paramMap);
+	}	
 	
-	/*Board*/
+	/*Article*/
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("boardNumber", boardNumber);
@@ -59,10 +64,10 @@ public class OpenhomeDAO{
 	}
 	public void removeArticle(int articleNum) {
 		HashMap<String, Object> paramMap = new HashMap<>();
-		System.out.println("num : " + articleNum);
 		paramMap.put("articleNum", articleNum);
 		sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", paramMap);
 	}
+
 	
 	/*Traffic*/
 	public List<Traffic> getTrafficData (){
@@ -89,7 +94,4 @@ public class OpenhomeDAO{
 	public void file_insert(List<File_uploadDTO> fList) {
 		sqlsession.insert("board.file_insert", fList);	
 	}
-
-
-
 }

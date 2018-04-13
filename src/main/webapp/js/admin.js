@@ -31,11 +31,26 @@ function goBoardManageAjax(){
 	});
 	history.pushState({ data: '1' }, 'title1', '?depth=1');
 }
-function updateBoard(){
+function updateBoard(boardNum){ //input정보도 넘겨야함.
 	alert("update");
 }
-function removeBoard(){
-	alert("remove");
+function removeBoard(boardNum){
+	if (!confirm("삭제하시겠습니까? 모든 게시글이 삭제됩니다.")) {
+        return;
+    }
+	$.ajax({
+		type : "DELETE",
+		url : "api/boardRemove?boardNum=" + boardNum,
+		success : function(res){			
+			if(res == "SUCCESS"){
+				alert("삭제되었습니다.");
+				goBoardManageAjax();
+			}
+		},
+		error : function(err){
+			alert("Err:" + err);
+		}
+	});
 }
 
 /*Articles*/

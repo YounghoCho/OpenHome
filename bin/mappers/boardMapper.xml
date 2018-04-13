@@ -13,4 +13,11 @@
 		FROM 
 			board
 	</select>
+	<delete id="removeBoard" parameterType="com.worksmobile.openhome.model.Board">
+		DELETE
+		FROM 
+			board
+		WHERE 
+			boardNum = #{boardNum}
+	</delete>	
 </mapper>
