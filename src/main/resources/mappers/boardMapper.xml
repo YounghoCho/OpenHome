@@ -12,6 +12,8 @@
 			boardOrderNum, boardTitle, boardNum
 		FROM 
 			board
+		ORDER BY
+			boardOrderNum
 	</select>
 	<delete id="removeBoard" parameterType="com.worksmobile.openhome.model.Board">
 		DELETE
