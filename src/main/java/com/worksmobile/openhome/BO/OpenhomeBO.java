@@ -23,7 +23,8 @@ public interface OpenhomeBO {
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize);
 	public int getArticleTotalCount(int boardNumber);
 	public List<Message> getArticleDetails(int articleNumber);
-
+	public List<Message> getAllArticles();
+	
 	/*Traffic*/
 	public List<Traffic> getTrafficData();
 	public int getTrafficCount();
@@ -34,5 +35,9 @@ public interface OpenhomeBO {
 	//Suji
 	public int MessageInsertProcess(Message dto); //게시글 추가
 	public void FileInsertProcess(List<File_uploadDTO> fList); //첨부파일 추가
+
+	public void removeArticle(int articleNum);
+
+	
 
 }

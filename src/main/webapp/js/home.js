@@ -12,15 +12,11 @@ function getMenuListAjax(){
 		dataType : "json",
 		data : "",
 		success : function(res){
-			//게시판 리스트 불러와서 menu에 append
-			//boardNum, boardTitle, boardOrderNum이 오는데
-			//order이 1번인 것 부터 title을 찍어야한다.
-			//그담 onclick 할때는 boardNum을 넘겨야한다.
-
 			/*
-			 * Algoritm 1 : Menu List
+			 * Algoritm 1 : Menu List (DB orderby의 부하를 줄인다, 데이터size*컬럼개수*10000)
 			 * 
 			 * @Author : Youngho Jo
+			 * 
 			 * 1. 게시판 인덱스, 게시판 타이틀, 게시판 순서 컬럼을 디비에서 받아온다.
 			 * 2. response 객체의 길이만큼 배열 두개를 생성한다.
 			 * 3. 동적 데이터인 게시판의 순서에 따라서, 정적 데이터인 게시판 인덱스와 타이틀을 기록한다.

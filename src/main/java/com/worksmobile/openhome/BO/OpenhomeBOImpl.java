@@ -41,6 +41,17 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 	public List<Message> getArticleDetails(int articleNumber) {
 		return dao.getArticleDetails(articleNumber);
 	}
+	
+	/*Admin*/
+	@Override
+	public List<Message> getAllArticles() {
+		return dao.getAllArticles();
+	}
+	@Override
+	public void removeArticle(int articleNum) {
+		System.out.println("in BO");
+		dao.removeArticle(articleNum);
+	}	
 
 	/*Traffic*/
 	@Override
@@ -69,6 +80,5 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 	}
 
 
-	
 }
 

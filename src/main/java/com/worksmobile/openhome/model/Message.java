@@ -7,6 +7,8 @@ package com.worksmobile.openhome.model;
 import java.util.Date;
 
 public class Message {
+	private String boardTitle;
+
 	private int articleNum;
 	private int boardNum;
 	private int countAll;
@@ -17,6 +19,14 @@ public class Message {
 	private Date articleDate;
 	private String articleWriter;
 	private String articleAccessPwd;
+	
+	public String getBoardTitle() {
+		return boardTitle;
+	}
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
+	}
+	
 	public int getArticleNum() {
 		return articleNum;
 	}

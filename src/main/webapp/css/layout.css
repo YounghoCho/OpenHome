@@ -207,3 +207,10 @@ none;
 	height:20px;
 	width:70px;
 }
+
+
+/*Admin*/
+.removeArticle{
+	color:#1EC800;
+	cursor: pointer;
+}

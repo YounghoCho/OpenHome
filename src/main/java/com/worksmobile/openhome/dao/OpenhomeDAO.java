@@ -54,7 +54,16 @@ public class OpenhomeDAO{
 	
 		return sqlsession.selectList(NAMESPACE_ARTICLE + "getArticleDetails", paramMap);
 	}
-
+	public List<Message> getAllArticles() {
+		return sqlsession.selectList(NAMESPACE_ARTICLE + "getAllArticles");
+	}
+	public void removeArticle(int articleNum) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		System.out.println("num : " + articleNum);
+		paramMap.put("articleNum", articleNum);
+		sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", paramMap);
+	}
+	
 	/*Traffic*/
 	public List<Traffic> getTrafficData (){
 		return sqlsession.selectList(NAMESPACE_TRAFFIC + "getTrafficData");
@@ -80,5 +89,7 @@ public class OpenhomeDAO{
 	public void file_insert(List<File_uploadDTO> fList) {
 		sqlsession.insert("board.file_insert", fList);	
 	}
+
+
 
 }

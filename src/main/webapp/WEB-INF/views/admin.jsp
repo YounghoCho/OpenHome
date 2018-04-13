@@ -18,7 +18,6 @@
 	</div>
 </div>
 
-
 <!-- header -->
 <div id="header" style="background-color:#000040;">
 		<a href="${pageContext.request.contextPath}/admin" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
@@ -28,9 +27,9 @@
 <!-- menu -->
 <div id="menu">
 <ul class="menudecoration">
-	<li style="cursor:pointer;"><a onclick="">게시판 관리</a></li>
-	<li style="cursor:pointer;"><a onclick="">게시글 관리</a></li>
-	<li style="cursor:pointer;"><a onclick="javasciprt:staticGraphAjax()">트래픽 통계</a></li>
+	<li style="cursor:pointer;"><a onclick="javascript:goBoardManageAjax()">게시판 관리</a></li>
+	<li style="cursor:pointer;"><a onclick="javascript:goArticlesAjax()">게시글 관리</a></li>
+	<li style="cursor:pointer;"><a onclick="javasciprt:goStaticGraphAjax()">트래픽 통계</a></li>
 </ul>
 </div>
 
@@ -95,19 +94,16 @@
 		<table class="table">
 			<thead>
 			<tr>
-				<th style="width:5%">번호</th>
-				<th style="width:35%;">제목</th>
-				<th style="width:40%">미리보기</th>
-				<th style="width:10%">작성날짜</th>
-				<th style="width:10%">작성자</th>
+				<th style="width:10%"></th>
+				<th style="width:60%">게시글 목록</th>
+				<th style="width:20%;">게시판 이름</th>
+				<th style="width:10%"></th>
 			</tr>
 			</thead>
 			<tbody class="tbody">	
 			</tbody>
 		</table>
 		
-		<a type="button" class="btn btn-success pull-right" style="margin-right:20px">글쓰기</a><br>
-
 		<div class="text-center">
 			<ul class="pagination">
 					 <li id="indexNow"></li>
@@ -156,52 +152,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver=18"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 8"></script>
 <script>
-$(document).ready(function(){
-	//세션정보없으면 검은막 띄우기(show())
-	
-	//검은막 띄우기
-	var maskHeight = $(document).height();
-	var maskWidth = $(window).width();
-	$("#mask").css({'width':maskWidth, 'height':maskHeight});
-	$("#mask").fadeIn(1000);
-	$("#mask").fadeTo("slow", 0.9);
-		$('.window').fadeIn(1000);
 
-	//검은막 숨기기
-	//화면 클릭했을때가 아니라 버튼 눌러서 로그인되면 지워지게 해야함.
-	$('.window .close').click(function () {  
-	    $('#mask, .window').hide();  
-	});       	
-	$('#mask').click(function () {  
-	    $(this).hide();  
-	    $('.window').hide();  
-	});
-});
-
-function loginAjax(){
-		var id = $("#managerId").val();
-		var pwd = $("#managerPwd").val();
-		jQuery.ajax({
-			type : "GET",
-			url : "api/adminLogin",
-			dataType : "json",	//count로 1개인지 확인
-			data : "managerId=" + id + "&managerPwd=" + pwd, 
-			success: function(res){
-				if (!res.checkAdminLogin) 
-					alert("입력 정보가 일치하지 않습니다");
-				else{
-					alert("로그인 되었습니다")
-					$('#mask, .window').hide();
-					$('.window').hide();
-					//게시판 관리 호출
-					//boardManageAjax();
-				}
-			},
-			error : function(err){
-				alert(err);
-			}
-		});
-}
 </script>

@@ -78,6 +78,7 @@ public class RestapiController {
 		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
+
 	
 	//Traffic data
 	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
@@ -101,4 +102,22 @@ public class RestapiController {
 
 		return result;
 	}	
+	
+	//Admin Article Lists
+	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getAllArticles() throws Exception {	
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("allArticles", service.getAllArticles());
+		return result;
+	}
+	//Admin Article Remove
+	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String removeArticle(HttpServletRequest req) throws Exception {
+		int articleNum = Integer.parseInt(req.getParameter("articleNum"));
+		service.removeArticle(articleNum);
+	return "SUCCESS";
+	}
 }
