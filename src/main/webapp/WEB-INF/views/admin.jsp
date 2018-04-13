@@ -40,50 +40,25 @@
 
 <!-- body-home -->
 <div style="margin:10px;" class="homeMainDiv">
-	<!-- 1st -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(1,1)">게시판1</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="1stMessage">
-			</tbody>
-		</table>		
+
+	<div style="width:100%;height:50px;">
+		<input type="text" placeholder="게시판 명을 입력하세요" style="width:280px;height:38px;padding-left:5px;"/>
+		<a type="button" class="btn btn-success" style="margin-right:20px;padding:8px;">추가</a>
+		<a type="button" class="btn btn-success pull-right" style="margin-right:20px;padding:8px;">순서 조정</a>
 	</div>
-	<!-- 2nd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(2,1)">게시판2</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="2ndMessage">
-			</tbody>
-		</table>		
-	</div>
-	<!-- 3rd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(3,1)">게시판3</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="3rdMessage">
-			</tbody>
-		</table>
-	</div>
-	<!-- 4rd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(4,1)">게시판4</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="4rdMessage">
-			</tbody>
-		</table>
-	</div>
+	<table class="table">
+		<thead>
+		<tr>
+			<th style="width:85%">게시글판목록</th>
+			<th style="width:5%"></th>
+			<th style="width:5%"></th>
+			<th style="width:5%"></th>
+		</tr>
+		</thead>
+		<tbody class="tbody admin">	
+		</tbody>
+	</table>
+
 </div>
 
 <!-- body-board -->
@@ -150,6 +125,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 8"></script>
-<script>
-
-</script>

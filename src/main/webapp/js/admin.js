@@ -3,23 +3,55 @@ function goBoardManageAjax(){
 	$(".container.static").hide();
 	$(".container.read").hide();
 	$(".container.board").hide();
+	$(".homeMainDiv").show();
 	
+	jQuery.ajax({
+		type : "GET",
+		url : "api/menuList",
+		dataType : "json",
+		success : function(res){ 
+			//Removing Board Lists
+			$(".tbody.admin > tr > td").remove();
+			//Setting Board Lists
+			for(var index = 0; index < res.menuList.length; index++){
+			$(".tbody.admin").append(
+					"<tr>" +
+					"<td>" + res.menuList[index].boardTitle + "</td>" + 
+					"<td><a class=\"removeArticle\"" + 
+						"onclick=\"javascipr:updateBoard(" + res.menuList[index].boardNum + ")\">수정</a></td>" +
+					"<td><a class=\"removeArticle\"" + 
+					"onclick=\"javascipr:removeBoard(" + res.menuList[index].boardNum + ")\">삭제</a></td>" +
+					"<td></td>" +
+					"</tr>");
+			}
+		},
+		error : function(err){
+		alert(err);
+		}
+	});
 	history.pushState({ data: '1' }, 'title1', '?depth=1');
+}
+function updateBoard(){
+	alert("update");
+}
+function removeBoard(){
+	alert("remove");
 }
 
 /*Articles*/
 function goArticlesAjax(){
 	$(".container.static").hide();
 	$(".container.read").hide();
+	$(".homeMainDiv").hide();
 	$(".container.board").show();
 	jQuery.ajax({
 		type : "GET",
 		url : "api/allArticles",
 		dataType : "json",
-		success: function(res){
-			//Removing Message Lists
+		success : function(res){
+			//Removing Article Lists
 			$(".tbody > tr > td").remove();
-			//Setting Message Lists
+			//Setting Article Lists
 			for(var index = 0; index < res.allArticles.length; index++){
 			$(".tbody").append(
 					"<tr>" +
@@ -59,6 +91,7 @@ function removeArticle(articleNum){
 function goRead(articleNumber){
 	$(".container.static").hide();
 	$(".container.board").hide();
+	$(".homeMainDiv").hide();
 	$(".container.read").show();
 	jQuery.ajax({
 		type: "GET",
@@ -209,24 +242,24 @@ $(window).bind("popstate", function(event) {
 			$(".container.board").hide();
 			$(".container.static").hide();
 			$(".container.read").hide();
-			$(".container.home").show();
+			$(".homeMainDiv").show();
 		}
 		else if(index == 2){
 			$(".container.static").hide();
 			$(".container.read").hide();
-			$(".container.home").hide();
+			$(".homeMainDiv").hide();
 			$(".container.board").show();
 		}
 		else if(index == 3){
 			$(".container.static").hide();
 			$(".container.board").hide();
-			$(".container.home").hide();
+			$(".homeMainDiv").hide();
 			$(".container.read").show();
 		}
 		else if(index == 4){
 			$(".container.read").hide();
 			$(".container.board").hide();
-			$(".container.home").hide();
+			$(".homeMainDiv").hide();
 			$(".container.static").show();			
 		}
 	}catch(exception){	

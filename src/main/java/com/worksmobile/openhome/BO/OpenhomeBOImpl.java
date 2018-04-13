@@ -27,7 +27,7 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 	public List<Board> getMenuList() {
 		return dao.getMenuList();
 	}
-	
+
 	/*Board*/
 	@Override
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {

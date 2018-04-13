@@ -31,7 +31,6 @@ public class RestapiController {
 	public Object getMenuList() throws Exception{
 		Map<String, Object> result = new HashMap<>();
 		result.put("menuList", service.getMenuList());
-
 		return result;	
 	}
 
