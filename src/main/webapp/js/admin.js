@@ -34,7 +34,7 @@ function goArticlesAjax(){
 			alert("너니?"+err);
 		}
 	});
-
+	history.pushState({ data: '2' }, 'title2', '?depth=2');
 }
 /*Delete Article*/
 function removeArticle(articleNum){
@@ -73,7 +73,7 @@ function goRead(articleNumber){
 			alert("lose:"+err.status);
 		}
 	});
-
+	history.pushState({ data: '3' }, 'title3', '?depth=3');
 }
 
 /*Graph*/
@@ -159,7 +159,7 @@ function goStaticGraphAjax(){
 			alert(err);
 		}
 	});
-
+	history.pushState({ data: '4' }, 'title4', '?depth=4');
 }
 
 /*Login*/
@@ -201,3 +201,35 @@ function loginAjax(){
 		});
 }
 
+/*--- Page Back logic ---*/
+$(window).bind("popstate", function(event) {
+	try{
+		var index=event.originalEvent.state.data;
+		if (index == 1){
+			$(".container.board").hide();
+			$(".container.static").hide();
+			$(".container.read").hide();
+			$(".container.home").show();
+		}
+		else if(index == 2){
+			$(".container.static").hide();
+			$(".container.read").hide();
+			$(".container.home").hide();
+			$(".container.board").show();
+		}
+		else if(index == 3){
+			$(".container.static").hide();
+			$(".container.board").hide();
+			$(".container.home").hide();
+			$(".container.read").show();
+		}
+		else if(index == 4){
+			$(".container.read").hide();
+			$(".container.board").hide();
+			$(".container.home").hide();
+			$(".container.static").show();			
+		}
+	}catch(exception){	
+		alert(exception);
+	}
+});

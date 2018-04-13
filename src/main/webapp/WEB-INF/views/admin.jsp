@@ -132,9 +132,6 @@
 			</tbody>
 		</table>
 
-		<a type="button" class="btn btn-default pull-right" style="margin-right:10px;width:80px;">취소</a>		
-		<a type="button" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a>
-
 	</div>	
 </div>
 
