@@ -26,5 +26,13 @@
 		WHERE 
 			boardNum = #{boardNum}
 	</delete>	
-
+	
+	<insert id="createNewBoard" parameterType="com.worksmobile.openhome.model.Board">
+		INSERT
+		INTO
+			board(boardTitle, boardDate, managerNum, boardOrderNum)
+		VALUES 
+			(#{boardTitle}, now(), 1, (SELECT MAX(boardOrderNum)+1 FROM board as BON) );
+	</insert>	
+	
 </mapper>

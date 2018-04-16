@@ -52,6 +52,23 @@ function removeBoard(boardNum){
 		}
 	});
 }
+//Create New Board
+$("#newBoardButton").on("click", function(){
+	jQuery.ajax({
+		type : "POST",
+		url : "api/board/newBoard",
+		data : "boardTitle=" + $("#boardTitle").val(),
+		success : function(res){
+			if(res == "SUCCESS"){
+				alert("추가되었습니다.");
+				goBoardManageAjax();
+			}
+		},
+		error : function(err){
+			alert("err" + err);
+		}
+	});
+});
 
 /*Articles*/
 function goArticlesAjax(){

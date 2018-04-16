@@ -28,5 +28,9 @@ public class BoardBOImpl implements BoardBO{
 	public void removeBoard(int boardNum) {
 		dao.removeBoard(boardNum);
 	}
+	@Override
+	public void createNewBoard(String boardTitle) {
+		dao.createNewBoard(boardTitle);
+	}
 }
 

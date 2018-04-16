@@ -36,4 +36,12 @@ public class BoardController {
 		service.removeBoard(boardNum);
 	return "SUCCESS";
 	}
+	
+	//게시판을 추가한다.
+	@RequestMapping(value = "/newBoard", method = RequestMethod.POST)
+	@ResponseBody
+	public String createNewBoard(HttpServletRequest req) throws Exception {
+		service.createNewBoard(req.getParameter("boardTitle"));		
+		return "SUCCESS";
+	}
 }

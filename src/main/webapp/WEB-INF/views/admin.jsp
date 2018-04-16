@@ -46,8 +46,8 @@
 <div style="margin:10px;" class="homeMainDiv">
 
 	<div style="width:100%;height:50px;">
-		<input type="text" placeholder="게시판 명을 입력하세요" style="width:280px;height:38px;padding-left:5px;"/>
-		<a type="button" class="btn btn-success" style="margin-right:20px;padding:8px;">추가</a>
+		<input id="boardTitle" type="text" placeholder="게시판 명을 입력하세요" style="width:280px;height:38px;padding-left:5px;"/>
+		<a type="button" id="newBoardButton" class="btn btn-success" style="margin-right:20px;padding:8px;">추가</a>
 		<a type="button" class="btn btn-success pull-right" style="margin-right:20px;padding:8px;">순서 조정</a>
 	</div>
 	<table class="table">

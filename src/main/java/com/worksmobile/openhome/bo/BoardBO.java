@@ -18,6 +18,6 @@ public interface BoardBO {
 	/*@author Youngho Jo*/
 	public List<Board> getBoardList();
 	public void removeBoard(int boardNum);	
-	
+	public void createNewBoard(String boardTitle);	
 
 }
