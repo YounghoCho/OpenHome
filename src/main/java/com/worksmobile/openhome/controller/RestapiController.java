@@ -57,10 +57,10 @@ public class RestapiController {
 		Map<String, Object> result = new HashMap<>();
 		int currentPageNo = 1;
 		int pageSize = 7;
-
-		result.put("menuList", service.getMenuList());
+		
 		for(int index = 0; index < len; index++) {
-			result.put("articleList" + index, service.getArticleList(Integer.parseInt(arrNum[index]), currentPageNo, pageSize));
+			//게시판의 고유번호가 4,1,2,3,6으로 들어오면, articleList도 4,1,2,3,6 을 붙여 결과를 반환한다.
+			result.put("articleList" + (Integer.parseInt(arrNum[index])-1), service.getArticleList(Integer.parseInt(arrNum[index]), currentPageNo, pageSize));
 		}
 
 		return result;	

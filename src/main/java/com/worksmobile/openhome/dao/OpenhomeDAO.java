@@ -43,6 +43,7 @@ public class OpenhomeDAO{
 	/*Article*/
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
+		System.out.println(boardNumber + " " + currentPageNo + " " + pageSize);
 		paramMap.put("boardNumber", boardNumber);
 		paramMap.put("startNum", currentPageNo-1);	//currentPageNo is 1(default) but LIMIT(in mapper.xml) must start from 0
 		paramMap.put("pageSize", pageSize);

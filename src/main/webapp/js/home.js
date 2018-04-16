@@ -29,7 +29,6 @@ function goHomeAjax(){
 	$(".container.read").hide();
 	$(".homeMainDiv").show();	
 	
-	// Algoritm 1 : Reference is in getMenuListAjax()
 	jQuery.ajax({
 		type : "GET",
 		url : "api/menuList",
@@ -37,14 +36,22 @@ function goHomeAjax(){
 		data : "",
 		success : function(res){
 			var len = res.menuList.length;
-			var arrNum = new Array();
-			for(var index = 0; index < len; index++){
-				arrNum.push(res.menuList[index].boardNum);
-			}
-			// Remove
+			var arrNum = new Array();	
+		/*
+		 * 동적 홈페이지 정렬 Algorithm
+		 * 
+		 * @Author : Youngho Jo 
+		 */
+			
+		// 1. 게시판 순서를 불러오고, 각 게시판의 고유 번호를 배열에 저장한다.
+			for (var index = 0; index < len; index++)		
+				arrNum.push(res.menuList[index].boardNum); //ex) 4,1,3,2,6
+
 			$(".homeMainDiv > div.container.home").remove();
-			// Draw Home(4 Boards)
-			for(var index = 0; index < len; index++){
+	
+		// 2. 총 게시판의 개수 만큼 게시판의 틀을 그린다.	
+			var idIncreased = 1;
+			for(var index = 0; index < len; index++, idIncreased++){
 				$(".homeMainDiv").append(
 						"<div class=\"container home\">" +
 							"<table class=\"table\">" +
@@ -54,58 +61,48 @@ function goHomeAjax(){
 									"</th>" +
 									"<th>작성날짜</th>" +
 								"</tr>" +
-								"<tbody id=\""+arrNum[index]+"Message\">" + 
+								"<tbody id=\"" + idIncreased + "Message\">" + 
 								"</tbody>" +
 							"</table>" +		
 						"</div>");
-			}
-			
-			// Inner Ajax Start
+			}		
+
+		// 3. 게시판 내용들을 불러온다 (articleList0, 1, 2...) 
 			jQuery.ajax({
 				type : "GET",
 				url : "api/homeList",
 				dataType : "json",
 				data: {"stringArray" : arrNum, "boardCount" : len}, 
-				success : function(res){ //res : articleList + index
-					
-					//len만큼 아래를 만복해야한다.
-					
-					// Remove
-					$("#1Message > tr > td").remove();
-					$("#2Message > tr > td").remove();
-					$("#3Message > tr > td").remove();
-					$("#4Message > tr > td").remove();
-					// Draw Articles
-					for(var i = 0; i < res.articleList0.length; i++){
-						$("#1Message").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + res.articleList0[i].articleNum + ")\" class=\"boardtds\">" + res.articleList0[i].articleTextContent + "</a></td>"
-								 + "<td>" + res.articleList0[i].articleDate.substring(0,10) + "</td></tr>");
-					}
-					for(var i = 0; i < res.articleList1.length; i++){
-						$("#2Message").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + res.articleList1[i].articleNum + ")\" class=\"boardtds\">" + res.articleList1[i].articleTextContent + "</a></td>"
-								 + "<td>" + res.articleList1[i].articleDate.substring(0,10) + "</td></tr>");				
-					}
-					for(var i = 0; i<res.articleList2.length; i++){
-						$("#3Message").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + res.articleList2[i].articleNum + ")\" class=\"boardtds\">" + res.articleList2[i].articleTextContent + "</a></td>"
-								 + "<td>" + res.articleList2[i].articleDate.substring(0,10) + "</td></tr>");
-					}
-					for(var i = 0; i < res.articleList3.length; i++){
-						$("#4Message").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + res.articleList3[i].articleNum + ")\" class=\"boardtds\">" + res.articleList3[i].articleTextContent + "</a></td>"
-								 + "<td>" + res.articleList3[i].articleDate.substring(0,10) + "</td></tr>");
+		
+				success : function(res){					
+		// 4. 총 게시판의 개수만큼 반복할 것이며,
+					for(var idIncreased2 = 1; idIncreased2 <= len; idIncreased2++){ 
+		// 5. 중복 코드를 줄이기 위해 동적 변수를 사용하여, 각 게시판의 데이터 객체를 저장한다.						
+						eval("active = res.articleList" + (arrNum[idIncreased2 - 1] - 1));
+						
+		// 6. 첫번 째 게시판의 내용 갯수를 기본 길이로 설정하고, 게시판 내용을 그려넣는다. 
+						var articleLen = active.length;
+						for(var index = 1; index <= articleLen; index++){
+						$("#" + idIncreased2 + "Message").append(
+								"<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + 
+								active[index-1].articleNum + ")\" class=\"boardtds\">" + active[index-1].articleTextContent + "</a></td>" +
+								"<td>" + active[index-1].articleDate.substring(0,10) + "</td></tr>");		
+		// 7. 내용 갯수를, 다음 순서의 게시판의 것으로 갱신하고 반복한다.
+						articleLen = active.length;
+						}
 					}
 				},
 				error : function(err){
 					alert("err");
 				}
-			});//Inner Ajax End
+			}); //Inner Ajax End
 			
 		},
 		error : function(err){
 			alert(err);
 		}
-	});//Outer Ajax End
-
+	}); //Outer Ajax End
 	history.pushState({ data: '1' }, 'title2', '?depth=1');
-	
 }
 
 /*--- body-board ---*/
