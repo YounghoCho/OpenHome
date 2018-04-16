@@ -1,7 +1,3 @@
-/*
- * Application java
- * @Author : Youngho Jo
- */
 package com.worksmobile.openhome.bo;
 
 import java.util.List;
@@ -23,8 +19,10 @@ public class TrafficBOImpl implements TrafficBO{
 	public List<Traffic> getTrafficData() {
 		return dao.getTrafficData();
 	}
+
 	@Override
 	public int getTrafficCount() {
 		return dao.getTrafficCount();
 	}
+
 }

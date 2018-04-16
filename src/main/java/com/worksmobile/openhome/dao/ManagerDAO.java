@@ -1,10 +1,7 @@
-/*
- * Application java
- * @Author : Youngho Jo
- */
 package com.worksmobile.openhome.dao;
 
 import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +14,10 @@ public class ManagerDAO {
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
+
+	public ManagerDAO() {}
+	
+	/*Manager*/
 	//////////////////////////////Methods//////////////////////////////
 	public int checkAdminLogin(String managerId, String managerPwd) {
 		HashMap<String, Object> paramMap = new HashMap<>();
@@ -25,5 +26,5 @@ public class ManagerDAO {
 		
 		return sqlsession.selectOne(NAMESPACE_MANAGER + "checkAdminLogin", paramMap);
 	}
-	
+
 }

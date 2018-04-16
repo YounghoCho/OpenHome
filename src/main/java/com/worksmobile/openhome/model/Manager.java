@@ -1,13 +1,19 @@
 package com.worksmobile.openhome.model;
 
 public class Manager {
+
 	private int managerNum;
 	private String managerId;
 	private String managerPwd;
 	private String managerName;
 	private String managerPhone;
+	
 	private int checkLoginManager;
 	
+	public Manager() {
+	
+	}
+
 	public int getManagerNum() {
 		return managerNum;
 	}
@@ -44,6 +50,5 @@ public class Manager {
 	public void setCheckLoginManager(int checkLoginManager) {
 		this.checkLoginManager = checkLoginManager;
 	}
-	
 	
 }

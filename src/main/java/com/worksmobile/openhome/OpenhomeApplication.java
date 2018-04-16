@@ -14,5 +14,5 @@ public class OpenhomeApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(OpenhomeApplication.class, args);
-	}  
+	}
 }

@@ -16,6 +16,7 @@ import com.worksmobile.openhome.model.Board;
 
 @Service("BoardBO")
 public class BoardBOImpl implements BoardBO{
+
 	@Resource(name="BoardDAO")
 	private BoardDAO dao;
 	
@@ -28,3 +29,4 @@ public class BoardBOImpl implements BoardBO{
 		dao.removeBoard(boardNum);
 	}
 }
+

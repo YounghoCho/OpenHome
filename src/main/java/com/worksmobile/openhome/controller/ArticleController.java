@@ -6,14 +6,18 @@ package com.worksmobile.openhome.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.worksmobile.openhome.bo.ArticleBO;
+import com.worksmobile.openhome.model.Article;
+
 
 @RestController
 @RequestMapping("/api/article/")
@@ -32,7 +36,8 @@ public class ArticleController {
 		Map<String, Object> result = new HashMap<>();
 		int currentPageNo = 1;
 		int pageSize = 7;
-		
+	
+		//Board Articles
 		for(int index = 0; index < len; index++) {
 			//게시판의 고유번호가 4,1,2,3,6으로 들어오면, articleList도 4,1,2,3,6 을 붙여 결과를 반환한다.
 			result.put("articleList" + (Integer.parseInt(arrNum[index])-1), service.getArticleList(Integer.parseInt(arrNum[index]), currentPageNo, pageSize));
@@ -47,11 +52,9 @@ public class ArticleController {
 		int boardNumber = Integer.parseInt(req.getParameter("boardNumber"));
 		int currentPageNo = Integer.parseInt(req.getParameter("currentPageNo"));
 		int pageSize = 10;
-
-		Map<String, Object> result = new HashMap<>();
+			Map<String, Object> result = new HashMap<>();
 		result.put("articleList", service.getArticleList(boardNumber, currentPageNo, pageSize));
 		result.put("getArticleTotalCount", service.getArticleTotalCount(boardNumber));
-
 		return result;
 	}
 	
@@ -59,13 +62,12 @@ public class ArticleController {
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getContents(HttpServletRequest req, HttpServletResponse res) throws Exception {	
-
-		Map<String, Object> result = new HashMap<>();
+			Map<String, Object> result = new HashMap<>();
 		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
 	
-	//모든 게시글을 얻는다. (Admin)
+	
 	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getAllArticles() throws Exception {	
@@ -83,4 +85,24 @@ public class ArticleController {
 		service.removeArticle(articleNum);
 	return "SUCCESS";
 	}
+
+	/*@author Suji Jang*/
+	@RequestMapping(value="/addArticle", method=RequestMethod.POST)
+	public String addArticle(HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		System.out.println("hh");
+		service.addArticleNum();
+		Article article = new Article(Integer.parseInt(req.getParameter("boardNum")), req.getParameter("articleSubject"),
+				req.getParameter("articleTextContent"), req.getParameter("articleContent"), req.getParameter("articleWriter"), 
+				req.getParameter("articleAccessPwd"));
+		int num = service.addArticle(article);
+		if (num == 1) {
+			return "ok";
+		} else {
+			return "sorry";
+		}
+		
+	}
+	
+	
 }
+

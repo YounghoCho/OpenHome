@@ -1,11 +1,11 @@
-/*
- * Application java
- * @Author : Youngho Jo
- *           Suji    Jang
- */
 package com.worksmobile.openhome.bo;
 
 import java.util.List;
+/*
+ * @Author : Youngho Jo
+ *           Suji    Jang
+ */
+
 import org.springframework.stereotype.Service;
 import com.worksmobile.openhome.model.Traffic;
 

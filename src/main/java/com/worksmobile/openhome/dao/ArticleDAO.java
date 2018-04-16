@@ -1,25 +1,34 @@
-/*
- * Application java
- * @Author : Youngho Jo
- */
 package com.worksmobile.openhome.dao;
 import java.util.HashMap;
 import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.worksmobile.openhome.model.Message;
+
+import com.worksmobile.openhome.model.Article;
 
 @Repository("ArticleDAO")
 public class ArticleDAO {
 
 	private static final String NAMESPACE_ARTICLE = "article.";
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
-	//////////////////////////////Methods//////////////////////////////
-	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
+	public ArticleDAO() {}
+	
+	/*@ author Suji Jang*/
+	public int addArticle(Article article) {
+		int num = sqlsession.insert(NAMESPACE_ARTICLE + "addArticle", article);
+		return num;
+	}
+	
+	public void addArticleNum() {
+		sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum");
+	}
+	
+	/*@ author Youngho Jo*/
+	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		System.out.println(boardNumber + " " + currentPageNo + " " + pageSize);
 		paramMap.put("boardNumber", boardNumber);
@@ -34,14 +43,14 @@ public class ArticleDAO {
 		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticleTotalCount", paramMap);
 	}
 	
-	public List<Message> getArticleDetails(int articleNumber) {
+	public List<Article> getArticleDetails(int articleNumber) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("articleNumber", articleNumber);
 	
 		return sqlsession.selectList(NAMESPACE_ARTICLE + "getArticleDetails", paramMap);
 	}
 	
-	public List<Message> getAllArticles() {
+	public List<Article> getAllArticles() {
 		return sqlsession.selectList(NAMESPACE_ARTICLE + "getAllArticles");
 	}
 	

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="attachmentfile">
+    <insert id="addFile" parameterType="com.worksmobile.openhome.model.AttachmentFile">
+			insert into file_upload(articleNum, originalFileName , storedFileName, fileSize, fileSize, fileAttacher) 
+			values (#{articleNum }, #{originalFileName}, #{storedFileName}, now(), #{fileSize}, #{fileAttacher})
+	</insert>
+</mapper>

@@ -1,7 +1,4 @@
-/*
- * Application java
- * @Author : Youngho Jo
- */
+
 package com.worksmobile.openhome.dao;
 
 import java.util.HashMap;
@@ -19,6 +16,13 @@ public class BoardDAO {
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
+	public BoardDAO() {}
+	
+	/*Board*/
+	public List<Board> getMenuList() {
+		return sqlsession.selectList(NAMESPACE_BOARD + "getMenuList");
+	}
+	
 	//////////////////////////////Methods//////////////////////////////
 	public List<Board> getBoardList() {
 		return sqlsession.selectList(NAMESPACE_BOARD + "getBoardList");
@@ -28,6 +32,6 @@ public class BoardDAO {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("boardNum", boardNum);
 		sqlsession.delete(NAMESPACE_BOARD + "removeBoard", paramMap);
-	}	
+	}
 	
 }

@@ -5,6 +5,7 @@
 package com.worksmobile.openhome.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -18,10 +19,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/admin")
-	public ModelAndView goAdmin() throws Exception{
+	public ModelAndView goadmin() throws Exception{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin");
 		return mav;
 	}
-
 }

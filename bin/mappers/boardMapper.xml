@@ -7,7 +7,9 @@
  * @Author : Youngho Jo
  -->	
 <mapper namespace="board">
+
 	<select id="getBoardList" resultType="com.worksmobile.openhome.model.Board">
+
 		SELECT 
 			boardOrderNum, boardTitle, boardNum
 		FROM 
@@ -15,6 +17,8 @@
 		ORDER BY
 			boardOrderNum
 	</select>
+
+	
 	<delete id="removeBoard" parameterType="com.worksmobile.openhome.model.Board">
 		DELETE
 		FROM 
@@ -22,4 +26,5 @@
 		WHERE 
 			boardNum = #{boardNum}
 	</delete>	
+
 </mapper>

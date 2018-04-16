@@ -25,10 +25,11 @@ function getBoardListAjax(){
 
 /*---  body-home ---*/
 function goHomeAjax(){
-	$(".container.board").hide();
-	$(".container.read").hide();
-	$(".homeMainDiv").show();	
-	
+	$("#singleBoard").hide();
+	$(".articleReadDiv").hide();
+	$(".articleWriteDiv").hide();
+	$(".homeMainDiv").show();
+	// Algoritm 1 : Reference is in getMenuListAjax()	
 	jQuery.ajax({
 		type : "GET",
 		url : "api/board/boardList",
@@ -95,22 +96,27 @@ function goHomeAjax(){
 				error : function(err){
 					alert("err");
 				}
+
 			}); //Inner Ajax End
 			
 		},
 		error : function(err){
 			alert(err);
 		}
+
 	}); //Outer Ajax End
 	history.pushState({ data: '1' }, 'title2', '?depth=1');
+	
 }
 
 /*--- body-board ---*/
 function goBoardAjax(boardNumber, currentPageNo){
 	//alert("Ajax goBoardAajx param boardNumber is :"+boardNumber+"\nAjax goBoardAajx param currentPageNo is :" + currentPageNo);
 	$(".homeMainDiv").hide();
-	$(".container.read").hide();
-	$(".container.board").show();
+	$(".articleReadDiv").hide();
+	$(".articleWriteDiv").hide();
+	$("#singleBoard").show();
+
 	jQuery.ajax({
 		type : "GET",
 		url : "api/article/articleList",
@@ -176,8 +182,10 @@ function goBoardAjax(boardNumber, currentPageNo){
 /*--- body-Read ---*/
 function goRead(articleNumber){
 	$(".homeMainDiv").hide();
-	$(".container.board").hide();
-	$(".container.read").show();
+	$("#singleBoard").hide();
+	$(".articleWriteDiv").hide();
+	$(".articleReadDiv").show();
+	
 	jQuery.ajax({
 		type: "GET",
 		url: "api/article/articleDetails",
@@ -199,19 +207,21 @@ $(window).bind("popstate", function(event) {
 	try{
 		var index=event.originalEvent.state.data;
 		if (index == 2){
-			$(".container.read").hide();
+			$(".articleReadDiv").hide();
 			$(".homeMainDiv").hide();
-			$(".container.board").show();
+			$(".articleWriteDiv").hide();
+			$("#singleBoard").show();
 		}
 		else if (index == 1){
-			$(".container.read").hide();
-			$(".container.board").hide();
+			$(".articleReadDiv").hide();
+			$("#singleBoard").hide();
+			$(".articleWriteDiv").hide();
 			$(".homeMainDiv").show();
 		}
 	}catch(exception){	
-		alert(exception);
-		$(".container.board").hide();
-		$(".container.read").hide();
+		$("#singleBoard").hide();
+		$(".articleReadDiv").hide();
+		$(".articleWriteDiv").hide();
 		$(".homeMainDiv").show();
 	}
 });

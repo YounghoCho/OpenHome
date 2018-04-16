@@ -1,8 +1,8 @@
 /*Board*/
 function goBoardManageAjax(){
-	$(".container.static").hide();
-	$(".container.read").hide();
-	$(".container.board").hide();
+	$(".staticGraphDiv").hide();
+	$(".homeReadDiv").hide();
+	$("#singleBoard").hide();
 	$(".homeMainDiv").show();
 	
 	jQuery.ajax({
@@ -55,10 +55,10 @@ function removeBoard(boardNum){
 
 /*Articles*/
 function goArticlesAjax(){
-	$(".container.static").hide();
-	$(".container.read").hide();
-	$(".homeMainDiv").hide();
-	$(".container.board").show();
+	$(".staticGraphDiv").hide();
+	$(".homeReadDiv").hide();
+	$(".homeMainDiv").hide()
+	$("#singleBoard").show();
 	jQuery.ajax({
 		type : "GET",
 		url : "api/article/allArticles",
@@ -104,10 +104,10 @@ function removeArticle(articleNum){
 }
 /*Read Article*/
 function goRead(articleNumber){
-	$(".container.static").hide();
-	$(".container.board").hide();
-	$(".homeMainDiv").hide();
-	$(".container.read").show();
+	$(".staticGraphDiv").hide();
+	$(".homeMainDiv").hide()
+	$("#singleBoard").hide();
+	$(".homeReadDiv").show();
 	jQuery.ajax({
 		type: "GET",
 		url: "api/article/articleDetails",
@@ -126,10 +126,10 @@ function goRead(articleNumber){
 
 /*Graph*/
 function goStaticGraphAjax(){
-	$(".container.board").hide();
 	$(".homeMainDiv").hide();
-	$(".container.read").hide();	
-	$(".container.static").show();
+	$("#singleBoard").hide();
+	$(".homeReadDiv").hide();
+	$(".staticGraphDiv").show();
 
 	var traffics = new Array();
 	
@@ -258,28 +258,28 @@ $(window).bind("popstate", function(event) {
 	try{
 		var index=event.originalEvent.state.data;
 		if (index == 1){
-			$(".container.board").hide();
-			$(".container.static").hide();
-			$(".container.read").hide();
+			$("#singleBoard").hide();
+			$(".homeReadDiv").hide();
+			$(".staticGraphDiv").hide();
 			$(".homeMainDiv").show();
 		}
 		else if(index == 2){
-			$(".container.static").hide();
-			$(".container.read").hide();
+			$(".homeReadDiv").hide();
+			$(".staticGraphDiv").hide();
 			$(".homeMainDiv").hide();
-			$(".container.board").show();
+			$("#singleBoard").show();
 		}
 		else if(index == 3){
-			$(".container.static").hide();
-			$(".container.board").hide();
+			$(".staticGraphDiv").hide();
 			$(".homeMainDiv").hide();
-			$(".container.read").show();
+			$("#singleBoard").hide();
+			$(".homeReadDiv").show();
 		}
 		else if(index == 4){
-			$(".container.read").hide();
-			$(".container.board").hide();
 			$(".homeMainDiv").hide();
-			$(".container.static").show();			
+			$("#singleBoard").hide();
+			$(".homeReadDiv").hide();		
+			$(".staticGraphDiv").show();
 		}
 	}catch(exception){	
 		alert(exception);

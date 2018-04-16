@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/layout.css?ver=1">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=1">
 </head>
 
 <!-- login -->
@@ -24,6 +24,7 @@
 			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENHOME Admin</font>
 </div>
 
+<div id="center">
 <!-- menu -->
 <div id="menu">
 <ul class="menudecoration">
@@ -33,10 +34,13 @@
 </ul>
 </div>
 
+<div id="center-right">
 <!-- top -->
 <div id="top">
 	Welcome to OPENHOME
 </div>
+
+<div id="body">
 
 <!-- body-home -->
 <div style="margin:10px;" class="homeMainDiv">
@@ -120,6 +124,13 @@
 		<div id="container"></div>
 		
 	</div>
+</div>
+
+</div>
+</div>
+</div>
+<!-- footer -->
+<div id="footer">
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
