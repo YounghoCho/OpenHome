@@ -30,14 +30,20 @@ public class OpenhomeDAO{
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
-	/*Menu List*/
+	/*Board*/
 	public List<Board> getMenuList() {
 		return sqlsession.selectList(NAMESPACE_BOARD + "getMenuList");
 	}
+	public void removeBoard(int boardNum) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("boardNum", boardNum);
+		sqlsession.delete(NAMESPACE_BOARD + "removeBoard", paramMap);
+	}	
 	
-	/*Board*/
+	/*Article*/
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
+		System.out.println(boardNumber + " " + currentPageNo + " " + pageSize);
 		paramMap.put("boardNumber", boardNumber);
 		paramMap.put("startNum", currentPageNo-1);	//currentPageNo is 1(default) but LIMIT(in mapper.xml) must start from 0
 		paramMap.put("pageSize", pageSize);
@@ -54,7 +60,16 @@ public class OpenhomeDAO{
 	
 		return sqlsession.selectList(NAMESPACE_ARTICLE + "getArticleDetails", paramMap);
 	}
+	public List<Message> getAllArticles() {
+		return sqlsession.selectList(NAMESPACE_ARTICLE + "getAllArticles");
+	}
+	public void removeArticle(int articleNum) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("articleNum", articleNum);
+		sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", paramMap);
+	}
 
+	
 	/*Traffic*/
 	public List<Traffic> getTrafficData (){
 		return sqlsession.selectList(NAMESPACE_TRAFFIC + "getTrafficData");
@@ -80,5 +95,4 @@ public class OpenhomeDAO{
 	public void file_insert(List<File_uploadDTO> fList) {
 		sqlsession.insert("board.file_insert", fList);	
 	}
-
 }

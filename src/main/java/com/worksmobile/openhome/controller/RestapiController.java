@@ -25,16 +25,25 @@ public class RestapiController {
 	@Resource(name = "BoardService")
 	private OpenhomeBO service;
 
-	//Menu Lists
+	/*board*/
+	//Board List
 	@RequestMapping(value = "/menuList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getMenuList() throws Exception{
 		Map<String, Object> result = new HashMap<>();
 		result.put("menuList", service.getMenuList());
-
 		return result;	
 	}
-
+	//Board Remove
+	@RequestMapping(value = "/boardRemove", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String removeBoard(HttpServletRequest req) throws Exception {
+		int boardNum = Integer.parseInt(req.getParameter("boardNum"));
+		service.removeBoard(boardNum);
+	return "SUCCESS";
+	}
+	
+	/*Article*/
 	//Home(4 boards)
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
 	@ResponseBody
@@ -42,18 +51,20 @@ public class RestapiController {
 		String[] arrNum = req.getParameterValues("stringArray[]");     		
 		//System.out.println("배열에 들어있는값 : "+Arrays.toString(aStr));//출력1
 		//for(String str : aStr){System.out.println(str);}//출력2
+		String[] boardCount = req.getParameterValues("boardCount");     
+		int len = Integer.parseInt(boardCount[0]);
+		
 		Map<String, Object> result = new HashMap<>();
 		int currentPageNo = 1;
 		int pageSize = 7;
-		result.put("menuList", service.getMenuList());
-		result.put("articleList1", service.getArticleList(Integer.parseInt(arrNum[1]), currentPageNo, pageSize)); //boardNumber, currentPageNo, pageSize
-		result.put("articleList2", service.getArticleList(Integer.parseInt(arrNum[2]), currentPageNo, pageSize));
-		result.put("articleList3", service.getArticleList(Integer.parseInt(arrNum[3]), currentPageNo, pageSize));
-		result.put("articleList4", service.getArticleList(Integer.parseInt(arrNum[4]), currentPageNo, pageSize));
+		
+		for(int index = 0; index < len; index++) {
+			//게시판의 고유번호가 4,1,2,3,6으로 들어오면, articleList도 4,1,2,3,6 을 붙여 결과를 반환한다.
+			result.put("articleList" + (Integer.parseInt(arrNum[index])-1), service.getArticleList(Integer.parseInt(arrNum[index]), currentPageNo, pageSize));
+		}
 
 		return result;	
 	}
-
 	//Board Articles
 	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
@@ -68,7 +79,6 @@ public class RestapiController {
 
 		return result;
 	}
-	
 	//Board Details
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
@@ -78,8 +88,25 @@ public class RestapiController {
 		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
+	//Admin Article Lists
+	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getAllArticles() throws Exception {	
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("allArticles", service.getAllArticles());
+		return result;
+	}
+	//Admin Article Remove
+	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String removeArticle(HttpServletRequest req) throws Exception {
+		int articleNum = Integer.parseInt(req.getParameter("articleNum"));
+		service.removeArticle(articleNum);
+	return "SUCCESS";
+	}
 	
-	//Traffic data
+	/*Traffic*/
 	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getTraffic(HttpServletRequest req, HttpServletResponse res) throws Exception{
