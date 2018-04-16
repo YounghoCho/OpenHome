@@ -1,20 +1,20 @@
 /*--- First Page ---*/
 $(document).ready(function(){
-	getMenuListAjax();
+	getBoardListAjax();
 	goHomeAjax();
 });
 
 /*--- menu-list ---*/
-function getMenuListAjax(){
+function getBoardListAjax(){
 	jQuery.ajax({
 		type : "GET",
-		url : "api/menuList",
+		url : "api/board/boardList",
 		dataType : "json",
 		data : "",
 		success : function(res){
-			var len = res.menuList.length;
+			var len = res.boardList.length;
 			for(index = 0; index < len; index++){
-			$(".menudecoration").append("<li style=\"cursor:pointer;\" onclick = \"goBoardAjax(" + res.menuList[index].boardNum + ", 1)\">" + res.menuList[index].boardTitle + "</li>");
+			$(".menudecoration").append("<li style=\"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
 			}
 		},
 		error : function(err){
@@ -31,11 +31,11 @@ function goHomeAjax(){
 	
 	jQuery.ajax({
 		type : "GET",
-		url : "api/menuList",
+		url : "api/board/boardList",
 		dataType : "json",
 		data : "",
 		success : function(res){
-			var len = res.menuList.length;
+			var len = res.boardList.length;
 			var arrNum = new Array();	
 		/*
 		 * 동적 홈페이지 정렬 Algorithm
@@ -45,7 +45,7 @@ function goHomeAjax(){
 			
 		// 1. 게시판 순서를 불러오고, 각 게시판의 고유 번호를 배열에 저장한다.
 			for (var index = 0; index < len; index++)		
-				arrNum.push(res.menuList[index].boardNum); //ex) 4,1,3,2,6
+				arrNum.push(res.boardList[index].boardNum); //ex) 4,1,3,2,6
 
 			$(".homeMainDiv > div.container.home").remove();
 	
@@ -57,7 +57,7 @@ function goHomeAjax(){
 							"<table class=\"table\">" +
 								"<tr>" + 
 									"<th colspan=\"5\">" +
-										"<a class=\"boardtitle\" href=\"javascript:goBoardAjax(" + arrNum[index] + ",1)\">" + res.menuList[index].boardTitle + "</a>" +
+										"<a class=\"boardtitle\" href=\"javascript:goBoardAjax(" + arrNum[index] + ",1)\">" + res.boardList[index].boardTitle + "</a>" +
 									"</th>" +
 									"<th>작성날짜</th>" +
 								"</tr>" +
@@ -70,7 +70,7 @@ function goHomeAjax(){
 		// 3. 게시판 내용들을 불러온다 (articleList0, 1, 2...) 
 			jQuery.ajax({
 				type : "GET",
-				url : "api/homeList",
+				url : "api/article/homeList",
 				dataType : "json",
 				data: {"stringArray" : arrNum, "boardCount" : len}, 
 		
@@ -113,7 +113,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 	$(".container.board").show();
 	jQuery.ajax({
 		type : "GET",
-		url : "api/articleList",
+		url : "api/article/articleList",
 		dataType : "json",
 		data : "boardNumber=" + boardNumber + "&currentPageNo=" + currentPageNo,	// paging lists & from homecontroller
 		success : function(res){
@@ -180,7 +180,7 @@ function goRead(articleNumber){
 	$(".container.read").show();
 	jQuery.ajax({
 		type: "GET",
-		url: "api/articleDetails",
+		url: "api/article/articleDetails",
 		dataType: 'json',
 		data: 'articleNumber='+ articleNumber,
 		success: function(res){

@@ -124,4 +124,4 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 9"></script>

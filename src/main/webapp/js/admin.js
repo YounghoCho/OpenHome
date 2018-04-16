@@ -7,20 +7,20 @@ function goBoardManageAjax(){
 	
 	jQuery.ajax({
 		type : "GET",
-		url : "api/menuList",
+		url : "api/board/boardList",
 		dataType : "json",
 		success : function(res){ 
 			//Removing Board Lists
 			$(".tbody.admin > tr > td").remove();
 			//Setting Board Lists
-			for(var index = 0; index < res.menuList.length; index++){
+			for(var index = 0; index < res.boardList.length; index++){
 			$(".tbody.admin").append(
 					"<tr>" +
-					"<td>" + res.menuList[index].boardTitle + "</td>" + 
+					"<td>" + res.boardList[index].boardTitle + "</td>" + 
 					"<td><a class=\"removeArticle\"" + 
-						"onclick=\"javascipr:updateBoard(" + res.menuList[index].boardNum + ")\">수정</a></td>" +
+						"onclick=\"javascipr:updateBoard(" + res.boardList[index].boardNum + ")\">수정</a></td>" +
 					"<td><a class=\"removeArticle\"" + 
-					"onclick=\"javascipr:removeBoard(" + res.menuList[index].boardNum + ")\">삭제</a></td>" +
+					"onclick=\"javascipr:removeBoard(" + res.boardList[index].boardNum + ")\">삭제</a></td>" +
 					"<td></td>" +
 					"</tr>");
 			}
@@ -40,7 +40,7 @@ function removeBoard(boardNum){
     }
 	$.ajax({
 		type : "DELETE",
-		url : "api/boardRemove?boardNum=" + boardNum,
+		url : "api/board/boardRemove?boardNum=" + boardNum,
 		success : function(res){			
 			if(res == "SUCCESS"){
 				alert("삭제되었습니다.");
@@ -61,7 +61,7 @@ function goArticlesAjax(){
 	$(".container.board").show();
 	jQuery.ajax({
 		type : "GET",
-		url : "api/allArticles",
+		url : "api/article/allArticles",
 		dataType : "json",
 		success : function(res){
 			//Removing Article Lists
@@ -90,7 +90,7 @@ function removeArticle(articleNum){
     }
 	$.ajax({
 		type : "DELETE",
-		url : "api/articleRemove?articleNum=" + articleNum,
+		url : "api/article/articleRemove?articleNum=" + articleNum,
 		success : function(res){			
 			if(res == "SUCCESS"){
 				alert("삭제되었습니다.");
@@ -110,7 +110,7 @@ function goRead(articleNumber){
 	$(".container.read").show();
 	jQuery.ajax({
 		type: "GET",
-		url: "api/articleDetails",
+		url: "api/article/articleDetails",
 		dataType: 'json',
 		data: 'articleNumber='+ articleNumber,
 		success: function(res){
@@ -126,12 +126,16 @@ function goRead(articleNumber){
 
 /*Graph*/
 function goStaticGraphAjax(){
+	$(".container.board").hide();
+	$(".homeMainDiv").hide();
+	$(".container.read").hide();	
 	$(".container.static").show();
+
 	var traffics = new Array();
 	
 	jQuery.ajax({
 		type : "GET",
-		url : "api/trafficData",
+		url : "api/traffic/trafficData",
 		dataType : "json",
 		data : "",
 		
@@ -229,11 +233,11 @@ function loginAjax(){
 		var pwd = $("#managerPwd").val();
 		jQuery.ajax({
 			type : "GET",
-			url : "api/adminLogin",
+			url : "api/admin/adminLogin",
 			dataType : "json",	//count로 1개인지 확인
 			data : "managerId=" + id + "&managerPwd=" + pwd, 
 			success: function(res){
-				if (!res.checkAdminLogin) 
+				if (!res.adminLogin) 
 					alert("입력 정보가 일치하지 않습니다");
 				else{
 					alert("로그인 되었습니다")
