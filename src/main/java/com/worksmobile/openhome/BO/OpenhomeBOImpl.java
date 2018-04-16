@@ -3,7 +3,7 @@
  * @Author : Youngho Jo
  *           Suji    Jang
  */
-package com.worksmobile.openhome.BO;
+package com.worksmobile.openhome.bo;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.worksmobile.openhome.dao.OpenhomeDAO;
+import com.worksmobile.openhome.model.Board;
 import com.worksmobile.openhome.model.File_uploadDTO;
 import com.worksmobile.openhome.model.Message;
 import com.worksmobile.openhome.model.Traffic;
@@ -24,6 +25,16 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 
 	/*Board*/
 	@Override
+	public List<Board> getMenuList() {
+		return dao.getMenuList();
+	}
+	@Override
+	public void removeBoard(int boardNum) {
+		dao.removeBoard(boardNum);
+	}
+	
+	/*Article*/
+	@Override
 	public List<Message> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		return dao.getArticleList(boardNumber, currentPageNo, pageSize);
 	}
@@ -35,7 +46,16 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 	public List<Message> getArticleDetails(int articleNumber) {
 		return dao.getArticleDetails(articleNumber);
 	}
+	@Override
+	public List<Message> getAllArticles() {
+		return dao.getAllArticles();
+	}
+	@Override
+	public void removeArticle(int articleNum) {
+		dao.removeArticle(articleNum);
+	}	
 
+	
 	/*Traffic*/
 	@Override
 	public List<Traffic> getTrafficData() {
@@ -46,15 +66,20 @@ public class OpenhomeBOImpl implements OpenhomeBO{
 		return dao.getTrafficCount();
 	}
 	
+	/*Manager*/
+	@Override
+	public int checkAdminLogin(String managerId, String managerPwd) {
+		return dao.checkAdminLogin(managerId, managerPwd);
+	}
+	
+	//SuJi
 	@Override
 	public int MessageInsertProcess(Message dto) {
 		return dao.message_insert(dto);
 	}
-
 	@Override
 	public void FileInsertProcess(List<File_uploadDTO> fList) {
 		dao.file_insert(fList);
 	}
-	
 }
 

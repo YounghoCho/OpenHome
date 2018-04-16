@@ -5,7 +5,6 @@
 <!--  
  * Application java
  * @Author : Youngho Jo
- *           Suji    Jang
  -->	
 <mapper namespace="article">
 	<select id="getArticleList" resultType="com.worksmobile.openhome.model.Message">
@@ -15,7 +14,7 @@
 		FROM 
 			article a, ( SELECT @ROWNUM := 0 ) R
 		WHERE
-			articleNum = #{boardNumber}
+			boardNum = #{boardNumber}
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		
@@ -39,7 +38,23 @@
 			articleNum = #{articleNumber}
 	</select>
 	
-
+	<select id="getAllArticles" resultType="com.worksmobile.openhome.model.Message">
+		SELECT 
+			@ROWNUM := @ROWNUM +1 as ROWNUM,
+			boardTitle, a.boardNum, articleNum, articleSubject, articleContent , articleDate, articleWriter, articleAccessPwd 
+		FROM 
+			article a, board b, ( SELECT @ROWNUM := 0 ) R
+		WHERE
+			a.boardNum = b.boardNum
+	</select>
+	<delete id="removeArticle" parameterType="com.worksmobile.openhome.model.Message">
+		DELETE 
+		FROM
+			article 
+		WHERE
+			articleNum = #{articleNum}
+	</delete>
+	
 	<!-- @author suji -->
 		<insert id="message_insert" parameterType="com.worksmobile.openhome.model.Message" useGeneratedKeys="true" keyProperty="message_num">
 		insert into article(boardNum , articleSubject , articleTextContent , articleContent , articleDate , articleWriter , articleAccessPwd )

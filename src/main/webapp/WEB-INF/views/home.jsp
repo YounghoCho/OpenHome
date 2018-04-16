@@ -2,77 +2,31 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/layout.css?ver=26">
+	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/layout.css?ver=28">
 </head>
 
 <!-- header -->
 <div id="header" style="background-color:#000040;">
 		<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
-			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENWORKS</font></a>
+			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENHOME</font></a>
 </div>
 
 <!-- menu -->
 <div id="menu">
 <ul class="menudecoration">
 	<li style="cursor:pointer;"onclick="javascript:goHomeAjax()">홈</li>
-	<li style="cursor:pointer;"onclick="goBoardAjax(1, 1)">게시판1</li>
-	<li style="cursor:pointer;"onclick="goBoardAjax(2, 1)">게시판2</li>
-	<li style="cursor:pointer;"onclick="goBoardAjax(3, 1)">게시판3</li>
-	<li style="cursor:pointer;"onclick="goBoardAjax(4, 1)">게시판4</li>
 </ul>
 </div>
 
 <!-- top -->
 <div id="top">
-	Welcome to OpenWorks
+	Welcome to OPENHOME
 </div>
 
 <!-- body-home -->
 <div style="margin:10px;" class="homeMainDiv">
-	<!-- 1st -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(1,1)">게시판1</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="1stMessage">
-			</tbody>
-		</table>		
-	</div>
-	<!-- 2nd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(2,1)">게시판2</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="2ndMessage">
-			</tbody>
-		</table>		
-	</div>
-	<!-- 3rd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(3,1)">게시판3</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="3rdMessage">
-			</tbody>
-		</table>
-	</div>
-	<!-- 4rd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(4,1)">게시판4</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="4thMessage">
-			</tbody>
-		</table>
-	</div>
+
+
 </div>
 
 <!-- body-board -->
@@ -132,4 +86,4 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=8"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=5"></script>

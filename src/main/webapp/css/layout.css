@@ -34,6 +34,7 @@
 	border-bottom: none;
 	height:10%;
 	left:249px;
+	width:70%;
 }
 #body{
 	/* background-color:green; */
@@ -66,6 +67,23 @@
 }
 a{
 	display:block;	
+}
+#mask{
+	position:absolute;
+	left:0; top:0; 
+	z-index:10;
+	background-color:#111;
+	display:none;
+}
+.window{
+	  display: none;
+	  position:absolute;  
+	  left:30%;
+	  top:20%;
+	  z-index:20;
+	  background-color:#fff;
+	  width:500px;
+	  height:350px;
 }
 
 /*body*/
@@ -112,7 +130,7 @@ td{
 .boardtds:link, .boardtds:visited{
 	color: black;
 }
-.container.home, .container.board, .container.read, .container.static, .container.realTime{
+.container.board, .container.read, .container.static, .container.realTime, .homeMainDiv{
 	display:none;
 }
 #singleBoard{
@@ -188,4 +206,11 @@ none;
 	line-height:20px;
 	height:20px;
 	width:70px;
+}
+
+
+/*Admin*/
+.removeArticle{
+	color:#1EC800;
+	cursor: pointer;
 }

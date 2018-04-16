@@ -1,52 +1,114 @@
 /*--- First Page ---*/
 $(document).ready(function(){
+	getMenuListAjax();
 	goHomeAjax();
 });
+
+/*--- menu-list ---*/
+function getMenuListAjax(){
+	jQuery.ajax({
+		type : "GET",
+		url : "api/menuList",
+		dataType : "json",
+		data : "",
+		success : function(res){
+			var len = res.menuList.length;
+			for(index = 0; index < len; index++){
+			$(".menudecoration").append("<li style=\"cursor:pointer;\" onclick = \"goBoardAjax(" + res.menuList[index].boardNum + ", 1)\">" + res.menuList[index].boardTitle + "</li>");
+			}
+		},
+		error : function(err){
+			alert(err);
+		}
+	});
+}
 
 /*---  body-home ---*/
 function goHomeAjax(){
 	$(".container.board").hide();
 	$(".container.read").hide();
-	$(".container.home").show();	
+	$(".homeMainDiv").show();	
+	
 	jQuery.ajax({
 		type : "GET",
-		url : "api/homeList",
+		url : "api/menuList",
 		dataType : "json",
 		data : "",
 		success : function(res){
-			//Draw Table Data
-			$("#1stMessage > tr > td").remove();
-			$("#2ndMessage > tr > td").remove();
-			$("#3rdMessage > tr > td").remove();
-			$("#4thMessage > tr > td").remove();
-				for(var i = 0; i < res.articleList1.length; i++){
-					$("#1stMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + res.articleList1[i].articleNum + ")\" class=\"boardtds\">" + res.articleList1[i].articleTextContent + "</a></td>"
-							 + "<td>" + res.articleList1[i].articleDate.substring(0,10) + "</td></tr>");
+			var len = res.menuList.length;
+			var arrNum = new Array();	
+		/*
+		 * 동적 홈페이지 정렬 Algorithm
+		 * 
+		 * @Author : Youngho Jo 
+		 */
+			
+		// 1. 게시판 순서를 불러오고, 각 게시판의 고유 번호를 배열에 저장한다.
+			for (var index = 0; index < len; index++)		
+				arrNum.push(res.menuList[index].boardNum); //ex) 4,1,3,2,6
+
+			$(".homeMainDiv > div.container.home").remove();
+	
+		// 2. 총 게시판의 개수 만큼 게시판의 틀을 그린다.	
+			var idIncreased = 1;
+			for(var index = 0; index < len; index++, idIncreased++){
+				$(".homeMainDiv").append(
+						"<div class=\"container home\">" +
+							"<table class=\"table\">" +
+								"<tr>" + 
+									"<th colspan=\"5\">" +
+										"<a class=\"boardtitle\" href=\"javascript:goBoardAjax(" + arrNum[index] + ",1)\">" + res.menuList[index].boardTitle + "</a>" +
+									"</th>" +
+									"<th>작성날짜</th>" +
+								"</tr>" +
+								"<tbody id=\"" + idIncreased + "Message\">" + 
+								"</tbody>" +
+							"</table>" +		
+						"</div>");
+			}		
+
+		// 3. 게시판 내용들을 불러온다 (articleList0, 1, 2...) 
+			jQuery.ajax({
+				type : "GET",
+				url : "api/homeList",
+				dataType : "json",
+				data: {"stringArray" : arrNum, "boardCount" : len}, 
+		
+				success : function(res){					
+		// 4. 총 게시판의 개수만큼 반복할 것이며,
+					for(var idIncreased2 = 1; idIncreased2 <= len; idIncreased2++){ 
+		// 5. 중복 코드를 줄이기 위해 동적 변수를 사용하여, 각 게시판의 데이터 객체를 저장한다.						
+						eval("active = res.articleList" + (arrNum[idIncreased2 - 1] - 1));
+						
+		// 6. 첫번 째 게시판의 내용 갯수를 기본 길이로 설정하고, 게시판 내용을 그려넣는다. 
+						var articleLen = active.length;
+						for(var index = 1; index <= articleLen; index++){
+						$("#" + idIncreased2 + "Message").append(
+								"<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + 
+								active[index-1].articleNum + ")\" class=\"boardtds\">" + active[index-1].articleTextContent + "</a></td>" +
+								"<td>" + active[index-1].articleDate.substring(0,10) + "</td></tr>");		
+		// 7. 내용 갯수를, 다음 순서의 게시판의 것으로 갱신하고 반복한다.
+						articleLen = active.length;
+						}
+					}
+				},
+				error : function(err){
+					alert("err");
 				}
-				for(var i = 0; i < res.articleList2.length; i++){
-					$("#2ndMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + res.articleList2[i].articleNum + ")\" class=\"boardtds\">" + res.articleList2[i].articleTextContent + "</a></td>"
-							 + "<td>" + res.articleList2[i].articleDate.substring(0,10) + "</td></tr>");				
-				}
-				for(var i = 0; i<res.articleList3.length; i++){
-					$("#3rdMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + res.articleList3[i].articleNum + ")\" class=\"boardtds\">" + res.articleList3[i].articleTextContent + "</a></td>"
-							 + "<td>" + res.articleList3[i].articleDate.substring(0,10) + "</td></tr>");
-				}
-				for(var i = 0; i < res.articleList4.length; i++){
-					$("#4thMessage").append("<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + res.articleList4[i].articleNum + ")\" class=\"boardtds\">" + res.articleList4[i].articleTextContent + "</a></td>"
-							 + "<td>" + res.articleList4[i].articleDate.substring(0,10) + "</td></tr>");
-				}
+			}); //Inner Ajax End
+			
 		},
 		error : function(err){
-			alert("err");
+			alert(err);
 		}
-	});
+	}); //Outer Ajax End
 	history.pushState({ data: '1' }, 'title2', '?depth=1');
 }
 
 /*--- body-board ---*/
 function goBoardAjax(boardNumber, currentPageNo){
 	//alert("Ajax goBoardAajx param boardNumber is :"+boardNumber+"\nAjax goBoardAajx param currentPageNo is :" + currentPageNo);
-	$(".container.home").hide();
+	$(".homeMainDiv").hide();
 	$(".container.read").hide();
 	$(".container.board").show();
 	jQuery.ajax({
@@ -82,12 +144,12 @@ function goBoardAjax(boardNumber, currentPageNo){
 				}
 			}			
 			//Setting Board Title
-			var boardIndex = res.articleList[0].board_num;
+			var boardIndex = res.articleList[0].boardNum;
 			switch(boardIndex){
-				case 1: $(".boardtitle").html("게시판1"); break;
-				case 2: $(".boardtitle").html("게시판2"); break;
-				case 3: $(".boardtitle").html("게시판3"); break;
-				case 4: $(".boardtitle").html("게시판4"); break;
+				case 1: $(".boardtitle.tt").html("게시판1"); break;
+				case 2: $(".boardtitle.tt").html("게시판2"); break;
+				case 3: $(".boardtitle.tt").html("게시판3"); break;
+				case 4: $(".boardtitle.tt").html("게시판4"); break;
 			}
 			//Removing Message Lists
 			$(".tbody > tr > td").remove();
@@ -113,7 +175,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 
 /*--- body-Read ---*/
 function goRead(articleNumber){
-	$(".container.home").hide();
+	$(".homeMainDiv").hide();
 	$(".container.board").hide();
 	$(".container.read").show();
 	jQuery.ajax({
@@ -138,17 +200,18 @@ $(window).bind("popstate", function(event) {
 		var index=event.originalEvent.state.data;
 		if (index == 2){
 			$(".container.read").hide();
-			$(".container.home").hide();
+			$(".homeMainDiv").hide();
 			$(".container.board").show();
 		}
 		else if (index == 1){
 			$(".container.read").hide();
 			$(".container.board").hide();
-			$(".container.home").show();
+			$(".homeMainDiv").show();
 		}
 	}catch(exception){	
+		alert(exception);
 		$(".container.board").hide();
 		$(".container.read").hide();
-		$(".container.home").show();
+		$(".homeMainDiv").show();
 	}
 });
