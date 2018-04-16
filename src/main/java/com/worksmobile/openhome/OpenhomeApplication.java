@@ -33,7 +33,6 @@ public class OpenhomeApplication extends SpringBootServletInitializer{
 		SpringApplication.run(OpenhomeApplication.class, args);
 	}
 	
-	//SqlSessionFactory �� ���� (Mybatis�� Spring�� �����Ѵ�)
 	@Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
@@ -43,7 +42,6 @@ public class OpenhomeApplication extends SpringBootServletInitializer{
         return sessionFactory.getObject();
     }
 
-	//SqlSessionTemplate �� ���� (SqlSesstion�� ���� : �ѹ� �����ϸ� ���α��� ����, Ŀ��, �ѹ� �� �� �ִ�)
     @Bean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {
         final SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);

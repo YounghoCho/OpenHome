@@ -3,44 +3,88 @@
 	padding:0px;
 	margin:0px;
 }
+
 #wrap{
 	width:100%;
 	height:100%;
 	
 }
+
 #header{
 	/* background-color:red; */
-	position:relative;
+/* 	position:absoulte;
 	width:100%;
 	height:50px;
-	border-bottom: none;
+	border-bottom: none; */
+	position:relative;
+	height:49px;
+	/* width:249px; */
+	border-right: 1px solid #5d5d5d;
 }
+
 #menu{
 	position:absolute;
-	top:50px;
+	top:0px;
 	right:0;
-	bottom:0;
+	bottom:0px;
 	left:0;
 	width:249px;
 	border-right: 1px solid #5d5d5d;
 }
+
+/* #menu li:first-child {
+	border-bottom: 3px double #5d5d5d;
+} */
+
 #top{
 	padding:20px;
 	vertical-align:middle;
 	font-weight:bold;
 	font-color:#1EC800;
 	font-size:20px;
-	position:relative;
-	border-bottom: none;
-	height:10%;
-	left:249px;
+	position:absolute;
+	border-bottom: 1px solid #dcdcdc;
+	height:70px;
+	/* left:249px; */
+	width:100%;
 }
+
+#center{
+	position: absolute;
+    top: 50px;
+    bottom: 30px;
+    z-index: 20;
+    overflow: hidden;
+    width: 100%;
+   /*  max-width: 1280px; */
+    margin: 0 auto;
+   /*  border-left: 1px solid #5d5d5d;
+    border-right: 1px solid #5d5d5d; */
+    background-color: #fff;
+ }
+ 
+ #center-right{
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:250px;
+}
+
 #body{
-	/* background-color:green; */
-	position:relative;
-	height:90%;
+/* 	position:absolute;
+	top:70px;
+	bottom:30px;
 	overflow:auto;
-}
+	height:100%;
+	left:249px;
+	width:100%; */
+	position:absolute;
+	top:70px;
+	bottom:0px;
+	overflow:auto;
+	width:100%;
+} 
 
 /*menu*/
 .menudecoration > li{
@@ -112,21 +156,35 @@ td{
 .boardtds:link, .boardtds:visited{
 	color: black;
 }
-.container.home, .container.board, .container.read, .container.static, .container.realTime{
+
+.homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
 	display:none;
-}
-#singleBoard{
-	position:absolute;
-	left:249px;
-}
-.homeMainDiv, .homeReadDiv, .staticGraphDiv, .realTimeGraphDiv{
-	position:absolute;
-	left:249px;
+	/* position:absolute;
+	top:70px;
+	bottom:30px;
+	overflow:auto; */
+	height:100%;
+	/* left:249px; */
+	width:100%;
+	padding-top:10px;
 }
 
+/* .container.home, .container.board, .container.read, .container.static, .container.realTime{
+	display:none;
+	overflow:hidden;
+} */
+/* #singleBoard{
+	position:absolute;
+	left:249px;
+} */
+/* .homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
+	position:absolute;
+	left:249px;
+} */
+
 /*graph*/
-.staticGraphDiv, realTimeGraphDiv{
-width:100%;
+.staticGraphDiv, .realTimeGraphDiv{
+	width:100%;
 }
 	/*static*/
 #container {
@@ -135,19 +193,19 @@ width:100%;
 	margin: 0;
 }
 rect .highcharts-button-box{
-none;
+	none;
 }
 
 
 /*SUJI*/
-#regMessage .uploadList {
+.container.write .uploadList {
 	width:100%;
 	height:100px;
 	border:1px dotted blue;
 }
 
-#regMessage .dragDropDiv {
-    width: 650px;
+.container.write .dragDropDiv {
+  /*   width: 650px; */
     height: 200px;
     text-align: center;
     padding: 10px 0px 10px 10px;
@@ -155,31 +213,31 @@ none;
     overflow:auto;
 }
 
-#regMessage #tabFileName{
+.container.write #tabFileName{
     width: 470px;
     text-align: left;
 }
 
-#regMessage #tabFileSize{
+.container.write #tabFileSize{
     width: 70px;
 }
 
-#regMessage #tabFileDel{
+.container.write #tabFileDel{
     width: 50px;
 }
 
-#regMessage table , #regMessage tr , #regMessage td{
+.container.write table , .container.write tr , .container.write td{
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-#regMessage #my_pc_file_btn{
+.container.write #my_pc_file_btn{
 	width:0;
 	height:0;
 	overflow:hidden;
 }
 
-#regMessage #my_pc{
+.container.write #my_pc{
 	border: 1px solid black;
 	display:inline-block;
 	vertical-align:middle;
@@ -188,4 +246,24 @@ none;
 	line-height:20px;
 	height:20px;
 	width:70px;
+}
+
+/* .articleWriteDiv {
+	position:absolute;
+	margin-left:249px;
+	position:relative;
+} */
+
+/* .container.write {
+	display:none;
+	overflow:hidden;
+} */
+
+#footer {
+	position: absolute;
+    bottom: 0;
+   /*  background-color: purple; */
+    width: 100%;
+    border-top: 1px solid #5d5d5d;
+    height: 29px;
 }

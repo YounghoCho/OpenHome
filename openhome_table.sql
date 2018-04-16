@@ -7,7 +7,7 @@ drop table board
 drop table message
 drop table traffic;
 
---°ü¸®ÀÚ Å×ÀÌºí
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 create table manager(
 manager_num int(20) auto_increment,
 manager_id varchar(30) not null,
@@ -17,11 +17,11 @@ manager_phone varchar(30) not null,
 primary key(manager_num)
 );
 
-insert into manager(manager_id, manager_pwd, manager_name, manager_phone) values('WM60000', '!1234', 'Àå¼öÁö', '010-1234-4567');
+insert into manager(manager_id, manager_pwd, manager_name, manager_phone) values('WM60000', '!1234', 'ï¿½ï¿½ï¿½ï¿½ï¿½', '010-1234-4567');
 
 select * from manager;
 
---°Ô½ÃÆÇ Å×ÀÌºí
+--ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 create table board(
 board_num int(20) auto_increment,
 board_title varchar(30) not null,
@@ -33,13 +33,13 @@ constraint fk_board_marker foreign key(board_maker) references manager(manager_n
 );
 
 
-insert into board(board_title, board_reg_date, board_maker, board_list_num) values('°øÁö»çÇ×', now(), 1, 1);
+insert into board(board_title, board_reg_date, board_maker, board_list_num) values('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', now(), 1, 1);
 
 select * from board;
 
 select now();
 
---°Ô½Ã±Û Å×ÀÌºí
+--ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 create table message(
 message_num int(20) auto_increment,
 board_num int(20) not null,
@@ -52,11 +52,11 @@ primary key(message_num),
 constraint fk_board_num foreign key(board_num) references board(board_num)
 );
 
-insert into message(board_num, message_subject, message_content, message_date, message_writer, message_pwd) values(1, '°Ô½ÃÇÕ´Ï´Ù', 'ÀÌ¿Í °°Àº °øÁö»çÇ×À» ÁöÄÑÁÖ¼¼¿ä.', now(), 'Àå´öÃ¶', '!1111');
+insert into message(board_num, message_subject, message_content, message_date, message_writer, message_pwd) values(1, 'ï¿½Ô½ï¿½ï¿½Õ´Ï´ï¿½', 'ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.', now(), 'ï¿½ï¿½ï¿½Ã¶', '!1111');
 
 select * from message;
 
---Æ®·¡ÇÈ Å×ÀÌºí
+--Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 create table traffic(
 traffic_num int(20) auto_increment,
 traffic_content_length int(50) not null,
@@ -67,11 +67,11 @@ traffic_ip varchar(50),
 primary key(traffic_num)
 );
 
-insert into traffic(traffic_content_length, concurrent_connected_user, traffic_kind, traffic_date, traffic_ip) values(250, 2, 'ÀĞ±â', now(), '192.100.023.02');
+insert into traffic(traffic_content_length, concurrent_connected_user, traffic_kind, traffic_date, traffic_ip) values(250, 2, 'ï¿½Ğ±ï¿½', now(), '192.100.023.02');
 
 select * from traffic;
 
---ÀÏ¹İ»ç¿ëÀÚ Ã·ºÎÆÄÀÏ Å×ÀÌºí
+--ï¿½Ï¹İ»ï¿½ï¿½ï¿½ï¿½ Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 create table file_upload(
 file_num int(20) auto_increment,
 file_name varchar(100) not null,
@@ -85,3 +85,68 @@ insert into file_upload(file_name, file_size, message_num) values('photo.jpg', 5
 
 
 select * from file_upload;
+
+-------------------------------------------------------------------------------------------
+
+--ê´€ë¦¬ì í…Œì´ë¸”
+create table manager(
+managerNum int(20) auto_increment,
+managerId varchar(30) not null,
+managerPwd varchar(30) not null,
+managerName varchar(30) not null,
+managerPhone varchar(30) not null,
+primary key(managerNum)
+);
+
+--ê²Œì‹œíŒ í…Œì´ë¸”
+create table board(
+boardNum int(20) auto_increment,
+boardTitle varchar(30) not null,
+boardDate date not null,
+boardMaker int(20) not null,
+boardSequenceNum int(20) not null, //ì›ë˜ boardlistnum
+primary key(boardNum),
+constraint fk_boardMarker foreign key(boardMaker) references manager(managerNum)
+);
+
+--ê²Œì‹œê¸€ í…Œì´ë¸”
+create table article(
+articleNum int(20) auto_increment,
+boardNum int(20) not null,
+articleSubject varchar(200),
+articleTextContent varchar(1000),
+articleContent varchar(1000),
+articleDate date,
+articleWriter varchar(50),
+articleAccessPwd varchar(30),
+aritcleStatus varchar(10) default 'N' not null,
+primary key(articleNum),
+constraint fk_boardNum foreign key(boardNum) references board(boardNum)
+);
+
+drop table article;
+drop table attachmentfile;
+
+
+--íŠ¸ë˜í”½í…Œì´ë¸”
+create table traffic(
+trafficNum int(20) auto_increment,
+trafficContentLength int(50) not null,
+trafficKind varchar(50) not null,
+trafficDate date not null,
+trafficIp varchar(50),
+primary key(trafficNum)
+);
+
+--ì²¨ë¶€íŒŒì¼í…Œì´ë¸”
+create table attachmentfile(
+fileNum int(20) auto_increment,
+articleNum int(20) not null,
+originalFileName varchar(100) not null,
+storedFileName varchar(150) not null,
+fileSize int(20) not null,
+fileAttacher varchar(50) not null, //filecreater
+fileDate date not null, //storedDate
+primary key(fileNum),
+constraint fk_articleNum foreign key(fileNum) references article(articleNum)
+);

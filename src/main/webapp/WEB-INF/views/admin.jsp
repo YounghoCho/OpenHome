@@ -13,16 +13,20 @@
 
 <!-- menu -->
 <div id="menu">
-<ul class="menudecoration">
-	<li style="cursor:pointer;"><a onclick="">게시판 관리</a></li>
-	<li style="cursor:pointer;"><a onclick="">게시글 관리</a></li>
-	<li style="cursor:pointer;"><a onclick="javasciprt:staticGraphAjax()">트래픽 통계</a></li>
-</ul>
+	<ul class="menudecoration">
+		<li style="cursor:pointer;"><a onclick="">게시판 관리</a></li>
+		<li style="cursor:pointer;"><a onclick="">게시글 관리</a></li>
+		<li style="cursor:pointer;"><a onclick="javasciprt:staticGraphAjax()">트래픽 통계</a></li>
+	</ul>
 </div>
 
 <!-- top -->
 <div id="top">
 	Welcome to OpenWorks
+</div>
+
+<!-- footer -->
+<div id="footer">
 </div>
 
 <!-- body-home -->
