@@ -5,7 +5,6 @@
 <!--  
  * Application java
  * @Author : Youngho Jo
- *           Suji    Jang
  -->	
 <mapper namespace="article">
 	<select id="getArticleList" resultType="com.worksmobile.openhome.model.Article">
@@ -15,7 +14,7 @@
 		FROM 
 			article a, ( SELECT @ROWNUM := 0 ) R
 		WHERE
-			articleNum = #{boardNumber}
+			boardNum = #{boardNumber}
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		
@@ -48,6 +47,14 @@
 		WHERE
 			a.boardNum = b.boardNum
 	</select>
+
+	<delete id="removeArticle" parameterType="com.worksmobile.openhome.model.Article">
+		DELETE 
+		FROM
+			article 
+		WHERE
+			articleNum = #{articleNum}
+	</delete>
 	
 	<!-- @author suji -->
 	<update id="addArticle" parameterType="com.worksmobile.openhome.model.Article">

@@ -1,18 +1,15 @@
 package com.worksmobile.openhome.dao;
-
 import java.util.HashMap;
 import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.worksmobile.openhome.model.Article;
-import com.worksmobile.openhome.model.Board;
 
 @Repository("ArticleDAO")
 public class ArticleDAO {
-	
+
 	private static final String NAMESPACE_ARTICLE = "article.";
 
 	@Autowired
@@ -33,6 +30,7 @@ public class ArticleDAO {
 	/*@ author Youngho Jo*/
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
+		System.out.println(boardNumber + " " + currentPageNo + " " + pageSize);
 		paramMap.put("boardNumber", boardNumber);
 		paramMap.put("startNum", currentPageNo-1);	//currentPageNo is 1(default) but LIMIT(in mapper.xml) must start from 0
 		paramMap.put("pageSize", pageSize);
@@ -61,4 +59,5 @@ public class ArticleDAO {
 		paramMap.put("articleNum", articleNum);
 		sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", paramMap);
 	}
+	
 }

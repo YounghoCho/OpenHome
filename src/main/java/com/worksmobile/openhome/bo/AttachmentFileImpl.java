@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
 import com.worksmobile.openhome.dao.AttachmentFileDAO;
 import com.worksmobile.openhome.model.AttachmentFile;
 
@@ -21,7 +20,7 @@ import com.worksmobile.openhome.model.AttachmentFile;
 public class AttachmentFileImpl implements AttachmentFileBO{
 	
 	@Resource(name="AttachmentFileDAO")
-	private AttachmentFileDAO attachmentfiledao;
+	private AttachmentFileDAO dao;
 
 /*	@ author Suji Jang */
 /*	@Override
@@ -70,7 +69,7 @@ public class AttachmentFileImpl implements AttachmentFileBO{
 		
 		if (fList.size() != 0 ) {
 			//첨부파일 데이터베이스에 등록
-			attachmentfiledao.addFile(fList);
+			dao.addFile(fList);
 		}
 	}
 }

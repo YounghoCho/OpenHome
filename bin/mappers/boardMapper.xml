@@ -5,11 +5,11 @@
 <!--  
  * Application java
  * @Author : Youngho Jo
- *           Suji    Jang
  -->	
 <mapper namespace="board">
 
-	<select id="getMenuList" resultType="com.worksmobile.openhome.model.Board">
+	<select id="getBoardList" resultType="com.worksmobile.openhome.model.Board">
+
 		SELECT 
 			boardOrderNum, boardTitle, boardNum
 		FROM 
@@ -17,6 +17,7 @@
 		ORDER BY
 			boardOrderNum
 	</select>
+
 	
 	<delete id="removeBoard" parameterType="com.worksmobile.openhome.model.Board">
 		DELETE
@@ -24,6 +25,6 @@
 			board
 		WHERE 
 			boardNum = #{boardNum}
-	</delete>
-	
+	</delete>	
+
 </mapper>

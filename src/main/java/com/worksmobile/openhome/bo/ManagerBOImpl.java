@@ -8,14 +8,13 @@ import com.worksmobile.openhome.dao.ManagerDAO;
 
 @Service("ManagerBO")
 public class ManagerBOImpl implements ManagerBO {
-	
+
 	@Resource(name="ManagerDAO")
-	private ManagerDAO managerdao;
-	
-	/*Manager*/
+	private ManagerDAO dao;
+
 	@Override
 	public int checkAdminLogin(String managerId, String managerPwd) {
-		return managerdao.checkAdminLogin(managerId, managerPwd);
+		return dao.checkAdminLogin(managerId, managerPwd);
 	}
 
 }

@@ -5,7 +5,6 @@
 <!--  
  * Application java
  * @Author : Youngho Jo
- *           Suji    Jang
  -->	
 <mapper namespace="traffic">
 	

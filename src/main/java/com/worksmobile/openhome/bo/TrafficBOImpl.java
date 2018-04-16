@@ -6,26 +6,23 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.worksmobile.openhome.dao.BoardDAO;
 import com.worksmobile.openhome.dao.TrafficDAO;
 import com.worksmobile.openhome.model.Traffic;
 
-	
 @Service("TrafficBO")
 public class TrafficBOImpl implements TrafficBO{
-	
+
 	@Resource(name="TrafficDAO")
-	private TrafficDAO trafficdao;
+	private TrafficDAO dao;
 	
-	/*@author Youngho Jo*/
 	@Override
 	public List<Traffic> getTrafficData() {
-		return trafficdao.getTrafficData();
+		return dao.getTrafficData();
 	}
-	
+
 	@Override
 	public int getTrafficCount() {
-		return trafficdao.getTrafficCount();
+		return dao.getTrafficCount();
 	}
 
 }

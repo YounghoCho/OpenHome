@@ -2,79 +2,67 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/layout.css?ver=27">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=1">
 </head>
+
+<!-- login -->
+<div id="mask"></div>
+<div class="window">
+	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">
+		<img src="${pageContext.request.contextPath}/image/logo.png" style="width:65px;margin:5px;"/><br/>
+		<input type="text" id="managerId" placeholder="ID" style="width:280px;height:50px;margin:5px;padding-left:5px;"/><br/>
+		<input type="password" id="managerPwd" placeholder="PASSWORD" style="width:280px;height:50px;margin:5px;padding-left:5px;"/><br/>
+		<a type="button" class="btn btn-success" style="margin:5px;width:280px;height:50px;" onclick="javascript:loginAjax()">
+			<div style="margin-top:10px;">로그인</div>
+		</a>
+	</div>
+</div>
 
 <!-- header -->
 <div id="header" style="background-color:#000040;">
 		<a href="${pageContext.request.contextPath}/admin" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
-			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENWORKS Admin</font>
+			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENHOME Admin</font>
 </div>
 
+<div id="center">
 <!-- menu -->
 <div id="menu">
-	<ul class="menudecoration">
-		<li style="cursor:pointer;"><a onclick="">게시판 관리</a></li>
-		<li style="cursor:pointer;"><a onclick="">게시글 관리</a></li>
-		<li style="cursor:pointer;"><a onclick="javasciprt:staticGraphAjax()">트래픽 통계</a></li>
-	</ul>
+<ul class="menudecoration">
+	<li style="cursor:pointer;"><a onclick="javascript:goBoardManageAjax()">게시판 관리</a></li>
+	<li style="cursor:pointer;"><a onclick="javascript:goArticlesAjax()">게시글 관리</a></li>
+	<li style="cursor:pointer;"><a onclick="javasciprt:goStaticGraphAjax()">트래픽 통계</a></li>
+</ul>
 </div>
 
+<div id="center-right">
 <!-- top -->
 <div id="top">
-	Welcome to OpenWorks
+	Welcome to OPENHOME
 </div>
 
-<!-- footer -->
-<div id="footer">
-</div>
+<div id="body">
 
 <!-- body-home -->
 <div style="margin:10px;" class="homeMainDiv">
-	<!-- 1st -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(1,1)">게시판1</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="1stMessage">
-			</tbody>
-		</table>		
+
+	<div style="width:100%;height:50px;">
+		<input type="text" placeholder="게시판 명을 입력하세요" style="width:280px;height:38px;padding-left:5px;"/>
+		<a type="button" class="btn btn-success" style="margin-right:20px;padding:8px;">추가</a>
+		<a type="button" class="btn btn-success pull-right" style="margin-right:20px;padding:8px;">순서 조정</a>
 	</div>
-	<!-- 2nd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(2,1)">게시판2</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="2ndMessage">
-			</tbody>
-		</table>		
-	</div>
-	<!-- 3rd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(3,1)">게시판3</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="3rdMessage">
-			</tbody>
-		</table>
-	</div>
-	<!-- 4rd -->
-	<div class="container home">
-		<table class="table">
-			<tr>
-				<th colspan="5"><a class="boardtitle" href="javascript:goBoardAjax(4,1)">게시판4</a></th>
-				<th>작성날짜</th>
-			</tr>
-			<tbody id="4rdMessage">
-			</tbody>
-		</table>
-	</div>
+	<table class="table">
+		<thead>
+		<tr>
+			<th style="width:85%">게시글판목록</th>
+			<th style="width:5%"></th>
+			<th style="width:5%"></th>
+			<th style="width:5%"></th>
+		</tr>
+		</thead>
+		<tbody class="tbody admin">	
+		</tbody>
+	</table>
+
 </div>
 
 <!-- body-board -->
@@ -85,19 +73,16 @@
 		<table class="table">
 			<thead>
 			<tr>
-				<th style="width:5%">번호</th>
-				<th style="width:35%;">제목</th>
-				<th style="width:40%">미리보기</th>
-				<th style="width:10%">작성날짜</th>
-				<th style="width:10%">작성자</th>
+				<th style="width:10%"></th>
+				<th style="width:60%">게시글 목록</th>
+				<th style="width:20%;">게시판 이름</th>
+				<th style="width:10%"></th>
 			</tr>
 			</thead>
 			<tbody class="tbody">	
 			</tbody>
 		</table>
 		
-		<a type="button" class="btn btn-success pull-right" style="margin-right:20px">글쓰기</a><br>
-
 		<div class="text-center">
 			<ul class="pagination">
 					 <li id="indexNow"></li>
@@ -126,9 +111,6 @@
 			</tbody>
 		</table>
 
-		<a type="button" class="btn btn-default pull-right" style="margin-right:10px;width:80px;">취소</a>		
-		<a type="button" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a>
-
 	</div>	
 </div>
 
@@ -144,6 +126,13 @@
 	</div>
 </div>
 
+</div>
+</div>
+</div>
+<!-- footer -->
+<div id="footer">
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver=18"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 9"></script>

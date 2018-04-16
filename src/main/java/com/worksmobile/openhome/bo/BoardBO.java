@@ -1,3 +1,7 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ */
 package com.worksmobile.openhome.bo;
 
 import java.util.List;
@@ -9,9 +13,11 @@ import com.worksmobile.openhome.model.Board;
 @Service
 public interface BoardBO {
 	
+
 	/*Board*/
 	/*@author Youngho Jo*/
-	public List<Board> getMenuList();
+	public List<Board> getBoardList();
 	public void removeBoard(int boardNum);	
+	
 
 }

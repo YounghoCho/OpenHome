@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  
+ * Application java
+ * @Author : Youngho Jo
+ -->	
+<mapper namespace="manager">
+	<select id="checkAdminLogin" resultType="int">
+		SELECT 
+			count(managerNum) as checkLoginManager
+		FROM 
+			manager
+		WHERE
+			managerId = #{managerId}
+		AND 
+			managerPwd = #{managerPwd} 
+	</select>
+</mapper>

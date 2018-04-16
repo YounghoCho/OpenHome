@@ -1,4 +1,9 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ */
 package com.worksmobile.openhome.bo;
+
 
 import java.util.List;
 
@@ -11,20 +16,17 @@ import com.worksmobile.openhome.model.Board;
 
 @Service("BoardBO")
 public class BoardBOImpl implements BoardBO{
-	
+
 	@Resource(name="BoardDAO")
-	private BoardDAO boarddao;
+	private BoardDAO dao;
 	
-	/*Board*/
-	/*@author Youngho Jo*/
 	@Override
-	public List<Board> getMenuList() {
-		return boarddao.getMenuList();
+	public List<Board> getBoardList() {
+		return dao.getBoardList();
 	}
 	@Override
 	public void removeBoard(int boardNum) {
-		boarddao.removeBoard(boardNum);
+		dao.removeBoard(boardNum);
 	}
-
 }
 

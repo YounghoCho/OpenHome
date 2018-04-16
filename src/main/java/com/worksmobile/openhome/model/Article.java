@@ -3,7 +3,7 @@ package com.worksmobile.openhome.model;
 import java.util.Date;
 
 public class Article {
-	
+
 	private int articleNum;
 	private int boardNum;
 	private String articleSubject;
@@ -12,13 +12,12 @@ public class Article {
 	private Date articleDate;
 	private String articleWriter;
 	private String articleAccessPwd;
+	private int ROWNUM;
 	
 	public Article() {
 
 	}
 	
-	
-
 	public Article(int boardNum, String articleSubject, String articleTextContent, String articleContent,
 			String articleWriter, String articleAccessPwd) {
 		this.boardNum = boardNum;
@@ -28,8 +27,15 @@ public class Article {
 		this.articleWriter = articleWriter;
 		this.articleAccessPwd = articleAccessPwd;
 	}
+	
+	
+	public int getROWNUM() {
+		return ROWNUM;
+	}
 
-
+	public void setROWNUM(int ROWNUM) {
+		this.ROWNUM = ROWNUM;
+	}
 
 	public int getArticleNum() {
 		return articleNum;

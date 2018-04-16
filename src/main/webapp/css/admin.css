@@ -42,6 +42,7 @@
 	font-weight:bold;
 	font-color:#1EC800;
 	font-size:20px;
+
 	position:absolute;
 	border-bottom: 1px solid #dcdcdc;
 	height:70px;
@@ -111,6 +112,23 @@
 a{
 	display:block;	
 }
+#mask{
+	position:absolute;
+	left:0; top:0; 
+	z-index:10;
+	background-color:#111;
+	display:none;
+}
+.window{
+	  display: none;
+	  position:absolute;  
+	  left:30%;
+	  top:20%;
+	  z-index:20;
+	  background-color:#fff;
+	  width:500px;
+	  height:350px;
+}
 
 /*body*/
 .container.home{
@@ -118,7 +136,6 @@ a{
 	border-left:2px solid #ccc;
 	border-right:2px solid #ccc;
 	border-bottom:4px solid #ccc;
-
 	width:40%;
 	height:330px;
 	float:left;
@@ -157,17 +174,21 @@ td{
 	color: black;
 }
 
+
 .homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
+}
+
+/* .container.board, .container.read, .container.static, .container.realTime, .homeMainDiv{
 	display:none;
-	/* position:absolute;
+	position:absolute;
 	top:70px;
 	bottom:30px;
-	overflow:auto; */
+	overflow:auto;
 	height:100%;
-	/* left:249px; */
+	left:249px;
 	width:100%;
 	padding-top:10px;
-}
+} */
 
 /* .container.home, .container.board, .container.read, .container.static, .container.realTime{
 	display:none;
@@ -266,4 +287,11 @@ rect .highcharts-button-box{
     width: 100%;
     border-top: 1px solid #5d5d5d;
     height: 29px;
+}
+
+/*Admin*/
+.removeArticle{
+	color:#1EC800;
+	cursor: pointer;
+
 }

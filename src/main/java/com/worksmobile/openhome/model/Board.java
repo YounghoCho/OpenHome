@@ -5,6 +5,7 @@ import java.util.Date;
 public class Board {
 
 	private int boardNum;
+	private int countAll;
 	private String boardTitle;
 	private Date boardDate;
 	private int managerNum;
@@ -12,6 +13,14 @@ public class Board {
 	
 	public Board() {
 		
+	}
+
+	public int getCountAll() {
+		return countAll;
+	}
+
+	public void setCountAll(int countAll) {
+		this.countAll = countAll;
 	}
 
 	public int getBoardNum() {

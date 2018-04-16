@@ -14,9 +14,11 @@ public class ManagerDAO {
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
+
 	public ManagerDAO() {}
 	
 	/*Manager*/
+	//////////////////////////////Methods//////////////////////////////
 	public int checkAdminLogin(String managerId, String managerPwd) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("managerId", managerId);
@@ -24,4 +26,5 @@ public class ManagerDAO {
 		
 		return sqlsession.selectOne(NAMESPACE_MANAGER + "checkAdminLogin", paramMap);
 	}
+
 }

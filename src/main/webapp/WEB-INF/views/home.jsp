@@ -2,36 +2,37 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/layout.css?ver=26">
+	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=28">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 
 <!-- header -->
 <div id="header" style="background-color:#000040;">
 		<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
-			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENWORKS</font></a>
+			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENHOME</font></a>
 </div>
 
 <div id="center">
 <!-- menu -->
 <div id="menu">
-	<ul class="menudecoration">
-		<li style="cursor:pointer;"onclick="javascript:goHomeAjax()">홈</li>
-	</ul>
+<ul class="menudecoration">
+	<li style="cursor:pointer;"onclick="javascript:goHomeAjax()">홈</li>
+</ul>
 </div>
 	
 <div id="center-right">
 <!-- top -->
 <div id="top">
-	Welcome to OpenWorks
+	Welcome to OPENHOME
 </div>
 	
 <!-- body -->
 <div id="body">
 	<!-- body-home -->
-	<div style="margin:10px;" class="homeMainDiv">
-	</div>
-	
-	<!-- body-board -->
+<div style="margin:10px;" class="homeMainDiv">
+</div>
+
+<!-- body-board -->
 <div id="singleBoard">
 	<div id="wrap" class="container board">	<!--auto margin-->
 		<div class="boardtitle tt"></div>
@@ -127,8 +128,10 @@
 				<input type="hidden" id="hidden_board_num" value="${param.boardNum}"/>
 			</div>
 		</div>
-	</div>
+
 </div>
+</div>
+
 </div>
 <!-- footer -->
 <div id="footer">
@@ -138,5 +141,4 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=8"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/article.js?ver=9"></script>

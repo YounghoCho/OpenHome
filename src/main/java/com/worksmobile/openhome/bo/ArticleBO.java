@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.worksmobile.openhome.model.Article;
 
+
 @Service
 public interface ArticleBO {
 	
@@ -18,6 +19,7 @@ public interface ArticleBO {
 	public int getArticleTotalCount(int boardNumber);
 	public List<Article> getArticleDetails(int articleNumber);
 	public List<Article> getAllArticles();
+	
 	public void removeArticle(int articleNum);
 	
 }

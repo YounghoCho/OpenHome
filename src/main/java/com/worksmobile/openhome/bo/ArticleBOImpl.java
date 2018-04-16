@@ -1,3 +1,4 @@
+
 package com.worksmobile.openhome.bo;
 
 import java.util.List;
@@ -14,43 +15,38 @@ import com.worksmobile.openhome.model.Article;
 public class ArticleBOImpl implements ArticleBO{
 
 	@Resource(name="ArticleDAO")
-	private ArticleDAO articledao;
+	private ArticleDAO dao;
 
 	/*@author Suji Jang*/
 	@Override
 	public void addArticleNum() {
-		articledao.addArticleNum();
+		dao.addArticleNum();
 	}
 	
 	@Override
 	public int addArticle(Article article) {
-		return articledao.addArticle(article);
+		return dao.addArticle(article);
 	}
-	
 
-	/*@author Youngho Jo*/
+	/*Article*/
 	@Override
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
-		return articledao.getArticleList(boardNumber, currentPageNo, pageSize);
+		return dao.getArticleList(boardNumber, currentPageNo, pageSize);
 	}
 	@Override
 	public int getArticleTotalCount(int boardNumber) {
-		return articledao.getArticleTotalCount(boardNumber);
+		return dao.getArticleTotalCount(boardNumber);
 	}
 	@Override
 	public List<Article> getArticleDetails(int articleNumber) {
-		return articledao.getArticleDetails(articleNumber);
+		return dao.getArticleDetails(articleNumber);
 	}
-	
 	@Override
 	public List<Article> getAllArticles() {
-		return articledao.getAllArticles();
+		return dao.getAllArticles();
 	}
 	@Override
 	public void removeArticle(int articleNum) {
-		articledao.removeArticle(articleNum);
-	}
-
-
-
+		dao.removeArticle(articleNum);
+	}	
 }
