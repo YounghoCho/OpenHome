@@ -1,56 +1,31 @@
 /*
  * Application java
  * @Author : Youngho Jo
- *           Suji    Jang
  */
 package com.worksmobile.openhome.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.worksmobile.openhome.bo.OpenhomeBO;
+import com.worksmobile.openhome.bo.ArticleBO;
 
 @RestController
-@RequestMapping("/api")
-public class RestapiController {
-	@Resource(name = "BoardService")
-	private OpenhomeBO service;
-
-	/*board*/
-	//Board List
-	@RequestMapping(value = "/menuList", method = RequestMethod.GET)
-	@ResponseBody
-	public Object getMenuList() throws Exception{
-		Map<String, Object> result = new HashMap<>();
-		result.put("menuList", service.getMenuList());
-		return result;	
-	}
-	//Board Remove
-	@RequestMapping(value = "/boardRemove", method = RequestMethod.DELETE)
-	@ResponseBody
-	public String removeBoard(HttpServletRequest req) throws Exception {
-		int boardNum = Integer.parseInt(req.getParameter("boardNum"));
-		service.removeBoard(boardNum);
-	return "SUCCESS";
-	}
+@RequestMapping("/api/article/")
+public class ArticleController {
+	@Resource
+	private ArticleBO service;
 	
-	/*Article*/
-	//Home(4 boards)
+	//홈화면에 필요한 게시판 내용들을 얻는다.
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getHomeList(HttpServletRequest req) throws Exception{
 		String[] arrNum = req.getParameterValues("stringArray[]");     		
-		//System.out.println("배열에 들어있는값 : "+Arrays.toString(aStr));//출력1
-		//for(String str : aStr){System.out.println(str);}//출력2
 		String[] boardCount = req.getParameterValues("boardCount");     
 		int len = Integer.parseInt(boardCount[0]);
 		
@@ -62,10 +37,10 @@ public class RestapiController {
 			//게시판의 고유번호가 4,1,2,3,6으로 들어오면, articleList도 4,1,2,3,6 을 붙여 결과를 반환한다.
 			result.put("articleList" + (Integer.parseInt(arrNum[index])-1), service.getArticleList(Integer.parseInt(arrNum[index]), currentPageNo, pageSize));
 		}
-
 		return result;	
 	}
-	//Board Articles
+	
+	//특정 게시판의 게시글과, 게시글 개수를 얻는다.
 	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoard(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -79,7 +54,8 @@ public class RestapiController {
 
 		return result;
 	}
-	//Board Details
+	
+	//게시 글의 상세 내용을 얻는다.
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getContents(HttpServletRequest req, HttpServletResponse res) throws Exception {	
@@ -88,7 +64,8 @@ public class RestapiController {
 		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
-	//Admin Article Lists
+	
+	//모든 게시글을 얻는다. (Admin)
 	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getAllArticles() throws Exception {	
@@ -97,7 +74,8 @@ public class RestapiController {
 		result.put("allArticles", service.getAllArticles());
 		return result;
 	}
-	//Admin Article Remove
+	
+	//게시글을 삭제한다.
 	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String removeArticle(HttpServletRequest req) throws Exception {
@@ -105,27 +83,4 @@ public class RestapiController {
 		service.removeArticle(articleNum);
 	return "SUCCESS";
 	}
-	
-	/*Traffic*/
-	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
-	@ResponseBody
-	public Object getTraffic(HttpServletRequest req, HttpServletResponse res) throws Exception{
-		Map<String, Object> result = new HashMap<>();
-		result.put("trafficData", service.getTrafficData());
-		result.put("trafficCount", service.getTrafficCount());
-
-		return result;
-	}	
-
-	//Login data
-	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
-	@ResponseBody
-	public Object checkAdminLogin(HttpServletRequest req, HttpServletResponse res) throws Exception{
-		Map<String, Object> result = new HashMap<>();
-		String managerId = req.getParameter("managerId");
-		String managerPwd = req.getParameter("managerPwd");
-		result.put("checkAdminLogin", service.checkAdminLogin(managerId, managerPwd));
-
-		return result;
-	}	
 }
