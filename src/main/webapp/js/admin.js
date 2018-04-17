@@ -31,9 +31,7 @@ function goBoardManageAjax(){
 	});
 	history.pushState({ data: '1' }, 'title1', '?depth=1');
 }
-function updateBoard(boardNum){ //input정보도 넘겨야함.
-	alert("update");
-}
+//Board 삭제
 function removeBoard(boardNum){
 	if (!confirm("삭제하시겠습니까? 모든 게시글이 삭제됩니다.")) {
         return;
@@ -52,7 +50,7 @@ function removeBoard(boardNum){
 		}
 	});
 }
-//Create New Board
+//Board 추가
 $("#newBoardButton").on("click", function(){
 	jQuery.ajax({
 		type : "POST",
@@ -61,6 +59,7 @@ $("#newBoardButton").on("click", function(){
 		success : function(res){
 			if(res == "SUCCESS"){
 				alert("추가되었습니다.");
+				$('#boardTitle').val('');
 				goBoardManageAjax();
 			}
 		},
@@ -69,6 +68,79 @@ $("#newBoardButton").on("click", function(){
 		}
 	});
 });
+//Board 순서 조정
+$("#orderButton").on("click", function(){		
+		//검은막 띄우기
+		var maskHeight = $(document).height();
+		var maskWidth = $(window).width();
+		$("#mask").css({'width':maskWidth, 'height':maskHeight});
+		$("#mask").fadeIn(1000);
+		$("#mask").fadeTo("slow", 0.9);
+		$(".orderWindow").fadeIn(1000);
+		//드래그앤 드롭
+		var tableOrder = new Array();
+		$( "#sortable" ).sortable({
+			axis: "y",
+			containment: "parent",
+			update: function (event, ui) {
+				tableOrder = $(this).sortable('toArray', {
+					attribute: 'data-name'
+				});
+//				alert(tableOrder);
+			}
+		});
+		//게시판 목록 보이기
+		jQuery.ajax({
+			type : "GET",
+			url : "api/board/boardList",
+			dataType : "json",
+			success : function(res){ 
+				for(index = 0; index < res.boardList.length; index++){
+					$('#sortable').append(
+						"<li id=\"sortableList\" class=\"sortableList" + index + "\" data-name=\' "+
+						res.boardList[index].boardNum +
+						"\'>" + 
+						res.boardList[index].boardTitle +
+						"</li>");
+				}
+				$('#sortable').append(
+						"<button class=\"btn btn-success\" id=\"saveOrderButton\">순서 저장</button>");
+				//Custom Attribute로 데이터 전송
+				$("#saveOrderButton").on("click", function(){
+					//순서 저장
+					jQuery.ajax({
+						type : "POST",
+						url : "api/board/boardOrderChange",
+						dataType : "json",
+						data : tableOrder,
+						success : function(res){
+							if(res == "SUCCESS"){
+								alert("게시판 순서가 변경 되었습니다.")
+								$("#mask").hide();
+								$(".orderWindow").hide();
+								goBoardManageAjax();
+							}
+						},
+						error : function(err){
+							alert(err);
+						}
+					});
+				});
+			},
+			error : function(err){
+				alert(err);
+			}
+		});	
+		
+		//순서 조정 창 닫기
+		$("#closeChange").on("click", function(){
+			$("#mask").hide();
+			$(".orderWindow").hide();
+		});
+
+});
+
+
 
 /*Articles*/
 function goArticlesAjax(){
@@ -95,7 +167,7 @@ function goArticlesAjax(){
 			}
 		},
 		error : function(err){
-			alert("너니?"+err);
+			alert(err);
 		}
 	});
 	history.pushState({ data: '2' }, 'title2', '?depth=2');

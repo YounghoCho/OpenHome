@@ -115,16 +115,16 @@ a{
 #mask{
 	position:absolute;
 	left:0; top:0; 
-	z-index:10;
+	z-index:25;
 	background-color:#111;
 	display:none;
 }
-.window{
+.window, .orderWindow{
 	  display: none;
 	  position:absolute;  
 	  left:30%;
 	  top:20%;
-	  z-index:20;
+	  z-index:26;
 	  background-color:#fff;
 	  width:500px;
 	  height:350px;
@@ -294,4 +294,15 @@ rect .highcharts-button-box{
 	color:#1EC800;
 	cursor: pointer;
 
+}
+#sortableList{
+	list-style: none; 
+	border-width: 1px; 
+	border-style: solid; 
+	border-color: #5d5d5d; 
+	padding : 10px;
+	margin : 5px;
+}
+#saveOrderButton{
+	marign:10px;
 }
