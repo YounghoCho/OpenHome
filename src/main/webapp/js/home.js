@@ -57,7 +57,7 @@ function goHomeAjax(){
 						"<div class=\"container home\">" +
 							"<table class=\"table\">" +
 								"<tr>" + 
-									"<th colspan=\"5\">" +
+									"<th colspan=\"4\">" +
 										"<a class=\"boardtitle\" href=\"javascript:goBoardAjax(" + arrNum[index] + ",1)\">" + res.boardList[index].boardTitle + "</a>" +
 									"</th>" +
 									"<th>작성날짜</th>" +
@@ -79,13 +79,13 @@ function goHomeAjax(){
 		// 4. 총 게시판의 개수만큼 반복할 것이며,
 					for(var idIncreased2 = 1; idIncreased2 <= len; idIncreased2++){ 
 		// 5. 중복 코드를 줄이기 위해 동적 변수를 사용하여, 각 게시판의 데이터 객체를 저장한다.						
-						eval("active = res.articleList" + (arrNum[idIncreased2 - 1] - 1));
+						eval("active = res.homeList" + (arrNum[idIncreased2 - 1] - 1));
 						
 		// 6. 첫번 째 게시판의 내용 갯수를 기본 길이로 설정하고, 게시판 내용을 그려넣는다. 
-						var articleLen = active.length;
-						for(var index = 1; index <= articleLen; index++){
+						var homeListLen = active.length;
+						for(var index = 1; index <= homeListLen; index++){
 						$("#" + idIncreased2 + "Message").append(
-								"<tr><td colspan=\"5\"><a href=\"javascript:goRead(" + 
+								"<tr><td colspan=\"4\"><a href=\"javascript:goRead(" + 
 								active[index-1].articleNum + ")\" class=\"boardtds\">" + active[index-1].articleTextContent + "</a></td>" +
 								"<td>" + active[index-1].articleDate.substring(0,10) + "</td></tr>");		
 		// 7. 내용 갯수를, 다음 순서의 게시판의 것으로 갱신하고 반복한다.
