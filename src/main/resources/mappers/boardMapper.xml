@@ -32,7 +32,15 @@
 		INTO
 			board(boardTitle, boardDate, managerNum, boardOrderNum)
 		VALUES 
-			(#{boardTitle}, now(), 1, (SELECT MAX(boardOrderNum)+1 FROM board as BON) );
+			(#{boardTitle}, now(), 1, (SELECT MAX(boardOrderNum)+1 FROM board as BON) )
 	</insert>	
 	
+	<update id="updateBoardOrders" parameterType="com.worksmobile.openhome.model.Board">
+		UPDATE
+			board
+		SET
+			boardOrderNum = #{boardOrderNum}
+		WHERE 
+			boardNum = #{boardNum}
+	</update>		
 </mapper>

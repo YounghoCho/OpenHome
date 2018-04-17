@@ -97,7 +97,7 @@ $("#orderButton").on("click", function(){
 			success : function(res){ 
 				for(index = 0; index < res.boardList.length; index++){
 					$('#sortable').append(
-						"<li id=\"sortableList\" class=\"sortableList" + index + "\" data-name=\' "+
+						"<li id=\"sortableList\" class=\"sortableList" + index + "\" data-name=\'"+
 						res.boardList[index].boardNum +
 						"\'>" + 
 						res.boardList[index].boardTitle +
@@ -110,9 +110,8 @@ $("#orderButton").on("click", function(){
 					//순서 저장
 					jQuery.ajax({
 						type : "POST",
-						url : "api/board/boardOrderChange",
-						dataType : "json",
-						data : tableOrder,
+						url : "api/board/boardOrders",
+						data :  {"tableOrder" : tableOrder},
 						success : function(res){
 							if(res == "SUCCESS"){
 								alert("게시판 순서가 변경 되었습니다.")
@@ -122,7 +121,7 @@ $("#orderButton").on("click", function(){
 							}
 						},
 						error : function(err){
-							alert(err);
+							alert("에러"+err);
 						}
 					});
 				});

@@ -32,5 +32,9 @@ public class BoardBOImpl implements BoardBO{
 	public void createNewBoard(String boardTitle) {
 		dao.createNewBoard(boardTitle);
 	}
+	@Override
+	public void updateBoardOrders(int boardNum, int boardOrderNum) {
+		dao.updateBoardOrders(boardNum, boardOrderNum);
+	}
 }
 
