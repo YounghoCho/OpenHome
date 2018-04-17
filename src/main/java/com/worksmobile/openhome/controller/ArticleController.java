@@ -28,7 +28,7 @@ public class ArticleController {
 	//홈화면에 필요한 게시판 내용들을 얻는다.
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getHomeList(HttpServletRequest req) throws Exception{
+	public Object getHomeList(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		String[] arrNum = req.getParameterValues("stringArray[]");     		
 		String[] boardCount = req.getParameterValues("boardCount");     
 		int len = Integer.parseInt(boardCount[0]);
@@ -70,7 +70,7 @@ public class ArticleController {
 	
 	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getAllArticles() throws Exception {	
+	public Object getAllArticles(HttpServletRequest req, HttpServletResponse res) throws Exception {	
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("allArticles", service.getAllArticles());
@@ -80,7 +80,7 @@ public class ArticleController {
 	//게시글을 삭제한다.
 	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
 	@ResponseBody
-	public String removeArticle(HttpServletRequest req) throws Exception {
+	public String removeArticle(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		int articleNum = Integer.parseInt(req.getParameter("articleNum"));
 		service.removeArticle(articleNum);
 	return "SUCCESS";
