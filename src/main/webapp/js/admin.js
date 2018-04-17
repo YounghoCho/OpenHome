@@ -15,15 +15,45 @@ function goBoardManageAjax(){
 			//Setting Board Lists
 			for(var index = 0; index < res.boardList.length; index++){
 			$(".tbody.admin").append(
-					"<tr>" +
+					"<tr id=\"tableSection\">" +
 					"<td>" + res.boardList[index].boardTitle + "</td>" + 
-					"<td><a class=\"removeArticle\"" + 
-						"onclick=\"javascipr:updateBoard(" + res.boardList[index].boardNum + ")\">수정</a></td>" +
-					"<td><a class=\"removeArticle\"" + 
+					"<td><a class=\"updateBoard\"" + 
+						"data-board-num=\"" + res.boardList[index].boardNum + "\">수정</a></td>" +
+					"<td><a class=\"removeBoard\"" + 
 					"onclick=\"javascipr:removeBoard(" + res.boardList[index].boardNum + ")\">삭제</a></td>" +
 					"<td></td>" +
 					"</tr>");
 			}
+			//Board 수정 버튼 클릭
+			$(".updateBoard").on("click", function(){
+				//alert($(".updateBoard").data("boardNum"));
+				var maskHeight = $(document).height();
+				var maskWidth = $(window).width();
+				$("#mask").css({'width':maskWidth, 'height':maskHeight});
+				$("#mask").fadeIn(1000);
+				$("#mask").fadeTo("slow", 0.9);
+				$(".boardTitleWindow").fadeIn(1000);
+				//최종 수정 버튼 클릭
+				$("#updateBoardButton").on("click", function(){
+					$.ajax({
+						type : "PUT",
+						url : "api/board/boardTitles",								   //line 20
+						data : { "boardTitle" : $("#newTitle").val(), "boardNum" : $(".updateBoard").data("boardNum")},
+						success : function(res){			
+							if(res == "SUCCESS"){
+								alert("변경되었습니다.");
+								$("#mask").hide();
+								$(".boardTitleWindow").hide();
+								goBoardManageAjax();
+							}
+						},
+						error : function(err){
+							alert(err);
+						}
+					});
+				});
+			});
+			
 		},
 		error : function(err){
 		alert(err);
@@ -31,6 +61,7 @@ function goBoardManageAjax(){
 	});
 	history.pushState({ data: '1' }, 'title1', '?depth=1');
 }
+
 //Board 삭제
 function removeBoard(boardNum){
 	if (!confirm("삭제하시겠습니까? 모든 게시글이 삭제됩니다.")) {
@@ -109,7 +140,7 @@ $("#orderButton").on("click", function(){
 				$("#saveOrderButton").on("click", function(){
 					//순서 저장
 					jQuery.ajax({
-						type : "POST",
+						type : "PUT",
 						url : "api/board/boardOrders",
 						data :  {"tableOrder" : tableOrder},
 						success : function(res){
@@ -130,16 +161,17 @@ $("#orderButton").on("click", function(){
 				alert(err);
 			}
 		});	
-		
-		//순서 조정 창 닫기
-		$("#closeChange").on("click", function(){
-			$("#mask").hide();
-			$(".orderWindow").hide();
-		});
-
 });
 
-
+//순서 조정 창 닫기
+$("#closeChange").on("click", function(){
+	$("#mask").hide();
+	$(".orderWindow").hide();
+});
+$("#closeChange2").on("click", function(){
+	$("#mask").hide();
+	$(".boardTitleWindow").hide();
+});
 
 /*Articles*/
 function goArticlesAjax(){

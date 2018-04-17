@@ -49,7 +49,7 @@ public class BoardController {
 	}
 	
 	//게시판 순서를 변경한다.
-	@RequestMapping(value = "/boardOrders", method = RequestMethod.POST)
+	@RequestMapping(value = "/boardOrders", method = RequestMethod.PUT)
 	@ResponseBody
 	public String updateBoardOrders(HttpServletRequest req) throws Exception {
 		String[] tableOrder = req.getParameterValues("tableOrder[]"); 
@@ -58,6 +58,14 @@ public class BoardController {
 									 //새로 정렬된 게시판의 고유번호, 게시판의 우선순위
 			service.updateBoardOrders(Integer.parseInt(tableOrder[index-1]), index);		
 		}		
+		return "SUCCESS";
+	}
+	
+	//게시판 명을 변경한다.
+	@RequestMapping(value = "/boardTitles", method = RequestMethod.PUT)
+	@ResponseBody
+	public String updateBoardTitles(HttpServletRequest req) throws Exception {
+		service.updateBoardTitles(req.getParameter("boardTitle"), Integer.parseInt(req.getParameter("boardNum")));		
 		return "SUCCESS";
 	}
 }

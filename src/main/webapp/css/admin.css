@@ -120,16 +120,25 @@ a{
 	display:none;
 }
 .window, .orderWindow{
-	  display: none;
-	  position:absolute;  
-	  left:30%;
-	  top:20%;
-	  z-index:26;
-	  background-color:#fff;
-	  width:500px;
-	  height:350px;
+	display: none;
+	position:absolute;  
+	left:30%;
+	top:20%;
+	z-index:26;
+	background-color:#fff;
+	width:500px;
+	height:350px;
 }
-
+.boardTitleWindow{
+	display: none;
+	position:absolute;  
+	left:30%;
+	top:20%;
+	z-index:26;
+	background-color:#fff;
+	width:500px;
+	height:150px;
+}
 /*body*/
 .container.home{
 	border-top:1px solid #ccc;
@@ -293,7 +302,17 @@ rect .highcharts-button-box{
 .removeArticle{
 	color:#1EC800;
 	cursor: pointer;
-
+}
+.removeBoard{
+	color:#5d5d5d;
+	cursor: pointer;
+}
+.updateBoard{
+	color:#1EC800;
+	cursor: pointer;
+}
+.updateBoard:hover{
+	color:#5d5d5d;
 }
 #sortableList{
 	list-style: none; 

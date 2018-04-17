@@ -44,6 +44,13 @@ public class BoardDAO {
 		paramMap.put("boardNum", boardNum);
 		paramMap.put("boardOrderNum", boardOrderNum);
 		sqlsession.delete(NAMESPACE_BOARD + "updateBoardOrders", paramMap);			
-	}	
+	}
+
+	public void updateBoardTitles(String boardTitle, int boardNum) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("boardTitle", boardTitle);
+		paramMap.put("boardNum", boardNum);
+		sqlsession.delete(NAMESPACE_BOARD + "updateBoardTitles", paramMap);			
+	}
 	
 }

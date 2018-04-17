@@ -17,6 +17,6 @@ public interface BoardBO {
 	public List<Board> getBoardList();
 	public void removeBoard(int boardNum);	
 	public void createNewBoard(String boardTitle);
-	public void updateBoardOrders(int boardNum, int boardOrderNum);	
-
+	public void updateBoardOrders(int boardNum, int boardOrderNum);
+	public void updateBoardTitles(String boardTitle, int boardNum);	
 }

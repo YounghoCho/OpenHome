@@ -73,7 +73,7 @@ function goHomeAjax(){
 				type : "GET",
 				url : "api/article/homeList",
 				dataType : "json",
-				data: {"stringArray" : arrNum, "boardCount" : len}, 
+				data : {"stringArray" : arrNum, "boardCount" : len}, 
 		
 				success : function(res){					
 		// 4. 총 게시판의 개수만큼 반복할 것이며,

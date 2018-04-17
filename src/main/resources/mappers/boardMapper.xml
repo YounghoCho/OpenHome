@@ -43,4 +43,13 @@
 		WHERE 
 			boardNum = #{boardNum}
 	</update>		
+	
+	<update id="updateBoardTitles" parameterType="com.worksmobile.openhome.model.Board">
+		UPDATE
+			board
+		SET
+			boardTitle = #{boardTitle}
+		WHERE 
+			boardNum = #{boardNum}
+	</update>	
 </mapper>

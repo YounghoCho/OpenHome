@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=4">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=7">
 </head>
 
 <div id="mask"></div>
@@ -17,7 +17,7 @@
 		</a>
 	</div>
 </div>
-<!-- Change Board List -->
+<!-- Update Board List -->
 <div class="orderWindow">
 	<button class="btn btn-default pull-right" id="closeChange" style="margin:10px;"><font style="font-weight:bold;">x</font></button>
 	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">	
@@ -25,6 +25,16 @@
 		</ul>
 	</div>
 </div>
+<!-- Update Board Title -->
+<div class="boardTitleWindow">
+	<button class="btn btn-default pull-right" id="closeChange2" style="margin:10px;"><font style="font-weight:bold;">x</font></button>
+	<div style="width:80%;height:40%;margin-left:50px;margin-top:60px;text-align:center;">	
+		<input id="newTitle" type="text" placeholder="새로운 게시판명을 입력해 주세요" style="width:280px;height:38px;padding-left:5px;"/>
+		<a id="updateBoardButton" type="button" class="btn btn-success" style="margin-right:20px;padding:8px;">수정</a>
+	</div>
+</div>
+
+
 <!-- header -->
 <div id="header" style="background-color:#000040;">
 		<a href="${pageContext.request.contextPath}/admin" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
@@ -144,4 +154,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 3"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 5"></script>
