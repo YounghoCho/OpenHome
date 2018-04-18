@@ -19,7 +19,7 @@ public class AttachmentFile {
 	public AttachmentFile(int articleNum, String originalFileName, String storedFileName, int fileSize, String fileAttacher) {
 		this.articleNum = articleNum;
 		this.originalFileName = originalFileName;
-		this.storedFileName = originalFileName;
+		this.storedFileName = storedFileName;
 		this.fileSize = fileSize;
 		this.fileAttacher = fileAttacher;
 	}

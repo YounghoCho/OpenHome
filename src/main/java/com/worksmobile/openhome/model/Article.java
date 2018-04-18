@@ -12,20 +12,27 @@ public class Article {
 	private Date articleDate;
 	private String articleWriter;
 	private String articleAccessPwd;
+	private String articleStatus;
 	private int ROWNUM;
 	
 	public Article() {
 
 	}
 	
-	public Article(int boardNum, String articleSubject, String articleTextContent, String articleContent,
-			String articleWriter, String articleAccessPwd) {
+	public Article(int boardNum) {
+		this.boardNum = boardNum;
+	}
+	
+	public Article(int articleNum, int boardNum, String articleSubject, String articleTextContent, String articleContent,
+			String articleWriter, String articleAccessPwd, String articleStatus) {
+		this.articleNum = articleNum;
 		this.boardNum = boardNum;
 		this.articleSubject = articleSubject;
 		this.articleTextContent = articleTextContent;
 		this.articleContent = articleContent;
 		this.articleWriter = articleWriter;
 		this.articleAccessPwd = articleAccessPwd;
+		this.articleStatus = articleStatus;
 	}
 	
 	
@@ -101,5 +108,12 @@ public class Article {
 		this.articleAccessPwd = articleAccessPwd;
 	}
 
+	public String getArticleStatus() {
+		return articleStatus;
+	}
+
+	public void setArticleStatus(String articleStatus) {
+		this.articleStatus = articleStatus;
+	}
 
 }

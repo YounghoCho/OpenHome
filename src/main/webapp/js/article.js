@@ -33,35 +33,33 @@ $(document).ready(function(){
 	        }
 	        
 	        //formData에 게시글 관련 데이터 추가
-	        fd.append('boardNum', $('#boardNum').val());
 	        fd.append('articleWriter', $('#articleWriter').val());
-	     
+	        fd.append('articleNum', $('.articleWriteDiv').data("articleNum"));
+
 	        //값 전송
 			$.ajax({
 				type : 'post',
 				dataType : 'text',
-				url : 'addArticle',
-				data : 'boardNum=' + $('#boardNum').val() + '&articleWriter=' + $('#articleWriter').val()
+				url : 'api/article/addArticle',
+				data : 'articleNum=' + $('.articleWriteDiv').data("articleNum") + '&boardNum=' + $("#singleBoardTable").data("boardNum") + '&articleWriter=' + $('#articleWriter').val()
 						+ '&articleAccessPwd=' + $('#articleAccessPwd').val() + '&articleSubject=' + $('#articleSubject').val()
 						+ '&articleContent=' + $('#articleContent').val() + '&articleTextContent=' + articleTextContent,
-			    contentType : false,
-		        processData : false,
-		        cache : false,
 				success : function(res){
-					if ( res == "ok") {
+					if (res == "ok") {
 						if ( totalFileCount > 0) {
-							
 								$.ajax({
 									type : 'post',
 									dataType : 'text',
-									url : 'addFile',
+									url : 'api/attachmentfile/addFile',
 									data : fd,
 								    contentType : false,
 							        processData : false,
 							        cache : false,
 									success : function(res){
-										alert("게시글 및 첨부파일이 등록되었습니다.");
-										window.location = "../${pageContext.request.contextPath}/board";
+										if(res == "ok") {
+											alert("게시글 및 첨부파일이 등록되었습니다.");
+											/*window.location = "../${pageContext.request.contextPath}/board";*/
+										}
 									},
 									error : function(err) {
 										alert('readyState:' + err.readyState);
@@ -75,7 +73,7 @@ $(document).ready(function(){
 								window.location = "../${pageContext.request.contextPath}/board";
 							}
 					} else {
-						alert("게시글 등록이 완료되지 않았습니다.")
+						alert("게시글이 등록되지 않았습니다.");
 					}
 				},
 				error : function(err) {
@@ -216,45 +214,53 @@ $(document).ready(function(){
     	$('.file_checkbox').prop('checked', $(this).prop('checked'));
     });
 
-    //스마트에디터 프레임생성
-    nhn.husky.EZCreator.createInIFrame({
-        oAppRef: obj,
-        elPlaceHolder: "articleContent",
-        sSkinURI: "editor/SmartEditor2Skin.html",
-        htParams : {
-            // 툴바 사용 여부
-            bUseToolbar : true,            
-            // 입력창 크기 조절바 사용 여부
-            bUseVerticalResizer : true,    
-            // 모드 탭(Editor | HTML | TEXT) 사용 여부
-            bUseModeChanger : true,
-        },
-        fOnAppLoad:function(){
-        	$("iframe").css("width", "800px").css("height", "500px");
-        }
-    });
     
 	$('.btn.btn-success.pull-right').on('click', function(){
-		//alert("글쓰기 버튼 확인");
-		$("#articleContent").css("clear", "both");
-		/*$("iframe").css("height", "40%");*/
 		$("#singleBoard").hide();
 		$(".articleReadDiv").hide();
 		$(".homeMainDiv").hide();
 		$(".articleWriteDiv").show();
 		
-		var iframe = document.getElementsByTagName("iframe");
-		var smEditor = iframe[0];
-		if(smEditor) {
-			smEditor.style.height="300px";
-		}
+		$('iframe').remove();
+		$('#articleContent').remove();
+		$('#textarea_area').append('<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>');
 		
-		obj.getById["articleContent"].exec('REFRESH_WYSIWYG');
-		obj.getById["articleContent"].exec("CHANGE_EDITING_MODE", "[WYSIWYG]");
-		obj.getById["articleContent"].exec("RESET_TOOLBAR");
-		obj.getById["articleContent"].exec('FOCUS');
+		//스마트에디터 프레임생성
+	    nhn.husky.EZCreator.createInIFrame({
+	        oAppRef: obj,
+	        elPlaceHolder: "articleContent",
+	        sSkinURI: "editor/SmartEditor2Skin.html",
+	        htParams : {
+	            // 툴바 사용 여부
+	            bUseToolbar : true,            
+	            // 입력창 크기 조절바 사용 여부
+	            bUseVerticalResizer : true,    
+	            // 모드 탭(Editor | HTML | TEXT) 사용 여부
+	            bUseModeChanger : true,
+	        }
+	    });
+	    
+	    $.ajax({
+			type : 'post',
+			dataType : 'text',
+			url : 'api/article/addArticleNum',
+			data : 'boardNum=' + $("#singleBoardTable").data("boardNum"),
+			success : function(res){
+				$('.articleWriteDiv').removeData("articleNum");
+				$('.articleWriteDiv').data("articleNum", res);
+			},
+			error : function(err) {
+				alert('readyState:' + err.readyState);
+				alert('status:' + err.status);
+				alert('statusText:' + err.statusText);
+				alert('responseText:' + err.responseText);
+			}
+		})
 		
-		history.pushState({ data: '4' }, 'title4', '?depth=4');
+		history.pushState({ data: '5' }, 'title5', '?depth=5');
 	});
-    
+	
+	$("#boardTdFiles > ul > li").hover(function(){
+		$(this).css("text-decoration", "underline");
+	});
 });

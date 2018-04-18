@@ -1,15 +1,10 @@
-
 package com.worksmobile.openhome.bo;
 
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import com.worksmobile.openhome.dao.ArticleDAO;
 import com.worksmobile.openhome.model.Article;
-
 
 @Service("ArticleBO")
 public class ArticleBOImpl implements ArticleBO{
@@ -19,13 +14,18 @@ public class ArticleBOImpl implements ArticleBO{
 
 	/*@author Suji Jang*/
 	@Override
-	public void addArticleNum() {
-		dao.addArticleNum();
+	public void addArticleNum(Article article) {
+		dao.addArticleNum(article);
 	}
 	
 	@Override
-	public int addArticle(Article article) {
-		return dao.addArticle(article);
+	public String addArticle(Article article) {
+		int num =  dao.addArticle(article);
+		if (num == 1) {
+			return "ok";
+		} else {
+			return "sorry";
+		}
 	}
 
 	/*Article*/

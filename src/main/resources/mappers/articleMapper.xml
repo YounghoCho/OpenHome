@@ -15,6 +15,8 @@
 			article a, ( SELECT @ROWNUM := 0 ) R
 		WHERE
 			boardNum = #{boardNumber}
+		AND
+			articleStatus = 'Y'
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		
@@ -27,6 +29,8 @@
 			article
 		WHERE
 			boardNum = #{boardNumber}
+		AND
+			articleStatus = 'Y'
 	</select>
 			
 	<select id="getArticleDetails" resultType="com.worksmobile.openhome.model.Article">
@@ -46,6 +50,8 @@
 			article a, board b, ( SELECT @ROWNUM := 0 ) R
 		WHERE
 			a.boardNum = b.boardNum
+		AND
+			a.articleStatus = 'Y'
 	</select>
 
 	<delete id="removeArticle" parameterType="com.worksmobile.openhome.model.Article">
@@ -58,27 +64,23 @@
 	
 	<!-- @author suji -->
 	<update id="addArticle" parameterType="com.worksmobile.openhome.model.Article">
-	 	update 
+	 	UPDATE 
 	 		article 
-	 	set 
-	 		boardNum = #{boardNum}, 
+	 	SET 
 	 		articleSubject = #{articleSubject}, 
 	 		articleTextContent = #{articleTextContent},
 	 		articleContent = #{articleContent}, 
 	 		articleDate = now(), 
 	 		articleWriter = #{articleWriter}, 
 	 		articleAccessPwd = #{articleAccessPwd},
-	 		articleStatus = "Y"
-	 	where 
+	 		articleStatus = #{articleStatus}
+	 	WHERE 
 	 		articleNum = #{articleNum}
-	 	and
-	 		articleStatus = "N"
+	 	AND
+	 		articleStatus = 'N'
 	</update>
 	
 	<insert id="addArticleNum" parameterType="com.worksmobile.openhome.model.Article" useGeneratedKeys="true" keyProperty="articleNum">
-		insert into article values()
-		<selectKey resultType="int" keyProperty="articleNum" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
+		INSERT INTO article(boardNum) VALUES (#{boardNum})
 	</insert>
 </mapper>

@@ -11,8 +11,8 @@ import com.worksmobile.openhome.model.Article;
 public interface ArticleBO {
 	
 	/*@ author Suji Jang*/
-	public int addArticle(Article article);
-	public void addArticleNum();
+	public String addArticle(Article article);
+	public void addArticleNum(Article article);
 
 	/*@ author Youngho Jo*/
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize);

@@ -17,39 +17,33 @@ import com.worksmobile.openhome.dao.AttachmentFileDAO;
 import com.worksmobile.openhome.model.AttachmentFile;
 
 @Service("AttachmentFileBO")
-public class AttachmentFileImpl implements AttachmentFileBO{
+public class AttachmentFileBOImpl implements AttachmentFileBO{
 	
 	@Resource(name="AttachmentFileDAO")
 	private AttachmentFileDAO dao;
 
 /*	@ author Suji Jang */
-/*	@Override
-	public void addFileInfo(List<AttachmentFile> attachmentFileList) {
-		attachmentfiledao.addFileInfo(attachmentFileList);
-	}*/
-
-
 	@Override
-	public void addFile(int articleNum, String fileAttacher, MultipartHttpServletRequest multi) {
+	public String addFile(String fileAttacher, int articleNum, MultipartHttpServletRequest req) {
 		
 		//--첨부파일 등록--
 		//경로 설정
-		String root = multi.getSession().getServletContext().getRealPath("/");
+		String root = req.getSession().getServletContext().getRealPath("/");
 		String saveDirectory = root + "file/";
 		
 		//파일 디렉터리 생성
 		File dir = new File(saveDirectory);
-		if(!dir.isDirectory()) {
+		if (!dir.isDirectory()) {
 			dir.mkdirs();
 		}
 		
 		List<AttachmentFile> fList = new ArrayList<AttachmentFile>();
-		Iterator<String> files = multi.getFileNames();
+		Iterator<String> files = req.getFileNames();
 		
 		//파일 저장 및 map리스트 생성
 		while (files.hasNext()) {
 			String uploadFile = files.next();
-			MultipartFile multipartfile = multi.getFile(uploadFile);
+			MultipartFile multipartfile = req.getFile(uploadFile);
 			String originalFileName = multipartfile.getOriginalFilename();
 			
 			//파일 중복 방지
@@ -63,14 +57,26 @@ public class AttachmentFileImpl implements AttachmentFileBO{
 				e.printStackTrace();
 			}
 			
-			AttachmentFile attachmentfile = new AttachmentFile(articleNum, originalFileName, originalFileName, (int)multipartfile.getSize(), fileAttacher);
+			AttachmentFile attachmentfile = new AttachmentFile(articleNum, originalFileName, storedFileName, (int)multipartfile.getSize(), fileAttacher);
 			fList.add(attachmentfile);
 		}
 		
-		if (fList.size() != 0 ) {
-			//첨부파일 데이터베이스에 등록
-			dao.addFile(fList);
+		int uploadFileCount = 0;
+		//DB에 저장
+		for (AttachmentFile file : fList) {
+			uploadFileCount += dao.addFile(file);
 		}
+		
+		if (uploadFileCount == fList.size()) {
+			return "ok";
+		} else {
+			return "sorry";
+		}
+	}
+
+	@Override
+	public List<AttachmentFile> getFiles(int articleNumber) {
+		return dao.getFiles(articleNumber);
 	}
 }
 	

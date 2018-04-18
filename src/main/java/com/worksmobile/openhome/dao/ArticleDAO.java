@@ -19,12 +19,12 @@ public class ArticleDAO {
 	
 	/*@ author Suji Jang*/
 	public int addArticle(Article article) {
-		int num = sqlsession.insert(NAMESPACE_ARTICLE + "addArticle", article);
+		int num = sqlsession.update(NAMESPACE_ARTICLE + "addArticle", article);
 		return num;
 	}
 	
-	public void addArticleNum() {
-		sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum");
+	public void addArticleNum(Article article) {
+		sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum", article);
 	}
 	
 	/*@ author Youngho Jo*/

@@ -295,3 +295,8 @@ rect .highcharts-button-box{
 	cursor: pointer;
 
 }
+
+#boardTdFiles > ul {
+	font-size:10px;
+	list-style-type: none;
+}

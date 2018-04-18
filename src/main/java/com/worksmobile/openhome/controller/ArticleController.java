@@ -87,22 +87,23 @@ public class ArticleController {
 	}
 
 	/*@author Suji Jang*/
-	@RequestMapping(value="/addArticle", method=RequestMethod.POST)
-	public String addArticle(HttpServletRequest req, HttpServletResponse res) throws Exception { 
-		System.out.println("hh");
-		service.addArticleNum();
-		Article article = new Article(Integer.parseInt(req.getParameter("boardNum")), req.getParameter("articleSubject"),
-				req.getParameter("articleTextContent"), req.getParameter("articleContent"), req.getParameter("articleWriter"), 
-				req.getParameter("articleAccessPwd"));
-		int num = service.addArticle(article);
-		if (num == 1) {
-			return "ok";
-		} else {
-			return "sorry";
-		}
-		
+	@RequestMapping(value = "/addArticleNum", method = RequestMethod.POST)
+	@ResponseBody
+	public String addArticleNum(HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		Article article = new Article(Integer.parseInt(req.getParameter("boardNum")));
+		service.addArticleNum(article);
+		return String.valueOf(article.getArticleNum());
 	}
 	
+	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public String addArticle(HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		Article article = new Article(Integer.parseInt(req.getParameter("articleNum")), Integer.parseInt(req.getParameter("boardNum")),
+				req.getParameter("articleSubject"), req.getParameter("articleTextContent"), req.getParameter("articleContent"),
+				req.getParameter("articleWriter"), req.getParameter("articleAccessPwd"), "Y");
+		return service.addArticle(article);
+	}
 	
+
 }
 

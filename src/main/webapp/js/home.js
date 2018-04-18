@@ -157,6 +157,11 @@ function goBoardAjax(boardNumber, currentPageNo){
 				case 3: $(".boardtitle.tt").html("게시판3"); break;
 				case 4: $(".boardtitle.tt").html("게시판4"); break;
 			}
+			
+			//add custom-data on table
+			$('#singleBoardTable').removeData("boardNum");
+			$("#singleBoardTable").data("boardNum", boardIndex);
+			
 			//Removing Message Lists
 			$(".tbody > tr > td").remove();
 			//Setting Message Lists
@@ -186,6 +191,10 @@ function goRead(articleNumber){
 	$(".articleWriteDiv").hide();
 	$(".articleReadDiv").show();
 	
+	$('#boardTdSubject').empty();
+	$('#boardTdContent').empty();
+	$('#boardTdFiles > ul > li').remove();
+	
 	jQuery.ajax({
 		type: "GET",
 		url: "api/article/articleDetails",
@@ -199,6 +208,26 @@ function goRead(articleNumber){
 			alert("lose:"+err.status);
 		}
 	});
+	
+	$.ajax({
+		type: "get",
+		url: "api/attachmentfile/fileDetails",
+		dataType: 'json',
+		data: 'articleNumber='+ articleNumber,
+		success: function(res) {
+			$.each(res, function(index, value) {
+				$("#boardTdFiles > ul").append('<li data-fileNum=' 
+						+ value.fileNum + '><i class="far fa-file"></i>' + " "
+						+ value.originalFileName + '</li>');
+			});
+		},
+		error : function(err) {
+			alert('readyState:' + err.readyState);
+			alert('status:' + err.status);
+			alert('statusText:' + err.statusText);
+			alert('responseText:' + err.responseText);
+		}
+	});
 	history.pushState({ data: '3' }, 'title3', '?depth=3');
 }
 
@@ -206,17 +235,26 @@ function goRead(articleNumber){
 $(window).bind("popstate", function(event) {
 	try{
 		var index=event.originalEvent.state.data;
-		if (index == 2){
+		if (index == 2) {
 			$(".articleReadDiv").hide();
 			$(".homeMainDiv").hide();
 			$(".articleWriteDiv").hide();
 			$("#singleBoard").show();
-		}
-		else if (index == 1){
+		} else if (index == 1) {
 			$(".articleReadDiv").hide();
 			$("#singleBoard").hide();
 			$(".articleWriteDiv").hide();
 			$(".homeMainDiv").show();
+		} else if (index == 3) {
+			$(".articleReadDiv").show();
+			$("#singleBoard").hide();
+			$(".articleWriteDiv").hide();
+			$(".homeMainDiv").hide();
+		} else if (index == 5) {
+			$(".articleReadDiv").hide();
+			$("#singleBoard").hide();
+			$(".articleWriteDiv").show();
+			$(".homeMainDiv").hide();
 		}
 	}catch(exception){	
 		$("#singleBoard").hide();
