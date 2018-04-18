@@ -1,0 +1,7 @@
+*.properties
+
+*.class
+
+bin
+
+*.txt
