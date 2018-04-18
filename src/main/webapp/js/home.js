@@ -1,3 +1,7 @@
+/*enum*/
+var ReturnStatus = {"SUCCESS":"SUCCESS"};
+Object.freeze(ReturnStatus); //Object.freeze : 값 수정을 방지한다.
+
 /*--- First Page ---*/
 $(document).ready(function(){
 	getBoardListAjax();
@@ -40,7 +44,8 @@ function getBoardListAjax(){
 			totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
 			totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
 			let trafficKind = "read";
-			insertTrafficAjax(totalData, trafficKind);
+			if(totalData != 0)
+				insertTrafficAjax(totalData, trafficKind);
 			/////////////End////////////
 		},
 		error : function(err){
@@ -55,7 +60,7 @@ function insertTrafficAjax(trafficContentLength, trafficKind){
 		url : "api/traffic/contentLength",
 		data : "trafficContentLength=" + trafficContentLength + "&trafficKind=" + trafficKind,
 		success : function(res){
-			if(res == "SUCCESS"){				
+			if(res == ReturnStatus.SUCCESS){				
 			}
 		},
 		error : function(err){
@@ -122,7 +127,8 @@ function goHomeAjax(){
 			totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
 			totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
 			let trafficKind = "read";
-			insertTrafficAjax(totalData, trafficKind);
+			if(totalData != 0)
+				insertTrafficAjax(totalData, trafficKind);
 			/////////////End////////////	
 			
 		// 3. 게시판 내용들을 불러온다 (articleList0, 1, 2...) 
@@ -164,7 +170,8 @@ function goHomeAjax(){
 					totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
 					totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
 					let trafficKind = "read";
-					insertTrafficAjax(totalData, trafficKind);
+					if(totalData != 0)
+						insertTrafficAjax(totalData, trafficKind);
 					/////////////End////////////	
 				},
 				error : function(err){
@@ -252,7 +259,8 @@ function goBoardAjax(boardNumber, currentPageNo){
 			totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
 			totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
 			let trafficKind = "read";
-			insertTrafficAjax(totalData, trafficKind);
+			if(totalData != 0)
+				insertTrafficAjax(totalData, trafficKind);
 			/////////////End////////////
 			
 		//Pagin End
@@ -294,7 +302,8 @@ function goRead(articleNumber){
 			totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
 			totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
 			let trafficKind = "read";
-			insertTrafficAjax(totalData, trafficKind);
+			if(totalData != 0)
+				insertTrafficAjax(totalData, trafficKind);
 			/////////////End////////////	
 		},
 		error: function(err){

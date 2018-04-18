@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.worksmobile.openhome.bo.ArticleBO;
 import com.worksmobile.openhome.model.Article;
+import com.worksmobile.openhome.status.ReturnStatus;
 
 
 @RestController
@@ -24,6 +25,8 @@ import com.worksmobile.openhome.model.Article;
 public class ArticleController {
 	@Resource
 	private ArticleBO service;
+	
+	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 	
 	//홈화면에 필요한 게시판 내용들을 얻는다.
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
@@ -81,7 +84,7 @@ public class ArticleController {
 	public String removeArticle(HttpServletRequest req) throws Exception {
 		int articleNum = Integer.parseInt(req.getParameter("articleNum"));
 		service.removeArticle(articleNum);
-	return "SUCCESS";
+	return returnStatus.name();
 	}
 
 	/*@author Suji Jang*/

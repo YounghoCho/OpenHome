@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.worksmobile.openhome.bo.TrafficBO;
+import com.worksmobile.openhome.status.ReturnStatus;
 
 @RestController
 @RequestMapping("/api/traffic")
 public class TrafficController {
 	@Resource
 	private TrafficBO service;
+	
+	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 	
 	/*Traffic*/
 	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
@@ -38,6 +41,6 @@ public class TrafficController {
 		int trafficContentLength = Integer.parseInt(req.getParameter("trafficContentLength"));
 		String trafficKind = req.getParameter("trafficKind");
 		service.insertContentLength(trafficContentLength, trafficKind);		
-		return "SUCCESS";
+		return returnStatus.name();
 	}
 }

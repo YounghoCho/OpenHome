@@ -1,3 +1,7 @@
+/*enum*/
+var ReturnStatus = {"SUCCESS":"SUCCESS"};
+Object.freeze(ReturnStatus); //Object.freeze : 값 수정을 방지한다.
+
 /*Board*/
 function goBoardManageAjax(){
 	$(".staticGraphDiv").hide();
@@ -46,7 +50,7 @@ function updateBoard(boardNum){
 			url : "api/board/boardTitles",
 			data : { "boardTitle" : $("#newTitle").val(), "boardNum" : boardNum},
 			success : function(res){			
-				if(res == "SUCCESS"){
+				if(res == ReturnStatus.SUCCESS){
 					alert("변경되었습니다.");
 					$("#mask").hide();
 					$(".boardTitleWindow").hide();	
@@ -70,7 +74,7 @@ function removeBoard(boardNum){
 		type : "DELETE",
 		url : "api/board/boardRemove?boardNum=" + boardNum,
 		success : function(res){			
-			if(res == "SUCCESS"){
+			if(res == ReturnStatus.SUCCESS){
 				alert("삭제되었습니다.");
 				goBoardManageAjax();
 			}
@@ -87,7 +91,7 @@ $("#newBoardButton").on("click", function(){
 		url : "api/board/newBoard",
 		data : "boardTitle=" + $("#boardTitle").val(),
 		success : function(res){
-			if(res == "SUCCESS"){
+			if(res == ReturnStatus.SUCCESS){
 				alert("추가되었습니다.");
 				$('#boardTitle').val('');
 				goBoardManageAjax();
@@ -143,7 +147,7 @@ $("#orderButton").on("click", function(){
 						url : "api/board/boardOrders",
 						data :  {"tableOrder" : tableOrder},
 						success : function(res){
-							if(res == "SUCCESS"){
+							if(res == ReturnStatus.SUCCESS){
 								alert("게시판 순서가 변경 되었습니다.")
 								$("#mask").hide();
 								$(".orderWindow").hide();
@@ -211,7 +215,7 @@ function removeArticle(articleNum){
 		type : "DELETE",
 		url : "api/article/articleRemove?articleNum=" + articleNum,
 		success : function(res){			
-			if(res == "SUCCESS"){
+			if(res == ReturnStatus.SUCCESS){
 				alert("삭제되었습니다.");
 				goArticlesAjax();	//location.href할 필요가 없음.
 			}

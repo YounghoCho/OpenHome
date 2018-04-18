@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.worksmobile.openhome.bo.BoardBO;
+import com.worksmobile.openhome.status.ReturnStatus;
 
 @RestController
 @RequestMapping("/api/board")
@@ -22,6 +23,8 @@ public class BoardController {
 	@Resource
 	private BoardBO service;
 
+	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
+	
 	//게시판 목록을 가져온다.
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	@ResponseBody
@@ -37,7 +40,7 @@ public class BoardController {
 	public String removeBoard(HttpServletRequest req) throws Exception {
 		int boardNum = Integer.parseInt(req.getParameter("boardNum"));
 		service.removeBoard(boardNum);
-	return "SUCCESS";
+	return returnStatus.name();
 	}
 	
 	//게시판을 추가한다.
@@ -45,7 +48,7 @@ public class BoardController {
 	@ResponseBody
 	public String createNewBoard(HttpServletRequest req) throws Exception {
 		service.createNewBoard(req.getParameter("boardTitle"));		
-		return "SUCCESS";
+		return returnStatus.name();
 	}
 	
 	//게시판 순서를 변경한다.
@@ -58,7 +61,7 @@ public class BoardController {
 									 //새로 정렬된 게시판의 고유번호, 게시판의 우선순위
 			service.updateBoardOrders(Integer.parseInt(tableOrder[index-1]), index);		
 		}		
-		return "SUCCESS";
+		return returnStatus.name();
 	}
 	
 	//게시판 명을 변경한다.
@@ -67,6 +70,6 @@ public class BoardController {
 	public String updateBoardTitles(HttpServletRequest req) throws Exception {
 		System.out.println("*******************************게시판번호:"+req.getParameter("boardNum"));
 		service.updateBoardTitles(req.getParameter("boardTitle"), Integer.parseInt(req.getParameter("boardNum")));		
-		return "SUCCESS";
+		return returnStatus.name();
 	}
 }
