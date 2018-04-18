@@ -12,13 +12,54 @@ function getBoardListAjax(){
 		dataType : "json",
 		data : "",
 		success : function(res){
-			var len = res.boardList.length;
-			for(index = 0; index < len; index++){
-			$(".menudecoration").append("<li style=\"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
-			}
+			let len = res.boardList.length;
+			for(let index = 0; index < len; index++){
+				$(".menudecoration").append("<li style=\"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
+				}
+			/*
+			 * Algorithm (Traffic)
+			 * 
+			 * @Author : 조영호
+			 * 
+			 * 1. response 객체의 숫자, 문자열을 구분한다
+			 * 2. 숫자의 Byte를 게산하는 함수와, 전체 문자열의 Byte를 구하는 함수를 선언한다.
+			 * 3. 숫자는 (/)연산을 사용하고, 문자열은 str.charCodeAt(i)과 비트연산(>>)을 사용한다.
+			 * 4. Ajax로 트래픽 크기를 삽입한다.
+			 */	
+			/////////////Start////////////
+			let trafficInt = new Array();
+			let trafficString = new Array();
+			let obj = res.boardList;
+			let totalData = 0;
+
+			for(let x in obj)
+				trafficInt.push(obj[x].boardNum, obj[x].boardOrderNum);
+			for(let x in obj)
+				trafficString.push(obj[x].boardTitle);
+
+			totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
+			totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
+			let trafficKind = "read";
+			insertTrafficAjax(totalData, trafficKind);
+			/////////////End////////////
 		},
 		error : function(err){
 			alert(err);
+		}
+	});
+}
+
+function insertTrafficAjax(trafficContentLength, trafficKind){
+	jQuery.ajax({
+		type : "POST",
+		url : "api/traffic/contentLength",
+		data : "trafficContentLength=" + trafficContentLength + "&trafficKind=" + trafficKind,
+		success : function(res){
+			if(res == "SUCCESS"){				
+			}
+		},
+		error : function(err){
+			alert("err" + err);
 		}
 	});
 }
@@ -35,15 +76,14 @@ function goHomeAjax(){
 		url : "api/board/boardList",
 		dataType : "json",
 		data : "",
-		success : function(res){
-			var len = res.boardList.length;
-			var arrNum = new Array();	
+		success : function(res){		
 		/*
 		 * 동적 홈페이지 정렬 Algorithm
 		 * 
 		 * @Author : Youngho Jo 
 		 */
-			
+			var len = res.boardList.length;
+			var arrNum = new Array();	
 		// 1. 게시판 순서를 불러오고, 각 게시판의 고유 번호를 배열에 저장한다.
 			for (var index = 0; index < len; index++)		
 				arrNum.push(res.boardList[index].boardNum); //ex) 4,1,3,2,6
@@ -66,8 +106,25 @@ function goHomeAjax(){
 								"</tbody>" +
 							"</table>" +		
 						"</div>");
-			}		
+			}	
+			
+			/////////////Start////////////
+			let trafficInt = new Array();
+			let trafficString = new Array();
+			let obj = res.boardList;
+			let totalData = 0;
 
+			for(let x in obj)
+				trafficInt.push(obj[x].boardNum, obj[x].boardOrderNum);
+			for(let x in obj)
+				trafficString.push(obj[x].boardTitle);
+
+			totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
+			totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
+			let trafficKind = "read";
+			insertTrafficAjax(totalData, trafficKind);
+			/////////////End////////////	
+			
 		// 3. 게시판 내용들을 불러온다 (articleList0, 1, 2...) 
 			jQuery.ajax({
 				type : "GET",
@@ -92,6 +149,23 @@ function goHomeAjax(){
 						articleLen = active.length;
 						}
 					}
+				
+					/////////////Start////////////
+					let trafficInt = new Array();
+					let trafficString = new Array();
+					let obj = res.homeList;
+					let totalData = 0;
+
+					for(let x in obj)
+						trafficInt.push(obj[x].rownum, obj[x].boardNum, obj[x].articleNum);
+					for(let x in obj)
+						trafficString.push(obj[x].articleSubject, obj[x].articleTextContent, obj[x].articleDate, obj[x].articleWriter);
+
+					totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
+					totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
+					let trafficKind = "read";
+					insertTrafficAjax(totalData, trafficKind);
+					/////////////End////////////	
 				},
 				error : function(err){
 					alert("err");
@@ -149,14 +223,6 @@ function goBoardAjax(boardNumber, currentPageNo){
 										 + "<b>" + i + "</b></a>");
 				}
 			}			
-			//Setting Board Title
-			var boardIndex = res.articleList[0].boardNum;
-			switch(boardIndex){
-				case 1: $(".boardtitle.tt").html("게시판1"); break;
-				case 2: $(".boardtitle.tt").html("게시판2"); break;
-				case 3: $(".boardtitle.tt").html("게시판3"); break;
-				case 4: $(".boardtitle.tt").html("게시판4"); break;
-			}
 			//Removing Message Lists
 			$(".tbody > tr > td").remove();
 			//Setting Message Lists
@@ -170,6 +236,25 @@ function goBoardAjax(boardNumber, currentPageNo){
 					 + res.articleList[index].articleWriter + "</td>" + 
 					"</tr>");
 			}
+			
+			/////////////Start////////////
+			let len = res.articleList.length;
+			let trafficInt = new Array();
+			let trafficString = new Array();
+			let obj = res.articleList;
+			let totalData = 0;
+
+			for(let x in obj)
+				trafficInt.push(obj[x].rownum, obj[x].boardNum, obj[x].articleNum);
+			for(let x in obj)
+				trafficString.push(obj[x].articleSubject, obj[x].articleTextContent, obj[x].articleDate, obj[x].articleWriter);
+
+			totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
+			totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
+			let trafficKind = "read";
+			insertTrafficAjax(totalData, trafficKind);
+			/////////////End////////////
+			
 		//Pagin End
 		},//Success End
 		error : function(err){
@@ -194,6 +279,23 @@ function goRead(articleNumber){
 		success: function(res){
 			$("#boardTdSubject").html(res.articleDetails[0].articleSubject);
 			$("#boardTdContent").html(res.articleDetails[0].articleContent);
+			/////////////Start////////////
+			let len = res.articleDetails.length;
+			let trafficInt = new Array();
+			let trafficString = new Array();
+			let obj = res.articleDetails;
+			let totalData = 0;
+
+			for(let x in obj)
+				trafficInt.push(obj[x].boardNum, obj[x].articleNum);
+			for(let x in obj)
+				trafficString.push(obj[x].articleSubject, obj[x].articleContent, obj[x].articleDate, obj[x].articleWriter, obj[x].articleAccessPwd);
+
+			totalData += calculateIntLength(trafficInt, trafficInt.length);	//배열과 문자열개수를 인자로 넘긴다.
+			totalData += calculateStringLength(trafficString, trafficString.length);	//배열과 문자열개수를 인자로 넘긴다.
+			let trafficKind = "read";
+			insertTrafficAjax(totalData, trafficKind);
+			/////////////End////////////	
 		},
 		error: function(err){
 			alert("lose:"+err.status);
@@ -225,3 +327,25 @@ $(window).bind("popstate", function(event) {
 		$(".homeMainDiv").show();
 	}
 });
+
+/*--- Traffic Function ---*/
+function calculateIntLength(arr, len){
+	let totalData = 0;
+	let data;
+	for(let index = 0; index < len; index++){	//정수 개수만큼 반복하고		 
+		data = arr[index];	
+		totalData += (parseInt(data / 1000) ? 4 : (parseInt(data / 100) ? 3 : (parseInt(data / 10) ? 2 : 1) ) );//각 정수의 자릿수를 구해서 크기를 저장한다.	
+	}
+	return totalData;
+}
+
+function calculateStringLength(arr, len){
+	let totalData = 0;
+	for(let index = 0; index < len; index++){	//문자열 개수만큼 반복하고
+		for(let x=0, temp=0; data = arr[index].charCodeAt(x); x++){	//각 문자열의 문자 수 만큼 반복하면서 
+			temp = (data >> 11 ? 3 : (data >> 7 ? 2 : 1));	//문자의 크기를 저장하여 반환한다.
+			totalData += temp;					
+		}
+	}
+	return totalData;
+}

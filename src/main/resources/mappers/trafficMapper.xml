@@ -17,4 +17,11 @@
 		FROM traffic
 	</select>
 	
+	<insert id="insertContentLength" parameterType="com.worksmobile.openhome.model.Traffic">
+		INSERT
+		INTO
+			traffic(trafficContentLength, trafficKind, trafficDate)
+		VALUES 
+			( #{trafficContentLength}, #{trafficKind}, now() )
+	</insert>	
 </mapper>

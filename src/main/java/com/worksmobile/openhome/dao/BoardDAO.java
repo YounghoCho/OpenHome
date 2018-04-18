@@ -36,21 +36,21 @@ public class BoardDAO {
 	public void createNewBoard(String boardTitle) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("boardTitle", boardTitle);
-		sqlsession.delete(NAMESPACE_BOARD + "createNewBoard", paramMap);	
+		sqlsession.insert(NAMESPACE_BOARD + "createNewBoard", paramMap);	
 	}
 
 	public void updateBoardOrders(int boardNum, int boardOrderNum) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("boardNum", boardNum);
 		paramMap.put("boardOrderNum", boardOrderNum);
-		sqlsession.delete(NAMESPACE_BOARD + "updateBoardOrders", paramMap);			
+		sqlsession.update(NAMESPACE_BOARD + "updateBoardOrders", paramMap);			
 	}
 
 	public void updateBoardTitles(String boardTitle, int boardNum) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("boardTitle", boardTitle);
 		paramMap.put("boardNum", boardNum);
-		sqlsession.delete(NAMESPACE_BOARD + "updateBoardTitles", paramMap);			
+		sqlsession.update(NAMESPACE_BOARD + "updateBoardTitles", paramMap);			
 	}
 	
 }

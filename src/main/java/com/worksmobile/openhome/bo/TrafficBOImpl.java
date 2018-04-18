@@ -25,4 +25,8 @@ public class TrafficBOImpl implements TrafficBO{
 		return dao.getTrafficCount();
 	}
 
+	@Override
+	public void insertContentLength(int trafficContentLength, String trafficKind) {
+		dao.insertContentLength(trafficContentLength, trafficKind);		
+	}
 }

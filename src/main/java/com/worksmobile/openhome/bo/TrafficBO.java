@@ -14,5 +14,5 @@ public interface TrafficBO {
 
 	public List<Traffic> getTrafficData();
 	public int getTrafficCount();
-	
+	public void insertContentLength(int trafficContentLength, String trafficKind);	
 }

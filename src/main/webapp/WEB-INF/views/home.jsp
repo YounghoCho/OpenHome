@@ -141,4 +141,4 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=1"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/article.js?ver=9"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/article.js?ver=1"></script>

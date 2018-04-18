@@ -31,4 +31,13 @@ public class TrafficController {
 
 		return result;
 	}	
+	//게시판 명을 변경한다.
+	@RequestMapping(value = "/contentLength", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateBoardTitles(HttpServletRequest req) throws Exception {
+		int trafficContentLength = Integer.parseInt(req.getParameter("trafficContentLength"));
+		String trafficKind = req.getParameter("trafficKind");
+		service.insertContentLength(trafficContentLength, trafficKind);		
+		return "SUCCESS";
+	}
 }

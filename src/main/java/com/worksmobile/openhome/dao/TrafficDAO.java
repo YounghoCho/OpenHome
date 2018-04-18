@@ -3,6 +3,7 @@
  */
 package com.worksmobile.openhome.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,13 @@ public class TrafficDAO {
 	}
 	public int getTrafficCount () {
 		return sqlsession.selectOne(NAMESPACE_TRAFFIC + "getTrafficCount");
+	}
+
+	public void insertContentLength(int trafficContentLength, String trafficKind) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("trafficContentLength", trafficContentLength);
+		paramMap.put("trafficKind", trafficKind);
+		sqlsession.insert(NAMESPACE_TRAFFIC + "insertContentLength", paramMap);	
 	}
 
 }

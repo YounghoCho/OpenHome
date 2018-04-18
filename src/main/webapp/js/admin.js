@@ -18,42 +18,12 @@ function goBoardManageAjax(){
 					"<tr id=\"tableSection\">" +
 					"<td>" + res.boardList[index].boardTitle + "</td>" + 
 					"<td><a class=\"updateBoard\"" + 
-						"data-board-num=\"" + res.boardList[index].boardNum + "\">수정</a></td>" +
+						"onclick=\"javascript:updateBoard(" + res.boardList[index].boardNum + ")\">수정</a></td>" +
 					"<td><a class=\"removeBoard\"" + 
 					"onclick=\"javascipr:removeBoard(" + res.boardList[index].boardNum + ")\">삭제</a></td>" +
 					"<td></td>" +
 					"</tr>");
 			}
-			//Board 수정 버튼 클릭
-			$(".updateBoard").on("click", function(){
-				//alert($(".updateBoard").data("boardNum"));
-				var maskHeight = $(document).height();
-				var maskWidth = $(window).width();
-				$("#mask").css({'width':maskWidth, 'height':maskHeight});
-				$("#mask").fadeIn(1000);
-				$("#mask").fadeTo("slow", 0.9);
-				$(".boardTitleWindow").fadeIn(1000);
-				//최종 수정 버튼 클릭
-				$("#updateBoardButton").on("click", function(){
-					$.ajax({
-						type : "PUT",
-						url : "api/board/boardTitles",								   //line 20
-						data : { "boardTitle" : $("#newTitle").val(), "boardNum" : $(".updateBoard").data("boardNum")},
-						success : function(res){			
-							if(res == "SUCCESS"){
-								alert("변경되었습니다.");
-								$("#mask").hide();
-								$(".boardTitleWindow").hide();
-								goBoardManageAjax();
-							}
-						},
-						error : function(err){
-							alert(err);
-						}
-					});
-				});
-			});
-			
 		},
 		error : function(err){
 		alert(err);
@@ -61,7 +31,36 @@ function goBoardManageAjax(){
 	});
 	history.pushState({ data: '1' }, 'title1', '?depth=1');
 }
-
+//게시판 이름 수정
+function updateBoard(boardNum){
+	var maskHeight = $(document).height();
+	var maskWidth = $(window).width();
+	$("#mask").css({'width':maskWidth, 'height':maskHeight});
+	$("#mask").fadeIn(1000);
+	$("#mask").fadeTo("slow", 0.9);
+	$(".boardTitleWindow").fadeIn(1000);
+	//최종 수정 버튼 클릭
+	$("#updateBoardButton").off().on("click", function(){
+		jQuery.ajax({
+			type : "PUT",
+			url : "api/board/boardTitles",
+			data : { "boardTitle" : $("#newTitle").val(), "boardNum" : boardNum},
+			success : function(res){			
+				if(res == "SUCCESS"){
+					alert("변경되었습니다.");
+					$("#mask").hide();
+					$(".boardTitleWindow").hide();	
+					goBoardManageAjax();
+					$("#newTitle").val('');
+				}
+			},
+			error : function(err){
+				alert(err);
+			}
+		});
+	});
+	
+}
 //Board 삭제
 function removeBoard(boardNum){
 	if (!confirm("삭제하시겠습니까? 모든 게시글이 삭제됩니다.")) {
