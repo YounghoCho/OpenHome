@@ -9,7 +9,7 @@
 <mapper namespace="traffic">
 	
 	<select id="getTrafficData" resultType="com.worksmobile.openhome.model.Traffic">
-		SELECT trafficNum, trafficContentLength, trafficKind, trafficDate, trafficIp
+		SELECT trafficNum, trafficContentLength, trafficKind, trafficDate
 		FROM traffic
 	</select>
 	<select id="getTrafficCount" resultType="int">

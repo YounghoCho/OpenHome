@@ -134,7 +134,6 @@ trafficNum int(20) auto_increment,
 trafficContentLength int(50) not null,
 trafficKind varchar(50) not null,
 trafficDate date not null,
-trafficIp varchar(50),
 primary key(trafficNum)
 );
 
