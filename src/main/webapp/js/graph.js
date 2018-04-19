@@ -129,3 +129,22 @@ function goStaticGraphAjax(){
 	});
 	history.pushState({ data: '4' }, 'title4', '?depth=4');
 }
+
+/*Notice*/
+var modal = document.getElementById('myModal');
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("closeNotice")[0];
+
+
+//이부분을 폴링으로 바꿔야한다.
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

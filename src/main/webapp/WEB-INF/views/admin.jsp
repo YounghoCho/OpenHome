@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=1">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=2121111122">
 </head>
 
 <div id="mask"></div>
-<!-- Login -->
+<!-- 로그인 팝업-->
 <div class="window">
 	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">
 		<img src="${pageContext.request.contextPath}/image/logo.png" style="width:65px;margin:5px;"/><br/>
@@ -17,7 +17,7 @@
 		</a>
 	</div>
 </div>
-<!-- Update Board List -->
+<!-- 게시판 순서 조절 팝업 -->
 <div class="orderWindow">
 	<button class="btn btn-default pull-right" id="closeChange" style="margin:10px;"><font style="font-weight:bold;">x</font></button>
 	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">	
@@ -25,7 +25,8 @@
 		</ul>
 	</div>
 </div>
-<!-- Update Board Title -->
+<!-- 새로운 게시판 추가 팝업 -->
+<button id="myBtn">Open Modal</button>
 <div class="boardTitleWindow">
 	<button class="btn btn-default pull-right" id="closeChange2" style="margin:10px;"><font style="font-weight:bold;">x</font></button>
 	<div style="width:80%;height:40%;margin-left:50px;margin-top:60px;text-align:center;">	
@@ -33,7 +34,23 @@
 		<a id="updateBoardButton" type="button" class="btn btn-success" style="margin-right:20px;padding:8px;">수정</a>
 	</div>
 </div>
-
+<!-- 트래픽 알림 팝업 -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="closeNotice">&times;</span>
+      <h2>Warning</h2>
+    </div>
+    <div class="modal-body">
+      <p>경고 레벨에 따라 색이 변합니다.</p>
+      <p>경고는 노란색, 빨간색이 있습니다.</p>
+    </div>
+    <div class="modal-footer">
+      <h3>OPEN HOME</h3>
+    </div>
+  </div>
+</div>
 
 <!-- header -->
 <div id="header" style="background-color:seagreen;">
