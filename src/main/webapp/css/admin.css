@@ -11,14 +11,8 @@
 }
 
 #header{
-	/* background-color:red; */
-/* 	position:absoulte;
-	width:100%;
-	height:50px;
-	border-bottom: none; */
 	position:relative;
 	height:49px;
-	/* width:249px; */
 	border-right: 1px solid #5d5d5d;
 }
 
@@ -31,10 +25,6 @@
 	width:249px;
 	border-right: 1px solid #5d5d5d;
 }
-
-/* #menu li:first-child {
-	border-bottom: 3px double #5d5d5d;
-} */
 
 #top{
 	padding:20px;
@@ -57,10 +47,7 @@
     z-index: 20;
     overflow: hidden;
     width: 100%;
-   /*  max-width: 1280px; */
     margin: 0 auto;
-   /*  border-left: 1px solid #5d5d5d;
-    border-right: 1px solid #5d5d5d; */
     background-color: #fff;
  }
  
@@ -73,13 +60,6 @@
 }
 
 #body{
-/* 	position:absolute;
-	top:70px;
-	bottom:30px;
-	overflow:auto;
-	height:100%;
-	left:249px;
-	width:100%; */
 	position:absolute;
 	top:70px;
 	bottom:0px;
@@ -186,31 +166,6 @@ td{
 
 .homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
 }
-
-/* .container.board, .container.read, .container.static, .container.realTime, .homeMainDiv{
-	display:none;
-	position:absolute;
-	top:70px;
-	bottom:30px;
-	overflow:auto;
-	height:100%;
-	left:249px;
-	width:100%;
-	padding-top:10px;
-} */
-
-/* .container.home, .container.board, .container.read, .container.static, .container.realTime{
-	display:none;
-	overflow:hidden;
-} */
-/* #singleBoard{
-	position:absolute;
-	left:249px;
-} */
-/* .homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
-	position:absolute;
-	left:249px;
-} */
 
 /*graph*/
 .staticGraphDiv, .realTimeGraphDiv{
@@ -338,7 +293,7 @@ rect .highcharts-button-box{
     margin: auto;
     padding: 0;
     border: 1px solid #888;
-    width: 40%;
+    width: 30%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;

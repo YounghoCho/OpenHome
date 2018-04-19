@@ -53,6 +53,7 @@ function goStaticGraphAjax(){
 							break;
 						}
 					}
+					/***비동기 알람 처리부분***/
 					arr.push(sum);
 					sum=0; //sum 갱신
 				}				
@@ -132,13 +133,56 @@ function goStaticGraphAjax(){
 
 /*Notice*/
 var modal = document.getElementById('myModal');
-var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("closeNotice")[0];
 
-
 //이부분을 폴링으로 바꿔야한다.
-btn.onclick = function() {
+
+//알고리즘
+//1. 폴링으로 5초에 한번 검사한다 fuc
+//2. ajax로 현재 토탈 트래픽을 구한다.
+//3. fuc set: 비동기 함수로 처리한다.
+
+//4. fuc1 : if(sum > 6000) { if(sum > 10000) //팝업2(빨간색)} else //팝업1(노란색)
+//5. fuc2 : 그래프에서 처럼 배열만들어서 진행한다. 
+//6. stack변수를 하나 만들고, i가 도는 for문에서, i-3 i-2 i-1을 넣고if( res.i * 2 > avg(stack) ) //팝업3(보라색)
+//7. 팝업 뜰때마다 그래프를 ajax호출로 다시 그려준다.
+var poll = 1;
+setInterval(function(){ 
+	//test
+	if(poll==4) 
+		poll=1
+	eval("test = notice" + poll);
+	test();
+	poll++;
+	/*$.ajax({ 
+		url: "server", 
+		success: function(res){ 
+		},
+	});*/
+}, 5000);
+
+
+//알림은 3단계로 구분하며 빨간색(긴급) > 노란색(주의) > 보라색(참고) 순서이다.
+function notice1(){
     modal.style.display = "block";
+    $(".modal-header > h2").html("Urgent");
+    $(".modal-body > p").html("<p>트래픽이 10k를 초과했습니다.</p>");
+    $(".modal-header").css("background-color", "crimson");
+    $(".modal-footer").css("background-color", "crimson");
+}
+function notice2(){
+    modal.style.display = "block";
+    $(".modal-header > h2").html("Warning");
+    $(".modal-body > p").html("<p>트래픽이 7k를 초과했습니다.</p>");
+    $(".modal-header").css("background-color", "sandybrown");
+    $(".modal-footer").css("background-color", "sandybrown");
+}
+function notice3(){
+    modal.style.display = "block";
+    $(".modal-header > h2").html("Notice");
+    $(".modal-body > p").html("<p>트래픽이 상승하고 있습니다.</p>");
+    $(".modal-header").css("background-color", "darkorchid");
+    $(".modal-footer").css("background-color", "darkorchid");
 }
 span.onclick = function() {
     modal.style.display = "none";

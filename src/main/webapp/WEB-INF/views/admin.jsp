@@ -26,7 +26,6 @@
 	</div>
 </div>
 <!-- 새로운 게시판 추가 팝업 -->
-<button id="myBtn">Open Modal</button>
 <div class="boardTitleWindow">
 	<button class="btn btn-default pull-right" id="closeChange2" style="margin:10px;"><font style="font-weight:bold;">x</font></button>
 	<div style="width:80%;height:40%;margin-left:50px;margin-top:60px;text-align:center;">	
@@ -40,11 +39,10 @@
   <div class="modal-content">
     <div class="modal-header">
       <span class="closeNotice">&times;</span>
-      <h2>Warning</h2>
+      <h2></h2>
     </div>
     <div class="modal-body">
-      <p>경고 레벨에 따라 색이 변합니다.</p>
-      <p>경고는 노란색, 빨간색이 있습니다.</p>
+    	<p style="font-weight:bold;margin:0;padding:5px;"></p>
     </div>
     <div class="modal-footer">
       <h3>OPEN HOME</h3>
@@ -71,7 +69,7 @@
 <div id="center-right">
 <!-- top -->
 <div id="top">
-	Welcome to OPENHOME
+	Welcome to OPEN HOME
 </div>
 
 <div id="body">
@@ -172,4 +170,4 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 1"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 4111"></script>
