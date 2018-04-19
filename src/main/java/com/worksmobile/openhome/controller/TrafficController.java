@@ -24,7 +24,7 @@ public class TrafficController {
 	
 	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 	
-	/*Traffic*/
+	//트래픽 데이터를 호출한다.
 	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getTraffic(HttpServletRequest req, HttpServletResponse res) throws Exception{

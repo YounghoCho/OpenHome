@@ -58,8 +58,7 @@ public class BoardController {
 		String[] tableOrder = req.getParameterValues("tableOrder[]"); 
 		
 		for(int index = 1; index < tableOrder.length; index++) {
-									 //새로 정렬된 게시판의 고유번호, 게시판의 우선순위
-			service.updateBoardOrders(Integer.parseInt(tableOrder[index-1]), index);		
+			service.updateBoardOrders(Integer.parseInt(tableOrder[index-1]), index);//새로 정렬된 게시판의 고유번호, 게시판의 우선순위		
 		}		
 		return returnStatus.name();
 	}

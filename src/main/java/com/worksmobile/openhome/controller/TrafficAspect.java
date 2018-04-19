@@ -1,5 +1,10 @@
+/*
+ * Application java
+ * @Author : Youngho Jo
+ */
 package com.worksmobile.openhome.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.JoinPoint;
@@ -10,32 +15,32 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.worksmobile.openhome.dao.TrafficDAO;
+
 @Aspect
 @Component
 public class TrafficAspect {
 	
- 	 private static final Logger logger = LoggerFactory.getLogger(TrafficAspect.class);
-	
+ 	private static final Logger logger = LoggerFactory.getLogger(TrafficAspect.class);
+ 
+ 	@Resource(name="TrafficDAO")
+	private TrafficDAO dao;
+ 	
 	@After("execution(* com.worksmobile.openhome.controller.*.*(..))")
 	//method를 실행하려면 JoinPoint대신 ProceedingJoinPoint를 사용하고, joinPoint.proceed()로 실행한다.
 	public void onBeforeHandler(JoinPoint joinPoint) throws Throwable { 
 	
-//		Signature signature = joinPoint.getSignature();
-//		Object[] args = joinPoint.getArgs();	//Model 값 확인		  
-//		System.out.println("name : " + signature.getName());	//Method 이름	  
-//		for(int i=0; i < args.length; i++){
-//			System.out.println("args[" + i + "] : " + args[i].toString());	//파라미터 목록
-//		}
 		logger.info("===============Start AOP================");
 		for (Object obj : joinPoint.getArgs()) {
             if (obj instanceof HttpServletRequest || obj instanceof MultipartHttpServletRequest) {
 
-            	logger.info("===============Request================");
             	HttpServletRequest req = (HttpServletRequest) obj;
         
-            	// Doing...
             	if(req.getContentLength() != -1) {
             		logger.info("req-C : " + req.getContentLength());
+            		int trafficContentLength = req.getContentLength();
+            		String trafficKind = "write";
+            		dao.insertContentLength(trafficContentLength, trafficKind);          		
             	}
             	
                 //1. AOP를 사용해 HTTP request에서 Content-len를 추출한다. 단 -1은 예외처리. 

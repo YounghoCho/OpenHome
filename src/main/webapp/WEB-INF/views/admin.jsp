@@ -155,3 +155,4 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 7"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver=1"></script>
