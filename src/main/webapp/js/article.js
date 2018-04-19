@@ -45,7 +45,9 @@ $(document).ready(function(){
 						+ '&articleAccessPwd=' + $('#articleAccessPwd').val() + '&articleSubject=' + $('#articleSubject').val()
 						+ '&articleContent=' + $('#articleContent').val() + '&articleTextContent=' + articleTextContent,
 				success : function(res){
+					alert(res);
 					if (res == "ok") {
+						alert(totalFileCount);
 						if ( totalFileCount > 0) {
 								$.ajax({
 									type : 'post',
@@ -59,6 +61,8 @@ $(document).ready(function(){
 										if(res == "ok") {
 											alert("게시글 및 첨부파일이 등록되었습니다.");
 											/*window.location = "../${pageContext.request.contextPath}/board";*/
+										} else {
+											alert(res);
 										}
 									},
 									error : function(err) {
@@ -214,7 +218,6 @@ $(document).ready(function(){
     	$('.file_checkbox').prop('checked', $(this).prop('checked'));
     });
 
-    
 	$('.btn.btn-success.pull-right').on('click', function(){
 		$("#singleBoard").hide();
 		$(".articleReadDiv").hide();
@@ -260,7 +263,60 @@ $(document).ready(function(){
 		history.pushState({ data: '5' }, 'title5', '?depth=5');
 	});
 	
-	$("#boardTdFiles > ul > li").hover(function(){
-		$(this).css("text-decoration", "underline");
+	$('#article_modify_btn').on('click', function(){
+		$('#check_pwd_hidden_area').css('display', 'block');
+	});
+	
+	$('#check_pwd_cancel_btn').on('click', function(){
+		$('#check_pwd_hidden_area').css('display', 'none');
+	});
+	
+	$('#article_delete_btn').on('click', function() {
+		$('#check_pwd_hidden_area').css('display', 'block');
+	});
+	
+	$('#check_pwd_btn').on('click', function(){
+		$('#check_pwd_text > p').remove();
+		$.ajax({
+			type : 'post',
+			dataType : 'text',
+			url : 'api/article/checkPwd',
+			data : 'articleNum=' + $("#readtable").data("articleNum") + '&articleAccessPwd=' + $("#pwd_text_field").val(),
+			success : function(res){
+				if (res=="success") {
+					$('#check_pwd_text').val("");
+					$('#check_pwd_hidden_area').css("display", "none");
+					alert("게시글이 삭제되었습니다.");
+				} else {
+					$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
+				}
+			
+			},
+			error : function(err) {
+				alert('readyState:' + err.readyState);
+				alert('status:' + err.status);
+				alert('statusText:' + err.statusText);
+				alert('responseText:' + err.responseText);
+			}
+		})
 	});
 });
+
+function getFile(fileNum, originalFileName, storedFileName) {
+	alert("확인!");
+		$.ajax({
+			type : 'post',
+			dataType : 'text',
+			url : 'api/attachmentfile/fileDownload',
+			data : 'fileNum=' + fileNum + '&originalFileName=' + originalFileName + '&storedFileName=' + storedFileName,
+			success : function(res) {
+				alert(res);
+			},
+			error : function(err) {
+				alert('readyState:' + err.readyState);
+				alert('status:' + err.status);
+				alert('statusText:' + err.statusText);
+				alert('responseText:' + err.responseText);
+				}
+		})
+}

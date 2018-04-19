@@ -27,6 +27,14 @@ public class ArticleDAO {
 		sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum", article);
 	}
 	
+	public Article getArticleAccessPwd(int articleNum) {
+		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticleAccessPwd", articleNum);
+	}
+	
+	public int removeOwnArticle(int articleNum) {
+		return sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", articleNum);
+	}
+	
 	/*@ author Youngho Jo*/
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();

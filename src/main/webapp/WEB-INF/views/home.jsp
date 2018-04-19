@@ -67,7 +67,7 @@
 	<!-- read article -->
 		<div class="articleReadDiv">
 			<div id="wrap" class="container read">	<!--auto margin-->
-				<table class="table" style="height:400px;">			
+				<table class="table" style="height:400px;" id="readtable">			
 					<tbody>
 						<tr>
 							<td style="height:50px" id="boardTdSubject"></td>
@@ -84,7 +84,9 @@
 				<!-- <a type="button" class="btn btn-default pull-right" style="margin-right:10px;width:80px;">취소</a>		
 				<a type="button" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a> -->
 				<!-- <a type="button" class="btn btn-default" style="margin-right:10px;width:80px;">취소</a>	 -->	
-				<a type="button" id="article_reg_btn_in_article" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a>
+				<a type="button" id="article_delete_btn" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">삭제</a>
+				<a type="button" id="article_modify_btn" class="btn btn-primary pull-right" style="margin-right:20px;width:80px;">수정</a>
+				<a type="button" id="article_write_btn" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a>
 			</div>	
 		</div>
 		
@@ -127,6 +129,18 @@
 					<%-- <input type="hidden" id="hidden_board_num" value="${param.boardNum}"/> --%>
 				</div>
 			</div>
+		  <div id="check_pwd_hidden_area">
+			<div id="check_pwd_hidden">
+				<div id="check_pwd_text">
+				  	<input id="pwd_text_field" type="text" name="articleAccessPwds"/>
+				</div>
+				<div>
+				  	<a type="button" id="check_pwd_cancel_btn" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">취소</a>
+					<a type="button" id="check_pwd_btn" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">확인</a>
+				</div>
+				
+			</div>
+		</div>
 		</div>
 	</div>
 </div>

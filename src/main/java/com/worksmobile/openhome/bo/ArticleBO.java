@@ -13,6 +13,7 @@ public interface ArticleBO {
 	/*@ author Suji Jang*/
 	public String addArticle(Article article);
 	public void addArticleNum(Article article);
+	public String checkPwd(int articleNum, String articleAccessPwd);
 
 	/*@ author Youngho Jo*/
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize);

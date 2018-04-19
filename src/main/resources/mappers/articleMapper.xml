@@ -16,7 +16,7 @@
 		WHERE
 			boardNum = #{boardNumber}
 		AND
-			articleStatus = 'Y'
+			articleStatus = "Y"
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		
@@ -83,4 +83,16 @@
 	<insert id="addArticleNum" parameterType="com.worksmobile.openhome.model.Article" useGeneratedKeys="true" keyProperty="articleNum">
 		INSERT INTO article(boardNum) VALUES (#{boardNum})
 	</insert>
+	
+	<select id="getArticleAccessPwd" parameterType="int" resultType="com.worksmobile.openhome.model.Article">
+		SELECT *
+		FROM article
+		WHERE articleNum = #{articleNum}
+	</select>
+	
+	<delete id="removeOwnArticle" parameterType="int">
+		DELETE
+		FROM article
+		WHERE articleNum = #{articleNum}
+	</delete>
 </mapper>

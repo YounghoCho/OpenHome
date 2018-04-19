@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.worksmobile.openhome.bo.ArticleBO;
@@ -102,6 +103,14 @@ public class ArticleController {
 				req.getParameter("articleSubject"), req.getParameter("articleTextContent"), req.getParameter("articleContent"),
 				req.getParameter("articleWriter"), req.getParameter("articleAccessPwd"), "Y");
 		return service.addArticle(article);
+	}
+	
+	//비밀번호 체크
+	@RequestMapping(value = "/checkPwd", method = RequestMethod.POST)
+	@ResponseBody
+	public String checkPwd(@RequestParam("articleNum") String articleNum, 
+			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		return service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd);
 	}
 	
 

@@ -27,6 +27,7 @@ primary key(boardNum),
 constraint fk_boardMarker foreign key(boardMaker) references manager(managerNum)
 );
 
+select * from board
 --게시글 테이블
 create table article(
 articleNum int(20) auto_increment,

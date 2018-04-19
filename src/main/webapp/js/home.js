@@ -150,17 +150,17 @@ function goBoardAjax(boardNumber, currentPageNo){
 				}
 			}			
 			//Setting Board Title
-			var boardIndex = res.articleList[0].boardNum;
-			switch(boardIndex){
+			/*var boardIndex = res.articleList[0].boardNum;*/
+/*			switch(boardIndex){
 				case 1: $(".boardtitle.tt").html("게시판1"); break;
 				case 2: $(".boardtitle.tt").html("게시판2"); break;
 				case 3: $(".boardtitle.tt").html("게시판3"); break;
 				case 4: $(".boardtitle.tt").html("게시판4"); break;
-			}
+			}*/
 			
 			//add custom-data on table
 			$('#singleBoardTable').removeData("boardNum");
-			$("#singleBoardTable").data("boardNum", boardIndex);
+			$("#singleBoardTable").data("boardNum", boardNumber);
 			
 			//Removing Message Lists
 			$(".tbody > tr > td").remove();
@@ -203,6 +203,7 @@ function goRead(articleNumber){
 		success: function(res){
 			$("#boardTdSubject").html(res.articleDetails[0].articleSubject);
 			$("#boardTdContent").html(res.articleDetails[0].articleContent);
+			$("#readtable").data("articleNum", res.articleDetails[0].articleNum);
 		},
 		error: function(err){
 			alert("lose:"+err.status);
@@ -216,9 +217,9 @@ function goRead(articleNumber){
 		data: 'articleNumber='+ articleNumber,
 		success: function(res) {
 			$.each(res, function(index, value) {
-				$("#boardTdFiles > ul").append('<li data-fileNum=' 
-						+ value.fileNum + '><i class="far fa-file"></i>' + " "
-						+ value.originalFileName + '</li>');
+				$("#boardTdFiles > ul").append('<li class="filelist"><span><i class="far fa-file"></i></span><a href="#" onclick="javascript:getFile('
+						+ value.fileNum + ",'" + value.originalFileName + "','" + value.storedFileName + "'" + ')">'
+						+ value.originalFileName + '</a></li>');
 			});
 		},
 		error : function(err) {

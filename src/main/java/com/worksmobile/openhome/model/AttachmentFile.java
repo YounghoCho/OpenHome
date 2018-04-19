@@ -16,6 +16,12 @@ public class AttachmentFile {
 		
 	}
 	
+	public AttachmentFile(int fileNum, String originalFileName, String storedFileName) {
+		this.fileNum = fileNum;
+		this.originalFileName = originalFileName;
+		this.storedFileName = storedFileName;
+	}
+	
 	public AttachmentFile(int articleNum, String originalFileName, String storedFileName, int fileSize, String fileAttacher) {
 		this.articleNum = articleNum;
 		this.originalFileName = originalFileName;

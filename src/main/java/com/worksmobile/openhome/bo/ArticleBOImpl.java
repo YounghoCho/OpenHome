@@ -48,5 +48,19 @@ public class ArticleBOImpl implements ArticleBO{
 	@Override
 	public void removeArticle(int articleNum) {
 		dao.removeArticle(articleNum);
+	}
+
+	@Override
+	public String checkPwd(int articleNum, String articleAccessPwd) {
+		String accessPwd = dao.getArticleAccessPwd(articleNum).getArticleAccessPwd();
+		if (accessPwd.equals(articleAccessPwd)) {
+			if(dao.removeOwnArticle(articleNum) == 1 ) {
+				return "success";
+			} else {
+				return "fail";
+			}
+		} else {
+			return "fail";
+		}
 	}	
 }
