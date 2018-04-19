@@ -29,7 +29,7 @@ function goStaticGraphAjax(){
 			var length = res.trafficCount;
 			var startDate = Date.parse(res.trafficData[0].trafficDate.substring(0,10));//트래픽 시작날짜
 			var endDate = Date.parse(res.trafficData[length-1].trafficDate.substring(0,10));//트래픽 최신날짜
-			
+	
 			graphAlgorithm(allTraffics, "all");
 			graphAlgorithm(readTraffics, "read");
 			graphAlgorithm(writeTraffics, "write");
@@ -88,7 +88,7 @@ function goStaticGraphAjax(){
 			            label: {
 			                connectorAllowed: false
 			            },
-			            pointStart: 1
+			            pointStart: 10
 			        }
 			    },
 				credits:{enabled: false},			
