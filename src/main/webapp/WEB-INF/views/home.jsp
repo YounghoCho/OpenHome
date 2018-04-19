@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=28">
+	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 
 <!-- header -->
-<div id="header" style="background-color:#000040;">
+<div id="header" style="background-color:seagreen;">
 		<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
 			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENHOME</font></a>
 </div>
@@ -84,7 +84,6 @@
 		
 			<!-- <a type="button" class="btn btn-default pull-right" style="margin-right:10px;width:80px;">취소</a>		
 			<a type="button" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a> -->
-			<a type="button" class="btn btn-default" style="margin-right:10px;width:80px;">취소</a>		
 			<a type="button" id="article_reg_btn_in_article" class="btn btn-success pull-right" onclick="goWritingPage()" style="margin-right:20px;width:80px;">글쓰기</a>
 		</div>	
 	</div>

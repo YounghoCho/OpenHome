@@ -40,7 +40,6 @@
 	padding:20px;
 	vertical-align:middle;
 	font-weight:bold;
-	font-color:#1EC800;
 	font-size:20px;
 
 	position:absolute;
@@ -97,7 +96,7 @@
 	font-weight: bold;
 }
 .menudecoration li:hover{
-	background-color: #1EC800
+	background-color: seagreen
 }
 .menudecoration li:hover a{
 	color: #fff;
@@ -160,14 +159,14 @@ td{
 	margin:5px; 
 }
 .boardtitle:hover{
-	color:#1EC800;
+	color : #5cb85c;
 	text-decoration:none;
 }
 .boardtds{
 	font-size:15px;
 }
 .boardtds:hover{
-	color:#1EC800;
+	color:seagreen;
 	text-decoration:none;
 }
 .boardtds:link, .boardtds:visited{
@@ -291,7 +290,7 @@ rect .highcharts-button-box{
 
 /*Admin*/
 .removeArticle{
-	color:#1EC800;
+	color : #5cb85c;
 	cursor: pointer;
 
 }
