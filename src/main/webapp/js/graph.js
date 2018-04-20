@@ -3,7 +3,7 @@ let flag1 = 1;
 let flag2 = 1;
 let flag3 = 1;
 
-//그래프를 그린다.
+//그래프 그리기.
 function goStaticGraphAjax(){
 	$(".homeMainDiv").hide();
 	$("#singleBoard").hide();
@@ -179,33 +179,35 @@ function goStaticGraphAjax(){
  * 3. 당월 해당 날까지의 트래픽 양이 100k를 초과하면 긴급  알람을 발생시킨다.
  * 
  */
-setInterval(function(){ 
-	jQuery.ajax({
-		type : "GET",
-		url : "api/traffic/trafficData",
-		dataType : "json",
-		success : function(res){
-			var totalTraffic = 0;	
-			for (index = 0; index < res.trafficData.length; index++){ //전체트래픽을 구한다.
-				totalTraffic += res.trafficData[index].trafficContentLength;
-			}
-			if (totalTraffic > 10000){
-				if (totalTraffic > 100000){		
-					notice1(flag1);
-					flag1 = 0;
+function trafficTracking(){
+	setInterval(function(){ 
+		jQuery.ajax({
+			type : "GET",
+			url : "api/traffic/trafficData",
+			dataType : "json",
+			success : function(res){
+				var totalTraffic = 0;	
+				for (index = 0; index < res.trafficData.length; index++){ //전체트래픽을 구한다.
+					totalTraffic += res.trafficData[index].trafficContentLength;
 				}
-				else{
-					let flag = 1;
-					notice2(flag2);
-					flag2 = 0;
+				if (totalTraffic > 10000){
+					if (totalTraffic > 100000){		
+						notice1(flag1);
+						flag1 = 0;
+					}
+					else{
+						let flag = 1;
+						notice2(flag2);
+						flag2 = 0;
+					}
 				}
+			},
+			error : function(err){
+				alert(err);
 			}
-		},
-		error : function(err){
-			alert(err);
-		}
-	});
-}, 4000);
+		});
+	}, 4000);
+}
 
 var modal = document.getElementById('myModal');
 var span = document.getElementsByClassName("closeNotice")[0];

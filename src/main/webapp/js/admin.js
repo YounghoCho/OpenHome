@@ -2,7 +2,7 @@
 var ReturnStatus = {"SUCCESS":"SUCCESS"};
 Object.freeze(ReturnStatus); //Object.freeze : 값 수정을 방지한다.
 
-/*Board*/
+//게시판 관리
 function goBoardManageAjax(){
 	$(".staticGraphDiv").hide();
 	$(".homeReadDiv").hide();
@@ -65,7 +65,7 @@ function updateBoard(boardNum){
 	});
 	
 }
-//Board 삭제
+//게시판 삭제
 function removeBoard(boardNum){
 	if (!confirm("삭제하시겠습니까? 모든 게시글이 삭제됩니다.")) {
         return;
@@ -84,7 +84,7 @@ function removeBoard(boardNum){
 		}
 	});
 }
-//Board 추가
+//게시판 추가
 $("#newBoardButton").on("click", function(){
 	jQuery.ajax({
 		type : "POST",
@@ -102,7 +102,7 @@ $("#newBoardButton").on("click", function(){
 		}
 	});
 });
-//Board 순서 조정
+//게시판 순서 조정
 $("#orderButton").on("click", function(){		
 		//검은막 띄우기
 		var maskHeight = $(document).height();
@@ -120,7 +120,6 @@ $("#orderButton").on("click", function(){
 				tableOrder = $(this).sortable('toArray', {
 					attribute: 'data-name'
 				});
-//				alert(tableOrder);
 			}
 		});
 		//게시판 목록 보이기
@@ -165,7 +164,6 @@ $("#orderButton").on("click", function(){
 			}
 		});	
 });
-
 //순서 조정 창 닫기
 $("#closeChange").on("click", function(){
 	$("#mask").hide();
@@ -176,7 +174,7 @@ $("#closeChange2").on("click", function(){
 	$(".boardTitleWindow").hide();
 });
 
-/*Articles*/
+//게시글 관리
 function goArticlesAjax(){
 	$(".staticGraphDiv").hide();
 	$(".homeReadDiv").hide();
@@ -206,7 +204,7 @@ function goArticlesAjax(){
 	});
 	history.pushState({ data: '2' }, 'title2', '?depth=2');
 }
-/*Delete Article*/
+//게시글 삭제
 function removeArticle(articleNum){
 	if (!confirm("삭제하시겠습니까?")) {
         return;
@@ -225,7 +223,7 @@ function removeArticle(articleNum){
 		}
 	});
 }
-/*Read Article*/
+//게시글 읽기
 function goRead(articleNumber){
 	$(".staticGraphDiv").hide();
 	$(".homeMainDiv").hide()
@@ -247,21 +245,15 @@ function goRead(articleNumber){
 	history.pushState({ data: '3' }, 'title3', '?depth=3');
 }
 
-
-/*Login*/
+//로그인
 $(document).ready(function(){
-	//세션정보없으면 검은막 띄우기(show())
-	
-	//검은막 띄우기
 	var maskHeight = $(document).height();
 	var maskWidth = $(window).width();
 	$("#mask").css({'width':maskWidth, 'height':maskHeight});
-//	$("#mask").fadeIn(1000);
-//	$("#mask").fadeTo("slow", 0.9);
-//		$('.window').fadeIn(1000);
-	goBoardManageAjax();
+	$("#mask").fadeIn(1000);
+	$("#mask").fadeTo("slow", 0.9);
+	$('.window').fadeIn(1000);
 });
-
 function loginAjax(){
 		var id = $("#managerId").val();
 		var pwd = $("#managerPwd").val();
@@ -277,8 +269,9 @@ function loginAjax(){
 					alert("로그인 되었습니다")
 					$('#mask, .window').hide();
 					$('.window').hide();
-					//게시판 관리 호출
-					//boardManageAjax();
+
+					goBoardManageAjax(); //게시판 관리 페이지 호출
+					trafficTracking(); //트래픽 추적 시작
 				}
 			},
 			error : function(err){

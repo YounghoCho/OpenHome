@@ -6,6 +6,7 @@ public class Article {
 
 	private int articleNum;
 	private int boardNum;
+	private String boardTitle;
 	private String articleSubject;
 	private String articleTextContent;	
 	private String articleContent;
@@ -51,6 +52,14 @@ public class Article {
 
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
+	}
+
+	public String getBoardTitle() {
+		return boardTitle;
+	}
+
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
 	}
 
 	public String getArticleSubject() {
