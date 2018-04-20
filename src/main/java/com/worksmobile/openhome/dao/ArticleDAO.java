@@ -28,11 +28,15 @@ public class ArticleDAO {
 	}
 	
 	public Article getArticleAccessPwd(int articleNum) {
-		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticleAccessPwd", articleNum);
+		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticle", articleNum);
 	}
 	
 	public int removeOwnArticle(int articleNum) {
 		return sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", articleNum);
+	}
+	
+	public Article getArticle(int articleNum) {
+		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticle", articleNum);
 	}
 	
 	/*@ author Youngho Jo*/

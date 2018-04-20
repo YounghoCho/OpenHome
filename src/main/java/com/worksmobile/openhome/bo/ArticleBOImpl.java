@@ -27,6 +27,44 @@ public class ArticleBOImpl implements ArticleBO{
 			return "sorry";
 		}
 	}
+	
+	//비밀번호체크
+	@Override
+	public String checkPwd(int articleNum, String articleAccessPwd) {
+		String accessPwd = dao.getArticleAccessPwd(articleNum).getArticleAccessPwd();
+		if (accessPwd.equals(articleAccessPwd)) {
+			return String.valueOf(articleNum);
+		} else {
+			return "fail";
+		}
+	}	
+		
+	//비번체크된 게시글 삭제
+	@Override
+	public String delCheckedArticle(String check) {
+		if (check.equals("fail")) {
+			return "fail";
+		} else {
+			if(dao.removeOwnArticle(Integer.parseInt(check)) == 1 ) {
+				return "success";
+			} else {
+				return "fail";
+			}
+		}
+	}
+	
+	//비번체크 된 수정할 게시글 가져오기
+	@Override
+	public Article getArticle(String check) {
+		if(check != "fail") {
+			return dao.getArticle(Integer.parseInt(check));
+		} else {
+			Article article = new Article();
+			article.setArticleAccessPwd(check);
+			return article;
+		}
+	}
+		
 
 	/*Article*/
 	@Override
@@ -50,17 +88,5 @@ public class ArticleBOImpl implements ArticleBO{
 		dao.removeArticle(articleNum);
 	}
 
-	@Override
-	public String checkPwd(int articleNum, String articleAccessPwd) {
-		String accessPwd = dao.getArticleAccessPwd(articleNum).getArticleAccessPwd();
-		if (accessPwd.equals(articleAccessPwd)) {
-			if(dao.removeOwnArticle(articleNum) == 1 ) {
-				return "success";
-			} else {
-				return "fail";
-			}
-		} else {
-			return "fail";
-		}
-	}	
+	
 }

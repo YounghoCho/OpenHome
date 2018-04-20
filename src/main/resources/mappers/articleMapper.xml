@@ -84,7 +84,7 @@
 		INSERT INTO article(boardNum) VALUES (#{boardNum})
 	</insert>
 	
-	<select id="getArticleAccessPwd" parameterType="int" resultType="com.worksmobile.openhome.model.Article">
+	<select id="getArticle" parameterType="int" resultType="com.worksmobile.openhome.model.Article">
 		SELECT *
 		FROM article
 		WHERE articleNum = #{articleNum}
@@ -95,4 +95,5 @@
 		FROM article
 		WHERE articleNum = #{articleNum}
 	</delete>
+	
 </mapper>

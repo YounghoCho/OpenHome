@@ -92,6 +92,30 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 	public List<AttachmentFile> getFiles(int articleNumber) {
 		return dao.getFiles(articleNumber);
 	}
+	
+	@Override
+	public String removeFiles(int articleNumber, HttpServletRequest req) {
+		List<AttachmentFile> attachmentfileList = dao.getFiles(articleNumber);
+		
+		String root = req.getSession().getServletContext().getRealPath("/");
+		String saveDirectory = root + "file" + File.separator;
+		
+		if(dao.getFiles(articleNumber).size() != 0 ) {
+			
+			for(AttachmentFile attachmentfile : attachmentfileList) {
+				File file = new File(saveDirectory, attachmentfile.getStoredFileName()); 
+				file.delete();
+			}
+			
+			if (dao.removeFiles(articleNumber) == 1) {
+				return "success";
+			} else {
+				return "fail";
+			}
+		} else {
+			return "none";
+		}
+	}
 
 	@Override
 	public void downloadFile(AttachmentFile attachmentfile, HttpServletRequest req, HttpServletResponse res) throws IOException {

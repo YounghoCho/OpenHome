@@ -14,4 +14,10 @@
 		FROM attachmentfile
 		WHERE articleNum = #{articleNum}
 	</select>
+	
+	<delete id="removeFiles" parameterType="int">
+		DELETE
+		FROM attachmentfile
+		WHERE articleNum = #{articleNum}
+	</delete>
 </mapper>

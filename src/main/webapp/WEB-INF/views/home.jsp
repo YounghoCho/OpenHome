@@ -102,9 +102,10 @@
 						<input type="text" placeholder="제목" name="articleSubject" id="articleSubject"/>
 					</div>
 					
-					<div>
+					<div id="reg_btn_area">
 						<input type="button" value="취소" id="article_reg_cancel_btn"/>
-						<input type="button" value="등록" id="article_reg_ok_btn"/>
+						<input type="button" value="수정" id="article_modify_ok_btn"/>
+				        <input type="button" value="등록" id="article_reg_ok_btn"/>
 					</div>
 					<button type="button" id="file_area" aria-label="펼치기">
 						<i class="fa fa-angle-up"></i>
@@ -122,6 +123,7 @@
 				               </table>
 				        </div>
 				        <input type="button" id="file_delete_btn" value="삭제"/>
+			
 					</div>
 					<div id="textarea_area">
 						<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>
@@ -136,7 +138,8 @@
 				</div>
 				<div>
 				  	<a type="button" id="check_pwd_cancel_btn" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">취소</a>
-					<a type="button" id="check_pwd_btn" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">확인</a>
+					<a type="button" id="check_pwd_btn_del" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">확인</a>
+					<a type="button" id="check_pwd_btn_mod" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">확인</a>
 				</div>
 				
 			</div>

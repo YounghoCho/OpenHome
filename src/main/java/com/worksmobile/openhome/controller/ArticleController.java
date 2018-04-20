@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.worksmobile.openhome.bo.ArticleBO;
+import com.worksmobile.openhome.bo.AttachmentFileBO;
 import com.worksmobile.openhome.model.Article;
 
 
@@ -25,6 +26,10 @@ import com.worksmobile.openhome.model.Article;
 public class ArticleController {
 	@Resource
 	private ArticleBO service;
+	
+	@Resource
+	private AttachmentFileBO fileservice;
+	
 	
 	//홈화면에 필요한 게시판 내용들을 얻는다.
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
@@ -105,13 +110,37 @@ public class ArticleController {
 		return service.addArticle(article);
 	}
 	
-	//비밀번호 체크
-	@RequestMapping(value = "/checkPwd", method = RequestMethod.POST)
+	//비밀번호 체크 후 게시글 삭제
+	@RequestMapping(value = "/checkAndDelArticle", method = RequestMethod.POST)
 	@ResponseBody
-	public String checkPwd(@RequestParam("articleNum") String articleNum, 
+	public String checkAndDelArticle(@RequestParam("articleNum") String articleNum, 
 			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
-		return service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd);
+		String articleDelResult = service.delCheckedArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
+		String fileDelResult = fileservice.removeFiles(Integer.parseInt(articleNum), req);
+		if (articleDelResult.equals("success") && (fileDelResult.equals("success") || fileDelResult.equals("none"))) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
+	
+	//비밀번호 체크 후 게시글 가져오기
+	@RequestMapping(value = "/checkAndGetArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public Article checkAndGetArticle(@RequestParam("articleNum") String articleNum, 
+			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		return service.getArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
+	}
+	
+	//게시글 수정
+	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public String modArticle(@RequestParam("articleNum") String articleNum, 
+			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		return service.delCheckedArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
+	}
+	
+	
 	
 
 }

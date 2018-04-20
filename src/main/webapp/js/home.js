@@ -158,6 +158,9 @@ function goBoardAjax(boardNumber, currentPageNo){
 				case 4: $(".boardtitle.tt").html("게시판4"); break;
 			}*/
 			
+			$("#article_reg_ok_btn").css("display", "block");
+			$("#article_modify_ok_btn").css("display", "none;");
+			
 			//add custom-data on table
 			$('#singleBoardTable').removeData("boardNum");
 			$("#singleBoardTable").data("boardNum", boardNumber);
@@ -217,8 +220,7 @@ function goRead(articleNumber){
 		data: 'articleNumber='+ articleNumber,
 		success: function(res) {
 			$.each(res, function(index, value) {
-				$("#boardTdFiles > ul").append('<li class="filelist"><span><i class="far fa-file"></i></span><a href="#" onclick="javascript:getFile('
-						+ value.fileNum + ",'" + value.originalFileName + "','" + value.storedFileName + "'" + ')">'
+				$("#boardTdFiles > ul").append('<li class="filelist"><span><i class="far fa-file"></i></span><a href="/OpenHome/file/' + value.storedFileName + '"' + 'download="' + value.originalFileName + '">'
 						+ value.originalFileName + '</a></li>');
 			});
 		},

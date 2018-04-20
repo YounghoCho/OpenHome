@@ -27,5 +27,9 @@ public class AttachmentFileDAO {
 	public List<AttachmentFile> getFiles(int articleNumber) {
 		return sqlsession.selectList(NAMESPACE_ATTACHMENTFILE + "getFiles", articleNumber);
 	}
-
+	
+	//첨부파일 삭제
+	public int removeFiles(int articleNumber) {
+		return sqlsession.delete(NAMESPACE_ATTACHMENTFILE + "removeFiles", articleNumber);
+	}
 }

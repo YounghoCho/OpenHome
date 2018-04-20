@@ -9,7 +9,7 @@ $(document).ready(function(){
 	$('#article_reg_ok_btn').on('click', reg);
 	
 	function reg() {
-		
+		alert("등록");
 		if (!$('#articleWriter').val()) {
 			alert ( "작성자를 입력하세요." );
 			return false;
@@ -224,6 +224,10 @@ $(document).ready(function(){
 		$(".homeMainDiv").hide();
 		$(".articleWriteDiv").show();
 		
+		$("#article_modify_ok_btn").css('display', 'none');
+		$("#article_reg_ok_btn").css('display', 'inline-block');
+		
+		
 		$('iframe').remove();
 		$('#articleContent').remove();
 		$('#textarea_area').append('<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>');
@@ -264,6 +268,10 @@ $(document).ready(function(){
 	});
 	
 	$('#article_modify_btn').on('click', function(){
+		alert("수정으로 가는 버튼 맞습니다~");
+		$('#check_pwd_text').val("");
+		$('#check_pwd_btn_del').css('display', 'none');
+		$('#check_pwd_btn_mod').css('display', 'block');
 		$('#check_pwd_hidden_area').css('display', 'block');
 	});
 	
@@ -272,19 +280,23 @@ $(document).ready(function(){
 	});
 	
 	$('#article_delete_btn').on('click', function() {
+		alert("삭제로 가는 버튼 맞습니다~");
+		$('#check_pwd_text').val("");
+		$('#check_pwd_btn_mod').css('display', 'none');
+		$('#check_pwd_btn_del').css('display', 'block');
 		$('#check_pwd_hidden_area').css('display', 'block');
 	});
 	
-	$('#check_pwd_btn').on('click', function(){
+	$('#check_pwd_btn_del').on('click', function(){
+		alert("삭제확인버튼 맞습니다.");
 		$('#check_pwd_text > p').remove();
 		$.ajax({
 			type : 'post',
 			dataType : 'text',
-			url : 'api/article/checkPwd',
+			url : 'api/article/checkAndDelArticle',
 			data : 'articleNum=' + $("#readtable").data("articleNum") + '&articleAccessPwd=' + $("#pwd_text_field").val(),
 			success : function(res){
 				if (res=="success") {
-					$('#check_pwd_text').val("");
 					$('#check_pwd_hidden_area').css("display", "none");
 					alert("게시글이 삭제되었습니다.");
 				} else {
@@ -300,6 +312,60 @@ $(document).ready(function(){
 			}
 		})
 	});
+	
+	$('#check_pwd_btn_mod').on('click', function(){
+		$('#check_pwd_text > p').remove();
+		$.ajax({
+			type : 'post',
+			dataType : 'text',
+			url : 'api/article/checkAndGetArticle',
+			data : 'articleNum=' + $("#readtable").data("articleNum") + '&articleAccessPwd=' + $("#pwd_text_field").val(),
+			success : function(res){
+				if(res != "fail") {
+					$('#check_pwd_hidden_area').css("display", "none");
+					$("#singleBoard").hide();
+					$(".articleReadDiv").hide();
+					$(".homeMainDiv").hide();
+					$(".articleWriteDiv").show();
+				
+					$("#article_reg_ok_btn").css('display', 'none');
+					$("#article_modify_ok_btn").css('display', 'inline-sblock');
+					
+					$('iframe').remove();
+					$('#articleContent').remove();
+					$('#textarea_area').append('<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>');
+				
+					//스마트에디터 프레임생성
+					nhn.husky.EZCreator.createInIFrame({
+						oAppRef: obj,
+						elPlaceHolder: "articleContent",
+						sSkinURI: "editor/SmartEditor2Skin.html",
+						htParams : {
+							// 툴바 사용 여부
+							bUseToolbar : true,            
+							// 입력창 크기 조절바 사용 여부
+							bUseVerticalResizer : true,    
+							// 모드 탭(Editor | HTML | TEXT) 사용 여부
+							bUseModeChanger : true,
+			        }
+			    });
+			} else {
+				$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
+			}
+		},
+			error : function(err) {
+				alert('readyState:' + err.readyState);
+				alert('status:' + err.status);
+				alert('statusText:' + err.statusText);
+				alert('responseText:' + err.responseText);
+			}
+		})
+	});
+	
+	$('#article_modify_ok_btn').on('click', function(){
+		alert('수정버튼');
+	});
+	
 });
 
 function getFile(fileNum, originalFileName, storedFileName) {

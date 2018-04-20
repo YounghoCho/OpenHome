@@ -17,6 +17,7 @@ public interface AttachmentFileBO {
 	/*@author Suji Jang*/
 	public String addFile(String fileAttacher, int articleNum, MultipartHttpServletRequest req);
 	public List<AttachmentFile> getFiles(int aricleNumber);
+	public String removeFiles(int articleNumber, HttpServletRequest req);
 	
 	public void downloadFile(AttachmentFile attachmentfile, HttpServletRequest req, HttpServletResponse res) throws IOException;
 }
