@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.io.output.TeeOutputStream;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.DelegatingServletOutputStream;
 
 public class ServeltResponseFilter implements Filter {
@@ -41,7 +42,9 @@ public class ServeltResponseFilter implements Filter {
 				);
 			}
 		});
-		System.out.println("Servlet Response Body Length=" + baos.toByteArray().length);
+		if(((HttpServletResponse)response).getStatus() == HttpStatus.OK.value()) {
+			System.out.println("Servlet Response Body Length=" + baos.toByteArray().length);
+		}
 	}
 
 	@Override
