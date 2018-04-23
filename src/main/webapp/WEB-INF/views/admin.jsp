@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <head>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=2121111122">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css?ver=1">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=1">
 </head>
 
 <div id="mask"></div>
@@ -45,7 +45,7 @@
     	<p style="font-weight:bold;margin:0;padding:5px;"></p>
     </div>
     <div class="modal-footer">
-      <h3>OPEN HOME</h3>
+      <h3>OPENHOME</h3>
     </div>
   </div>
 </div>
@@ -69,7 +69,7 @@
 <div id="center-right">
 <!-- top -->
 <div id="top">
-	Welcome to OPEN HOME
+	Welcome to OPENHOME
 </div>
 
 <div id="body">

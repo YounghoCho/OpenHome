@@ -23,7 +23,7 @@
 <div id="center-right">
 <!-- top -->
 <div id="top">
-	Welcome to OPEN HOME
+	Welcome to OPENHOME
 </div>
 	
 <!-- body -->
