@@ -230,6 +230,14 @@ function goBoardAjax(boardNumber, currentPageNo){
 										 + "<b>" + i + "</b></a>");
 				}
 			}			
+
+			$("#article_reg_ok_btn").css("display", "block");
+			$("#article_modify_ok_btn").css("display", "none;");
+			
+			//add custom-data on table
+			$('#singleBoardTable').removeData("boardNum");
+			$("#singleBoardTable").data("boardNum", boardNumber);
+			
 			//Removing Message Lists
 			$(".tbody > tr > td").remove();
 			//Setting Message Lists
@@ -279,6 +287,10 @@ function goRead(articleNumber){
 	$(".articleWriteDiv").hide();
 	$(".articleReadDiv").show();
 	
+	$('#boardTdSubject').empty();
+	$('#boardTdContent').empty();
+	$('#boardTdFiles > ul > li').remove();
+	
 	jQuery.ajax({
 		type: "GET",
 		url: "api/article/articleDetails",
@@ -287,6 +299,8 @@ function goRead(articleNumber){
 		success: function(res){
 			$("#boardTdSubject").html(res.articleDetails[0].articleSubject);
 			$("#boardTdContent").html(res.articleDetails[0].articleContent);
+
+			$("#readtable").data("articleNum", res.articleDetails[0].articleNum);
 			/////////////Start////////////
 			let len = res.articleDetails.length;
 			let trafficInt = new Array();
@@ -305,9 +319,29 @@ function goRead(articleNumber){
 			if(totalData != 0)
 				insertTrafficAjax(totalData, trafficKind);
 			/////////////End////////////	
+
 		},
 		error: function(err){
 			alert("lose:"+err.status);
+		}
+	});
+	
+	$.ajax({
+		type: "post",
+		url: "api/attachmentfile/fileDetails",
+		dataType: 'json',
+		data: 'articleNumber='+ articleNumber,
+		success: function(res) {
+			$.each(res, function(index, value) {
+				$("#boardTdFiles > ul").append('<li class="filelist"><span><i class="far fa-file"></i></span><a href="/OpenHome/file/' + value.storedFileName + '"' + 'download="' + value.originalFileName + '">'
+						+ value.originalFileName + '</a></li>');
+			});
+		},
+		error : function(err) {
+			alert('readyState:' + err.readyState);
+			alert('status:' + err.status);
+			alert('statusText:' + err.statusText);
+			alert('responseText:' + err.responseText);
 		}
 	});
 	history.pushState({ data: '3' }, 'title3', '?depth=3');
@@ -317,17 +351,26 @@ function goRead(articleNumber){
 $(window).bind("popstate", function(event) {
 	try{
 		var index=event.originalEvent.state.data;
-		if (index == 2){
+		if (index == 2) {
 			$(".articleReadDiv").hide();
 			$(".homeMainDiv").hide();
 			$(".articleWriteDiv").hide();
 			$("#singleBoard").show();
-		}
-		else if (index == 1){
+		} else if (index == 1) {
 			$(".articleReadDiv").hide();
 			$("#singleBoard").hide();
 			$(".articleWriteDiv").hide();
 			$(".homeMainDiv").show();
+		} else if (index == 3) {
+			$(".articleReadDiv").show();
+			$("#singleBoard").hide();
+			$(".articleWriteDiv").hide();
+			$(".homeMainDiv").hide();
+		} else if (index == 5) {
+			$(".articleReadDiv").hide();
+			$("#singleBoard").hide();
+			$(".articleWriteDiv").show();
+			$(".homeMainDiv").hide();
 		}
 	}catch(exception){	
 		$("#singleBoard").hide();

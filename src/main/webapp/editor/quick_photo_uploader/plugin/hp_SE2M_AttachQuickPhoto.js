@@ -10,9 +10,9 @@ nhn.husky.SE2M_AttachQuickPhoto = jindo.$Class({
 
 	$init : function(){},
 	
-	$ON_MSG_APP_READY : function(){
+/*	$ON_MSG_APP_READY : function(){
 		this.oApp.exec("REGISTER_UI_EVENT", ["photo_attach", "click", "ATTACHPHOTO_OPEN_WINDOW"]);
-	},
+	},*/
 	
 	$LOCAL_BEFORE_FIRST : function(sMsg){
 		if(!!this.oPopupMgr){ return; }

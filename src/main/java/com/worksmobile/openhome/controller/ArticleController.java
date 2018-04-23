@@ -9,13 +9,16 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.worksmobile.openhome.bo.ArticleBO;
+import com.worksmobile.openhome.bo.AttachmentFileBO;
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.status.ReturnStatus;
 
@@ -26,6 +29,9 @@ public class ArticleController {
 	@Resource
 	private ArticleBO service;
 	
+	@Resource
+	private AttachmentFileBO fileservice;
+
 	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 	
 	//홈화면에 필요한 게시판 내용들을 얻는다.
@@ -88,21 +94,53 @@ public class ArticleController {
 	}
 
 	/*@author Suji Jang*/
-	@RequestMapping(value="/addArticle", method=RequestMethod.POST)
-	public String addArticle(HttpServletRequest req) throws Exception { 
-		service.addArticleNum();
-		Article article = new Article(Integer.parseInt(req.getParameter("boardNum")), req.getParameter("articleSubject"),
-				req.getParameter("articleTextContent"), req.getParameter("articleContent"), req.getParameter("articleWriter"), 
-				req.getParameter("articleAccessPwd"));
-		int num = service.addArticle(article);
-		if (num == 1) {
-			return "ok";
-		} else {
-			return "sorry";
-		}
-		
+	@RequestMapping(value = "/addArticleNum", method = RequestMethod.POST)
+	@ResponseBody
+	public String addArticleNum(HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		Article article = new Article(Integer.parseInt(req.getParameter("boardNum")));
+		service.addArticleNum(article);
+		return String.valueOf(article.getArticleNum());
 	}
 	
+	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public String addArticle(HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		Article article = new Article(Integer.parseInt(req.getParameter("articleNum")), Integer.parseInt(req.getParameter("boardNum")),
+				req.getParameter("articleSubject"), req.getParameter("articleTextContent"), req.getParameter("articleContent"),
+				req.getParameter("articleWriter"), req.getParameter("articleAccessPwd"), "Y");
+		return service.addArticle(article);
+	}
 	
+	//비밀번호 체크 후 게시글 삭제
+	@RequestMapping(value = "/checkAndDelArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public String checkAndDelArticle(@RequestParam("articleNum") String articleNum, 
+			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		String articleDelResult = service.delCheckedArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
+		String fileDelResult = fileservice.removeFiles(Integer.parseInt(articleNum), req);
+		if (articleDelResult.equals("success") && (fileDelResult.equals("success") || fileDelResult.equals("none"))) {
+			return "success";
+		}
+		return "none";
+	}
+	
+	//비밀번호 체크 후 게시글 가져오기
+	@RequestMapping(value = "/checkAndGetArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public Article checkAndGetArticle(@RequestParam("articleNum") String articleNum, 
+			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		return service.getArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
+	}
+	
+	//게시글 수정
+	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public String modArticle(@RequestParam("articleNum") int articleNum, HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		Article article = new Article(articleNum, req.getParameter("articleSubject"),
+							req.getParameter("articleTextContent"), req.getParameter("articleContent"),
+							req.getParameter("articleWriter"));
+		return service.modArticle(article);
+	}
+   
 }
 

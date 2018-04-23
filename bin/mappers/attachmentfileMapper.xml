@@ -5,7 +5,25 @@
    
 <mapper namespace="attachmentfile">
     <insert id="addFile" parameterType="com.worksmobile.openhome.model.AttachmentFile">
-			insert into file_upload(articleNum, originalFileName , storedFileName, fileSize, fileSize, fileAttacher) 
-			values (#{articleNum }, #{originalFileName}, #{storedFileName}, now(), #{fileSize}, #{fileAttacher})
+		INSERT INTO attachmentfile(articleNum, originalFileName , storedFileName, fileDate, fileSize, fileAttacher) 
+		VALUES (#{articleNum}, #{originalFileName}, #{storedFileName}, now(), #{fileSize}, #{fileAttacher})
 	</insert>
+	
+	<select id="getFiles" parameterType="int" resultType="com.worksmobile.openhome.model.AttachmentFile">
+		SELECT * 
+		FROM attachmentfile
+		WHERE articleNum = #{articleNum}
+	</select>
+	
+	<delete id="removeFiles" parameterType="int">
+		DELETE
+		FROM attachmentfile
+		WHERE articleNum = #{articleNum}
+	</delete>
+	
+	<delete id="removeFile" parameterType="int">
+		DELETE
+		FROM attachmentfile
+		WHERE fileNum = #{fileNum}
+	</delete>
 </mapper>

@@ -19,12 +19,28 @@ public class ArticleDAO {
 	
 	/*@ author Suji Jang*/
 	public int addArticle(Article article) {
-		int num = sqlsession.insert(NAMESPACE_ARTICLE + "addArticle", article);
+		int num = sqlsession.update(NAMESPACE_ARTICLE + "addArticle", article);
 		return num;
 	}
 	
-	public void addArticleNum() {
-		sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum");
+	public int addArticleNum(Article article) {
+		return sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum", article);
+	}
+	
+	public Article getArticleAccessPwd(int articleNum) {
+		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticle", articleNum);
+	}
+	
+	public int removeOwnArticle(int articleNum) {
+		return sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", articleNum);
+	}
+	
+	public Article getArticle(int articleNum) {
+		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticle", articleNum);
+	}
+	
+	public int modArticle(Article article) {
+		return sqlsession.update(NAMESPACE_ARTICLE + "modArticle", article);
 	}
 	
 	/*@ author Youngho Jo*/

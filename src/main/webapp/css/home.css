@@ -11,11 +11,7 @@
 }
 
 #header{
-	/* background-color:red; */
-/* 	position:absoulte;
-	width:100%;
-	height:50px;
-	border-bottom: none; */
+
 	position:relative;
 	height:49px;
 	/* width:249px; */
@@ -72,13 +68,6 @@
 }
 
 #body{
-/* 	position:absolute;
-	top:70px;
-	bottom:30px;
-	overflow:auto;
-	height:100%;
-	left:249px;
-	width:100%; */
 	position:absolute;
 	top:70px;
 	bottom:0px;
@@ -177,31 +166,6 @@ td{
 .homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
 }
 
-/* .container.board, .container.read, .container.static, .container.realTime, .homeMainDiv{
-	display:none;
-	position:absolute;
-	top:70px;
-	bottom:30px;
-	overflow:auto;
-	height:100%;
-	left:249px;
-	width:100%;
-	padding-top:10px;
-} */
-
-/* .container.home, .container.board, .container.read, .container.static, .container.realTime{
-	display:none;
-	overflow:hidden;
-} */
-/* #singleBoard{
-	position:absolute;
-	left:249px;
-} */
-/* .homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
-	position:absolute;
-	left:249px;
-} */
-
 /*graph*/
 .staticGraphDiv, .realTimeGraphDiv{
 	width:100%;
@@ -257,7 +221,7 @@ rect .highcharts-button-box{
 	overflow:hidden;
 }
 
-.container.write #my_pc{
+/* .container.write #my_pc{
 	border: 1px solid black;
 	display:inline-block;
 	vertical-align:middle;
@@ -266,18 +230,8 @@ rect .highcharts-button-box{
 	line-height:20px;
 	height:20px;
 	width:70px;
-}
-
-/* .articleWriteDiv {
-	position:absolute;
-	margin-left:249px;
-	position:relative;
 } */
 
-/* .container.write {
-	display:none;
-	overflow:hidden;
-} */
 
 #footer {
 	position: absolute;
@@ -292,5 +246,49 @@ rect .highcharts-button-box{
 .removeArticle{
 	color : #5cb85c;
 	cursor: pointer;
+}
 
+#boardTdFiles > ul {
+	font-size:10px;
+	list-style-type: none;
+}
+
+#boardTdFiles > ul > li > a {
+	width: 200px;
+	color: black;
+}
+
+#boardTdFiles > ul > li > a:hover {
+	text-decoration:underline;
+}
+
+#boardTdFiles > ul > li > span {
+	float:left;
+	margin-right:10px;
+}
+
+#check_pwd_hidden_area {
+	display: none;
+	z-index:3;
+	position:fixed;
+	width:100%;
+	height:100%;
+	padding-top:300px;
+	padding-left:500px;
+	margin-left:-250px;
+	top:0;
+	background-color:rgba(0,0,0,0.7);
+}
+
+#check_pwd_hidden_area #check_pwd_hidden {
+	width:500px;
+	height:400px;
+	background-color:white;
+	padding:30px;
+}
+
+#reg_btn_area {
+	width:100%;
+	height:50px;
+	padding-top:10px;
 }

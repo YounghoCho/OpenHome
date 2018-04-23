@@ -36,6 +36,7 @@ dependencies {
 	compile("org.mybatis:mybatis")
 	
     compile("mysql:mysql-connector-java:5.1.46")
+    compile('javax.servlet:jstl:1.2')
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.2'

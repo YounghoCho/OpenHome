@@ -1,6 +1,9 @@
 package com.worksmobile.openhome.model;
 
+import java.io.File;
 import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class AttachmentFile {
 	
@@ -16,10 +19,16 @@ public class AttachmentFile {
 		
 	}
 	
+	public AttachmentFile(int fileNum, String originalFileName, String storedFileName) {
+		this.fileNum = fileNum;
+		this.originalFileName = originalFileName;
+		this.storedFileName = storedFileName;
+	}
+	
 	public AttachmentFile(int articleNum, String originalFileName, String storedFileName, int fileSize, String fileAttacher) {
 		this.articleNum = articleNum;
 		this.originalFileName = originalFileName;
-		this.storedFileName = originalFileName;
+		this.storedFileName = storedFileName;
 		this.fileSize = fileSize;
 		this.fileAttacher = fileAttacher;
 	}
@@ -79,5 +88,6 @@ public class AttachmentFile {
 	public void setFileDate(Date fileDate) {
 		this.fileDate = fileDate;
 	}
+
 
 }

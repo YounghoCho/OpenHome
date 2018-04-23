@@ -29,6 +29,8 @@
 			article
 		WHERE
 			boardNum = #{boardNumber}
+		AND
+			articleStatus = 'Y'
 	</select>
 			
 	<select id="getArticleDetails" resultType="com.worksmobile.openhome.model.Article">
@@ -48,6 +50,8 @@
 			article a, board b, ( SELECT @ROWNUM := 0 ) R
 		WHERE
 			a.boardNum = b.boardNum
+		AND
+			a.articleStatus = 'Y'
 	</select>
 
 	<delete id="removeArticle" parameterType="com.worksmobile.openhome.model.Article">
@@ -59,28 +63,50 @@
 	</delete>
 	
 	<!-- @author suji -->
+	
+	<insert id="addArticleNum" parameterType="com.worksmobile.openhome.model.Article" useGeneratedKeys="true" keyProperty="articleNum">
+		INSERT INTO article(boardNum) VALUES (#{boardNum})
+	</insert>
+	
 	<update id="addArticle" parameterType="com.worksmobile.openhome.model.Article">
-	 	update 
+	 	UPDATE 
 	 		article 
-	 	set 
-	 		boardNum = #{boardNum}, 
+	 	SET 
 	 		articleSubject = #{articleSubject}, 
 	 		articleTextContent = #{articleTextContent},
 	 		articleContent = #{articleContent}, 
 	 		articleDate = now(), 
 	 		articleWriter = #{articleWriter}, 
 	 		articleAccessPwd = #{articleAccessPwd},
-	 		articleStatus = "Y"
-	 	where 
+	 		articleStatus = #{articleStatus}
+	 	WHERE 
 	 		articleNum = #{articleNum}
-	 	and
-	 		articleStatus = "N"
+	 	AND
+	 		articleStatus = 'N'
 	</update>
 	
-	<insert id="addArticleNum" parameterType="com.worksmobile.openhome.model.Article" useGeneratedKeys="true" keyProperty="articleNum">
-		insert into article values()
-		<selectKey resultType="int" keyProperty="articleNum" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-	</insert>
+	<select id="getArticle" parameterType="int" resultType="com.worksmobile.openhome.model.Article">
+		SELECT *
+		FROM article
+		WHERE articleNum = #{articleNum}
+	</select>
+	
+	<delete id="removeOwnArticle" parameterType="int">
+		DELETE
+		FROM article
+		WHERE articleNum = #{articleNum}
+	</delete>
+	
+	<update id="modArticle" parameterType="com.worksmobile.openhome.model.Article">
+		UPDATE
+			article
+		SET
+			articleSubject = #{articleSubject}, 
+	 		articleTextContent = #{articleTextContent},
+	 		articleContent = #{articleContent}, 
+	 		articleDate = now()
+	 	WHERE 
+	 		articleNum = #{articleNum}
+	</update>
+	
 </mapper>
