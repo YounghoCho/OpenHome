@@ -3,6 +3,7 @@ $(document).ready(function(){
 	
 	//@author suji
   	//에디터에 필요한 전역변수
+	var fd = new FormData();
     var obj = [];  
    	
    	//등록버튼을 눌렀을 때
@@ -41,12 +42,13 @@ $(document).ready(function(){
 				type : 'post',
 				dataType : 'text',
 				url : 'api/article/addArticle',
-				data : 'articleNum=' + $('.articleWriteDiv').data("articleNum") + '&boardNum=' + $("#singleBoardTable").data("boardNum") + '&articleWriter=' + $('#articleWriter').val()
-						+ '&articleAccessPwd=' + $('#articleAccessPwd').val() + '&articleSubject=' + $('#articleSubject').val()
-						+ '&articleContent=' + $('#articleContent').val() + '&articleTextContent=' + articleTextContent,
+				data : 'articleNum=' + $('.articleWriteDiv').data("articleNum") + '&boardNum=' + $("#singleBoardTable").data("boardNum") 
+						+ '&articleWriter=' + $('#articleWriter').val() + '&articleAccessPwd=' + $('#articleAccessPwd').val() 
+						+ '&articleSubject=' + $('#articleSubject').val() + '&articleContent=' + $('#articleContent').val() 
+						+ '&articleTextContent=' + articleTextContent,
 				success : function(res){
 					alert(res);
-					if (res == "ok") {
+					if (res == "success") {
 						alert(totalFileCount);
 						if ( totalFileCount > 0) {
 								$.ajax({
@@ -58,9 +60,12 @@ $(document).ready(function(){
 							        processData : false,
 							        cache : false,
 									success : function(res){
-										if(res == "ok") {
+										if(res == "success") {
 											alert("게시글 및 첨부파일이 등록되었습니다.");
 											/*window.location = "../${pageContext.request.contextPath}/board";*/
+											fd.clearForm();
+											location.href="/OpenHome/board?depth=2";
+											
 										} else {
 											alert(res);
 										}
@@ -74,7 +79,7 @@ $(document).ready(function(){
 								})
 							} else {
 								alert("게시글이 등록되었습니다.");
-								window.location = "../${pageContext.request.contextPath}/board";
+								location.href="/OpenHome/board?depth=2";
 							}
 					} else {
 						alert("게시글이 등록되지 않았습니다.");
@@ -88,14 +93,13 @@ $(document).ready(function(){
 				}
 			})
 		}
+		fd.clearForm();
 	}
 	
 	//--첨부파일--
 	//파일 사이즈 측정
 	var totalFileSize = 0;
 	var totalFileCount = 0;
-	
-    var fd = new FormData();
     
     var StringBuffer = function() {
     	this.buffer = new Array();
@@ -192,7 +196,6 @@ $(document).ready(function(){
     });
     // 해당 파일 드랍시 호출 이벤트
     $(".dragDropDiv").on("drop", function(e) {
-        $(this).css('border', '2px solid green');
         //drop이벤트를 우선으로 처리
         e.preventDefault();
         
@@ -226,7 +229,7 @@ $(document).ready(function(){
 		
 		$("#article_modify_ok_btn").css('display', 'none');
 		$("#article_reg_ok_btn").css('display', 'inline-block');
-		
+		$('articleAccessPwd').css("display","inline-block");
 		
 		$('iframe').remove();
 		$('#articleContent').remove();
@@ -237,15 +240,15 @@ $(document).ready(function(){
 	        oAppRef: obj,
 	        elPlaceHolder: "articleContent",
 	        sSkinURI: "editor/SmartEditor2Skin.html",
-	        htParams : {
-	            // 툴바 사용 여부
-	            bUseToolbar : true,            
-	            // 입력창 크기 조절바 사용 여부
-	            bUseVerticalResizer : true,    
-	            // 모드 탭(Editor | HTML | TEXT) 사용 여부
-	            bUseModeChanger : true,
-	        }
-	    });
+			htParams : {
+				// 툴바 사용 여부
+				bUseToolbar : true,            
+				// 입력창 크기 조절바 사용 여부
+				bUseVerticalResizer : true,    
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부
+				bUseModeChanger : true,
+        }
+    });
 	    
 	    $.ajax({
 			type : 'post',
@@ -269,7 +272,9 @@ $(document).ready(function(){
 	
 	$('#article_modify_btn').on('click', function(){
 		alert("수정으로 가는 버튼 맞습니다~");
-		$('#check_pwd_text').val("");
+		$('#pwd_text_field').val('');
+		$('#pwd_text_field').focus();
+		$('#check_pwd_text > p').remove();
 		$('#check_pwd_btn_del').css('display', 'none');
 		$('#check_pwd_btn_mod').css('display', 'block');
 		$('#check_pwd_hidden_area').css('display', 'block');
@@ -281,7 +286,9 @@ $(document).ready(function(){
 	
 	$('#article_delete_btn').on('click', function() {
 		alert("삭제로 가는 버튼 맞습니다~");
-		$('#check_pwd_text').val("");
+		$('#pwd_text_field').val('');
+		$('#pwd_text_field').focus();
+		$('#check_pwd_text > p').remove();
 		$('#check_pwd_btn_mod').css('display', 'none');
 		$('#check_pwd_btn_del').css('display', 'block');
 		$('#check_pwd_hidden_area').css('display', 'block');
@@ -301,8 +308,7 @@ $(document).ready(function(){
 					alert("게시글이 삭제되었습니다.");
 				} else {
 					$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
-				}
-			
+				}s
 			},
 			error : function(err) {
 				alert('readyState:' + err.readyState);
@@ -317,11 +323,38 @@ $(document).ready(function(){
 		$('#check_pwd_text > p').remove();
 		$.ajax({
 			type : 'post',
-			dataType : 'text',
+			dataType : 'json',
 			url : 'api/article/checkAndGetArticle',
 			data : 'articleNum=' + $("#readtable").data("articleNum") + '&articleAccessPwd=' + $("#pwd_text_field").val(),
 			success : function(res){
-				if(res != "fail") {
+				if(res.articleAccessPwd != "fail") {
+							$.ajax({
+								type : 'post',
+								dataType : 'json',
+								url : 'api/attachmentfile/checkAndGetAttachmentFile',
+								data : 'articleNum=' + $("#readtable").data("articleNum"),
+								success : function(res){
+									if (res != null) {
+										var oldfilefd = new FormData();
+										$.each(res, function(index, value) {
+												 oldfilefd.append(value.originalFileName, value.storedFileName);
+									             //fd.append(value.originalFileName, value.storedFileName);
+									             // 파일 이름과 정보를 추가해줌
+									             var tag = createFile(value.originalFileName, value.fileSize);
+									             $('#fileTable').append(tag);
+										});
+							} else {
+								$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
+							}
+						},
+						error : function(err) {
+							alert('readyState:' + err.readyState);
+							alert('status:' + err.status);
+							alert('statusText:' + err.statusText);
+							alert('responseText:' + err.responseText);
+						}
+					})
+					
 					$('#check_pwd_hidden_area').css("display", "none");
 					$("#singleBoard").hide();
 					$(".articleReadDiv").hide();
@@ -329,12 +362,18 @@ $(document).ready(function(){
 					$(".articleWriteDiv").show();
 				
 					$("#article_reg_ok_btn").css('display', 'none');
-					$("#article_modify_ok_btn").css('display', 'inline-sblock');
+					$("#article_modify_ok_btn").css('display', 'inline-block');
 					
 					$('iframe').remove();
 					$('#articleContent').remove();
 					$('#textarea_area').append('<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>');
-				
+					
+					$('#articleWriter').val(res.articleWriter);
+					$('#articleAccessPwd').css("display","none");
+					$('#articleSubject').val(res.articleSubject);
+					$('.articleWriteDiv').data("articleNum", res.articleNum);
+					
+					
 					//스마트에디터 프레임생성
 					nhn.husky.EZCreator.createInIFrame({
 						oAppRef: obj,
@@ -347,6 +386,9 @@ $(document).ready(function(){
 							bUseVerticalResizer : true,    
 							// 모드 탭(Editor | HTML | TEXT) 사용 여부
 							bUseModeChanger : true,
+			        },
+			        fOnAppLoad : function() {
+			        	obj.getById["articleContent"].exec("PASTE_HTML", [res.articleContent]);
 			        }
 			    });
 			} else {
@@ -362,27 +404,126 @@ $(document).ready(function(){
 		})
 	});
 	
-	$('#article_modify_ok_btn').on('click', function(){
-		alert('수정버튼');
-	});
+	$('#article_modify_ok_btn').on('click', modify);
 	
+	function modify() {
+		alert("수정버튼");
+		if (!$('#articleSubject').val()) {
+			alert("글 제목을 입력하세요.");
+			return false;
+		} else {
+			//내용값 html 태그 지움
+	        var articleTextContent = obj.getById["articleContent"].getIR().replace(/[<][^>]*[>]/gi, "").replace(/&nbsp;/g, " ");
+	     	
+	        //editor값 textarea에 반영
+	        obj.getById["articleContent"].exec("UPDATE_CONTENTS_FIELD", []);
+
+	        //내용 null값 확인
+	        if (articleTextContent.replace(/ /g, "").length == 0) {
+	        	alert("글 내용을 입력하세요.");
+	        	return false;
+	        }
+	        
+	       //formData에 게시글 관련 데이터 추가
+	        fd.append('articleWriter', $('#articleWriter').val());
+	        fd.append('articleNum', $('.articleWriteDiv').data("articleNum"));
+
+	        //값 전송
+			$.ajax({
+				type : 'post',
+				dataType : 'text',
+				url : 'api/article/modArticle',
+				data : 'articleNum=' + $('.articleWriteDiv').data("articleNum")
+						+ '&articleSubject=' + $('#articleSubject').val() + '&articleContent=' + $('#articleContent').val() 
+						+ '&articleTextContent=' + articleTextContent,
+				success : function(res){
+					alert(res);
+					if (res == "success") {
+						alert(totalFileCount);
+						if ( totalFileCount > 0) {
+								$.ajax({
+									type : 'post',
+									dataType : 'text',
+									url : 'api/attachmentfile/modFile',
+									data : fd,
+								    contentType : false,
+							        processData : false,
+							        cache : false,
+									success : function(res){
+										if(res != "fail") {
+											alert("게시글 및 첨부파일이 수정되었습니다.");
+											/*window.location = "../${pageContext.request.contextPath}/board";*/
+										} else {
+											alert("게시글 및 첨부파일이 수정이 완료되지 않았습니다.");
+										}
+									},
+									error : function(err) {
+										alert('readyState:' + err.readyState);
+										alert('status:' + err.status);
+										alert('statusText:' + err.statusText);
+										alert('responseText:' + err.responseText);
+									}
+								})
+							} else {
+								alert("게시글이 수정되었습니다.");
+								window.location = "../${pageContext.request.contextPath}/board";
+							}
+					} else {
+						alert("게시글이 수정되지 않았습니다.");
+					}
+				},
+				error : function(err) {
+					alert('readyState:' + err.readyState);
+					alert('status:' + err.status);
+					alert('statusText:' + err.statusText);
+					alert('responseText:' + err.responseText);
+				}
+			})
+		}
+	}
+
 });
 
-function getFile(fileNum, originalFileName, storedFileName) {
-	alert("확인!");
-		$.ajax({
-			type : 'post',
-			dataType : 'text',
-			url : 'api/attachmentfile/fileDownload',
-			data : 'fileNum=' + fileNum + '&originalFileName=' + originalFileName + '&storedFileName=' + storedFileName,
-			success : function(res) {
-				alert(res);
-			},
-			error : function(err) {
-				alert('readyState:' + err.readyState);
-				alert('status:' + err.status);
-				alert('statusText:' + err.statusText);
-				alert('responseText:' + err.responseText);
-				}
-		})
+function uploadPhoto(e) {
+	 alert("사진버튼");
+/*	var photo_formdata = new FormData();
+	var files = e.target.files;
+	 for (var i = 0; i < files.length; i++) {
+		 photo_formdata.append(files[i].name, files[i]);
+	 }*/
+	 
+	/* photo_formdata.append("articleNum", document.querySelector('.articleWriteDiv').data("articleNum"));*/
+	
+/*	  var xhttp = new XMLHttpRequest();
+	  xhttp.open("POST", "../api/attachmentfile/addPhotoFile", true);
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	    	obj.getById["content"].exec("PASTE_HTML", [this.responseText]);
+	    }
+	  };
+	  xhttp.setRequestHeader("Content-Type", "multipart/form-data");
+	  xhttp.send(photo_formdata);*/
+	 var url= "../api/attachmentfile/addPhotoFile";
+	  var file = this.files[0];
+      var xhr = new XMLHttpRequest();
+      xhr.file = file; // not necessary if you create scopes like this
+      xhr.addEventListener('progress', function(e) {
+          var done = e.position || e.loaded, total = e.totalSize || e.total;
+          console.log('xhr progress: ' + (Math.floor(done/total*1000)/10) + '%');
+      }, false);
+      if ( xhr.upload ) {
+          xhr.upload.onprogress = function(e) {
+              var done = e.position || e.loaded, total = e.totalSize || e.total;
+              console.log('xhr.upload progress: ' + done + ' / ' + total + ' = ' + (Math.floor(done/total*1000)/10) + '%');
+          };
+      }
+      xhr.onreadystatechange = function(e) {
+          if ( 4 == this.readyState ) {
+              console.log(['xhr upload complete', e]);
+          }
+      };
+      xhr.open('post', url, true);
+      xhr.setRequestHeader("Content-Type","multipart/form-data");
+      xhr.send(file);
+
 }

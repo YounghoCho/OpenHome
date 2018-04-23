@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.worksmobile.openhome.model.AttachmentFile;
@@ -15,10 +16,11 @@ import com.worksmobile.openhome.model.AttachmentFile;
 public interface AttachmentFileBO {
 
 	/*@author Suji Jang*/
-	public String addFile(String fileAttacher, int articleNum, MultipartHttpServletRequest req);
+	public String addFile(String fileAttacher, int articleNum, MultipartHttpServletRequest mreq);
 	public List<AttachmentFile> getFiles(int aricleNumber);
 	public String removeFiles(int articleNumber, HttpServletRequest req);
-	
-	public void downloadFile(AttachmentFile attachmentfile, HttpServletRequest req, HttpServletResponse res) throws IOException;
+	public List<AttachmentFile> checkAndGetAttachmentFile(int articleNumber, HttpServletRequest req) throws Exception;
+	public String modFile(String fileAttacher, int articleNum, MultipartHttpServletRequest mreq) throws Exception;
+	public String addPhotoFile(int articleNum, MultipartHttpServletRequest mreq);
 }
 

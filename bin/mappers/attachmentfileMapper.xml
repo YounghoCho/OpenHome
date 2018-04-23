@@ -20,4 +20,10 @@
 		FROM attachmentfile
 		WHERE articleNum = #{articleNum}
 	</delete>
+	
+	<delete id="removeFile" parameterType="int">
+		DELETE
+		FROM attachmentfile
+		WHERE fileNum = #{fileNum}
+	</delete>
 </mapper>

@@ -135,13 +135,15 @@ public class ArticleController {
 	//게시글 수정
 	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
 	@ResponseBody
-	public String modArticle(@RequestParam("articleNum") String articleNum, 
-			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
-		return service.delCheckedArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
+	public String modArticle(@RequestParam("articleNum") int articleNum, HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		Article article = new Article(articleNum, req.getParameter("articleSubject"),
+							req.getParameter("articleTextContent"), req.getParameter("articleContent"),
+							req.getParameter("articleWriter"));
+		return service.modArticle(article);
 	}
 	
 	
 	
-
+   
 }
 

@@ -214,7 +214,7 @@ function goRead(articleNumber){
 	});
 	
 	$.ajax({
-		type: "get",
+		type: "post",
 		url: "api/attachmentfile/fileDetails",
 		dataType: 'json',
 		data: 'articleNumber='+ articleNumber,

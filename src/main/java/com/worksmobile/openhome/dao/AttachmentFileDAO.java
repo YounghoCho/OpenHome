@@ -24,12 +24,17 @@ public class AttachmentFileDAO {
 	}
 	
 	//첨부파일 조회
-	public List<AttachmentFile> getFiles(int articleNumber) {
-		return sqlsession.selectList(NAMESPACE_ATTACHMENTFILE + "getFiles", articleNumber);
+	public List<AttachmentFile> getFiles(int articleNum) {
+		return sqlsession.selectList(NAMESPACE_ATTACHMENTFILE + "getFiles", articleNum);
 	}
 	
 	//첨부파일 삭제
-	public int removeFiles(int articleNumber) {
-		return sqlsession.delete(NAMESPACE_ATTACHMENTFILE + "removeFiles", articleNumber);
+	public int removeFiles(int articleNum) {
+		return sqlsession.delete(NAMESPACE_ATTACHMENTFILE + "removeFiles", articleNum);
+	}
+	
+	//첨부파일 삭제
+	public int removeFile(int fileNum) {
+		return sqlsession.delete(NAMESPACE_ATTACHMENTFILE + "removeFile", fileNum);
 	}
 }

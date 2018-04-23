@@ -16,6 +16,7 @@ public interface ArticleBO {
 	public String checkPwd(int articleNum, String articleAccessPwd);
 	public String delCheckedArticle(String check);
 	public Article getArticle(String check);
+	public String modArticle(Article article);
 
 	/*@ author Youngho Jo*/
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize);

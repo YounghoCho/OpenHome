@@ -23,8 +23,8 @@ public class ArticleDAO {
 		return num;
 	}
 	
-	public void addArticleNum(Article article) {
-		sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum", article);
+	public int addArticleNum(Article article) {
+		return sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum", article);
 	}
 	
 	public Article getArticleAccessPwd(int articleNum) {
@@ -37,6 +37,10 @@ public class ArticleDAO {
 	
 	public Article getArticle(int articleNum) {
 		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticle", articleNum);
+	}
+	
+	public int modArticle(Article article) {
+		return sqlsession.update(NAMESPACE_ARTICLE + "modArticle", article);
 	}
 	
 	/*@ author Youngho Jo*/

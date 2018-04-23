@@ -222,7 +222,7 @@ rect .highcharts-button-box{
 	overflow:hidden;
 }
 
-.container.write #my_pc{
+/* .container.write #my_pc{
 	border: 1px solid black;
 	display:inline-block;
 	vertical-align:middle;
@@ -231,7 +231,7 @@ rect .highcharts-button-box{
 	line-height:20px;
 	height:20px;
 	width:70px;
-}
+} */
 
 
 #footer {
@@ -286,4 +286,10 @@ rect .highcharts-button-box{
 	height:400px;
 	background-color:white;
 	padding:30px;
+}
+
+#reg_btn_area {
+	width:100%;
+	height:50px;
+	padding-top:10px;
 }

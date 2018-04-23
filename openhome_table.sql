@@ -47,6 +47,7 @@ alter table article drop column aritcleStatus
 alter table article add articleStatus varchar(10) default 'N'
 
 select * from article;
+select * from attachmentfile;
 drop table article;
 drop table attachmentfile;
 

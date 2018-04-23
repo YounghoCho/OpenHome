@@ -1,6 +1,9 @@
 package com.worksmobile.openhome.model;
 
+import java.io.File;
 import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class AttachmentFile {
 	
@@ -85,5 +88,6 @@ public class AttachmentFile {
 	public void setFileDate(Date fileDate) {
 		this.fileDate = fileDate;
 	}
+
 
 }

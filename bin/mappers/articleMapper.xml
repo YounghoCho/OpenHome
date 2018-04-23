@@ -63,6 +63,11 @@
 	</delete>
 	
 	<!-- @author suji -->
+	
+	<insert id="addArticleNum" parameterType="com.worksmobile.openhome.model.Article" useGeneratedKeys="true" keyProperty="articleNum">
+		INSERT INTO article(boardNum) VALUES (#{boardNum})
+	</insert>
+	
 	<update id="addArticle" parameterType="com.worksmobile.openhome.model.Article">
 	 	UPDATE 
 	 		article 
@@ -80,10 +85,6 @@
 	 		articleStatus = 'N'
 	</update>
 	
-	<insert id="addArticleNum" parameterType="com.worksmobile.openhome.model.Article" useGeneratedKeys="true" keyProperty="articleNum">
-		INSERT INTO article(boardNum) VALUES (#{boardNum})
-	</insert>
-	
 	<select id="getArticle" parameterType="int" resultType="com.worksmobile.openhome.model.Article">
 		SELECT *
 		FROM article
@@ -95,5 +96,17 @@
 		FROM article
 		WHERE articleNum = #{articleNum}
 	</delete>
+	
+	<update id="modArticle" parameterType="com.worksmobile.openhome.model.Article">
+		UPDATE
+			article
+		SET
+			articleSubject = #{articleSubject}, 
+	 		articleTextContent = #{articleTextContent},
+	 		articleContent = #{articleContent}, 
+	 		articleDate = now()
+	 	WHERE 
+	 		articleNum = #{articleNum}
+	</update>
 	
 </mapper>

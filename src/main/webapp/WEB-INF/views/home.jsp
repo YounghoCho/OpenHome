@@ -40,7 +40,7 @@
 					<thead>
 						<tr>
 							<th style="width:5%">번호</th>
-							<th style="width:35%;">제목</th>
+							<th style="width:35%">제목</th>
 							<th style="width:40%">미리보기</th>
 							<th style="width:10%">작성날짜</th>
 							<th style="width:10%">작성자</th>
@@ -103,15 +103,17 @@
 					</div>
 					
 					<div id="reg_btn_area">
-						<input type="button" value="취소" id="article_reg_cancel_btn"/>
-						<input type="button" value="수정" id="article_modify_ok_btn"/>
-				        <input type="button" value="등록" id="article_reg_ok_btn"/>
+						<input type="button" value="취소" class="btn btn-default pull-left" id="article_reg_cancel_btn"/>
+						<input type="button" value="완료" class="btn pull-left" id="article_modify_ok_btn"/>
+				        <input type="button" value="등록" class="btn pull-left" id="article_reg_ok_btn"/>
+						<label for="my_pc_file_btn" class="btn btn-default pull-right" id="my_pc">내 PC</label>
+						<input type="file" id="my_pc_file_btn" name="filename[]" multiple/>
 					</div>
-					<button type="button" id="file_area" aria-label="펼치기">
+					<div>
+					<!-- <button type="button" id="file_area" aria-label="펼치기">
 						<i class="fa fa-angle-up"></i>
-					</button>
-					<label for="my_pc_file_btn" id="my_pc">내 PC</label>
-					<input type="file" id="my_pc_file_btn" name="filename[]" multiple/>
+					</button> -->
+					
 					<div>
 						<div id="fileUpload" class="dragDropDiv">
 				               <table id='fileTable'>
@@ -122,8 +124,8 @@
 				                   </tr>
 				               </table>
 				        </div>
-				        <input type="button" id="file_delete_btn" value="삭제"/>
-			
+				        <input type="button" class="btn btn-default pull-right" id="file_delete_btn" value="삭제"/>
+					</div>
 					</div>
 					<div id="textarea_area">
 						<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>
@@ -133,8 +135,11 @@
 			</div>
 		  <div id="check_pwd_hidden_area">
 			<div id="check_pwd_hidden">
+				<div>
+					비밀번호를 입력해주세요.
+				</div>
 				<div id="check_pwd_text">
-				  	<input id="pwd_text_field" type="text" name="articleAccessPwds"/>
+				  	<input id="pwd_text_field" type="password" name="articleAccessPwds"/>
 				</div>
 				<div>
 				  	<a type="button" id="check_pwd_cancel_btn" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">취소</a>

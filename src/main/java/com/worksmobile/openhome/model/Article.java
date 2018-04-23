@@ -23,6 +23,15 @@ public class Article {
 		this.boardNum = boardNum;
 	}
 	
+	public Article(int articleNum, String articleSubject, String articleTextContent, String articleContent,
+			String articleWriter) {
+		this.articleNum = articleNum;
+		this.articleSubject = articleSubject;
+		this.articleTextContent = articleTextContent;
+		this.articleContent = articleContent;
+		this.articleWriter = articleWriter;
+	}
+	
 	public Article(int articleNum, int boardNum, String articleSubject, String articleTextContent, String articleContent,
 			String articleWriter, String articleAccessPwd, String articleStatus) {
 		this.articleNum = articleNum;
@@ -34,7 +43,6 @@ public class Article {
 		this.articleAccessPwd = articleAccessPwd;
 		this.articleStatus = articleStatus;
 	}
-	
 	
 	public int getROWNUM() {
 		return ROWNUM;

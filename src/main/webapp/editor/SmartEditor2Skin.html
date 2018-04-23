@@ -7,8 +7,41 @@
 <link href="css/smart_editor2.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 	body { margin: 10px; }
+	#my_pc_photo_btn{width:0;height:0;overflow:hidden;}
+	.photo_attach_li{width:60px;height:27.6px;}
+	.photo_attach_li:hover{border: 0.2px solid gray;}
+	#my_pc_photo2{display:inline-block;width:60px;height:27.6px;line-height: 27.6px;padding-left:7px;}
 </style>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="../js/article.js" charset="utf-8"></script>
+<!-- <script type="text/javascript">
+$(document).ready(function(){
+	$('#my_pc_photo_btn').change( function(){
+		alert("사진버튼");
+		$.ajax({
+			type : 'post',
+			dataType : 'json',
+			url : 'api/attachmentfile/addPhotoFile',
+			data : 'articleNum=' + $("#readtable").data("articleNum"),
+			success : function(res){
+				if (res != null) {
+					  oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+					}
+			},
+			error : function(err) {
+				alert('readyState:' + err.readyState);
+				alert('status:' + err.status);
+				alert('statusText:' + err.statusText);
+				alert('responseText:' + err.responseText);
+			}
+		})
+	});
+});
+</script> -->
+<script type="text/javascript">
+ 
+ 
+</script>
 <script type="text/javascript" src="js/jindo.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/jindo_component.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/SE2B_Configuration_Service.js" charset="utf-8"></script>	<!-- 설정 파일 -->
@@ -548,9 +581,13 @@
 					<!-- //찾기/바꾸기 -->
 					<!--//@lazyload_html-->
 				</li>
-</ul>
+				</ul>
 				<ul class="se2_multy">
-					<li class="se2_mn husky_seditor_ui_photo_attach"><button type="button" class="se2_photo ico_btn"><span class="se2_icon"></span><span class="se2_mntxt">사진<span class="se2_new"></span></span></button></li>
+					<!-- <li class="se2_mn husky_seditor_ui_photo_attach"><button type="button" class="se2_photo ico_btn"><span class="se2_icon"></span><span class="se2_mntxt">사진<span class="se2_new"></span></span></button></li> -->
+					<li class="photo_attach_li">
+					<label for="my_pc_photo_btn" id="my_pc_photo"><div id="my_pc_photo2"><span class="se2_icon"></span>사진</div></label>
+					<input type="file" id="my_pc_photo_btn" name="photoname" onchange="uploadPhoto(event);" accept=".gif, .jpg, .png"/>
+					</li>
 				</ul>
 
 			<!--

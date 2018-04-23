@@ -22,9 +22,9 @@ public class ArticleBOImpl implements ArticleBO{
 	public String addArticle(Article article) {
 		int num =  dao.addArticle(article);
 		if (num == 1) {
-			return "ok";
+			return "success";
 		} else {
-			return "sorry";
+			return "fail";
 		}
 	}
 	
@@ -62,6 +62,15 @@ public class ArticleBOImpl implements ArticleBO{
 			Article article = new Article();
 			article.setArticleAccessPwd(check);
 			return article;
+		}
+	}
+	@Override
+	public String modArticle(Article article) {
+		int num =  dao.modArticle(article);
+		if (num == 1) {
+			return "success";
+		} else {
+			return "fail";
 		}
 	}
 		
