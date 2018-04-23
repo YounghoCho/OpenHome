@@ -1,8 +1,7 @@
-#Author : Youngho Jo
-
 *.properties
-*.sql
+
 *.class
-bin/
+
 bin
-/bin
+
+*.txt

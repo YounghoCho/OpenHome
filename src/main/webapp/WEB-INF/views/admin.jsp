@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=1">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=2121111122">
 </head>
 
-<!-- login -->
 <div id="mask"></div>
+<!-- 로그인 팝업-->
 <div class="window">
 	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">
 		<img src="${pageContext.request.contextPath}/image/logo.png" style="width:65px;margin:5px;"/><br/>
@@ -17,9 +17,41 @@
 		</a>
 	</div>
 </div>
+<!-- 게시판 순서 조절 팝업 -->
+<div class="orderWindow">
+	<button class="btn btn-default pull-right" id="closeChange" style="margin:10px;"><font style="font-weight:bold;">x</font></button>
+	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">	
+		<ul id="sortable">
+		</ul>
+	</div>
+</div>
+<!-- 새로운 게시판 추가 팝업 -->
+<div class="boardTitleWindow">
+	<button class="btn btn-default pull-right" id="closeChange2" style="margin:10px;"><font style="font-weight:bold;">x</font></button>
+	<div style="width:80%;height:40%;margin-left:50px;margin-top:60px;text-align:center;">	
+		<input id="newTitle" type="text" placeholder="새로운 게시판명을 입력해 주세요" style="width:280px;height:38px;padding-left:5px;"/>
+		<a id="updateBoardButton" type="button" class="btn btn-success" style="margin-right:20px;padding:8px;">수정</a>
+	</div>
+</div>
+<!-- 트래픽 알림 팝업 -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="closeNotice">&times;</span>
+      <h2></h2>
+    </div>
+    <div class="modal-body">
+    	<p style="font-weight:bold;margin:0;padding:5px;"></p>
+    </div>
+    <div class="modal-footer">
+      <h3>OPEN HOME</h3>
+    </div>
+  </div>
+</div>
 
 <!-- header -->
-<div id="header" style="background-color:#000040;">
+<div id="header" style="background-color:seagreen;">
 		<a href="${pageContext.request.contextPath}/admin" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
 			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENHOME Admin</font>
 </div>
@@ -37,7 +69,7 @@
 <div id="center-right">
 <!-- top -->
 <div id="top">
-	Welcome to OPENHOME
+	Welcome to OPEN HOME
 </div>
 
 <div id="body">
@@ -46,10 +78,11 @@
 <div style="margin:10px;" class="homeMainDiv">
 
 	<div style="width:100%;height:50px;">
-		<input type="text" placeholder="게시판 명을 입력하세요" style="width:280px;height:38px;padding-left:5px;"/>
-		<a type="button" class="btn btn-success" style="margin-right:20px;padding:8px;">추가</a>
-		<a type="button" class="btn btn-success pull-right" style="margin-right:20px;padding:8px;">순서 조정</a>
+		<input id="boardTitle" type="text" placeholder="게시판 명을 입력하세요" style="width:280px;height:38px;padding-left:5px;"/>
+		<a id="newBoardButton" type="button" class="btn btn-success" style="margin-right:20px;padding:8px;">추가</a>
+		<a id="orderButton" type="button" class="btn btn-success pull-right" style="margin-right:20px;padding:8px;">순서 조정</a>
 	</div>
+	
 	<table class="table">
 		<thead>
 		<tr>
@@ -135,4 +168,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 9"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 4111"></script>

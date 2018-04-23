@@ -3,12 +3,13 @@
 <head>
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
 	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=28">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 
 <!-- header -->
-<div id="header" style="background-color:#000040;">
-	<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
-	<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENHOME</font></a>
+<div id="header" style="background-color:seagreen;">
+		<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
+		<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENHOME</font></a>
 </div>
 
 <div id="center">
@@ -20,9 +21,10 @@
 </div>
 	
 <div id="center-right">
+
 	<!-- top -->
 	<div id="top">
-		Welcome to OPENHOME
+		Welcome to OPEN HOME
 	</div>
 	
 	<!-- body -->
@@ -59,8 +61,8 @@
 				</ul>
 			</div>	
 		</div>
-	</div>
-	
+</div>
+
 	<!-- 
 		@author suji
 	 -->
@@ -162,3 +164,4 @@
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=8"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/article.js?ver=9"></script>
+

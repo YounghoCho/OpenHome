@@ -16,7 +16,7 @@
 		WHERE
 			boardNum = #{boardNumber}
 		AND
-			articleStatus = "Y"
+			articleStatus = 'Y'
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		

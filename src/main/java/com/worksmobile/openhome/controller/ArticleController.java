@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.worksmobile.openhome.bo.ArticleBO;
 import com.worksmobile.openhome.bo.AttachmentFileBO;
 import com.worksmobile.openhome.model.Article;
+import com.worksmobile.openhome.status.ReturnStatus;
 
 
 @RestController
@@ -29,7 +31,8 @@ public class ArticleController {
 	
 	@Resource
 	private AttachmentFileBO fileservice;
-	
+
+	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 	
 	//홈화면에 필요한 게시판 내용들을 얻는다.
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
@@ -43,10 +46,9 @@ public class ArticleController {
 		int currentPageNo = 1;
 		int pageSize = 7;
 	
-		//Board Articles
 		for(int index = 0; index < len; index++) {
 			//게시판의 고유번호가 4,1,2,3,6으로 들어오면, articleList도 4,1,2,3,6 을 붙여 결과를 반환한다.
-			result.put("articleList" + (Integer.parseInt(arrNum[index])-1), service.getArticleList(Integer.parseInt(arrNum[index]), currentPageNo, pageSize));
+			result.put("homeList" + (Integer.parseInt(arrNum[index])-1), service.getArticleList(Integer.parseInt(arrNum[index]), currentPageNo, pageSize));
 		}
 		return result;	
 	}
@@ -54,7 +56,7 @@ public class ArticleController {
 	//특정 게시판의 게시글과, 게시글 개수를 얻는다.
 	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getBoard(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public Object getBoard(HttpServletRequest req) throws Exception {		
 		int boardNumber = Integer.parseInt(req.getParameter("boardNumber"));
 		int currentPageNo = Integer.parseInt(req.getParameter("currentPageNo"));
 		int pageSize = 10;
@@ -67,8 +69,8 @@ public class ArticleController {
 	//게시 글의 상세 내용을 얻는다.
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getContents(HttpServletRequest req, HttpServletResponse res) throws Exception {	
-			Map<String, Object> result = new HashMap<>();
+	public Object getContents(HttpServletRequest req) throws Exception {	
+		Map<String, Object> result = new HashMap<>();
 		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
@@ -77,7 +79,6 @@ public class ArticleController {
 	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getAllArticles() throws Exception {	
-
 		Map<String, Object> result = new HashMap<>();
 		result.put("allArticles", service.getAllArticles());
 		return result;
@@ -89,7 +90,7 @@ public class ArticleController {
 	public String removeArticle(HttpServletRequest req) throws Exception {
 		int articleNum = Integer.parseInt(req.getParameter("articleNum"));
 		service.removeArticle(articleNum);
-	return "SUCCESS";
+	return returnStatus.name();
 	}
 
 	/*@author Suji Jang*/
@@ -119,9 +120,8 @@ public class ArticleController {
 		String fileDelResult = fileservice.removeFiles(Integer.parseInt(articleNum), req);
 		if (articleDelResult.equals("success") && (fileDelResult.equals("success") || fileDelResult.equals("none"))) {
 			return "success";
-		} else {
-			return "fail";
 		}
+		return "none";
 	}
 	
 	//비밀번호 체크 후 게시글 가져오기
@@ -141,9 +141,6 @@ public class ArticleController {
 							req.getParameter("articleWriter"));
 		return service.modArticle(article);
 	}
-	
-	
-	
    
 }
 

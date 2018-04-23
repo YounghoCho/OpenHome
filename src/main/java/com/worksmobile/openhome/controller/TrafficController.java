@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.worksmobile.openhome.bo.TrafficBO;
+import com.worksmobile.openhome.status.ReturnStatus;
 
 @RestController
 @RequestMapping("/api/traffic")
@@ -21,7 +22,9 @@ public class TrafficController {
 	@Resource
 	private TrafficBO service;
 	
-	/*Traffic*/
+	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
+	
+	//트래픽 데이터를 호출한다.
 	@RequestMapping(value = "/trafficData", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getTraffic(HttpServletRequest req, HttpServletResponse res) throws Exception{
@@ -31,4 +34,13 @@ public class TrafficController {
 
 		return result;
 	}	
+	//게시판 명을 변경한다.
+	@RequestMapping(value = "/contentLength", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateBoardTitles(HttpServletRequest req) throws Exception {
+		int trafficContentLength = Integer.parseInt(req.getParameter("trafficContentLength"));
+		String trafficKind = req.getParameter("trafficKind");
+		service.insertContentLength(trafficContentLength, trafficKind);		
+		return returnStatus.name();
+	}
 }

@@ -8,7 +8,6 @@ public class Traffic {
 	private int trafficContentLength;
 	private String trafficKind;
 	private Date trafficDate;
-	private String trafficIp;
 	
 	public Traffic() {
 		
@@ -45,13 +44,4 @@ public class Traffic {
 	public void setTrafficDate(Date trafficDate) {
 		this.trafficDate = trafficDate;
 	}
-
-	public String getTrafficIp() {
-		return trafficIp;
-	}
-
-	public void setTrafficIp(String trafficIp) {
-		this.trafficIp = trafficIp;
-	}
-
 }

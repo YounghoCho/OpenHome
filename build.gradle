@@ -28,13 +28,15 @@ repositories {
 
 
 dependencies {
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
+
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
 	compile("org.mybatis:mybatis-spring")
 	compile("org.mybatis:mybatis")
 	
     compile("mysql:mysql-connector-java:5.1.46")
-    compile('javax.servlet:jstl')
+    compile('javax.servlet:jstl:1.2')
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.2'
