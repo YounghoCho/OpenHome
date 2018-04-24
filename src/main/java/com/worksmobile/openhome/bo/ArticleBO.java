@@ -20,10 +20,13 @@ public interface ArticleBO {
 
 	/*@ author Youngho Jo*/
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize);
-	public int getArticleTotalCount(int boardNumber);
+	public int getArticleTotalCount(int boardNumber);	
+	public List<Article> getAllArticles(int currentPageNo, int pageSize);
+	public int getArticleTotalCount();
+	
 	public List<Article> getArticleDetails(int articleNumber);
-	public List<Article> getAllArticles();
 	
 	public void removeArticle(int articleNum);
+	
 	
 }

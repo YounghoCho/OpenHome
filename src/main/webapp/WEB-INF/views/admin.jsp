@@ -1,3 +1,5 @@
+<%@ page session="true" %> <!-- 세션 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -65,7 +67,7 @@
 <div id="menu">
 <ul class="menudecoration">
 	<li style="cursor:pointer;"><a onclick="javascript:goBoardManageAjax()">게시판 관리</a></li>
-	<li style="cursor:pointer;"><a onclick="javascript:goArticlesAjax()">게시글 관리</a></li>
+	<li style="cursor:pointer;"><a onclick="javascript:goArticlesAjax(1)">게시글 관리</a></li>
 	<li style="cursor:pointer;"><a onclick="javasciprt:goStaticGraphAjax()">트래픽 통계</a></li>
 </ul>
 </div>
@@ -175,7 +177,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 1111"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 4111"></script>
-<%@ page session="true" %>
+
 <script>
 var LoginCheck = <%=session.getAttribute("userLoginInfo")%>;
 //세션이 유효하면
@@ -186,21 +188,4 @@ if(LoginCheck){
 else{
 	loginPane();
 }
-
-//로그아웃
-$("#logOutButton").on("click", function(){
-	$.ajax({
-		type : 'POST',
-		url : 'api/admin/logOut',
-		success : function(res){
-			if(res == ReturnStatus.SUCCESS){
-				alert("로그아웃 되었습니다.");
-				location.href="admin";
-			}
-		},
-		error : function(err){
-			alert(err);
-		}
-	});
-});
 </script>
