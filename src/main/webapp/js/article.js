@@ -596,9 +596,12 @@ function resetSelect() {
 }
 
 function removeLengthChecker() {
-    var subjectLengthChecker = "success";
-    var writerLengthChecker = "success";
-    var articlepwdLengthChecker = "success";
+	$('#articleSubject_div > p').remove();
+	$('#articleWriter_div > p').remove();
+	$('#articleAccessPwd_div > p').remove();
+    subjectLengthChecker = "success";
+    writerLengthChecker = "success";
+    articlepwdLengthChecker = "success";
 }
 
 function returnArticle(articleNum) {
@@ -630,10 +633,8 @@ function removeFile(fileNum) {
 					if (res=="success") {
 						$('#'+ fileNum).remove();
 						alert("삭제되었습니다.");
-						returnBoard($("#singleBoardTable").data("boardNum"), 1);
 					} else {
 						alert("삭제되지않았습니다.");
-						returnBoard($("#singleBoardTable").data("boardNum"), 1);
 					}
 				},
 				error : function(err) {
