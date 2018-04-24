@@ -23,6 +23,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -140,29 +141,19 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 	@Override
 	public String modFile(String fileAttacher, int articleNum,  MultipartHttpServletRequest mreq) throws Exception {
 		
+		//--첨부파일 등록--
+		//경로 설정
 		String root = mreq.getSession().getServletContext().getRealPath("/");
 		String saveDirectory = root + "file" + File.separator;
 		
-		/*Enumeration<String> reqParams = req.getParameterNames();
-		List<AttachmentFile> oldfileList = dao.getFiles(articleNum);
-		
-		while(reqParams.hasMoreElements()) {
-			for (AttachmentFile attachmentfile : oldfileList) {
-				if (req.getParameter(reqParams.nextElement()).equals(attachmentfile.getStoredFileName())) {
-					oldfileList.remove(attachmentfile);
-				}
-			}
+		System.out.println(saveDirectory);
+		//파일 디렉터리 생성
+		File dir = new File(saveDirectory);
+		if (!dir.isDirectory()) {
+			dir.mkdirs();
 		}
 		
-		if (oldfileList.size() != 0) {
-			for (AttachmentFile attachmentfile : oldfileList) {
-				File file = new File(saveDirectory + attachmentfile.getStoredFileName());
-				file.delete();
-				dao.removeFile(attachmentfile.getFileNum());
-			}
-		}*/
-	
-		List<AttachmentFile> newfileList = new ArrayList<AttachmentFile>();
+		List<AttachmentFile> fList = new ArrayList<AttachmentFile>();
 		Iterator<String> files = mreq.getFileNames();
 		
 		//파일 저장 및 map리스트 생성
@@ -183,70 +174,10 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 			}
 			
 			AttachmentFile attachmentfile = new AttachmentFile(articleNum, originalFileName, storedFileName, (int)multipartfile.getSize(), fileAttacher);
-			newfileList.add(attachmentfile);
+			fList.add(attachmentfile);
 		}
 		
-		if (newfileList.size() != 0) {
-			int uploadFileCount = 0;
-			//DB에 저장
-			for (AttachmentFile file : newfileList) {
-				uploadFileCount += dao.addFile(file);
-			}
-			
-			if (uploadFileCount == newfileList.size()) {
-				return "success";
-			} else {
-				return "fail";
-			}
-		} else {
-			return "none";
-		}
-		
-	}
-
-	@Override
-	public String addPhotoFile(int articleNum, MultipartHttpServletRequest mreq) {
-		String root = mreq.getSession().getServletContext().getRealPath("/");
-		String saveDirectory = root + "photo" + File.separator;
-		
-		System.out.println(saveDirectory);
-		//파일 디렉터리 생성
-		File dir = new File(saveDirectory);
-		if (!dir.isDirectory()) {
-			dir.mkdirs();
-		}
-		
-		List<AttachmentFile> fList = new ArrayList<AttachmentFile>();
-		Iterator<String> files = mreq.getFileNames();
-		
-		String multiphoto = "";
-		
-		//파일 저장 및 map리스트 생성
-		while (files.hasNext()) {
-			String uploadFile = files.next();
-			MultipartFile multipartfile = mreq.getFile(uploadFile);
-			String originalFileName = multipartfile.getOriginalFilename();
-			System.out.println(originalFileName);
-			//파일 중복 방지
-			String storedFileName = System.currentTimeMillis() + UUID.randomUUID().toString()
-					+ "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
-			
-			//파일 저장하기
-			try {
-				multipartfile.transferTo(new File(saveDirectory+storedFileName));
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-			}
-			
-			multiphoto += "<img src='/OpenHome/photo/" + storedFileName + "' title='" + originalFileName + "'/>";
-			
-/*			AttachmentFile attachmentfile = new AttachmentFile(articleNum, originalFileName, storedFileName, (int)multipartfile.getSize(), fileAttacher);
-			fList.add(attachmentfile);*/
-		}
-		
-		return multiphoto;
-		
-/*		if (fList.size() != 0) {
+		if (fList.size() != 0) {
 			int uploadFileCount = 0;
 			//DB에 저장
 			for (AttachmentFile file : fList) {
@@ -256,11 +187,70 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 			if (uploadFileCount == fList.size()) {
 				return "success";
 			} else {
-				return "fail";
+			return "fail";
 			}
 		} else {
 			return "none";
-		}*/
+		}
+	}
+//	@Override
+//	public String addPhotoFile(int articleNum, MultipartHttpServletRequest mreq) {
+//		String root = mreq.getSession().getServletContext().getRealPath("/");
+//		String saveDirectory = root + "photo" + File.separator;
+//		
+//		System.out.println(saveDirectory);
+//		//파일 디렉터리 생성
+//		File dir = new File(saveDirectory);
+//		if (!dir.isDirectory()) {
+//			dir.mkdirs();
+//		}
+//		
+//		List<AttachmentFile> fList = new ArrayList<AttachmentFile>();
+//		Iterator<String> files = mreq.getFileNames();
+//		
+//		String multiphoto = "";
+//		
+//		//파일 저장 및 map리스트 생성
+//		while (files.hasNext()) {
+//			String uploadFile = files.next();
+//			MultipartFile multipartfile = mreq.getFile(uploadFile);
+//			String originalFileName = multipartfile.getOriginalFilename();
+//			System.out.println(originalFileName);
+//			//파일 중복 방지
+//			String storedFileName = System.currentTimeMillis() + UUID.randomUUID().toString()
+//					+ "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+//			
+//			//파일 저장하기
+//			try {
+//				multipartfile.transferTo(new File(saveDirectory+storedFileName));
+//			} catch (IllegalStateException | IOException e) {
+//				e.printStackTrace();
+//			}
+//			
+//			multiphoto += "<img src='/OpenHome/photo/" + storedFileName + "' title='" + originalFileName + "'/>";
+//			
+//		
+//		return multiphoto;
+//		
+//	}
+
+	@Override
+	public String removeFile(int fileNum, HttpServletRequest req) {
+		
+		String root = req.getSession().getServletContext().getRealPath("/");
+		String saveDirectory = root + "file" + File.separator;
+		
+		System.out.println(saveDirectory);
+		AttachmentFile attachmentfile = dao.getFile(fileNum);
+		
+		File file = new File(saveDirectory, attachmentfile.getStoredFileName()); 
+		file.delete();
+		
+		if (dao.removeFile(fileNum) == 1) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 }
 

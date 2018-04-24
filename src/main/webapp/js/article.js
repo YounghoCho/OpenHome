@@ -3,7 +3,7 @@ $(document).ready(function(){
 	
 	//@author suji
   	//에디터에 필요한 전역변수
-	var fd = new FormData();
+	var fd=new FormData();
     var obj = [];  
    	
    	//등록버튼을 눌렀을 때
@@ -21,11 +21,14 @@ $(document).ready(function(){
 			alert("글 제목을 입력하세요.");
 			return false;
 		} else {
-			//내용값 html 태그 지움
-	        var articleTextContent = obj.getById["articleContent"].getIR().replace(/[<][^>]*[>]/gi, "").replace(/&nbsp;/g, " ");
-	     	
-	        //editor값 textarea에 반영
+			
+			//editor값 textarea에 반영
 	        obj.getById["articleContent"].exec("UPDATE_CONTENTS_FIELD", []);
+	        
+			//내용값 html 태그 지움
+	        var articleTextContent = $('#articleContent').val().replace(/[<][^>]*[>]/gi, "").replace(/&nbsp;/g, " ").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/&quot;/g, "\"");;
+	     	
+	        
 
 	        //내용 null값 확인
 	        if (articleTextContent.replace(/ /g, "").length == 0) {
@@ -63,8 +66,12 @@ $(document).ready(function(){
 										if(res == "success") {
 											alert("게시글 및 첨부파일이 등록되었습니다.");
 											/*window.location = "../${pageContext.request.contextPath}/board";*/
-											fd.clearForm();
-											location.href="/OpenHome/board?depth=2";
+											$(".homeReadDiv").hide();
+											$(".staticGraphDiv").hide();
+											$(".homeMainDiv").hide();
+											$(".articleWriteDiv").hide();
+											$("#singleBoard").show();
+											goHomeAjax();
 											
 										} else {
 											alert(res);
@@ -79,7 +86,12 @@ $(document).ready(function(){
 								})
 							} else {
 								alert("게시글이 등록되었습니다.");
-								location.href="/OpenHome/board?depth=2";
+								$(".homeReadDiv").hide();
+								$(".staticGraphDiv").hide();
+								$(".homeMainDiv").hide();
+								$(".articleWriteDiv").hide();
+								$("#singleBoard").show();
+								goHomeAjax();
 							}
 					} else {
 						alert("게시글이 등록되지 않았습니다.");
@@ -93,7 +105,6 @@ $(document).ready(function(){
 				}
 			})
 		}
-		fd.clearForm();
 	}
 	
 	//--첨부파일--
@@ -157,8 +168,8 @@ $(document).ready(function(){
 				tag : function() {
 					var tag;
 					tag = new StringBuffer();
-					tag.append('<tr>');
-					tag.append("<td><input type='checkbox' id='" 
+					tag.append('<tr class="filelist">');
+					tag.append("<td><input type='checkbox' class='check' id='" 
 							+ this.name + "' class='file_checkbox'/></td>");
 					tag.append('<td>' + this.name + '</td>');
 					tag.append('<td>' + this.size + '</td>');
@@ -221,7 +232,13 @@ $(document).ready(function(){
     	$('.file_checkbox').prop('checked', $(this).prop('checked'));
     });
 
-	$('.btn.btn-success.pull-right').on('click', function(){
+    $('#write_btn_1').on('click', write);
+    $('#article_write_btn').on('click', write);
+
+	function write() {
+		alert("write");
+		resetSelect();
+		$('.filelist').remove();
 		$("#singleBoard").hide();
 		$(".articleReadDiv").hide();
 		$(".homeMainDiv").hide();
@@ -229,11 +246,12 @@ $(document).ready(function(){
 		
 		$("#article_modify_ok_btn").css('display', 'none');
 		$("#article_reg_ok_btn").css('display', 'inline-block');
-		$('articleAccessPwd').css("display","inline-block");
+		$('#articleAccessPwd').css("display","inline-block");
+		$('#articleWriter').css("display","inline-block");
 		
 		$('iframe').remove();
 		$('#articleContent').remove();
-		$('#textarea_area').append('<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>');
+		$('#textarea_area').append('<textarea id="articleContent" name="articleContent" rows="10" cols="100" style="width:766px; height:412px;"></textarea>');
 		
 		//스마트에디터 프레임생성
 	    nhn.husky.EZCreator.createInIFrame({
@@ -247,6 +265,9 @@ $(document).ready(function(){
 				bUseVerticalResizer : true,    
 				// 모드 탭(Editor | HTML | TEXT) 사용 여부
 				bUseModeChanger : true,
+        },
+        fOnAppLoad : function() {
+        	$("iframe").css("width","100%").css("height","500px");
         }
     });
 	    
@@ -268,7 +289,7 @@ $(document).ready(function(){
 		})
 		
 		history.pushState({ data: '5' }, 'title5', '?depth=5');
-	});
+	}
 	
 	$('#article_modify_btn').on('click', function(){
 		alert("수정으로 가는 버튼 맞습니다~");
@@ -306,9 +327,15 @@ $(document).ready(function(){
 				if (res=="success") {
 					$('#check_pwd_hidden_area').css("display", "none");
 					alert("게시글이 삭제되었습니다.");
+					goBoardAjax();
+					$(".homeReadDiv").hide();
+					$(".staticGraphDiv").hide();
+					$(".homeMainDiv").hide();
+					$(".articleWriteDiv").hide();
+					$("#singleBoard").show();
 				} else {
 					$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
-				}s
+				}
 			},
 			error : function(err) {
 				alert('readyState:' + err.readyState);
@@ -319,7 +346,10 @@ $(document).ready(function(){
 		})
 	});
 	
+	
+		
 	$('#check_pwd_btn_mod').on('click', function(){
+		resetSelect();
 		$('#check_pwd_text > p').remove();
 		$.ajax({
 			type : 'post',
@@ -327,33 +357,36 @@ $(document).ready(function(){
 			url : 'api/article/checkAndGetArticle',
 			data : 'articleNum=' + $("#readtable").data("articleNum") + '&articleAccessPwd=' + $("#pwd_text_field").val(),
 			success : function(res){
-				if(res.articleAccessPwd != "fail") {
+					if(res.articleAccessPwd != "fail") {
+						$('.filelist').remove();
+						$('.oldfiletr').remove();
 							$.ajax({
 								type : 'post',
 								dataType : 'json',
 								url : 'api/attachmentfile/checkAndGetAttachmentFile',
 								data : 'articleNum=' + $("#readtable").data("articleNum"),
 								success : function(res){
+									alert(res);
 									if (res != null) {
-										var oldfilefd = new FormData();
 										$.each(res, function(index, value) {
-												 oldfilefd.append(value.originalFileName, value.storedFileName);
-									             //fd.append(value.originalFileName, value.storedFileName);
-									             // 파일 이름과 정보를 추가해줌
-									             var tag = createFile(value.originalFileName, value.fileSize);
-									             $('#fileTable').append(tag);
+											var sizeKB = value.fileSize / 1024;
+											if (parseInt(sizeKB) > 1024) {
+												var sizeMB = sizeKB / 1024;
+												var filesize = sizeMB.toFixed(2) + " MB";
+											} else {
+												var filesize = sizeKB.toFixed(2) + " KB";
+											}
+											$('#oldFileTable').append('<tr class="oldfiletr" id="' + value.fileNum + '"><td>' + value.originalFileName + '</td><td>' 
+														+ filesize + '</td><td><input type="button" id="oldfile_del_btn" onclick="removeFile(' 
+														+ value.fileNum + ')" value="삭제"/></td></tr>');
 										});
-							} else {
-								$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
-							}
-						},
-						error : function(err) {
-							alert('readyState:' + err.readyState);
-							alert('status:' + err.status);
-							alert('statusText:' + err.statusText);
-							alert('responseText:' + err.responseText);
-						}
-					})
+										$('#oldFileList').css("display","block");
+									} else {
+										$('#oldFileList').css("display","none");
+									}
+								
+								}
+							})
 					
 					$('#check_pwd_hidden_area').css("display", "none");
 					$("#singleBoard").hide();
@@ -366,9 +399,9 @@ $(document).ready(function(){
 					
 					$('iframe').remove();
 					$('#articleContent').remove();
-					$('#textarea_area').append('<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>');
+					$('#textarea_area').append('<textarea id="articleContent" name="articleContent" rows="10" cols="100" style="width:766px; height:412px;"></textarea>');
 					
-					$('#articleWriter').val(res.articleWriter);
+					$('#articleWriter').css("display","none");
 					$('#articleAccessPwd').css("display","none");
 					$('#articleSubject').val(res.articleSubject);
 					$('.articleWriteDiv').data("articleNum", res.articleNum);
@@ -388,6 +421,7 @@ $(document).ready(function(){
 							bUseModeChanger : true,
 			        },
 			        fOnAppLoad : function() {
+			        	$("iframe").css("width","100%").css("height","500px");
 			        	obj.getById["articleContent"].exec("PASTE_HTML", [res.articleContent]);
 			        }
 			    });
@@ -404,6 +438,8 @@ $(document).ready(function(){
 		})
 	});
 	
+	
+	
 	$('#article_modify_ok_btn').on('click', modify);
 	
 	function modify() {
@@ -413,8 +449,8 @@ $(document).ready(function(){
 			return false;
 		} else {
 			//내용값 html 태그 지움
-	        var articleTextContent = obj.getById["articleContent"].getIR().replace(/[<][^>]*[>]/gi, "").replace(/&nbsp;/g, " ");
-	     	
+	        var articleTextContent = obj.getById["articleContent"].getIR().replace(/[<][^>]*[>]/gi, "").replace(/&nbsp;/g, " ").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/&quot;/g, "\"");
+			
 	        //editor값 textarea에 반영
 	        obj.getById["articleContent"].exec("UPDATE_CONTENTS_FIELD", []);
 
@@ -452,7 +488,12 @@ $(document).ready(function(){
 									success : function(res){
 										if(res != "fail") {
 											alert("게시글 및 첨부파일이 수정되었습니다.");
-											/*window.location = "../${pageContext.request.contextPath}/board";*/
+											$(".homeReadDiv").hide();
+											$(".staticGraphDiv").hide();
+											$(".homeMainDiv").hide();
+											$(".articleWriteDiv").hide();
+											$("#singleBoard").show();
+											goHomeAjax();
 										} else {
 											alert("게시글 및 첨부파일이 수정이 완료되지 않았습니다.");
 										}
@@ -466,7 +507,12 @@ $(document).ready(function(){
 								})
 							} else {
 								alert("게시글이 수정되었습니다.");
-								window.location = "../${pageContext.request.contextPath}/board";
+								$(".homeReadDiv").hide();
+								$(".staticGraphDiv").hide();
+								$(".homeMainDiv").hide();
+								$(".articleWriteDiv").hide();
+								$("#singleBoard").show();
+								goHomeAjax();
 							}
 					} else {
 						alert("게시글이 수정되지 않았습니다.");
@@ -481,8 +527,43 @@ $(document).ready(function(){
 			})
 		}
 	}
+	
+	function resetSelect() {
+		$('#articleWriter').val('');
+		$('#articleAccessPwd').val('');
+		$('#articleSubject').val('');
+	}
+
 
 });
+
+function removeFile(fileNum) {
+	alert(fileNum);
+		if(confirm("삭제하시겠습니까?")) {
+			$.ajax({
+				type : 'post',
+				dataType : 'text',
+				url : 'api/attachmentfile/removeFile',
+				data : 'fileNum=' + fileNum,
+				success : function(res){
+					if (res=="success") {
+						$('#'+ fileNum).remove();
+						alert("삭제되었습니다.")
+					} else {
+						alert("삭제되지않았습니다.")
+					}
+				},
+				error : function(err) {
+					alert('readyState:' + err.readyState);
+					alert('status:' + err.status);
+					alert('statusText:' + err.statusText);
+					alert('responseText:' + err.responseText);
+				}
+			})
+		} else {
+			
+		}
+	}
 
 function uploadPhoto(e) {
 	 alert("사진버튼");
@@ -527,3 +608,4 @@ function uploadPhoto(e) {
       xhr.send(file);
 
 }
+

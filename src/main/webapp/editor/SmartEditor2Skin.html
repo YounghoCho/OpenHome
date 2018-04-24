@@ -12,32 +12,8 @@
 	.photo_attach_li:hover{border: 0.2px solid gray;}
 	#my_pc_photo2{display:inline-block;width:60px;height:27.6px;line-height: 27.6px;padding-left:7px;}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="../js/article.js" charset="utf-8"></script>
-<!-- <script type="text/javascript">
-$(document).ready(function(){
-	$('#my_pc_photo_btn').change( function(){
-		alert("사진버튼");
-		$.ajax({
-			type : 'post',
-			dataType : 'json',
-			url : 'api/attachmentfile/addPhotoFile',
-			data : 'articleNum=' + $("#readtable").data("articleNum"),
-			success : function(res){
-				if (res != null) {
-					  oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
-					}
-			},
-			error : function(err) {
-				alert('readyState:' + err.readyState);
-				alert('status:' + err.status);
-				alert('statusText:' + err.statusText);
-				alert('responseText:' + err.responseText);
-			}
-		})
-	});
-});
-</script> -->
+
+
 <script type="text/javascript">
  
  
@@ -60,7 +36,7 @@ $(document).ready(function(){
 <span id="rev"></span>
 
 <!-- SE2 Markup Start -->	
-<div id="smart_editor2">
+<div id="smart_editor2" style="width:100%;">
 	<div id="smart_editor2_content"><a href="#se2_iframe" class="blind">글쓰기영역으로 바로가기</a>
 		<div class="se2_tool" id="se2_tool">
 			
@@ -586,7 +562,7 @@ $(document).ready(function(){
 					<!-- <li class="se2_mn husky_seditor_ui_photo_attach"><button type="button" class="se2_photo ico_btn"><span class="se2_icon"></span><span class="se2_mntxt">사진<span class="se2_new"></span></span></button></li> -->
 					<li class="photo_attach_li">
 					<label for="my_pc_photo_btn" id="my_pc_photo"><div id="my_pc_photo2"><span class="se2_icon"></span>사진</div></label>
-					<input type="file" id="my_pc_photo_btn" name="photoname" onchange="uploadPhoto(event);" accept=".gif, .jpg, .png"/>
+					<input type="file" id="my_pc_photo_btn" name="photoname" accept=".gif, .jpg, .png"/>
 					</li>
 				</ul>
 
@@ -603,7 +579,7 @@ $(document).ready(function(){
 		<div class="se2_input_area husky_seditor_editing_area_container">
 			
 			
-			<iframe src="about:blank" id="se2_iframe" name="se2_iframe" class="se2_input_wysiwyg" width="400" height="300" title="글쓰기 영역 : 글쓰기 영역에서 빠져 나오시려면 Shift+ESC키를 누르세요" frameborder="0" style="display:block;"></iframe>
+			<iframe src="about:blank" id="se2_iframe" name="se2_iframe" class="se2_input_wysiwyg" width="766px" height="412px" title="글쓰기 영역 : 글쓰기 영역에서 빠져 나오시려면 Shift+ESC키를 누르세요" frameborder="0" style="display:block;"></iframe>
 			<textarea name="" rows="10" cols="100" title="HTML 편집 모드" class="se2_input_syntax se2_input_htmlsrc" style="display:none;outline-style:none;resize:none"> </textarea>
 			<textarea name="" rows="10" cols="100" title="TEXT 편집 모드" class="se2_input_syntax se2_input_text" style="display:none;outline-style:none;resize:none;"> </textarea>
 			
@@ -801,7 +777,36 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- SE2 Markup End -->
-
-
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="../js/article.js" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#my_pc_photo_btn').change( function(event){
+		var pfd = new FormData();
+		alert("사진버튼");
+		var files = event.target.files;
+		for (var i = 0; i < files.length; i++) {
+			 pfd.append(files[i].name, files[i]);
+		 }
+		$.ajax({
+			type : 'post',
+			dataType : 'json',
+			url : 'api/attachmentfile/addPhotoFile',
+			data : pfd,
+			success : function(res){
+				if (res != null) {
+					  oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+					}
+			},
+			error : function(err) {
+				alert('readyState:' + err.readyState);
+				alert('status:' + err.status);
+				alert('statusText:' + err.statusText);
+				alert('responseText:' + err.responseText);
+			}
+		})
+	});
+});
+</script> -->
 </body>
 </html>

@@ -21,6 +21,7 @@ public interface AttachmentFileBO {
 	public String removeFiles(int articleNumber, HttpServletRequest req);
 	public List<AttachmentFile> checkAndGetAttachmentFile(int articleNumber, HttpServletRequest req) throws Exception;
 	public String modFile(String fileAttacher, int articleNum, MultipartHttpServletRequest mreq) throws Exception;
-	public String addPhotoFile(int articleNum, MultipartHttpServletRequest mreq);
+	/*public String addPhotoFile(int articleNum, MultipartHttpServletRequest mreq);*/
+	public String removeFile(int fileNum, HttpServletRequest req);
 }
 
