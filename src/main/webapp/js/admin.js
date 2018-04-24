@@ -114,8 +114,6 @@ $("#orderButton").on("click", function(){
 		//드래그앤 드롭
 		var tableOrder = new Array();
 		$( "#sortable" ).sortable({
-			axis: "y",
-			containment: "parent",
 			update: function (event, ui) {
 				tableOrder = $(this).sortable('toArray', {
 					attribute: 'data-name'

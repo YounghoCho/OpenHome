@@ -193,12 +193,16 @@ function trafficTracking(){
 				if (totalTraffic > 10000){
 					if (totalTraffic > 100000){		
 						notice1(flag1);
+						//컨텐트를 누르면 flag를 바꾼다.
 						flag1 = 0;
+						flag2 = 1;
+
 					}
 					else{
 						let flag = 1;
 						notice2(flag2);
 						flag2 = 0;
+						flag1 = 1;
 					}
 				}
 			},

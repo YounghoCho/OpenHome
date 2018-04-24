@@ -169,5 +169,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 1"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 4111"></script>
