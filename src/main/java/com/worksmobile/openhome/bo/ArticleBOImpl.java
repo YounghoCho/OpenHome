@@ -87,7 +87,7 @@ public class ArticleBOImpl implements ArticleBO{
 	//admin
 	@Override
 	public List<Article> getAllArticles(int currentPageNo, int pageSize) {
-		return dao.getArticleList(currentPageNo, pageSize);
+		return dao.getAllArticles(currentPageNo, pageSize);
 	}
 	@Override
 	public int getArticleTotalCount() {

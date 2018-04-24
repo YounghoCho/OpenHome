@@ -58,7 +58,7 @@ public class ArticleDAO {
 		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticleTotalCount", paramMap);
 	}
 	//admin
-	public List<Article> getArticleList(int currentPageNo, int pageSize) {
+	public List<Article> getAllArticles(int currentPageNo, int pageSize) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("startNum", currentPageNo-1);
 		paramMap.put("pageSize", pageSize);
@@ -73,10 +73,6 @@ public class ArticleDAO {
 		paramMap.put("articleNumber", articleNumber);
 	
 		return sqlsession.selectList(NAMESPACE_ARTICLE + "getArticleDetails", paramMap);
-	}
-	
-	public List<Article> getAllArticles() {
-		return sqlsession.selectList(NAMESPACE_ARTICLE + "getAllArticles");
 	}
 	
 	public void removeArticle(int articleNum) {

@@ -10,8 +10,6 @@ function goStaticGraphAjax(){
 	$(".homeReadDiv").hide();
 	$(".staticGraphDiv").show();
 	
-	trafficTracking();
-	
 	var allTraffics = new Array();
 	var readTraffics = new Array();
 	var writeTraffics = new Array();
@@ -47,6 +45,7 @@ function goStaticGraphAjax(){
 				var sum = 0;
 				var memo = 0;
 				var queue = new Array();
+				var unusual = new Array();
 				var front = 0, rear = 0, interval = 3;				
 				for (var index = startDate; index <= endDate; index += 86400000){
 					//하루 증가된 날짜와 갱신된 memo값이 들어온다.
@@ -76,25 +75,34 @@ function goStaticGraphAjax(){
 					 * 4. 비정상 트래픽이 감지되면 알람이 발생한다.
 					 * 3. 최대 30개의 배열 인덱스가 생성된다. 
 					 */
+					
 					if (str == "all"){
+						//alert("rear:"+rear+", front:"+front);
+						//alert("sum="+sum);
 						if (rear < (interval + front)){
 							queue.push(sum);
 							rear++;
 						}else {
+							//3개가 찼을때 비교하는 알고리즘
 							let temp = 0;
 							for (let i = front; i < rear; i++){
 								temp += queue[i];
 							}
-							if (sum > (temp / interval) * 2){	
-								notice3(index, flag3);
-								flag3 = 0;
+							//alert("sum > (temp/interval)*2 : " + sum + "/ (" + temp + "/3*2)");
+							if (sum > (temp / interval) * 2){
+								unusual.push(index);
 							}
-							front++;
+							++front;
+							queue.push(sum);
+							rear++;
 						}
 					}							
 					arr.push(sum); //그래프 데이터 삽입.	
 					sum = 0; //sum 갱신
-				}				
+				}
+				//모든 날짜를 순환한 후 비정상 날짜들을 알린다.
+				notice3(unusual, flag3);
+				flag3 = 0;
 			}
 			
 			//하이차트 그리기
@@ -142,9 +150,6 @@ function goStaticGraphAjax(){
 			    }, {
 			        name: '쓰기 트래픽',
 			        data: writeTraffics
-			    }, {
-			        name: '파일 다운로드',
-			        data: downloadTraffics
 			    }],
 			
 			    responsive: {
@@ -236,19 +241,26 @@ function notice2(flag){
 	    $(".modal-footer").css("background-color", "sandybrown");
 	}
 }
-function notice3(index, flag){
+function notice3(arr, flag){
 	if (flag != 0){
 		setTimeout(function(){
 			modal.style.display = "block";
 	        $(".modal-header > h2").html("Notice");
-	        let revDate = eval(index);
-	        let temp = new Date(revDate);
-	        let noticeDate = temp + "";
-	       
-	        $(".modal-body > p").html("<p>" + noticeDate.substring(8, 10) + "일에, 트래픽이 비정상적으로 상승했습니다.</p>");
+	        
+	        var revDate, temp, noticeDate;
+	        var result = "";
+	        //alert(arr[0] + "," + arr[1]+","+arr[2]);
+	        for(let index = 0; index < arr.length; index++){	        	
+	        	revDate = (eval(arr[index]));
+	        	temp = new Date(revDate);
+	        	noticeDate = temp + "";
+	        	result += noticeDate.substring(8, 10) + "일, ";
+	        }
+	 	       
+	        $(".modal-body > p").html("<p>" + result + "트래픽이 비정상적으로 상승했습니다.</p>");
 	        $(".modal-header").css("background-color", "darkorchid");
 	        $(".modal-footer").css("background-color", "darkorchid");    	
-		}, 2000);
+		}, 5000);
 	}
 }
 $(".modal-content").on("click", function(){

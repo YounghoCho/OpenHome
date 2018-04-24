@@ -36,9 +36,9 @@
 	<select id="getArticleListAdmin" resultType="com.worksmobile.openhome.model.Article">
 		SELECT 
 			@ROWNUM := @ROWNUM +1 as ROWNUM,
-			a.boardNum, a.articleNum, articleSubject, articleTextContent, articleDate, articleWriter
+			b.boardTitle, a.boardNum, a.articleNum, articleSubject, articleTextContent, articleDate, articleWriter
 		FROM 
-			article a, ( SELECT @ROWNUM := 0 ) R
+			article a, board b, ( SELECT @ROWNUM := 0 ) R
 		WHERE
 			articleStatus = 'Y'
 		ORDER BY
@@ -67,7 +67,7 @@
 	<select id="getAllArticles" resultType="com.worksmobile.openhome.model.Article">
 		SELECT 
 			@ROWNUM := @ROWNUM +1 as ROWNUM,
-			boardTitle, a.boardNum, articleNum, articleSubject, articleContent , articleDate, articleWriter, articleAccessPwd 
+			b.boardTitle, a.boardNum, articleNum, articleSubject, articleContent , articleDate, articleWriter, articleAccessPwd 
 		FROM 
 			article a, board b, ( SELECT @ROWNUM := 0 ) R
 		WHERE

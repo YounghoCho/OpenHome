@@ -298,7 +298,8 @@ function loginAjax(){
 					$('#mask, .window').hide();
 					$('.window').hide();
 					$("#logOutButton").show();
-
+					
+					trafficTracking(); //트래픽 감지 시작
 					goBoardManageAjax(); //게시판 관리 페이지 호출
 				}
 			},

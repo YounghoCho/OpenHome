@@ -175,15 +175,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 1111"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 4111"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 1"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 1"></script>
+   
 <script>
-var LoginCheck = <%=session.getAttribute("userLoginInfo")%>;
+var LoginCheck = "<%=session.getAttribute("userLoginInfo")%>";
 //세션이 유효하면
-if(LoginCheck){
+if(LoginCheck != null && LoginCheck != "null"){
 	goBoardManageAjax(); //게시판 관리 페이지 호출
 	$("#logOutButton").show();
+	trafficTracking(); //트래픽 감지 시작
 }
 else{
 	loginPane();
