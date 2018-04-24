@@ -84,18 +84,29 @@ public class ArticleBOImpl implements ArticleBO{
 	public int getArticleTotalCount(int boardNumber) {
 		return dao.getArticleTotalCount(boardNumber);
 	}
+	//admin
+	@Override
+	public List<Article> getAllArticles(int currentPageNo, int pageSize) {
+		return dao.getArticleList(currentPageNo, pageSize);
+	}
+	@Override
+	public int getArticleTotalCount() {
+		return dao.getArticleTotalCount();
+	}
+	
 	@Override
 	public List<Article> getArticleDetails(int articleNumber) {
 		return dao.getArticleDetails(articleNumber);
 	}
-	@Override
-	public List<Article> getAllArticles() {
-		return dao.getAllArticles();
-	}
+
 	@Override
 	public void removeArticle(int articleNum) {
 		dao.removeArticle(articleNum);
 	}
+
+
+
+
 
 	
 }

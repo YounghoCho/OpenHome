@@ -173,16 +173,46 @@ $("#closeChange2").on("click", function(){
 });
 
 //게시글 관리
-function goArticlesAjax(){
+function goArticlesAjax(currentPageNo){ //default : 1
 	$(".staticGraphDiv").hide();
 	$(".homeReadDiv").hide();
 	$(".homeMainDiv").hide()
 	$("#singleBoard").show();
+	
 	jQuery.ajax({
 		type : "GET",
 		url : "api/article/allArticles",
 		dataType : "json",
+		data : "currentPageNo=" + currentPageNo,
 		success : function(res){
+		
+		//Paging			
+			var pages = 1;
+			var countList = 10;
+			var countPage = 10;
+			var totalCount = res.getArticleTotalCount;			
+			var totalPage = totalCount/countList;
+			var startPage = ((pages - 1) / 10) * 10 + 1;
+			var endPage = startPage + countPage - 1;
+			//Exception Handling
+			if(totalCount % countList > 0){ totalPage++; }
+			if(totalPage < pages){ pages = totalPage;}
+			if(endPage > totalPage){ endPage = totalPage;}
+			$("#indexNow > a").remove();
+			$("#indexOthers > a").remove();
+			//Listing Up Page Numbers
+			for (var i = startPage; i < endPage; i++){
+				if (startPage == i){	
+					$("#indexNow").append("<a href=\"javascript:goArticlesAjax(" + startPage + ")\">"
+										 + "<b>" + i + "</b></a>");
+				}
+				else{
+					$("#indexOthers").append("<a href=\"javascript:goArticlesAjax(" + ((i - 1) * 10 + 1) + ")\">"
+										 + "<b>" + i + "</b></a>");
+				}
+			}
+			
+			
 			//Removing Article Lists
 			$(".tbody > tr > td").remove();
 			//Setting Article Lists
@@ -243,15 +273,15 @@ function goRead(articleNumber){
 	history.pushState({ data: '3' }, 'title3', '?depth=3');
 }
 
-//로그인
-$(document).ready(function(){
+//로그인 창
+function loginPane(){
 	var maskHeight = $(document).height();
 	var maskWidth = $(window).width();
 	$("#mask").css({'width':maskWidth, 'height':maskHeight});
 	$("#mask").fadeIn(1000);
 	$("#mask").fadeTo("slow", 0.9);
 	$('.window').fadeIn(1000);
-});
+}
 function loginAjax(){
 		var id = $("#managerId").val();
 		var pwd = $("#managerPwd").val();
@@ -267,9 +297,9 @@ function loginAjax(){
 					alert("로그인 되었습니다")
 					$('#mask, .window').hide();
 					$('.window').hide();
+					$("#logOutButton").show();
 
 					goBoardManageAjax(); //게시판 관리 페이지 호출
-					trafficTracking(); //트래픽 추적 시작
 				}
 			},
 			error : function(err){
@@ -278,6 +308,22 @@ function loginAjax(){
 		});
 }
 
+//로그아웃
+$("#logOutButton").on("click", function(){
+	$.ajax({
+		type : 'POST',
+		url : 'api/admin/logOut',
+		success : function(res){
+			if(res == ReturnStatus.SUCCESS){
+				alert("로그아웃 되었습니다.");
+				location.href="admin";
+			}
+		},
+		error : function(err){
+			alert(err);
+		}
+	});
+});
 /*--- Page Back logic ---*/
 $(window).bind("popstate", function(event) {
 	try{

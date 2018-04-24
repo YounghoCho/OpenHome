@@ -147,6 +147,9 @@ function goHomeAjax(){
 		// 6. 첫번 째 게시판의 내용 갯수를 기본 길이로 설정하고, 게시판 내용을 그려넣는다. 
 						var homeListLen = active.length;
 						for(var index = 1; index <= homeListLen; index++){
+							$("#" + idIncreased2 + "Message > tr").remove();
+						}
+						for(var index = 1; index <= homeListLen; index++){
 						$("#" + idIncreased2 + "Message").append(
 								"<tr><td colspan=\"4\"><a href=\"javascript:goRead(" + 
 								active[index-1].articleNum + ")\" class=\"boardtds\">" + active[index-1].articleTextContent + "</a></td>" +
@@ -186,8 +189,7 @@ function goHomeAjax(){
 		}
 
 	}); //Outer Ajax End
-	history.pushState({ data: '1' }, 'title2', '?depth=1');
-	
+	location.hash = '#page:homex';
 }
 
 /*--- body-board ---*/
@@ -277,7 +279,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 			alert("lost");
 		}
 	});
-	history.pushState({ data: '2' }, 'title2', '?depth=2');
+	location.hash = '#page:board'+boardNumber;
 };
 
 /*--- body-Read ---*/
@@ -351,41 +353,23 @@ function goRead(articleNumber){
 			alert('responseText:' + err.responseText);
 		}
 	});
-	
-	history.pushState({ data: '3' }, 'title3', '?depth=3');
+	location.hash = '#page:readx'+articleNumber;
 }
 
 /*--- Page Back logic ---*/
-$(window).bind("popstate", function(event) {
-	try{
-		var index=event.originalEvent.state.data;
-		if (index == 2) {
-			$(".articleReadDiv").hide();
-			$(".homeMainDiv").hide();
-			$(".articleWriteDiv").hide();
-			$("#singleBoard").show();
-		} else if (index == 1) {
-			$(".articleReadDiv").hide();
-			$("#singleBoard").hide();
-			$(".articleWriteDiv").hide();
-			$(".homeMainDiv").show();
-		} else if (index == 3) {
-			$(".articleReadDiv").show();
-			$("#singleBoard").hide();
-			$(".articleWriteDiv").hide();
-			$(".homeMainDiv").hide();
-		} else if (index == 5) {
-			$(".articleReadDiv").hide();
-			$("#singleBoard").hide();
-			$(".articleWriteDiv").show();
-			$(".homeMainDiv").hide();
-		}
-	}catch(exception){	
-		$("#singleBoard").hide();
-		$(".articleReadDiv").hide();
-		$(".articleWriteDiv").hide();
-		$(".homeMainDiv").show();
+$(window).on('hashchange', function(){
+	var page = location.hash.slice(6,11);
+	var num = location.hash.slice(11);
+	//alert("page:"+page+" ,num:"+num);
+	switch(page){
+		case "homex":
+			goHomeAjax(); break;
+		case "board":
+			goBoardAjax(num, 1); break;	//current page 바꾸기
+		case "readx":
+			goRead(num); break;
 	}
+
 });
 
 /*--- Traffic Function ---*/

@@ -22,7 +22,6 @@ import com.worksmobile.openhome.bo.AttachmentFileBO;
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.status.ReturnStatus;
 
-
 @RestController
 @RequestMapping("/api/article/")
 public class ArticleController {
@@ -60,9 +59,23 @@ public class ArticleController {
 		int boardNumber = Integer.parseInt(req.getParameter("boardNumber"));
 		int currentPageNo = Integer.parseInt(req.getParameter("currentPageNo"));
 		int pageSize = 10;
-			Map<String, Object> result = new HashMap<>();
+		
+		Map<String, Object> result = new HashMap<>();
 		result.put("articleList", service.getArticleList(boardNumber, currentPageNo, pageSize));
 		result.put("getArticleTotalCount", service.getArticleTotalCount(boardNumber));
+		return result;
+	}
+	
+	//관리자용 게시글 전체 목록
+	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getAllArticles(HttpServletRequest req) throws Exception {	
+		int currentPageNo = Integer.parseInt(req.getParameter("currentPageNo"));
+		int pageSize = 10;
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("allArticles", service.getAllArticles(currentPageNo, pageSize));
+		result.put("getArticleTotalCount", service.getArticleTotalCount());
 		return result;
 	}
 	
@@ -74,16 +87,7 @@ public class ArticleController {
 		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
-	
-	
-	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
-	@ResponseBody
-	public Object getAllArticles() throws Exception {	
-		Map<String, Object> result = new HashMap<>();
-		result.put("allArticles", service.getAllArticles());
-		return result;
-	}
-	
+
 	//게시글을 삭제한다.
 	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
 	@ResponseBody

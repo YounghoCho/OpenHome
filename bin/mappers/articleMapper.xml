@@ -17,11 +17,11 @@
 			boardNum = #{boardNumber}
 		AND
 			articleStatus = 'Y'
+		ORDER BY
+			articleNum DESC
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		
-
-
 	<select id="getArticleTotalCount" resultType="int">
 		SELECT 
 			COUNT('articleNum') as countAll
@@ -32,7 +32,29 @@
 		AND
 			articleStatus = 'Y'
 	</select>
-			
+	<!-- admin -->
+	<select id="getArticleListAdmin" resultType="com.worksmobile.openhome.model.Article">
+		SELECT 
+			@ROWNUM := @ROWNUM +1 as ROWNUM,
+			a.boardNum, a.articleNum, articleSubject, articleTextContent, articleDate, articleWriter
+		FROM 
+			article a, ( SELECT @ROWNUM := 0 ) R
+		WHERE
+			articleStatus = 'Y'
+		ORDER BY
+			articleNum DESC
+		LIMIT 
+			#{startNum}, #{pageSize} 
+	</select>		
+	<select id="getArticleTotalCountAdmin" resultType="int">
+		SELECT 
+			COUNT('articleNum') as countAll
+		FROM 
+			article
+		WHERE
+			articleStatus = 'Y'
+	</select>
+				
 	<select id="getArticleDetails" resultType="com.worksmobile.openhome.model.Article">
 		SELECT 
 			boardNum, articleNum, articleSubject, articleContent , articleDate, articleWriter, articleAccessPwd 
