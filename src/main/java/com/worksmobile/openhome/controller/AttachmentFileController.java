@@ -49,11 +49,20 @@ public class AttachmentFileController {
 			return service.modFile(fileAttacher, articleNum, mreq);
 	}
 	
+	@RequestMapping(value="/removeFile", method = RequestMethod.POST)
+	@ResponseBody
+	public String removeFile(@RequestParam("fileNum") String fileNum,
+			HttpServletRequest req) throws Exception {
+			return service.removeFile(Integer.parseInt(fileNum), req);
+	}
+
+	
 	@RequestMapping(value="/addPhotoFile", method = RequestMethod.POST)
 	public String addPhotoFile(MultipartHttpServletRequest mreq) throws Exception {
-			System.out.println("확인");
-			System.out.println(mreq.getFiles("bonobono.jpg"));
-			return "good";
+			
+			return "service.";
 			/*return service.addPhotoFile(Integer.parseInt(req.getParameter("articleNum")), mreq);*/
 	}
+	
+	
 }

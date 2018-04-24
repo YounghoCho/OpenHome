@@ -3,7 +3,8 @@
 <head>
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
 	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=28">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+
 </head>
 
 <!-- header -->
@@ -51,7 +52,7 @@
 					</tbody>
 				</table>
 			
-			<a type="button" class="btn btn-success pull-right" style="margin-right:20px">글쓰기</a><br>
+			<a type="button" id="write_btn_1" class="btn btn-success pull-right" style="margin-right:20px">글쓰기</a><br>
 	
 			<div class="text-center">
 				<ul class="pagination">
@@ -73,8 +74,8 @@
 						<tr>
 							<td style="height:50px" id="boardTdSubject"></td>
 						</tr>
-						<tr>
-							<td style="height:100px" id="boardTdFiles"><ul></ul></td>
+						<tr id="file_tr_area">
+								<td style="height:100px" id="boardTdFiles"><ul></ul></td>
 						</tr>
 						<tr>
 							<td style="height:250px;border-bottom:1px solid #ddd;" id="boardTdContent"></td>
@@ -103,12 +104,19 @@
 						<input type="text" placeholder="제목" name="articleSubject" id="articleSubject"/>
 					</div>
 					
+					<div id="oldFileList">
+						<table id='oldFileTable'>
+				                   <tr>
+					                   <th id='tabOldFileName' width="65%">파일명</th>
+					                   <th id='tabOldFileSize' width="20%">사이즈</th>
+					                   <th id="tabOldFileDelBtn" width="15%">선택</th>
+				                   </tr>
+				               </table>
+					</div>
 					<div id="reg_btn_area">
-						<input type="button" value="취소" class="btn btn-default pull-left" id="article_reg_cancel_btn"/>
-						<input type="button" value="완료" class="btn pull-left" id="article_modify_ok_btn"/>
-				        <input type="button" value="등록" class="btn pull-left" id="article_reg_ok_btn"/>
-						<label for="my_pc_file_btn" class="btn btn-default pull-right" id="my_pc">내 PC</label>
+						<label for="my_pc_file_btn" class="btn btn-success pull-left" id="my_pc" style="margin-right:5px;">내 PC</label>
 						<input type="file" id="my_pc_file_btn" name="filename[]" multiple/>
+						<input type="button" class="btn btn-default pull-left" id="file_delete_btn" value="삭제"/>
 					</div>
 					<div>
 					<!-- <button type="button" id="file_area" aria-label="펼치기">
@@ -119,19 +127,27 @@
 						<div id="fileUpload" class="dragDropDiv">
 				               <table id='fileTable'>
 				                   <tr>
-					                   <td width='10%' id='tabFileCheck'><input type="checkbox" id="allcheck"/></td>
-					                   <td id='tabFileName'>파일명</td>
-					                   <td id='tabFileSize'>사이즈</td>
+					                   <th width='10%' id='tabFileCheck'><input type="checkbox" id="allcheck"/></th>
+					                   <th id='tabFileName'>파일명</th>
+					                   <th id='tabFileSize'>사이즈</th>
 				                   </tr>
 				               </table>
 				        </div>
-				        <input type="button" class="btn btn-default pull-right" id="file_delete_btn" value="삭제"/>
+					
 					</div>
 					</div>
-					<div id="textarea_area">
-						<textarea rows="50" cols="100" id="articleContent" name="articleContent"></textarea>
+					<div id="textarea_area" style="width:800px;height:550px;">
+						<textarea id="articleContent" name="articleContent" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
 					</div>
-					<%-- <input type="hidden" id="hidden_board_num" value="${param.boardNum}"/> --%>
+					<div id="write_btns">
+					<input type="button" value="취소" class="btn btn-default pull-right" id="article_reg_cancel_btn" style="margin-left:10px;"/>
+						<div>
+						<input type="button" value="완료" class="btn btn-success pull-right" id="article_modify_ok_btn"/>
+				        <input type="button" value="등록" class="btn btn-success pull-right" id="article_reg_ok_btn"/>
+				    	</div>
+				        
+				        
+					</div>
 				</div>
 			</div>
 		  <div id="check_pwd_hidden_area">
@@ -160,7 +176,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=8"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/article.js?ver=9"></script>
 

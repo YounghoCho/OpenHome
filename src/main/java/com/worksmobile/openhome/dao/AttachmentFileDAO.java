@@ -37,4 +37,8 @@ public class AttachmentFileDAO {
 	public int removeFile(int fileNum) {
 		return sqlsession.delete(NAMESPACE_ATTACHMENTFILE + "removeFile", fileNum);
 	}
+	
+	public AttachmentFile getFile(int fileNum) {
+		return sqlsession.selectOne(NAMESPACE_ATTACHMENTFILE + "getFile", fileNum);
+	}
 }

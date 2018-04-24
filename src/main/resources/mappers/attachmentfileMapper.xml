@@ -26,4 +26,10 @@
 		FROM attachmentfile
 		WHERE fileNum = #{fileNum}
 	</delete>
+	
+	<select id="getFile" parameterType="int" resultType="com.worksmobile.openhome.model.AttachmentFile">
+		SELECT * 
+		FROM attachmentfile
+		WHERE fileNum = #{fileNum}
+	</select>
 </mapper>

@@ -301,6 +301,11 @@ function goRead(articleNumber){
 			$("#boardTdContent").html(res.articleDetails[0].articleContent);
 
 			$("#readtable").data("articleNum", res.articleDetails[0].articleNum);
+			
+			//add custom-data on table
+			$('#singleBoardTable').removeData("boardNum");
+			$("#singleBoardTable").data("boardNum", res.articleDetails[0].boardNum);
+			
 			/////////////Start////////////
 			let len = res.articleDetails.length;
 			let trafficInt = new Array();
@@ -332,10 +337,12 @@ function goRead(articleNumber){
 		dataType: 'json',
 		data: 'articleNumber='+ articleNumber,
 		success: function(res) {
-			$.each(res, function(index, value) {
-				$("#boardTdFiles > ul").append('<li class="filelist"><span><i class="far fa-file"></i></span><a href="/OpenHome/file/' + value.storedFileName + '"' + 'download="' + value.originalFileName + '">'
-						+ value.originalFileName + '</a></li>');
-			});
+			if(res.size != 0) {
+				$.each(res, function(index, value) {
+					$("#boardTdFiles > ul").append('<li class="filelist"><span><i class="far fa-file"></i></span><a href="/OpenHome/file/' + value.storedFileName + '"' + 'download="' + value.originalFileName + '">'
+							+ value.originalFileName + '</a></li>');
+				});
+			} 
 		},
 		error : function(err) {
 			alert('readyState:' + err.readyState);
@@ -344,6 +351,7 @@ function goRead(articleNumber){
 			alert('responseText:' + err.responseText);
 		}
 	});
+	
 	history.pushState({ data: '3' }, 'title3', '?depth=3');
 }
 
