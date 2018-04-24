@@ -9,8 +9,8 @@
 
 <!-- header -->
 <div id="header" style="background-color:seagreen;">
-		<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
-		<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENHOME</font></a>
+	<a onclick="javascript:goHomeAjax()" style="width:50px;"><img src="../${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;cursor:pointer;"/>
+	<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;cursor:pointer;">OPENHOME</font></a>
 </div>
 
 <div id="center">
@@ -96,11 +96,19 @@
 		<div class="articleWriteDiv">
 			<div id="wrap" class="container write">	<!--auto margin-->
 					<div>
-						<input type="text" placeholder="작성자명" name="articleWriter" id="articleWriter"/>
-						<input type="password" placeholder="비밀번호" name="articleAccessPwd" id="articleAccessPwd"/>
+							<input type="text" placeholder="작성자명" name="articleWriter" id="articleWriter"/>
+							<input type="password" placeholder="비밀번호" name="articleAccessPwd" id="articleAccessPwd"/>
+					</div>
+					<div>
+						<div id="articleWriter_div">
+							
+						</div>
+						<div id="articleAccessPwd_div">
+							
+						</div>
 					</div>
 					
-					<div>
+					<div id="articleSubject_div">
 						<input type="text" placeholder="제목" name="articleSubject" id="articleSubject"/>
 					</div>
 					
@@ -140,30 +148,28 @@
 						<textarea id="articleContent" name="articleContent" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
 					</div>
 					<div id="write_btns">
-					<input type="button" value="취소" class="btn btn-default pull-right" id="article_reg_cancel_btn" style="margin-left:10px;"/>
+					<input type="button" value="취소" class="btn btn-default pull-right" id="article_reg_cancel_btn" style="margin-left:10px;margin-bottom:10px"/>
 						<div>
-						<input type="button" value="완료" class="btn btn-success pull-right" id="article_modify_ok_btn"/>
-				        <input type="button" value="등록" class="btn btn-success pull-right" id="article_reg_ok_btn"/>
+						<input type="button" value="완료" class="btn btn-success pull-right" id="article_modify_ok_btn" style="margin-bottom:10px;"/>
+				        <input type="button" value="등록" class="btn btn-success pull-right" id="article_reg_ok_btn" style="margin-bottom:10px;"/>
 				    	</div>
-				        
-				        
+
 					</div>
 				</div>
 			</div>
 		  <div id="check_pwd_hidden_area">
 			<div id="check_pwd_hidden">
-				<div>
-					비밀번호를 입력해주세요.
-				</div>
-				<div id="check_pwd_text">
-				  	<input id="pwd_text_field" type="password" name="articleAccessPwds"/>
-				</div>
-				<div>
-				  	<a type="button" id="check_pwd_cancel_btn" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">취소</a>
-					<a type="button" id="check_pwd_btn_del" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">확인</a>
-					<a type="button" id="check_pwd_btn_mod" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">확인</a>
-				</div>
-				
+						<div id="userPwdInfo">
+							비밀번호를 입력해주세요
+						</div>
+						<div id="check_pwd_text">
+						  	<input id="pwd_text_field" type="password" name="articleAccessPwds"/>
+						</div>
+						<div id="userPwdBtn">
+							<a type="button" id="check_pwd_btn_del" class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>
+							<a type="button" id="check_pwd_btn_mod" class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>
+						  	<a type="button" id="check_pwd_cancel_btn" class="btn btn-default" style="width:80px;">취소</a>
+						</div>
 			</div>
 		</div>
 		</div>
