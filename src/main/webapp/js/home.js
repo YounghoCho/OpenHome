@@ -291,7 +291,8 @@ function goRead(articleNumber){
 	
 	$('#boardTdSubject').empty();
 	$('#boardTdContent').empty();
-	$('#boardTdFiles > ul > li').remove();
+	$('filelist_2').empty();
+	
 	
 	jQuery.ajax({
 		type: "GET",
@@ -341,7 +342,7 @@ function goRead(articleNumber){
 		success: function(res) {
 			if(res.size != 0) {
 				$.each(res, function(index, value) {
-					$("#boardTdFiles > ul").append('<li class="filelist"><span><i class="far fa-file"></i></span><a href="/OpenHome/file/' + value.storedFileName + '"' + 'download="' + value.originalFileName + '">'
+					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a href="/OpenHome/file/' + value.storedFileName + '"' + 'download="' + value.originalFileName + '">'
 							+ value.originalFileName + '</a></li>');
 				});
 			} 
@@ -367,7 +368,11 @@ $(window).on('hashchange', function(){
 		case "board":
 			goBoardAjax(num, 1); break;	//current page 바꾸기
 		case "readx":
-			goRead(num); break;
+			$(".homeReadDiv").show();
+			$(".staticGraphDiv").hide();
+			$(".homeMainDiv").hide();
+			$(".articleWriteDiv").hide();
+			$("#singleBoard").hide(); break;
 	}
 
 });

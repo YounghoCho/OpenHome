@@ -6,6 +6,21 @@
     var subjectLengthChecker;
     var writerLengthChecker;
     var articlepwdLengthChecker;
+	//--첨부파일--
+	//파일 사이즈 측정
+	var totalFileSize = 0;
+	var totalFileCount = 0;
+	var oldTotalFileCount = 0;
+    
+    var StringBuffer = function() {
+    	this.buffer = new Array();
+    };
+    StringBuffer.prototype.append = function(str) {
+    	this.buffer[this.buffer.length] = str;
+    };
+    StringBuffer.prototype.toString = function() {
+    	return this.buffer.join("");
+    };
    	
    	//등록버튼을 눌렀을 때
 	$('#article_reg_ok_btn').on('click', reg);
@@ -46,39 +61,27 @@
 		}
 	})
 	
-	//--첨부파일--
-	//파일 사이즈 측정
-	var totalFileSize = 0;
-	var totalFileCount = 0;
-    
-    var StringBuffer = function() {
-    	this.buffer = new Array();
-    };
-    StringBuffer.prototype.append = function(str) {
-    	this.buffer[this.buffer.length] = str;
-    };
-    StringBuffer.prototype.toString = function() {
-    	return this.buffer.join("");
-    };
 	
     //formdata에 파일 추가
     function handleFileUpload(files) {
         var megaByte = 1024 * 1024;
         
         for (var i = 0; i < files.length; i++) {
-        	 if ((files[i].size/megaByte) <= 20 && (totalFileCount < 10)){
+        	 if (((files[i].size/megaByte) <= 20 ) && ((totalFileCount + oldTotalFileCount) < 10)){
                   fd.append(files[i].name, files[i]);
                   // 파일 이름과 정보를 추가해줌
                   var tag = createFile(files[i].name, files[i].size);
                   $('#fileTable').append(tag);
                   totalFileCount++;
               } else {
-	              if (totalFileCount >= 10) {
+	              if ((totalFileCount + oldTotalFileCount) >= 10) {
 	                 alert("10개까지 업로드가 가능합니다.");
+	                 return false;
 	              } else {
 	                 //중복되는 정보 확인 위해 콘솔에 찍음
 	                 if ((files[i].size / megaByte) > 20){
 	                    alert(files[i].name + "은(는) \n 20MB 보다 커서 업로드가 할 수 없습니다.");
+	                    return false;
 	                 }
 	              }
               }
@@ -254,6 +257,7 @@
 											$('#oldFileTable').append('<tr class="oldfiletr" id="' + value.fileNum + '"><td>' + value.originalFileName + '</td><td>' 
 														+ filesize + '</td><td><input type="button" id="oldfile_del_btn" onclick="removeFile(' 
 														+ value.fileNum + ')" value="삭제"/></td></tr>');
+											oldTotalFileCount++;
 										});
 										$('#oldFileList').css("display","block");
 									} else {
@@ -313,13 +317,11 @@
 		})
 	});
 	
-	$('#article_modify_ok_btn').on('click', modify);
-	
 
 function write() {
+	formReset();
 	resetSelect();
 	removeLengthChecker();
-	fd = new FormData();
 	$('.filelist').remove();
 	$("#singleBoard").hide();
 	$(".articleReadDiv").hide();
@@ -489,6 +491,8 @@ $('#article_reg_cancel_btn').on('click', function(){
 	history.back();
 })
 
+$('#article_modify_ok_btn').on('click', modify);
+
 function modify() {
 	if (!$('#articleSubject').val()) {
 		alert("글 제목을 입력하세요.");
@@ -524,8 +528,7 @@ function modify() {
 							type : 'post',
 							dataType : 'text',
 							url : 'api/article/modArticle',
-							data : 'articleNum=' + $('.articleWriteDiv').data("articleNum") + '&boardNum=' + $("#singleBoardTable").data("boardNum") 
-									+ '&articleWriter=' + $('#articleWriter').val() + '&articleAccessPwd=' + $('#articleAccessPwd').val() 
+							data : 'articleNum=' + $('.articleWriteDiv').data("articleNum")
 									+ '&articleSubject=' + $('#articleSubject').val() + '&articleContent=' + $('#articleContent').val() 
 									+ '&articleTextContent=' + articleTextContent,
 							success : function(res){
@@ -560,8 +563,7 @@ function modify() {
 				type : 'post',
 				dataType : 'text',
 				url : 'api/article/modArticle',
-				data : 'articleNum=' + $('.articleWriteDiv').data("articleNum") + '&boardNum=' + $("#singleBoardTable").data("boardNum") 
-						+ '&articleWriter=' + $('#articleWriter').val() + '&articleAccessPwd=' + $('#articleAccessPwd').val() 
+				data : 'articleNum=' + $('.articleWriteDiv').data("articleNum") 
 						+ '&articleSubject=' + $('#articleSubject').val() + '&articleContent=' + $('#articleContent').val() 
 						+ '&articleTextContent=' + articleTextContent,
 				success : function(res){
@@ -586,7 +588,8 @@ function modify() {
 
 function formReset() {
 	fd = new FormData();
-	totalCount=0;
+	totalCount = 0;
+	oldTotalFileCount = 0;
 }
 
 function resetSelect() {
@@ -631,6 +634,7 @@ function removeFile(fileNum) {
 				data : 'fileNum=' + fileNum,
 				success : function(res){
 					if (res=="success") {
+						oldTotalFileCount--;
 						$('#'+ fileNum).remove();
 						alert("삭제되었습니다.");
 					} else {
