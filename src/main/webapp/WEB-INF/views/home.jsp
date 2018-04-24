@@ -21,11 +21,10 @@
 </div>
 	
 <div id="center-right">
-
-	<!-- top -->
-	<div id="top">
-		Welcome to OPEN HOME
-	</div>
+<!-- top -->
+<div id="top">
+	Welcome to OPENHOME
+</div>
 	
 	<!-- body -->
 	<div id="body">

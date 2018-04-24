@@ -114,7 +114,7 @@ function goStaticGraphAjax(){
 			    },
 			    yAxis: {
 			        title: {
-			            text: 'Traffic'
+			            text: 'Traffic(Byte)'
 			        }
 			    },
 			    legend: {
@@ -206,7 +206,7 @@ function trafficTracking(){
 				alert(err);
 			}
 		});
-	}, 4000);
+	}, 5000);
 }
 
 var modal = document.getElementById('myModal');
@@ -219,7 +219,6 @@ function notice1(flag){
 	    $(".modal-body > p").html("<p>트래픽이 100k를 초과했습니다.</p>");
 	    $(".modal-header").css("background-color", "crimson");
 	    $(".modal-footer").css("background-color", "crimson");
-	    goStaticGraphAjax();
 	}
 }
 function notice2(flag){
@@ -229,7 +228,6 @@ function notice2(flag){
 	    $(".modal-body > p").html("<p>트래픽이 10k를 초과했습니다.</p>");
 	    $(".modal-header").css("background-color", "sandybrown");
 	    $(".modal-footer").css("background-color", "sandybrown");
-	    goStaticGraphAjax();
 	}
 }
 function notice3(index, flag){
@@ -241,12 +239,16 @@ function notice3(index, flag){
 	        let temp = new Date(revDate);
 	        let noticeDate = temp + "";
 	       
-	        $(".modal-body > p").html("<p>" + noticeDate.substring(8, 10) + "일에, 트래픽이 비정상적으로 상승했습니다..</p>");
+	        $(".modal-body > p").html("<p>" + noticeDate.substring(8, 10) + "일에, 트래픽이 비정상적으로 상승했습니다.</p>");
 	        $(".modal-header").css("background-color", "darkorchid");
 	        $(".modal-footer").css("background-color", "darkorchid");    	
-		}, 7000);
+		}, 5000);
 	}
 }
+$(".modal-content").on("click", function(){
+	goStaticGraphAjax();
+	modal.style.display = "none";
+});
 span.onclick = function() {
     modal.style.display = "none";
 }
