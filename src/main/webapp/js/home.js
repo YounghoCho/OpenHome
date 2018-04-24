@@ -147,6 +147,9 @@ function goHomeAjax(){
 		// 6. 첫번 째 게시판의 내용 갯수를 기본 길이로 설정하고, 게시판 내용을 그려넣는다. 
 						var homeListLen = active.length;
 						for(var index = 1; index <= homeListLen; index++){
+							$("#" + idIncreased2 + "Message > tr").remove();
+						}
+						for(var index = 1; index <= homeListLen; index++){
 						$("#" + idIncreased2 + "Message").append(
 								"<tr><td colspan=\"4\"><a href=\"javascript:goRead(" + 
 								active[index-1].articleNum + ")\" class=\"boardtds\">" + active[index-1].articleTextContent + "</a></td>" +

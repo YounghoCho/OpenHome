@@ -22,7 +22,6 @@ import com.worksmobile.openhome.bo.AttachmentFileBO;
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.status.ReturnStatus;
 
-
 @RestController
 @RequestMapping("/api/article/")
 public class ArticleController {
