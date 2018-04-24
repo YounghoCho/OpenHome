@@ -17,6 +17,8 @@
 			boardNum = #{boardNumber}
 		AND
 			articleStatus = 'Y'
+		ORDER BY
+			articleNum DESC
 		LIMIT 
 			#{startNum}, #{pageSize} 
 	</select>		

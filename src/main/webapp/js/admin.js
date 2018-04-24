@@ -243,15 +243,15 @@ function goRead(articleNumber){
 	history.pushState({ data: '3' }, 'title3', '?depth=3');
 }
 
-//로그인
-$(document).ready(function(){
+//로그인 창
+function loginPane(){
 	var maskHeight = $(document).height();
 	var maskWidth = $(window).width();
 	$("#mask").css({'width':maskWidth, 'height':maskHeight});
 	$("#mask").fadeIn(1000);
 	$("#mask").fadeTo("slow", 0.9);
 	$('.window').fadeIn(1000);
-});
+}
 function loginAjax(){
 		var id = $("#managerId").val();
 		var pwd = $("#managerPwd").val();
@@ -267,9 +267,9 @@ function loginAjax(){
 					alert("로그인 되었습니다")
 					$('#mask, .window').hide();
 					$('.window').hide();
+					$("#logOutButton").show();
 
 					goBoardManageAjax(); //게시판 관리 페이지 호출
-					trafficTracking(); //트래픽 추적 시작
 				}
 			},
 			error : function(err){

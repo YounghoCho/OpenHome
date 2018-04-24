@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css?ver=1">
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=1">
@@ -54,6 +55,9 @@
 <div id="header" style="background-color:seagreen;">
 		<a href="${pageContext.request.contextPath}/admin" style="width:50px;"><img src="${pageContext.request.contextPath}/image/logo.png" style="width:40px;margin:5px;"/></a>
 			<font style="color:white;position:absolute;top:12px;left:55px;font-size:18px;font-weight:bold;">OPENHOME Admin</font>
+</div>
+<div id="logOutButton" style="position:absolute; top:0; right:0; color:white; font-weight:bold; margin:15px; cursor:pointer; display:none;">
+	로그아웃
 </div>
 
 <div id="center">
@@ -169,5 +173,34 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 1"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 1111"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 4111"></script>
+<%@ page session="true" %>
+<script>
+var LoginCheck = <%=session.getAttribute("userLoginInfo")%>;
+//세션이 유효하면
+if(LoginCheck){
+	goBoardManageAjax(); //게시판 관리 페이지 호출
+	$("#logOutButton").show();
+}
+else{
+	loginPane();
+}
+
+//로그아웃
+$("#logOutButton").on("click", function(){
+	$.ajax({
+		type : 'POST',
+		url : 'api/admin/logOut',
+		success : function(res){
+			if(res == ReturnStatus.SUCCESS){
+				alert("로그아웃 되었습니다.");
+				location.href="admin";
+			}
+		},
+		error : function(err){
+			alert(err);
+		}
+	});
+});
+</script>

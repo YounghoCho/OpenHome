@@ -9,7 +9,9 @@ function goStaticGraphAjax(){
 	$("#singleBoard").hide();
 	$(".homeReadDiv").hide();
 	$(".staticGraphDiv").show();
-
+	
+	trafficTracking();
+	
 	var allTraffics = new Array();
 	var readTraffics = new Array();
 	var writeTraffics = new Array();
@@ -190,8 +192,8 @@ function trafficTracking(){
 				for (index = 0; index < res.trafficData.length; index++){ //전체트래픽을 구한다.
 					totalTraffic += res.trafficData[index].trafficContentLength;
 				}
-				if (totalTraffic > 10000){
-					if (totalTraffic > 100000){		
+				if (totalTraffic > 100000){
+					if (totalTraffic > 1000000){		
 						notice1(flag1);
 						//컨텐트를 누르면 flag를 바꾼다.
 						flag1 = 0;
@@ -220,7 +222,7 @@ function notice1(flag){
 	if (flag != 0){
 	    modal.style.display = "block";
 	    $(".modal-header > h2").html("Urgent");
-	    $(".modal-body > p").html("<p>트래픽이 100k를 초과했습니다.</p>");
+	    $(".modal-body > p").html("<p>트래픽이 1000k를 초과했습니다.</p>");
 	    $(".modal-header").css("background-color", "crimson");
 	    $(".modal-footer").css("background-color", "crimson");
 	}
@@ -229,7 +231,7 @@ function notice2(flag){
 	if (flag != 0){
 	    modal.style.display = "block";
 	    $(".modal-header > h2").html("Warning");
-	    $(".modal-body > p").html("<p>트래픽이 10k를 초과했습니다.</p>");
+	    $(".modal-body > p").html("<p>트래픽이 100k를 초과했습니다.</p>");
 	    $(".modal-header").css("background-color", "sandybrown");
 	    $(".modal-footer").css("background-color", "sandybrown");
 	}
@@ -246,7 +248,7 @@ function notice3(index, flag){
 	        $(".modal-body > p").html("<p>" + noticeDate.substring(8, 10) + "일에, 트래픽이 비정상적으로 상승했습니다.</p>");
 	        $(".modal-header").css("background-color", "darkorchid");
 	        $(".modal-footer").css("background-color", "darkorchid");    	
-		}, 5000);
+		}, 2000);
 	}
 }
 $(".modal-content").on("click", function(){
