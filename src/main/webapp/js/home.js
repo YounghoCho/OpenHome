@@ -291,7 +291,7 @@ function goRead(articleNumber){
 	
 	$('#boardTdSubject').empty();
 	$('#boardTdContent').empty();
-	$('filelist_2').empty();
+	$('.filelist_2').empty();
 	
 	
 	jQuery.ajax({

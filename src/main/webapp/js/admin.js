@@ -243,7 +243,7 @@ function removeArticle(articleNum){
 		success : function(res){			
 			if (res == ReturnStatus.SUCCESS){
 				alert("삭제되었습니다.");
-				goArticlesAjax();	//location.href할 필요가 없음.
+				goArticlesAjax(1);	//location.href할 필요가 없음.
 			}
 		},
 		error : function(err){
