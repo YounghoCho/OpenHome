@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,34 +22,34 @@ public class AttachmentFileController {
 
 	@Resource
 	private AttachmentFileBO service;
-	
-	@RequestMapping(value="/addFile", method = RequestMethod.POST)
+	//(board)
+	@PostMapping(value="/addFile")
 	@ResponseBody
 	public String addFile(@RequestParam("articleWriter") String fileAttacher,
 			@RequestParam("articleNum") int articleNum, MultipartHttpServletRequest mreq) throws Exception {
 		System.out.println(fileAttacher +  articleNum);
 			return service.addFile(fileAttacher, articleNum, mreq);
 	}
-	
+	//(board)
 	@RequestMapping(value="/fileDetails", method = RequestMethod.POST)
 	@ResponseBody
 	public List<AttachmentFile> getFiles(@RequestParam("articleNumber") int articleNumber) throws Exception { 
 			return service.getFiles(articleNumber);
 	}
-	
+	//(board)
 	@RequestMapping(value="/checkAndGetAttachmentFile", method = RequestMethod.POST)
 	@ResponseBody
 	public List<AttachmentFile> checkAndGetAttachmentFile(@RequestParam("articleNum") int articleNum, HttpServletRequest req) throws Exception { 
 			return service.checkAndGetAttachmentFile(articleNum, req);
 	}
-	
-	@RequestMapping(value="/modFile", method = RequestMethod.POST)
+	//(board)
+	@PostMapping(value="/modFile")
 	@ResponseBody
 	public String modFile(@RequestParam("articleWriter") String fileAttacher,
 			@RequestParam("articleNum") int articleNum, MultipartHttpServletRequest mreq) throws Exception {
 			return service.modFile(fileAttacher, articleNum, mreq);
 	}
-	
+	//(board)
 	@RequestMapping(value="/removeFile", method = RequestMethod.POST)
 	@ResponseBody
 	public String removeFile(@RequestParam("fileNum") String fileNum,
@@ -56,8 +57,8 @@ public class AttachmentFileController {
 			return service.removeFile(Integer.parseInt(fileNum), req);
 	}
 
-	
-	@RequestMapping(value="/addPhotoFile", method = RequestMethod.POST)
+	//(board)
+	@PostMapping(value="/addPhotoFile")
 	public String addPhotoFile(MultipartHttpServletRequest mreq) throws Exception {
 			
 			return "service.";

@@ -189,7 +189,7 @@ function goHomeAjax(){
 		}
 
 	}); //Outer Ajax End
-	location.hash = '#page:homex';
+	location.hash = '#/page:homex';
 }
 
 /*--- body-board ---*/
@@ -279,7 +279,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 			alert("lost");
 		}
 	});
-	location.hash = '#page:board'+boardNumber;
+	location.hash = '#/page:board'+boardNumber;
 };
 
 /*--- body-Read ---*/
@@ -354,27 +354,51 @@ function goRead(articleNumber){
 			alert('responseText:' + err.responseText);
 		}
 	});
-	location.hash = '#page:readx'+articleNumber;
+	location.hash = '#/page:readx'+articleNumber;
 }
-
+var temp = "";
 /*--- Page Back logic ---*/
 $(window).on('hashchange', function(){
-	var page = location.hash.slice(6,11);
-	var num = location.hash.slice(11);
+	var page = location.hash.slice(7,12);
+	temp=page;
+	var num = location.hash.slice(12);
 	//alert("page:"+page+" ,num:"+num);
 	switch(page){
 		case "homex":
-			goHomeAjax(); break;
+			$(".homeMainDiv").show();
+			$(".homeReadDiv").hide();
+			$(".articleWriteDiv").hide();
+			$("#singleBoard").hide();
+			break;
 		case "board":
-			goBoardAjax(num, 1); break;	//current page 바꾸기
-		case "readx":
-			$(".homeReadDiv").show();
-			$(".staticGraphDiv").hide();
+			$("#singleBoard").show(); 
+			$(".homeReadDiv").hide();
 			$(".homeMainDiv").hide();
 			$(".articleWriteDiv").hide();
-			$("#singleBoard").hide(); break;
+			break;
+		case "readx":
+			$(".homeReadDiv").show();
+			$(".homeMainDiv").hide();
+			$(".articleWriteDiv").hide();
+			$("#singleBoard").hide(); 
+			break;
 	}
+});
+/*발견 2
+ * : 컨트롤러들로 구성했으나, SPA로 바꾸게 되었다. 이유는 새로고침 없이 페이지가 동적으로 변하고 관리도 쉽기 때문.
+ *   한페이지에서 모든 요청이 ajax로 처리되므로 history관리를 할 수 없다. 즉,새로고침과 뒤로가기의 문제가 발생한다.
+ *   이를 막기뤼해 Hash를 사용해 각 페이지에 anchor를 남겨준다.
+ *   뒤로가기의 비밀은 hashchange에 있다.
+ *   초기에는 pushstate를 사용했지만, IE 10이상에서만 지원하기 때문에 hash방식을 사용했다.
+ *   
+ */ 
 
+
+$(window).on('DOMContentLoaded', function() {
+	//새로고침이 됐을때, URL이 먼저 홈으로 바뀌고 새로고침 액션을 감지하게 된다.
+	//왜냐하면 새로고침 했을때 HomeController로 들어오기 때문이다.
+	//스크립트도 리로드 되기때문에 여기서 뭔가 할 수는 없다.
+	//그럼 여기서 컨트롤러로 정보를 넘겨주면 되지 않을까?
 });
 
 /*--- Traffic Function ---*/

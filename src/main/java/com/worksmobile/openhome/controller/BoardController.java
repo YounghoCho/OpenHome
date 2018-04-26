@@ -25,7 +25,7 @@ public class BoardController {
 
 	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 	
-	//게시판 목록을 가져온다.
+	//게시판 목록을 가져온다(board, admin)
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoardList() throws Exception{
@@ -34,7 +34,7 @@ public class BoardController {
 		return result;	
 	}
 	
-	//게시판을 삭제한다.
+	//게시판을 삭제한다.(admin)
 	@RequestMapping(value = "/boardRemove", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String removeBoard(HttpServletRequest req) throws Exception {
@@ -43,7 +43,7 @@ public class BoardController {
 	return returnStatus.name();
 	}
 	
-	//게시판을 추가한다.
+	//게시판을 추가한다.(admin)
 	@RequestMapping(value = "/newBoard", method = RequestMethod.POST)
 	@ResponseBody
 	public String createNewBoard(HttpServletRequest req) throws Exception {
@@ -51,7 +51,7 @@ public class BoardController {
 		return returnStatus.name();
 	}
 	
-	//게시판 순서를 변경한다.
+	//게시판 순서를 변경한다.(admin)
 	@RequestMapping(value = "/boardOrders", method = RequestMethod.PUT)
 	@ResponseBody
 	public String updateBoardOrders(HttpServletRequest req) throws Exception {
@@ -63,7 +63,7 @@ public class BoardController {
 		return returnStatus.name();
 	}
 	
-	//게시판 명을 변경한다.
+	//게시판 명을 변경한다.(admin)
 	@RequestMapping(value = "/boardTitles", method = RequestMethod.PUT)
 	@ResponseBody
 	public String updateBoardTitles(HttpServletRequest req) throws Exception {
