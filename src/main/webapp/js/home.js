@@ -2,11 +2,61 @@
 var ReturnStatus = {"SUCCESS":"SUCCESS"};
 Object.freeze(ReturnStatus); //Object.freeze : 값 수정을 방지한다.
 
-/*--- First Page ---*/
+/*--- 첫 페이지 진입 ---*/
 $(document).ready(function(){
-	getBoardListAjax();
-	goHomeAjax();
+	/*--- 새로고침(Refresh)---*/
+	var refresh = location.hash.slice(9,14);
+	var number = location.hash.slice(14);
+	//alert(refresh + ", " + number);
+	switch(refresh){
+		case "":
+			getBoardListAjax();
+			goHomeAjax();
+			break;
+		case "homex":
+			getBoardListAjax();
+			goHomeAjax();
+			break;		
+		case "board":	
+			getBoardListAjax();
+			goBoardAjax(number, 1);//goBoardAjax(게시판번호, 페이지번호)
+			break;
+		case "readx":
+			getBoardListAjax();
+			goRead(number);//goRead(게시글번호)
+			break;
+	}
 });
+
+/*--- Page Back logic ---*/
+$(window).on('hashchange', function(){
+	var page = location.hash.slice(9,14);
+	var number = location.hash.slice(14);
+	//alert("page:"+page+" ,num:"+number);
+	switch(page){
+		case "homex":
+			goHomeAjax();
+			break;
+		case "board":
+			goBoardAjax(number, 1);//goBoardAjax(게시판번호, 페이지번호)
+			break;
+		case "readx":
+			goRead(number);//goRead(게시글번호)
+			break;
+	}
+});
+
+/*발견 2
+ * 초기에는 모든 컨트롤러 별로 jsp 페이지를 만들어서 홈페이지를 만들었습니다.
+ * 페이지가 많아지자 관리가 불편했고 조금 더 편리한 방법이 없을까 고민하던 중, SPA를 알게되었습니다.
+ * 그래서 단일 페이지 어플리케이션으로 리팩토링 하게 되었고 페이지를 동적 처리할 수 있고, Ajax별로 페이지를 관리할 수 있어서 개발이 수월했습니다. 
+ *
+ * 그러나 좋기만 했던 것은 아닙니다.
+ * 한페이지에서 모든 요청이 ajax로 처리되므로 history관리를 할 수 없었고, 새로고침과 뒤로가기가 불가능했습니다.
+ * 이를 보완하기위해 pushstate를 사용했지만, pushstate는 IE10이상에서만 지원하기 때문에 
+ * IE8이상에서 지원되는 hash 방식으로 바꾸어 각 페이지에 앵커를 남겨 
+ * 진도 라이브러리에서 제공하는 새로고침, 뒤로가기를 자바스크립트로 구현했습니다.
+ */ 
 
 /*--- menu-list ---*/
 function getBoardListAjax(){
@@ -189,7 +239,7 @@ function goHomeAjax(){
 		}
 
 	}); //Outer Ajax End
-	location.hash = '#/page:homex';
+	location.hash = '/#/page:homex';
 }
 
 /*--- body-board ---*/
@@ -279,7 +329,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 			alert("lost");
 		}
 	});
-	location.hash = '#/page:board'+boardNumber;
+	location.hash = '/#/page:board'+boardNumber;
 };
 
 /*--- body-Read ---*/
@@ -354,52 +404,8 @@ function goRead(articleNumber){
 			alert('responseText:' + err.responseText);
 		}
 	});
-	location.hash = '#/page:readx'+articleNumber;
+	location.hash = '/#/page:readx'+articleNumber;
 }
-var temp = "";
-/*--- Page Back logic ---*/
-$(window).on('hashchange', function(){
-	var page = location.hash.slice(7,12);
-	temp=page;
-	var num = location.hash.slice(12);
-	//alert("page:"+page+" ,num:"+num);
-	switch(page){
-		case "homex":
-			$(".homeMainDiv").show();
-			$(".homeReadDiv").hide();
-			$(".articleWriteDiv").hide();
-			$("#singleBoard").hide();
-			break;
-		case "board":
-			$("#singleBoard").show(); 
-			$(".homeReadDiv").hide();
-			$(".homeMainDiv").hide();
-			$(".articleWriteDiv").hide();
-			break;
-		case "readx":
-			$(".homeReadDiv").show();
-			$(".homeMainDiv").hide();
-			$(".articleWriteDiv").hide();
-			$("#singleBoard").hide(); 
-			break;
-	}
-});
-/*발견 2
- * : 컨트롤러들로 구성했으나, SPA로 바꾸게 되었다. 이유는 새로고침 없이 페이지가 동적으로 변하고 관리도 쉽기 때문.
- *   한페이지에서 모든 요청이 ajax로 처리되므로 history관리를 할 수 없다. 즉,새로고침과 뒤로가기의 문제가 발생한다.
- *   이를 막기뤼해 Hash를 사용해 각 페이지에 anchor를 남겨준다.
- *   뒤로가기의 비밀은 hashchange에 있다.
- *   초기에는 pushstate를 사용했지만, IE 10이상에서만 지원하기 때문에 hash방식을 사용했다.
- *   
- */ 
-
-
-$(window).on('DOMContentLoaded', function() {
-	//새로고침이 됐을때, URL이 먼저 홈으로 바뀌고 새로고침 액션을 감지하게 된다.
-	//왜냐하면 새로고침 했을때 HomeController로 들어오기 때문이다.
-	//스크립트도 리로드 되기때문에 여기서 뭔가 할 수는 없다.
-	//그럼 여기서 컨트롤러로 정보를 넘겨주면 되지 않을까?
-});
 
 /*--- Traffic Function ---*/
 function calculateIntLength(arr, len){

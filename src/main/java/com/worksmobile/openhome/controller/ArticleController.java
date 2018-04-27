@@ -55,7 +55,6 @@ public class ArticleController {
 	}
 	
 	//특정 게시판의 게시글과, 게시글 개수를 얻는다(board)
-	@Transactional
 	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoard(HttpServletRequest req) throws Exception {		
