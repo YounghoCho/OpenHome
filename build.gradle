@@ -36,7 +36,6 @@ dependencies {
 	compile("org.mybatis:mybatis")
 	
     compile("mysql:mysql-connector-java:5.1.46")
-    compile('javax.servlet:jstl:1.2')
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.2'
@@ -44,5 +43,5 @@ dependencies {
 
 	compile('org.springframework.boot:spring-boot-starter-web')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	runtime 'org.springframework.boot:spring-boot-starter-tomcat'
 }

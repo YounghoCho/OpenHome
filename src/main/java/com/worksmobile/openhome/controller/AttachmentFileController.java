@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.worksmobile.openhome.bo.AttachmentFileBO;
+import com.worksmobile.openhome.controller.annotaion.GetWriteTraffic;
 import com.worksmobile.openhome.model.AttachmentFile;
 
 @RestController
@@ -23,7 +24,8 @@ public class AttachmentFileController {
 	@Resource
 	private AttachmentFileBO service;
 	//(board)
-	@PostMapping(value="/addFile")
+	@GetWriteTraffic
+	@RequestMapping(value="/addFile", method = RequestMethod.POST)
 	@ResponseBody
 	public String addFile(@RequestParam("articleWriter") String fileAttacher,
 			@RequestParam("articleNum") int articleNum, MultipartHttpServletRequest mreq) throws Exception {
@@ -43,7 +45,8 @@ public class AttachmentFileController {
 			return service.checkAndGetAttachmentFile(articleNum, req);
 	}
 	//(board)
-	@PostMapping(value="/modFile")
+	@GetWriteTraffic
+	@RequestMapping(value="/modFile", method = RequestMethod.POST)
 	@ResponseBody
 	public String modFile(@RequestParam("articleWriter") String fileAttacher,
 			@RequestParam("articleNum") int articleNum, MultipartHttpServletRequest mreq) throws Exception {
@@ -58,7 +61,8 @@ public class AttachmentFileController {
 	}
 
 	//(board)
-	@PostMapping(value="/addPhotoFile")
+	@GetWriteTraffic
+	@RequestMapping(value="/addPhotoFile", method = RequestMethod.POST)
 	public String addPhotoFile(MultipartHttpServletRequest mreq) throws Exception {
 			
 			return "service.";

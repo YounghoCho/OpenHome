@@ -11,8 +11,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.worksmobile.openhome.bo.ArticleBO;
 import com.worksmobile.openhome.bo.AttachmentFileBO;
+import com.worksmobile.openhome.controller.annotaion.GetWriteTraffic;
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.status.ReturnStatus;
 
@@ -100,7 +99,8 @@ public class ArticleController {
 	}
 
 	/*@author Suji Jang*///(board)
-	@PostMapping(value = "/addArticleNum")
+	@GetWriteTraffic
+	@RequestMapping(value = "/addArticleNum", method = RequestMethod.POST)
 	@ResponseBody
 	public String addArticleNum(HttpServletRequest req, HttpServletResponse res) throws Exception { 
 		Article article = new Article(Integer.parseInt(req.getParameter("boardNum")));
@@ -108,7 +108,8 @@ public class ArticleController {
 		return String.valueOf(article.getArticleNum());
 	}
 	//(board)
-	@PostMapping(value = "/addArticle")
+	@GetWriteTraffic
+	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public String addArticle(HttpServletRequest req, HttpServletResponse res) throws Exception { 
 		Article article = new Article(Integer.parseInt(req.getParameter("articleNum")), Integer.parseInt(req.getParameter("boardNum")),
@@ -139,7 +140,8 @@ public class ArticleController {
 	}
 	//(board)
 	//게시글 수정
-	@PostMapping(value = "/modArticle")
+	@GetWriteTraffic
+	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public String modArticle(@RequestParam("articleNum") int articleNum, HttpServletRequest req, HttpServletResponse res) throws Exception { 
 		Article article = new Article(articleNum, req.getParameter("articleSubject"),

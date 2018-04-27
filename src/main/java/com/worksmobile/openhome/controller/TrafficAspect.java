@@ -52,6 +52,7 @@ public class TrafficAspect {
 	 *   가독성이 떨어지는 방법이기 때문에 pointcut의 다른 표현식을 적용했습니다.
 	 *   @After("@annotation(org.springframework.web.bind.annotation.PostMapping)")
 	 *   이렇게하면 PostMapping 어노테이션이 적용된 메소드들은 모두 AOP의 대상이 됩니다.
+	 *   그래서 저는 custom annotaion을 만들어서 컨트롤러들에 명시해주었습니다.
  	 */
  	
  	//[트래픽의 정의?]
@@ -69,7 +70,7 @@ public class TrafficAspect {
  	//3. 트래픽을 수집한 방법 : aop, js => filter
  	//4. 트래픽을 표현한 방법 : highchar -> billboard
  	
- 	@After("@annotation(org.springframework.web.bind.annotation.PostMapping)")
+ 	@After("@annotation(com.worksmobile.openhome.controller.annotaion.GetWriteTraffic)")
  	public void onAfterHandler(JoinPoint joinPoint) throws Throwable { 
 		for (Object obj : joinPoint.getArgs()) {
 			logger.info("annotation method path : " + joinPoint.getSignature());
