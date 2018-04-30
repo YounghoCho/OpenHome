@@ -33,6 +33,7 @@ public class TrafficDAO {
 	}
 
 	public void insertContentLength(int trafficContentLength, String trafficKind) {
+		System.out.println("넘어온거 두개 : " + trafficContentLength + ", " + trafficKind);
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("trafficContentLength", trafficContentLength);
 		paramMap.put("trafficKind", trafficKind);

@@ -29,6 +29,7 @@ public class BoardController {
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoardList() throws Exception{
+		
 		Map<String, Object> result = new HashMap<>();
 		result.put("boardList", service.getBoardList());
 		return result;	

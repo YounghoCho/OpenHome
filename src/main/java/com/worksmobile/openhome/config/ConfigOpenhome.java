@@ -63,10 +63,13 @@ public class ConfigOpenhome {
 		characterEncodingFilter.setForceEncoding(true);
 		return characterEncodingFilter;
 	}
-
+	@Bean
+	public ServeltResponseFilter getFilter() {
+		return new ServeltResponseFilter();
+	}
 	@Bean
 	public FilterRegistrationBean<ServeltResponseFilter> filterRegistrationBean() {
-		FilterRegistrationBean<ServeltResponseFilter> registration = new FilterRegistrationBean<ServeltResponseFilter>(new ServeltResponseFilter());
+		FilterRegistrationBean<ServeltResponseFilter> registration = new FilterRegistrationBean<ServeltResponseFilter>(getFilter());
 		registration.addUrlPatterns("/api/*"); // 필터의 url 패턴을 api로 설정해줘야 한다. /*를 하게되면 (아무래도, 그냥 컨트롤러 /board /admin에서는 response가 없기때문에 빈화면이 나오는 것 같다).
 		return registration;
 	}
