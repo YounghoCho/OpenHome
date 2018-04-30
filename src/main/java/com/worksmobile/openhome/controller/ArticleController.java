@@ -98,7 +98,7 @@ public class ArticleController {
 	}
 
 	/*@author Suji Jang*/
-	@RequestMapping(value = "/addArticleNum", method = RequestMethod.POST)
+	@RequestMapping(value = "/addArticleNum", method = RequestMethod.GET)
 	@ResponseBody
 	public String addArticleNum(HttpServletRequest req, HttpServletResponse res) throws Exception { 
 		Article article = new Article(Integer.parseInt(req.getParameter("boardNum")));
@@ -115,17 +115,18 @@ public class ArticleController {
 		return service.addArticle(article);
 	}
 	
-	//비밀번호 체크 후 게시글 삭제
-	@RequestMapping(value = "/checkAndDelArticle", method = RequestMethod.POST)
+	@RequestMapping(value="/checkPwd", method=RequestMethod.POST)
 	@ResponseBody
-	public String checkAndDelArticle(@RequestParam("articleNum") String articleNum, 
-			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
-		String articleDelResult = service.delCheckedArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
-		String fileDelResult = fileservice.removeFiles(Integer.parseInt(articleNum), req);
-		if (articleDelResult.equals("success") && (fileDelResult.equals("success") || fileDelResult.equals("none"))) {
-			return "success";
-		}
-		return "none";
+	public String checkPwd(@RequestParam("articleNum") String articleNum, @RequestParam("articleAccessPwd") String articleAccessPwd) {
+		return service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd);
+	}
+	
+	//비밀번호 체크 후 게시글 삭제
+	@RequestMapping(value = "/delArticle", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String checkAndDelArticle(@RequestParam("articleNum") int articleNum, 
+			HttpServletRequest req, HttpServletResponse res) throws Exception { 
+			return service.delArticle(articleNum);
 	}
 	
 	//비밀번호 체크 후 게시글 가져오기
@@ -137,7 +138,7 @@ public class ArticleController {
 	}
 	
 	//게시글 수정
-	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
+	@RequestMapping(value = "/modArticle", method = RequestMethod.PUT)
 	@ResponseBody
 	public String modArticle(@RequestParam("articleNum") int articleNum, HttpServletRequest req, HttpServletResponse res) throws Exception { 
 		Article article = new Article(articleNum, req.getParameter("articleSubject"),
@@ -145,6 +146,4 @@ public class ArticleController {
 							req.getParameter("articleWriter"));
 		return service.modArticle(article);
 	}
-   
 }
-

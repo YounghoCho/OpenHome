@@ -22,6 +22,12 @@ public class AttachmentFileController {
 	@Resource
 	private AttachmentFileBO service;
 	
+	@RequestMapping(value="/checkFileExist", method = RequestMethod.POST)
+	@ResponseBody
+	public int checkFileExist(@RequestParam("articleNum") int articleNum) throws Exception {
+			return service.checkFileExist(articleNum);
+	}
+	
 	@RequestMapping(value="/addFile", method = RequestMethod.POST)
 	@ResponseBody
 	public String addFile(@RequestParam("articleWriter") String fileAttacher,
@@ -42,14 +48,21 @@ public class AttachmentFileController {
 			return service.checkAndGetAttachmentFile(articleNum, req);
 	}
 	
-	@RequestMapping(value="/modFile", method = RequestMethod.POST)
+	@RequestMapping(value="/modFile", method = RequestMethod.PUT)
 	@ResponseBody
 	public String modFile(@RequestParam("articleWriter") String fileAttacher,
 			@RequestParam("articleNum") int articleNum, MultipartHttpServletRequest mreq) throws Exception {
 			return service.modFile(fileAttacher, articleNum, mreq);
 	}
 	
-	@RequestMapping(value="/removeFile", method = RequestMethod.POST)
+	@RequestMapping(value="/removeFiles", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String modFile(@RequestParam("articleNum") int articleNum, 
+			MultipartHttpServletRequest mreq) throws Exception {
+			return service.removeFiles(articleNum, mreq);
+	}
+	
+	@RequestMapping(value="/removeFile", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String removeFile(@RequestParam("fileNum") String fileNum,
 			HttpServletRequest req) throws Exception {

@@ -27,12 +27,12 @@ public class ArticleDAO {
 		return sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum", article);
 	}
 	
-	public Article getArticleAccessPwd(int articleNum) {
-		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticle", articleNum);
+	public String getArticleAccessPwd(int articleNum) {
+		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticleAccessPwd", articleNum);
 	}
 	
-	public int removeOwnArticle(int articleNum) {
-		return sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", articleNum);
+	public int delArticle(int articleNum) {
+		return sqlsession.delete(NAMESPACE_ARTICLE + "delArticle", articleNum);
 	}
 	
 	public Article getArticle(int articleNum) {

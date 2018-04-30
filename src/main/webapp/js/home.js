@@ -19,7 +19,10 @@ function getBoardListAjax(){
 			let len = res.boardList.length;
 			for(let index = 0; index < len; index++){
 				$(".menudecoration").append("<li style=\"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
-				}
+				/* top의 board select에 추가*/
+				$("#board-select").append('<option id="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
+			}
+
 			/*
 			 * Algorithm (Traffic)
 			 * 

@@ -17,14 +17,45 @@
 <!-- menu -->
 <div id="menu">
 	<ul class="menudecoration">
-		<li style="cursor:pointer;"onclick="javascript:goHomeAjax()">홈</li>
+		<li style="cursor:pointer;" onclick="javascript:goHomeAjax()">홈</li>
 	</ul>
 </div>
 	
 <div id="center-right">
 <!-- top -->
 <div id="top">
-	Welcome to OPENHOME
+	<div id="top-search_div">
+		<div id="search_div">
+			<div id="search_div_1">
+				<select id="board-select" size="1">
+					<option id="allboard">전체게시판</option>
+				</select>
+				
+				<label for="content-select" id="content-select_label">내용</label>
+				<select id="content-select">
+					<option value="">전체</option>
+					<option value="">제목 + 본문</option>
+					<option value="">제목</option>
+					<option value="">본문</option>
+					<option value="">첨부파일</option>
+				</select>
+				
+				<input type="text" id="content-text" placeholder="검색할 내용을 입력하세요."/>
+				<label for="writer-text" id="writer-text_label">작성자</label>
+				<input type="text" id="writer-text" placeholder="검색할 작성자를 입력하세요."/>
+			</div>
+			<div id = "search_div_2">
+				<input type="checkbox" id="file-checkbox" value="yes"/>
+				<label for="file-checkbox" id="file-checkbox_label">첨부파일 있음</label>
+				
+				<label for="date-start" id="date-label">기간</label>
+				<input type="date" id="date-start" name="bday-from" min="2018-04-01"/>-<input type="date" id="date-end" name="date-end" min="2018-04-01"/>
+			</div>
+		</div>
+		<div id="searchbtn_div">
+			<input type="button" id="searchbtn" class="btn btn-default" value="검색"/>
+		</div>
+	</div>
 </div>
 	
 	<!-- body -->
@@ -163,7 +194,7 @@
 							비밀번호를 입력해주세요
 						</div>
 						<div id="check_pwd_text">
-						  	<input id="pwd_text_field" type="password" name="articleAccessPwds"/>
+						  	<input id="pwd_text_field" type="password" name="articleAccessPwd"/>
 						</div>
 						<div id="userPwdBtn">
 							<a type="button" id="check_pwd_btn_del" class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>

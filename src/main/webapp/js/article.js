@@ -1,13 +1,13 @@
 /*--- First Page ---*/
-	//@author suji
-  	//에디터에 필요한 전역변수
-	var fd=new FormData();
+  //@author suji
+  //에디터에 필요한 전역변수
+    var fd=new FormData();
     var obj = [];  
     var subjectLengthChecker;
     var writerLengthChecker;
     var articlepwdLengthChecker;
-	//--첨부파일--
-	//파일 사이즈 측정
+    //--첨부파일--
+    //파일 사이즈 측정
 	var totalFileSize = 0;
 	var totalFileCount = 0;
 	var oldTotalFileCount = 0;
@@ -203,14 +203,77 @@
 		$.ajax({
 			type : 'post',
 			dataType : 'text',
-			url : 'api/article/checkAndDelArticle',
+			url : 'api/article/checkPwd',
 			data : 'articleNum=' + $("#readtable").data("articleNum") + '&articleAccessPwd=' + $("#pwd_text_field").val(),
 			success : function(res){
-				if (res=="success") {
-					$('#check_pwd_hidden_area').css("display", "none");
-					alert("게시글이 삭제되었습니다.");
-					oldTotalFileCount--;
-					returnBoard($("#singleBoardTable").data("boardNum"), 1);
+				if( res == "success") {
+					if ($('.filelist_2').length() > 0) {
+						$.ajax({
+							type : 'post',
+							dataType : 'text',
+							url : 'api/article/removeFiles',
+							data : 'articleNum=' + $("#readtable").data("articleNum"),
+							success : function(res){
+								if (res == "success") {
+									$.ajax({
+										type : 'post',
+										dataType : 'text',
+										url : 'api/article/delArticle',
+										data : 'articleNum=' + $("#readtable").data("articleNum"),
+										success : function(res){
+											if (res == "success") {
+												$('#check_pwd_hidden_area').css("display", "none");
+												alert("게시글 및 첨부파일이 삭제되었습니다.");
+												returnBoard($("#singleBoardTable").data("boardNum"), 1);
+											} else {
+												$('#check_pwd_hidden_area').css("display", "none");
+												alert("첨부파일만 삭제 error");
+											}
+										},
+										error : function(err) {
+											alert('readyState:' + err.readyState);
+											alert('status:' + err.status);
+											alert('statusText:' + err.statusText);
+											alert('responseText:' + err.responseText);
+										}
+									})
+								} else if (res == "serverfail") {
+									alert("서버파일 삭제 에러");
+								} else  {
+									alert("데이터파일 삭제 에러");
+								} 
+							},
+							error : function(err) {
+								alert('readyState:' + err.readyState);
+								alert('status:' + err.status);
+								alert('statusText:' + err.statusText);
+								alert('responseText:' + err.responseText);
+							}
+						})
+					} else {
+						$.ajax({
+							type : 'post',
+							dataType : 'text',
+							url : 'api/article/delArticle',
+							data : 'articleNum=' + $("#readtable").data("articleNum"),
+							success : function(res){
+								if (res == "success") {
+									$('#check_pwd_hidden_area').css("display", "none");
+									alert("게시글이 삭제되었습니다.");
+									returnBoard($("#singleBoardTable").data("boardNum"), 1);
+								} else {
+									$('#check_pwd_hidden_area').css("display", "none");
+									alert("게시글이 삭제되지 않았습니다.");
+								}
+							},
+							error : function(err) {
+								alert('readyState:' + err.readyState);
+								alert('status:' + err.status);
+								alert('statusText:' + err.statusText);
+								alert('responseText:' + err.responseText);
+							}
+						})
+					}
 				} else {
 					$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
 				}
@@ -221,14 +284,13 @@
 				alert('statusText:' + err.statusText);
 				alert('responseText:' + err.responseText);
 			}
-		})
-	});
+	  })
+});
 	
-
 	$('#check_pwd_btn_mod').on('click', function(){
 		formReset();
 		removeLengthChecker();
-		resetSelect();
+		resetSelect(); 
 		$('#check_pwd_text > p').remove();
 		$.ajax({
 			type : 'post',
@@ -244,7 +306,7 @@
 								dataType : 'json',
 								url : 'api/attachmentfile/checkAndGetAttachmentFile',
 								data : 'articleNum=' + $("#readtable").data("articleNum"),
-								success : function(res){
+								success : function(res) {
 									if (res != null) {
 										$.each(res, function(index, value) {
 											var sizeKB = value.fileSize / 1024;
@@ -358,7 +420,7 @@ function write() {
 });
     
     $.ajax({
-		type : 'post',
+		type : 'get',
 		dataType : 'text',
 		url : 'api/article/addArticleNum',
 		data : 'boardNum=' + $("#singleBoardTable").data("boardNum"),
@@ -527,7 +589,7 @@ function modify() {
 				success : function(res){
 					if(res == "success") {
 						$.ajax({
-							type : 'post',
+							type : 'put',
 							dataType : 'text',
 							url : 'api/article/modArticle',
 							data : 'articleNum=' + $('.articleWriteDiv').data("articleNum")
@@ -562,7 +624,7 @@ function modify() {
 			})
         } else {
         	$.ajax({
-				type : 'post',
+				type : 'put',
 				dataType : 'text',
 				url : 'api/article/modArticle',
 				data : 'articleNum=' + $('.articleWriteDiv').data("articleNum") 
@@ -630,7 +692,7 @@ function returnBoard(boardNum, pageNum) {
 function removeFile(fileNum) {
 		if(confirm("삭제하시겠습니까?")) {
 			$.ajax({
-				type : 'post',
+				type : 'delete',
 				dataType : 'text',
 				url : 'api/attachmentfile/removeFile',
 				data : 'fileNum=' + fileNum,

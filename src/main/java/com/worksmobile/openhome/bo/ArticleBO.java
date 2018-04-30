@@ -14,7 +14,7 @@ public interface ArticleBO {
 	public String addArticle(Article article);
 	public void addArticleNum(Article article);
 	public String checkPwd(int articleNum, String articleAccessPwd);
-	public String delCheckedArticle(String check);
+	public String delArticle(int articleNum);
 	public Article getArticle(String check);
 	public String modArticle(Article article);
 

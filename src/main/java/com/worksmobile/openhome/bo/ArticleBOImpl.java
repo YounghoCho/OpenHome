@@ -31,9 +31,9 @@ public class ArticleBOImpl implements ArticleBO{
 	//비밀번호체크
 	@Override
 	public String checkPwd(int articleNum, String articleAccessPwd) {
-		String accessPwd = dao.getArticleAccessPwd(articleNum).getArticleAccessPwd();
+		String accessPwd = dao.getArticleAccessPwd(articleNum);
 		if (accessPwd.equals(articleAccessPwd)) {
-			return String.valueOf(articleNum);
+			return "success";
 		} else {
 			return "fail";
 		}
@@ -41,15 +41,11 @@ public class ArticleBOImpl implements ArticleBO{
 		
 	//비번체크된 게시글 삭제
 	@Override
-	public String delCheckedArticle(String check) {
-		if (check.equals("fail")) {
-			return "fail";
+	public String delArticle(int articleNum) {
+		if(dao.delArticle(articleNum) == 1 ) {
+			return "success";
 		} else {
-			if(dao.removeOwnArticle(Integer.parseInt(check)) == 1 ) {
-				return "success";
-			} else {
-				return "fail";
-			}
+			return "fail";
 		}
 	}
 	
