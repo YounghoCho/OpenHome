@@ -17,15 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.io.output.TeeOutputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import com.worksmobile.openhome.dao.TrafficDAO;
 
-@Service
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ServeltResponseFilter implements Filter {
-	private static final Logger logger = LoggerFactory.getLogger(ServeltResponseFilter.class);
 	/*
 	 * 발견4
 	 * : Response를 구할때는 AOP대신, Filter를 사용해보고자 했습니다.
@@ -41,7 +39,7 @@ public class ServeltResponseFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {	
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		final PrintStream ps = new PrintStream(baos);
-		logger.info("test", response.getOutputStream());
+
 		chain.doFilter(request, new HttpServletResponseWrapper((HttpServletResponse)response) {			
 		
 			// 장애 발생 : DelegatingServletOutputStream 클래스를 찾을 수 없는 에러.
@@ -60,20 +58,20 @@ public class ServeltResponseFilter implements Filter {
 		});
 		
 		if(baos.toByteArray().length != 0) {
-			logger.info("Servlet Response Body Length = " + baos.toByteArray().length);
+			log.info("Servlet Response Body Length = " + baos.toByteArray().length);
 			int trafficContentLength = baos.toByteArray().length;
     		String trafficKind = "read";
-    		logger.info("1 : " + trafficContentLength + ", 2 : " + trafficKind);
+    		log.info("1 : " + trafficContentLength + ", 2 : " + trafficKind);
     		dao.insertContentLength(trafficContentLength, trafficKind);   
 		}
 	}
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		logger.info("init Filter");
+		log.info("init Filter");
 	}
 	@Override
 	public void destroy() {
-		logger.info("destroy Filter");
+		log.info("destroy Filter");
 	}
 }

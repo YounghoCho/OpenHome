@@ -64,12 +64,12 @@ public class ConfigOpenhome {
 		return characterEncodingFilter;
 	}
 	@Bean
-	public ServeltResponseFilter getFilter() {
+	public ServeltResponseFilter serveltResponseFilter() {
 		return new ServeltResponseFilter();
 	}
 	@Bean
-	public FilterRegistrationBean<ServeltResponseFilter> filterRegistrationBean() {
-		FilterRegistrationBean<ServeltResponseFilter> registration = new FilterRegistrationBean<ServeltResponseFilter>(getFilter());
+	public FilterRegistrationBean<ServeltResponseFilter> filterRegistrationBean(ServeltResponseFilter serveltResponseFilter) {	//메소드 호출 없이 바로 매핑시킨다.
+		FilterRegistrationBean<ServeltResponseFilter> registration = new FilterRegistrationBean<ServeltResponseFilter>(serveltResponseFilter);
 		registration.addUrlPatterns("/api/*"); // 필터의 url 패턴을 api로 설정해줘야 한다. /*를 하게되면 (아무래도, 그냥 컨트롤러 /board /admin에서는 response가 없기때문에 빈화면이 나오는 것 같다).
 		return registration;
 	}

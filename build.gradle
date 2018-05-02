@@ -44,4 +44,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	runtime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	compileOnly('org.projectlombok:lombok')
+	compile "org.slf4j:slf4j-api:1.7.7"
 }

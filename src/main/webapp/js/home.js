@@ -163,7 +163,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 		type : "GET",
 		url : "api/article/articleList",
 		dataType : "json",
-		data : "boardNumber = " + boardNumber + "&currentPageNo = " + currentPageNo,
+		data : "boardNumber=" + boardNumber + "&currentPageNo=" + currentPageNo,
 		success : function(res){
 			// 페이징			
 			var pages = 1;
@@ -231,7 +231,7 @@ function goRead(articleNumber){
 		type: "GET",
 		url: "api/article/articleDetails",
 		dataType: 'json',
-		data: 'articleNumber = '+ articleNumber,
+		data: 'articleNumber='+ articleNumber,
 		success: function(res){
 			$("#boardTdSubject").html(res.articleDetails[0].articleSubject);
 			$("#boardTdContent").html(res.articleDetails[0].articleContent);
@@ -249,7 +249,7 @@ function goRead(articleNumber){
 		type: "post",
 		url: "api/attachmentfile/fileDetails",
 		dataType: 'json',
-		data: 'articleNumber = '+ articleNumber,
+		data: 'articleNumber='+ articleNumber,
 		success: function(res) {
 			if (res.size != 0) {
 				$.each(res, function(index, value) {
