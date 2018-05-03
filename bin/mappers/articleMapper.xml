@@ -7,6 +7,15 @@
  * @Author : Youngho Jo
  -->	
 <mapper namespace="article">
+	<select id="getBoardList" resultType="com.worksmobile.openhome.model.Board">
+
+		SELECT 
+			boardOrderNum, boardTitle, boardNum
+		FROM 
+			board
+		ORDER BY
+			boardOrderNum
+	</select>
 	<select id="getArticleList" resultType="com.worksmobile.openhome.model.Article">
 		SELECT 
 			@ROWNUM := @ROWNUM +1 as ROWNUM,

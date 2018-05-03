@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.worksmobile.openhome.model.Article;
+import com.worksmobile.openhome.model.Board;
 
 
 @Service
@@ -19,6 +20,7 @@ public interface ArticleBO {
 	public String modArticle(Article article);
 
 	/*@ author Youngho Jo*/
+	public List<Board> getBoardList();
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize);
 	public int getArticleTotalCount(int boardNumber);	
 	public List<Article> getAllArticles(int currentPageNo, int pageSize);

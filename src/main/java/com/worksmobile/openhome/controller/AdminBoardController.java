@@ -18,14 +18,14 @@ import com.worksmobile.openhome.bo.BoardBO;
 import com.worksmobile.openhome.status.ReturnStatus;
 
 @RestController
-@RequestMapping("/api/board")
-public class BoardController {
+@RequestMapping("/api/admin")
+public class AdminBoardController {
 	@Resource
 	private BoardBO service;
 
 	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 	
-	//게시판 목록을 가져온다(board, admin)
+	//게시판 목록을 가져온다(admin)
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoardList() throws Exception{
@@ -68,7 +68,6 @@ public class BoardController {
 	@RequestMapping(value = "/boardTitles", method = RequestMethod.PUT)
 	@ResponseBody
 	public String updateBoardTitles(HttpServletRequest req) throws Exception {
-		System.out.println("*******************************게시판번호:"+req.getParameter("boardNum"));
 		service.updateBoardTitles(req.getParameter("boardTitle"), Integer.parseInt(req.getParameter("boardNum")));		
 		return returnStatus.name();
 	}

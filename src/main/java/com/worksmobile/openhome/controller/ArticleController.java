@@ -33,6 +33,16 @@ public class ArticleController {
 	private AttachmentFileBO fileservice;
 
 	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
+
+	//게시판 목록을 가져온다(board)
+	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getBoardList() throws Exception{
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("boardList", service.getBoardList());
+		return result;	
+	}	
 	
 	//홈화면에 필요한 게시판 내용들을 얻는다(board)
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
@@ -67,18 +77,7 @@ public class ArticleController {
 		return result;
 	}
 	
-	//관리자용 게시글 전체 목록(admin)
-	@RequestMapping(value = "/allArticles", method = RequestMethod.GET)
-	@ResponseBody
-	public Object getAllArticles(HttpServletRequest req) throws Exception {	
-		int currentPageNo = Integer.parseInt(req.getParameter("currentPageNo"));
-		int pageSize = 10;
-		
-		Map<String, Object> result = new HashMap<>();
-		result.put("allArticles", service.getAllArticles(currentPageNo, pageSize));
-		result.put("getArticleTotalCount", service.getArticleTotalCount());
-		return result;
-	}
+	
 	
 	//게시 글의 상세 내용을 얻는다.(board)
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
@@ -89,7 +88,7 @@ public class ArticleController {
 		return result;
 	}
 
-	//게시글을 삭제한다.(board, admin)
+	//게시글을 삭제한다.(board)
 	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String removeArticle(HttpServletRequest req) throws Exception {

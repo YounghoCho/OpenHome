@@ -372,9 +372,7 @@ function write() {
 			alert('statusText:' + err.statusText);
 			alert('responseText:' + err.responseText);
 		}
-	})
-	
-	history.pushState({ data: '5' }, 'title5', '?depth=5');
+	})	
 }
 
 function reg() {

@@ -1,3 +1,66 @@
+//API 그래프 그리기.
+function goApiGraphAjax(){
+	$(".homeMainDiv").hide();
+	$("#singleBoard").hide();
+	$(".homeReadDiv").hide();
+	$(".staticGraphDiv").hide();
+	$("#BubbleChart").show();
+	
+	jQuery.ajax({
+		type : "GET",
+		url : "api/traffic/notyet",
+		dataType : "json",
+		data : "",		
+		success : function(res){
+			//API 그래프 (BillBoard.js)
+			var apiRead = ["읽기"];
+			var arr = [10, 20, 30, 40];
+			Array.prototype.push.apply(apiRead, arr); //배열 붙이기
+
+			var chart = bb.generate({
+			  data: {
+			    columns: [
+			    ],
+			    type: "bubble",
+			    labels: true
+			  },
+			  bubble: {
+			    maxR: 50
+			  },
+			  axis: {
+			    x: {
+			      type: "category"
+			    },
+			    y: {
+			      max: 450
+			    }
+			  },
+			  bindto: "#BubbleChart"
+			});
+
+			setTimeout(function() {
+				chart.load({
+					columns : [
+						apiRead
+						]
+				});
+			}, 1000);
+			//
+			//setTimeout(function() {
+//				chart.load({
+//					columns: [
+//						['data2', 305, 350, 55, 25, 335, 29, 258, 310, 180, 226]
+//					]
+//				});
+			//}, 2000);
+		},
+		error : function(err){
+			alert("goApiGraphAjax error : " + err);
+		}
+	});
+	location.hash = '/#/page:apigp';
+}
+
 //트래픽 알림이 1번만 동작하게 한다
 let flag1 = 1;
 let flag2 = 1;
@@ -46,7 +109,7 @@ function goStaticGraphAjax(){
 				var memo = 0;
 				var queue = new Array();
 				var unusual = new Array();
-				var front = 0, rear = 0, interval = 3;				
+				var front = 0, rear = 0, interval = 7;				
 				for (var index = startDate; index <= endDate; index += 86400000){
 					//하루 증가된 날짜와 갱신된 memo값이 들어온다.
 					for (i = memo; i < length; i++){						
@@ -173,7 +236,7 @@ function goStaticGraphAjax(){
 			alert(err);
 		}
 	});
-	history.pushState({ data: '4' }, 'title4', '?depth=4');
+	location.hash = '/#/page:graph';
 }
 
 /*
@@ -197,8 +260,8 @@ function trafficTracking(){
 				for (index = 0; index < res.trafficData.length; index++){ //전체트래픽을 구한다.
 					totalTraffic += res.trafficData[index].trafficContentLength;
 				}
-				if (totalTraffic > 100000){
-					if (totalTraffic > 1000000){		
+				if (totalTraffic < 0){
+					if (totalTraffic < 0){		
 						notice1(flag1);
 						//컨텐트를 누르면 flag를 바꾼다.
 						flag1 = 0;

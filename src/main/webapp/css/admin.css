@@ -163,13 +163,9 @@ td{
 	color: black;
 }
 
-
-.homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
-}
-
 /*graph*/
-.staticGraphDiv, .realTimeGraphDiv{
-	width:100%;
+.staticGraphDiv{
+	width:850px;
 }
 	/*static*/
 #container {

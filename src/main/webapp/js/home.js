@@ -1,8 +1,8 @@
-// enum 선언
+//enum 선언
 var ReturnStatus = {"SUCCESS":"SUCCESS"};
 Object.freeze(ReturnStatus);
 
-// 사용자 최초 진입, 페이지 새로 고침 
+//사용자 최초 진입, 페이지 새로 고침 
 $(document).ready(function(){
 	var refresh = location.hash.slice(9,14);
 	var number = location.hash.slice(14);
@@ -24,7 +24,7 @@ $(document).ready(function(){
 	}
 });
 
-// 페이지 뒤로가기
+//페이지 뒤로가기
 $(window).on('hashchange', function(){
 	var page = location.hash.slice(9,14);
 	var number = location.hash.slice(14);
@@ -53,11 +53,11 @@ $(window).on('hashchange', function(){
 	}
 });
 
-// 게시판 목록
+//게시판 목록
 function getBoardListAjax(){
 	$.ajax({
 		type : "GET",
-		url : "api/board/boardList",
+		url : "api/article/boardList",
 		dataType : "json",
 		data : "",
 		success : function(res){
@@ -72,7 +72,7 @@ function getBoardListAjax(){
 	});
 }
 
-// 홈페이지
+//홈페이지
 function goHomeAjax(){
 	$("#singleBoard").hide();
 	$(".articleReadDiv").hide();
@@ -81,23 +81,23 @@ function goHomeAjax(){
 
 	$.ajax({
 		type : "GET",
-		url : "api/board/boardList",
+		url : "api/article/boardList",
 		dataType : "json",
 		data : "",
 		success : function(res){	
-			// 게시판 목록 그리기 기능
+			//게시판 목록 그리기 기능
 			let len = res.boardList.length;
 			$(".menudecoration > #menuButton").remove();
 			for (let index = 0; index < len; index++){
 				$(".menudecoration").append("<li id = \"menuButton\"style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
 			}
 
-		// 관리자가 조작한 순서대로 게시판을 출력하는 기능
+		//관리자가 조작한 순서대로 게시판을 출력하는 기능
 			var arrNum = new Array();	
-			// 1. 게시판의 순서를 배열에 담는다.
+			//1. 게시판의 순서를 배열에 담는다.
 			for (var index = 0; index < len; index++)		
 				arrNum.push(res.boardList[index].boardNum);
-			// 2. 게시판들의 틀을 그린다.
+			//2. 게시판들의 틀을 그린다.
 			$(".homeMainDiv > div.container.home").remove();
 			var idIncreased = 1;
 			for (var index = 0; index < len; index++, idIncreased++){
@@ -115,7 +115,7 @@ function goHomeAjax(){
 							"</table>" +		
 						"</div>");
 			}	
-			// 3. 게시판 내용들을 채워 넣는다.
+			//3. 게시판 내용들을 채워 넣는다.
 			$.ajax({
 				type : "GET",
 				url : "api/article/homeList",
@@ -123,7 +123,7 @@ function goHomeAjax(){
 				data : {"stringArray" : arrNum, "boardCount" : len}, 		
 				success : function(res){					
 					for (var idIncreased2 = 1; idIncreased2 <= len; idIncreased2++){ 
-						eval("active = res.homeList" + (arrNum[idIncreased2 - 1] - 1)); // 동적 변수로 중복 코드를 줄였다.						
+						eval("active = res.homeList" + (arrNum[idIncreased2 - 1] - 1)); //동적 변수로 중복 코드를 줄였다.						
 
 						var homeListLen = active.length;
 						for (var index = 1; index <= homeListLen; index++){
@@ -134,7 +134,7 @@ function goHomeAjax(){
 								"<tr><td colspan = \"4\"><a href = \"javascript:goRead(" + 
 								active[index-1].articleNum + ")\" class = \"boardtds\">" + active[index-1].articleTextContent + "</a></td>" +
 								"<td>" + active[index-1].articleDate.substring(0,10) + "</td></tr>");		
-			// 4. 그 다음 게시판의 내용을 그린다.
+			//4. 그 다음 게시판의 내용을 그린다.
 						articleLen = active.length;
 						}
 					}
@@ -152,7 +152,7 @@ function goHomeAjax(){
 	location.hash = '/#/page:homex';
 }
 
-// 게시판
+//게시판 목록
 function goBoardAjax(boardNumber, currentPageNo){
 	$(".homeMainDiv").hide();
 	$(".articleReadDiv").hide();
@@ -165,7 +165,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 		dataType : "json",
 		data : "boardNumber=" + boardNumber + "&currentPageNo=" + currentPageNo,
 		success : function(res){
-			// 페이징			
+			//페이징			
 			var pages = 1;
 			var countList = 10;
 			var countPage = 10;
@@ -173,11 +173,11 @@ function goBoardAjax(boardNumber, currentPageNo){
 			var totalPage = totalCount/countList;
 			var startPage = ((pages - 1) / 10) * 10 + 1;
 			var endPage = startPage + countPage - 1;
-			// 예외처리
+			//예외처리
 			if (totalCount % countList > 0){ totalPage++; }
 			if (totalPage < pages){ pages = totalPage;}
 			if (endPage > totalPage){ endPage = totalPage;}
-			// 페이지 번호 그리기
+			//페이지 번호 그리기
 			$("#indexNow > a").remove();
 			$("#indexOthers > a").remove();
 			for (var i = startPage; i < endPage; i++){
@@ -217,7 +217,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 	location.hash = '/#/page:board'+boardNumber;
 };
 
-// 게시글 읽기
+//게시글 읽기
 function goRead(articleNumber){
 	$(".homeMainDiv").hide();
 	$("#singleBoard").hide();

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.worksmobile.openhome.model.Article;
+import com.worksmobile.openhome.model.Board;
 
 @Repository("ArticleDAO")
 public class ArticleDAO {
@@ -16,6 +17,10 @@ public class ArticleDAO {
 	private SqlSessionTemplate sqlsession;
 	
 	public ArticleDAO() {}
+	
+	public List<Board> getBoardList() {
+		return sqlsession.selectList(NAMESPACE_ARTICLE + "getBoardList");
+	}
 	
 	/*@ author Suji Jang*/
 	public int addArticle(Article article) {
