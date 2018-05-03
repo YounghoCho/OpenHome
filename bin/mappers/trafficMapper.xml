@@ -22,6 +22,7 @@
 		INTO
 			traffic(trafficContentLength, trafficKind, trafficDate)
 		VALUES 
-			( #{trafficContentLength}, #{trafficKind}, now() )
+			( #{tradfficContentLength}, #{trafficKind}, now() )
 	</insert>	
+	
 </mapper>

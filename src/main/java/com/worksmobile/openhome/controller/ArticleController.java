@@ -26,15 +26,14 @@ import com.worksmobile.openhome.status.ReturnStatus;
 @RestController
 @RequestMapping("/api/article/")
 public class ArticleController {
+
 	@Resource
 	private ArticleBO service;
-	
 	@Resource
 	private AttachmentFileBO fileservice;
 
 	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 
-	//게시판 목록을 가져온다(board)
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoardList() throws Exception{
@@ -43,8 +42,7 @@ public class ArticleController {
 		result.put("boardList", service.getBoardList());
 		return result;	
 	}	
-	
-	//홈화면에 필요한 게시판 내용들을 얻는다(board)
+	//홈화면에 필요한 게시판 내용들을 얻는다(1)
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getHomeList(HttpServletRequest req) throws Exception{
@@ -61,9 +59,8 @@ public class ArticleController {
 			result.put("homeList" + (Integer.parseInt(arrNum[index])-1), service.getArticleList(Integer.parseInt(arrNum[index]), currentPageNo, pageSize));
 		}
 		return result;	
-	}
-	
-	//특정 게시판의 게시글과, 게시글 개수를 얻는다(board)
+	}	
+	//특정 게시판의 게시글과, 게시글 개수를 얻는다(1)
 	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoard(HttpServletRequest req) throws Exception {		
@@ -76,10 +73,7 @@ public class ArticleController {
 		result.put("getArticleTotalCount", service.getArticleTotalCount(boardNumber));
 		return result;
 	}
-	
-	
-	
-	//게시 글의 상세 내용을 얻는다.(board)
+	//게시 글의 상세 내용을 얻는다.(2)
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getContents(HttpServletRequest req) throws Exception {	
@@ -87,8 +81,7 @@ public class ArticleController {
 		result.put("articleDetails", service.getArticleDetails(Integer.parseInt(req.getParameter("articleNumber"))));
 		return result;
 	}
-
-	//게시글을 삭제한다.(board)
+	//게시글을 삭제한다.
 	@RequestMapping(value = "/articleRemove", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String removeArticle(HttpServletRequest req) throws Exception {
@@ -96,8 +89,7 @@ public class ArticleController {
 		service.removeArticle(articleNum);
 	return returnStatus.name();
 	}
-
-	/*@author Suji Jang*///(board)
+	//새로운 게시글의 인덱스를 생성한다.(3)
 	@GetWriteTraffic
 	@RequestMapping(value = "/addArticleNum", method = RequestMethod.POST)
 	@ResponseBody
@@ -106,7 +98,7 @@ public class ArticleController {
 		service.addArticleNum(article);
 		return String.valueOf(article.getArticleNum());
 	}
-	//(board)
+	//게시글을 쓴다.(3)
 	@GetWriteTraffic
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
 	@ResponseBody
@@ -116,7 +108,6 @@ public class ArticleController {
 				req.getParameter("articleWriter"), req.getParameter("articleAccessPwd"), "Y");
 		return service.addArticle(article);
 	}
-	//(board)
 	//비밀번호 체크 후 게시글 삭제
 	@RequestMapping(value = "/checkAndDelArticle", method = RequestMethod.POST)
 	@ResponseBody
@@ -129,7 +120,6 @@ public class ArticleController {
 		}
 		return "none";
 	}
-	//(board)
 	//비밀번호 체크 후 게시글 가져오기(수정, 삭제)
 	@RequestMapping(value = "/checkAndGetArticle", method = RequestMethod.POST)
 	@ResponseBody
@@ -137,8 +127,7 @@ public class ArticleController {
 			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
 		return service.getArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
 	}
-	//(board)
-	//게시글 수정
+	//게시글 수정(3)
 	@GetWriteTraffic
 	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
 	@ResponseBody
@@ -150,4 +139,3 @@ public class ArticleController {
 	}
    
 }
-

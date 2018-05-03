@@ -20,11 +20,8 @@ public class TrafficDAO {
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 
-	public TrafficDAO() {
+	public TrafficDAO() {}
 
-	}
-
-	/*Traffic*/
 	public List<Traffic> getTrafficData (){
 		return sqlsession.selectList(NAMESPACE_TRAFFIC + "getTrafficData");
 	}
@@ -38,5 +35,4 @@ public class TrafficDAO {
 		paramMap.put("trafficKind", trafficKind);
 		sqlsession.insert(NAMESPACE_TRAFFIC + "insertContentLength", paramMap);	
 	}
-
 }
