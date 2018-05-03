@@ -32,7 +32,4 @@ private static final String NAMESPACE_API = "apiCall.";
 	public void insertApiCallLevel4() {
 		sqlsession.insert(NAMESPACE_API + "insertApiCallLevel4");	
 	}
-	public void insertApiCallLevel5() {
-		sqlsession.insert(NAMESPACE_API + "insertApiCallLevel5");	
-	}
 }

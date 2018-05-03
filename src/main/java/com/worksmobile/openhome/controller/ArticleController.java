@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.worksmobile.openhome.bo.ArticleBO;
 import com.worksmobile.openhome.bo.AttachmentFileBO;
+import com.worksmobile.openhome.controller.annotaion.GetArticleWriteApiCall;
 import com.worksmobile.openhome.controller.annotaion.GetWriteTraffic;
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.status.ReturnStatus;
@@ -42,7 +43,7 @@ public class ArticleController {
 		result.put("boardList", service.getBoardList());
 		return result;	
 	}	
-	//홈화면에 필요한 게시판 내용들을 얻는다(1)
+	//홈화면에 필요한 게시판 내용들을 얻는다(Level 1)
 	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getHomeList(HttpServletRequest req) throws Exception{
@@ -60,7 +61,7 @@ public class ArticleController {
 		}
 		return result;	
 	}	
-	//특정 게시판의 게시글과, 게시글 개수를 얻는다(1)
+	//특정 게시판의 게시글과, 게시글 개수를 얻는다(Level 1)
 	@RequestMapping(value = "/articleList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoard(HttpServletRequest req) throws Exception {		
@@ -73,7 +74,7 @@ public class ArticleController {
 		result.put("getArticleTotalCount", service.getArticleTotalCount(boardNumber));
 		return result;
 	}
-	//게시 글의 상세 내용을 얻는다.(2)
+	//게시 글의 상세 내용을 얻는다.(Level 2)
 	@RequestMapping(value = "/articleDetails", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getContents(HttpServletRequest req) throws Exception {	
@@ -89,8 +90,9 @@ public class ArticleController {
 		service.removeArticle(articleNum);
 	return returnStatus.name();
 	}
-	//새로운 게시글의 인덱스를 생성한다.(3)
+	//새로운 게시글의 인덱스를 생성한다.(Level 3)
 	@GetWriteTraffic
+	@GetArticleWriteApiCall
 	@RequestMapping(value = "/addArticleNum", method = RequestMethod.POST)
 	@ResponseBody
 	public String addArticleNum(HttpServletRequest req, HttpServletResponse res) throws Exception { 
@@ -98,8 +100,9 @@ public class ArticleController {
 		service.addArticleNum(article);
 		return String.valueOf(article.getArticleNum());
 	}
-	//게시글을 쓴다.(3)
+	//게시글을 쓴다.(Level 3)
 	@GetWriteTraffic
+	@GetArticleWriteApiCall
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public String addArticle(HttpServletRequest req, HttpServletResponse res) throws Exception { 
@@ -127,8 +130,9 @@ public class ArticleController {
 			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
 		return service.getArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
 	}
-	//게시글 수정(3)
+	//게시글 수정(Level 3)
 	@GetWriteTraffic
+	@GetArticleWriteApiCall
 	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public String modArticle(@RequestParam("articleNum") int articleNum, HttpServletRequest req, HttpServletResponse res) throws Exception { 

@@ -16,6 +16,20 @@
 <mapper namespace="apiCall">
 	
 	<!-- 중복을 방지하기위해 api_call(#{여기에다가 쓰고싶지만 'article_list'처럼 들어와서 에러가난다.}) -->
+	<insert id="insertApiCallLevel1" parameterType="com.worksmobile.openhome.model.ApiCall">
+	 	INSERT
+	 	INTO
+	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
+		VALUES
+			(1, 0, 0, 0, 0, now())
+	</insert>
+	<insert id="insertApiCallLevel2" parameterType="com.worksmobile.openhome.model.ApiCall">
+	 	INSERT
+	 	INTO
+	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
+		VALUES
+			(0, 1, 0, 0, 0, now())
+	</insert>	
 	<insert id="insertApiCallLevel3" parameterType="com.worksmobile.openhome.model.ApiCall">
 	 	INSERT
 	 	INTO
@@ -23,4 +37,18 @@
 		VALUES
 			(0, 0, 1, 0, 0, now())
 	</insert>
+	<insert id="insertApiCallLevel4" parameterType="com.worksmobile.openhome.model.ApiCall">
+	 	INSERT
+	 	INTO
+	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
+		VALUES
+			(0, 0, 0, 1, 0, now())
+	</insert>
+	<insert id="insertApiCallLevel5" parameterType="com.worksmobile.openhome.model.ApiCall">
+	 	INSERT
+	 	INTO
+	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
+		VALUES
+			(0, 0, 0, 0, 1, now())
+	</insert>		
 </mapper>

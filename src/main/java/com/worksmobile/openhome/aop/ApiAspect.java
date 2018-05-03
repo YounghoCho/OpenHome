@@ -29,23 +29,32 @@ public class ApiAspect {
  	 * [API 호출 트래픽 Level 5 Steps]
  	 * Level 1 : 게시글 목록 호출 (article_list)
  	 * Level 2 : 게시글 내용 호출 (article_detail)
- 	 * Level 3 : 게시글 쓰기 호출 (article_write)
+ 	 * Level 3 : 게시글 쓰기 호출 (article_write) 
  	 * Level 4 : 파일 업로드 호출 (file_upload)
  	 * Level 5 : 파일 다운로드 호출 (file_download)
  	 */
  	
  	//Level 3
- 	@After("execution(* com.worksmobile.openhome.controller.ArticleController.addArticleNum(..)) ||"
- 			+ "execution(* com.worksmobile.openhome.controller.ArticleController.addArticle(..)) ||"
- 			+ "execution(* com.worksmobile.openhome.controller.ArticleController.modArticle(..))")
- 	public void onAfterApiHandler(JoinPoint joinPoint) throws Throwable { 
+ 	@After("@annotation(com.worksmobile.openhome.controller.annotaion.GetArticleWriteApiCall)")
+	public void articleWriteHandler(JoinPoint joinPoint) throws Throwable { 
 
  		for (Object obj : joinPoint.getArgs()) {
 			if (obj instanceof HttpServletRequest || obj instanceof MultipartHttpServletRequest) {
-				log.info("#API : annotation method path : " + joinPoint.getSignature());
+				log.info("#API Level 3: annotation method path : " + joinPoint.getSignature());
 				dao.insertApiCallLevel3();
 			}
 		}
-	}//End After
+	}
+ 	//Level 4
+ 	@After("@annotation(com.worksmobile.openhome.controller.annotaion.GetFileUploadApiCall)")
+ 	public void fileUploadHandler(JoinPoint joinPoint) throws Throwable { 
+
+ 		for (Object obj : joinPoint.getArgs()) {
+			if (obj instanceof HttpServletRequest || obj instanceof MultipartHttpServletRequest) {
+				log.info("#API Level 4: annotation method path : " + joinPoint.getSignature());
+				dao.insertApiCallLevel4();
+			}
+		}
+	}
  	
 }//End Class

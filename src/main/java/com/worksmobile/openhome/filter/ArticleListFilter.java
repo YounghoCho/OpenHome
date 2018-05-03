@@ -18,15 +18,15 @@ import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.io.output.TeeOutputStream;
 
-import com.worksmobile.openhome.dao.TrafficDAO;
+import com.worksmobile.openhome.dao.ApiCallDAO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ServeltResponseFilter implements Filter {
+public class ArticleListFilter implements Filter {
 
- 	@Resource(name="TrafficDAO")
-	private TrafficDAO dao;
+ 	@Resource(name="ApiCallDAO")
+	private ApiCallDAO dao;
  	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {	
@@ -34,11 +34,6 @@ public class ServeltResponseFilter implements Filter {
 		final PrintStream ps = new PrintStream(baos);
 
 		chain.doFilter(request, new HttpServletResponseWrapper((HttpServletResponse)response) { 
-			//doFilter : 사용자와 서버 사이에 위치하여 호출되는 시점부터 필터가 동작한다
-			//Wrapper : 필터가 요청, 응답을 변경한 결과를 저장할 클래스
-		
-			// 장애 발생 : DelegatingServletOutputStream 클래스를 찾을 수 없는 에러.
-			// 처리 방법 : mock에 존재하는 DelegatingServletOutputStream 클래스를 같은 디렉토리에 복사.
 			@Override
 			public ServletOutputStream getOutputStream() throws IOException {
 				return new DelegatingServletOutputStream(new TeeOutputStream(super.getOutputStream(), ps)
@@ -52,11 +47,8 @@ public class ServeltResponseFilter implements Filter {
 		});
 
 		if(baos.toByteArray().length != 0) {
-			log.info("Servlet Response Body Length = " + baos.toByteArray().length);
-			int trafficContentLength = baos.toByteArray().length;
-    		String trafficKind = "read";
-    		log.info("1 : " + trafficContentLength + ", 2 : " + trafficKind);
-    		//dao.insertContentLength(trafficContentLength, trafficKind);   
+			log.info("Leve 1 발생");
+			dao.insertApiCallLevel1();
 		}
 	}
 	
