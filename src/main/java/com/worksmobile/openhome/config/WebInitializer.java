@@ -28,4 +28,5 @@ public class WebInitializer implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping(MAPPING_URL);
     }
+	
 }

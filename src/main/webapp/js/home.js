@@ -215,13 +215,14 @@ function goRead(articleNumber){
 
 function fileDownloadTraffic(fileSize){
 	alert($(".fileDownload").data("filesize"));	
+	let trafficContentLength = $(".fileDownload").data("filesize");
 	//traffic에 file사이즈 저장
 	$.ajax({
 		type: "post",
 		url: "api/traffic/contentLength",
-		data: 'trafficContentLength='+ $(".fileDownload").data("filesize") + "&trafficKind=" + "fileDownload",
+		data: 'trafficContentLength='+ trafficContentLength + "&trafficKind=" + "fileDownload",
 		success: function(res) {
-			if (res == ReturnStatus.SUCCESS){
+			if (res == ReturnStatus.SUCCESS){W
 				alert("트래픽 저장 완료");
 			}
 		},
