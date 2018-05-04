@@ -12,8 +12,6 @@ private static final String NAMESPACE_API = "apiCall.";
 	
 	@Autowired
 	private SqlSessionTemplate sqlsession;
-
-	public ApiCallDAO() {}
  	/*
  	 * [API 호출 트래픽 Level 5 Steps]
  	 * Level 1 : 게시글 목록 호출 (article_list)
