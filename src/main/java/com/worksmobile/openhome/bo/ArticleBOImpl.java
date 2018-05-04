@@ -1,6 +1,9 @@
 package com.worksmobile.openhome.bo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.worksmobile.openhome.dao.ArticleDAO;
@@ -13,6 +16,12 @@ public class ArticleBOImpl implements ArticleBO{
 	private ArticleDAO dao;
 
 	/*@author Suji Jang*/
+	@Override
+	public List<Article> searchArticle(Map<String, String> map) {
+		System.out.println("bo");
+		return dao.searchArticle(map);
+	}
+
 	@Override
 	public void addArticleNum(Article article) {
 		dao.addArticleNum(article);
@@ -96,6 +105,7 @@ public class ArticleBOImpl implements ArticleBO{
 	public void removeArticle(int articleNum) {
 		dao.removeArticle(articleNum);
 	}
+
 
 	
 }

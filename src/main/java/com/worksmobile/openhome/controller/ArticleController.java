@@ -4,19 +4,24 @@
  */
 package com.worksmobile.openhome.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.worksmobile.openhome.bo.ArticleBO;
 import com.worksmobile.openhome.bo.AttachmentFileBO;
 import com.worksmobile.openhome.model.Article;
@@ -140,6 +145,22 @@ public class ArticleController {
 							req.getParameter("articleTextContent"), req.getParameter("articleContent"),
 							req.getParameter("articleWriter"));
 		return service.modArticle(article);
+	}
+	
+
+	//검색
+	@RequestMapping(value = "/searchArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Article> searchArticle(@RequestBody String paramData, HttpServletRequest req, HttpServletResponse res) throws Exception { 
+		System.out.println(paramData);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> map = new HashMap<String, String>();
+		map = mapper.readValue(paramData, new TypeReference<Map<String, String>>(){});
+		System.out.println(map);
+		System.out.println(map.get("writer"));
+		List<Article> ar = service.searchArticle(map);
+		System.out.println(ar);
+		return ar;
 	}
    
 }
