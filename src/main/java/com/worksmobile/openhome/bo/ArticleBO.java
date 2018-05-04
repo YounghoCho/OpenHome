@@ -1,6 +1,7 @@
 package com.worksmobile.openhome.bo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public interface ArticleBO {
 	public String delCheckedArticle(String check);
 	public Article getArticle(String check);
 	public String modArticle(Article article);
+	public List<Article> searchArticle(Map<String, String> map);
 
 	/*@ author Youngho Jo*/
 	public List<Article> getArticleList(int boardNumber, int currentPageNo, int pageSize);

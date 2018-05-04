@@ -19,7 +19,10 @@ function getBoardListAjax(){
 			let len = res.boardList.length;
 			for(let index = 0; index < len; index++){
 				$(".menudecoration").append("<li style=\"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
-				}
+				/* top의 board select에 추가*/
+				$("#board-select").append('<option value="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
+			}
+
 			/*
 			 * Algorithm (Traffic)
 			 * 
@@ -291,8 +294,9 @@ function goRead(articleNumber){
 	
 	$('#boardTdSubject').empty();
 	$('#boardTdContent').empty();
+
 	$('filelist_2').empty();
-	
+
 	
 	jQuery.ajax({
 		type: "GET",
@@ -342,7 +346,8 @@ function goRead(articleNumber){
 		success: function(res) {
 			if(res.size != 0) {
 				$.each(res, function(index, value) {
-					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a href="/OpenHome/file/' + value.storedFileName + '"' + 'download="' + value.originalFileName + '">'
+
+					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a href="/OpenHome/file/' + value.storedFileName + '"' + ' data-filesize="' + value.fileSize + '" download="' + value.originalFileName + '">'
 							+ value.originalFileName + '</a></li>');
 				});
 			} 

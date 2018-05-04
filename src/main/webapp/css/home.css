@@ -18,7 +18,7 @@
 	border-right: 1px solid #5d5d5d;
 }
 
-#menu{
+#menu {
 	position:absolute;
 	top:0px;
 	right:0;
@@ -32,17 +32,18 @@
 	border-bottom: 3px double #5d5d5d;
 } */
 
-#top{
-	padding:20px;
+#top {
+	padding:15px;
 	vertical-align:middle;
 	font-weight:bold;
 	font-size:20px;
 
 	position:absolute;
 	border-bottom: 1px solid #dcdcdc;
-	height:70px;
+	height:120px;
 	/* left:249px; */
 	width:100%;
+	margin-bottom:10px;
 }
 
 #center{
@@ -59,7 +60,7 @@
     background-color: #fff;
  }
  
- #center-right{
+#center-right{
 	position:absolute;
 	top:0;
 	right:0;
@@ -69,7 +70,7 @@
 
 #body{
 	position:absolute;
-	top:70px;
+	top:119px;
 	bottom:0px;
 	overflow:auto;
 	width:100%;
@@ -402,7 +403,127 @@ rect .highcharts-button-box{
 	text-align: center;
 }
 
-.file_td{
+.file_td {
 	text-align: center;
 }
 
+<<<<<<< HEAD
+=======
+#top-search_div {
+	/* margin:0 auto; */
+	width:1200px;
+	height:89px;
+	padding-left:45px;
+}
+
+#search_div {
+	float:left;
+	width:1000px;
+	height:89px;
+	font-size:18px;
+	margin-right:10px;
+}
+
+#searchbtn_div {
+	float:left;
+	width:100px;
+	height:89px;
+}
+
+#top #search_div_1 {
+	margin-bottom:10px;
+	margin-top:5px;
+}
+
+#top #search_div_1 #board-select {
+	margin-right:30px;
+	height:27px;
+	line-height:27px;
+}
+
+#top #search_div_1 #content-select_label {
+	margin-right:10px;
+}
+
+#top #search_div_1 #content-text {
+	margin-right:30px;
+}
+
+#top #search_div_1 #writer-text {
+	margin-right:20px;
+}
+
+#top #search_div_1 #writer-text_label {
+	margin-right:10px;
+}
+
+#top #search_div_1 #content-select {
+	margin-right:10px;
+	height:27px;
+	line-height:27px;
+}
+
+#top #search_div_2 #file-checkbox {
+	margin-right:5px;
+}
+
+#top #search_div_2 #file-checkbox_label {
+	margin-right:20px;
+}
+
+#top #search_div_2 #comment-checkbox {
+	margin-right:5px;
+}
+
+#top #search_div_2 #comment-checkbox_label {
+	margin-right:40px;
+}
+
+
+#top #search_div_2 #date-label {
+	margin-right:10px;
+}
+
+#top #search_div_2 #date-select {
+	margin-right:10px;
+	height:27px;
+	line-height:27px;
+}
+
+
+#top #search_div_2 #date-start {
+	margin-right:10px;
+}
+
+#top #search_div_2 #date-end {
+	margin-left:10px;
+}
+
+#top #searchbtn_div {
+	width:130px;
+	height:89;
+	line-height:89px;
+}
+
+#top #searchbtn_div #searchbtn {
+	width:130px;
+	height:70px;
+	font-size:20px;
+	font-weight:bold;
+}
+
+#date-start {
+	height:27px;
+	line-height:27px;
+}
+
+#date-end {
+	height:27px;
+	line-height:27px;
+}
+
+#top #search_div_1 #content-text::placeholder, #top #search_div_1 #writer-text::placeholder{
+	font-weight:normal;
+	opacity:1;
+}
+>>>>>>> suji_1

@@ -29,7 +29,7 @@
 	$('#articleSubject').focusout(function(){
 		if($('#articleSubject').val().length > 50){
 			$('#articleSubject_div > p').remove();
-			$('#articleSubject_div').append('<p style="color:red;font-size:11px">50자 이하로 입력하세요</p>')
+			$('#articleSubject_div').append('<p style="color:red;font-size:11px">50자 이하로 입력하세요</p>');
 			subjectLengthChecker = "fail";
 		} else {
 			$('#articleSubject_div > p').remove();
@@ -41,7 +41,7 @@
 	$('#articleWriter').focusout(function(){
 		if($('#articleWriter').val().length > 20){
 			$('#articleWriter_div > p').remove();
-			$('#articleWriter_div').append('<p style="color:red;font-size:11px">20자 이하로 입력하세요</p>')
+			$('#articleWriter_div').append('<p style="color:red;font-size:11px">20자 이하로 입력하세요</p>');
 			writerLengthChecker = "fail";
 		} else {
 			$('#articleWriter_div > p').remove();

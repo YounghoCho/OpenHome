@@ -16,6 +16,9 @@ public class Article {
 	private String articleStatus;
 	private int ROWNUM;
 	
+	private AttachmentFile attachmentfile;
+	private ArticleComment articlecomment;
+	
 	public Article() {
 
 	}
@@ -131,6 +134,22 @@ public class Article {
 
 	public void setArticleStatus(String articleStatus) {
 		this.articleStatus = articleStatus;
+	}
+
+	public AttachmentFile getAttachmentfile() {
+		return attachmentfile;
+	}
+
+	public void setAttachmentfile(AttachmentFile attachmentfile) {
+		this.attachmentfile = attachmentfile;
+	}
+
+	public ArticleComment getArticlecomment() {
+		return articlecomment;
+	}
+
+	public void setArticlecomment(ArticleComment articlecomment) {
+		this.articlecomment = articlecomment;
 	}
 
 }
