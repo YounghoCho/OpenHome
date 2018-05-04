@@ -69,7 +69,7 @@
 	<li style="cursor:pointer;"><a onclick="javascript:goBoardManageAjax()">게시판 관리</a></li>
 	<li style="cursor:pointer;"><a onclick="javascript:goArticlesAjax(1)">게시글 관리</a></li>
 	<li style="cursor:pointer;"><a onclick="javasciprt:goStaticGraphAjax()">트래픽 통계</a></li>
-	<!--<li style="cursor:pointer;"><a onclick="javasciprt:goApiGraphAjax()">API 사용량</a></li>-->	
+	<li style="cursor:pointer;"><a onclick="javasciprt:goApiGraphAjax()">API 사용량</a></li>	
 </ul>
 </div>
 
@@ -182,7 +182,7 @@
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/billboard.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/billboard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/billboard.css?ver=1">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver=1"></script>
    
 <script>

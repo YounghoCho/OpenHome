@@ -25,4 +25,10 @@ private static final String NAMESPACE_API = "apiCall.";
 		paramMap.put("apiLevel", apiLevel);
 		sqlsession.insert(NAMESPACE_API + "insertApiCall", paramMap);	
 	}
+	public Object getTotalApiList() {
+		return sqlsession.selectList(NAMESPACE_API + "getTotalApiList");
+	}
+	public Object getTotalapiCount() {
+		return sqlsession.selectList(NAMESPACE_API + "getTotalapiCount");
+	}
 }

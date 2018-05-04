@@ -39,4 +39,16 @@
 		</choose>
 	</insert>
 	
+	<select id="getTotalApiList" resultType="com.worksmobile.openhome.model.ApiCall">
+		SELECT
+			*
+		FROM
+			api_call
+	</select>
+	<select id="getTotalapiCount" resultType="com.worksmobile.openhome.model.ApiCall">
+		SELECT
+			count(api_num) as countAll
+		FROM
+			api_call
+	</select>
 </mapper>

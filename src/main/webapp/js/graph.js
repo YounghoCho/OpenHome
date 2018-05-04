@@ -8,13 +8,13 @@ function goApiGraphAjax(){
 	
 	$.ajax({
 		type : "GET",
-		url : "api/traffic/notyet",
+		url : "api/apiCall/apiList",
 		dataType : "json",
 		data : "",		
 		success : function(res){
 			//API 그래프 (BillBoard.js)
 			var apiRead = ["읽기"];
-			var arr = [10, 20, 30, 40];
+			var arr = [105, 310, 65, 35, 135, 69, 168, 210, 110, 316];
 			Array.prototype.push.apply(apiRead, arr); //배열 붙이기
 
 			var chart = bb.generate({
@@ -44,15 +44,22 @@ function goApiGraphAjax(){
 						apiRead
 						]
 				});
-			}, 1000);
-			//
-			//setTimeout(function() {
-//				chart.load({
-//					columns: [
-//						['data2', 305, 350, 55, 25, 335, 29, 258, 310, 180, 226]
-//					]
-//				});
-			//}, 2000);
+			}, 100);
+			
+			setTimeout(function() {
+				chart.load({
+					columns: [
+						['data2', 305, 350, 55, 25, 335, 29, 258, 310, 180, 226]
+					]
+				});
+			}, 200);
+			setTimeout(function() {
+				chart.load({
+					columns: [
+						['data3', 155, 20, 210, 125, 71, 129, 35, 310, 110, 76]
+					]
+				});
+			}, 300);
 		},
 		error : function(err){
 			alert("goApiGraphAjax error : " + err);

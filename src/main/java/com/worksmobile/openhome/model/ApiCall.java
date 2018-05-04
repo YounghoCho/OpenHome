@@ -10,4 +10,5 @@ public class ApiCall {
 	 private int fileUpload;
 	 private int fileDownload;
 	 private int apiDate;
+	 private int countAll;
 }

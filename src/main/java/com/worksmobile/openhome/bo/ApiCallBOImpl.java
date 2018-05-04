@@ -16,4 +16,14 @@ public class ApiCallBOImpl implements ApiCallBO{
 	public void insertApiCall(String apiLevel) {
 		dao.insertApiCall(apiLevel);
 	}
+
+	@Override
+	public Object getTotalApiList() {
+		return dao.getTotalApiList();
+	}
+
+	@Override
+	public Object getTotalapiCount() {
+		return dao.getTotalapiCount();
+	}
 }
