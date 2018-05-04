@@ -6,7 +6,7 @@ function goApiGraphAjax(){
 	$(".staticGraphDiv").hide();
 	$("#BubbleChart").show();
 	
-	jQuery.ajax({
+	$.ajax({
 		type : "GET",
 		url : "api/traffic/notyet",
 		dataType : "json",
