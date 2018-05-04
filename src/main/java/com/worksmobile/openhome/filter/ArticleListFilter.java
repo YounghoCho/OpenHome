@@ -48,7 +48,7 @@ public class ArticleListFilter implements Filter {
 
 		if(baos.toByteArray().length != 0) {
 			log.info("Leve 1 발생");
-			dao.insertApiCallLevel1();
+			dao.insertApiCall("apiLevel1");
 		}
 	}
 	

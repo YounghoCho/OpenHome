@@ -1,58 +1,3 @@
-//enum 선언
-var ReturnStatus = {"SUCCESS":"SUCCESS"};
-Object.freeze(ReturnStatus);
-
-//사용자 최초 진입, 페이지 새로 고침
-$(document).ready(function(){
-	var refresh = location.hash.slice(9,14);
-	var number = location.hash.slice(14);
-	switch(refresh){
-		case "":
-			goHomeAjax();
-			break;
-		case "homex":
-			goHomeAjax();
-			break;		
-		case "board":	
-			getBoardListAjax();
-			goBoardAjax(number, 1);//(게시판번호, 페이지번호)
-			break;
-		case "readx":
-			getBoardListAjax();
-			goRead(number);//(게시글번호)
-			break;
-	}
-});
-
-//페이지 뒤로가기
-$(window).on('hashchange', function(){
-	var page = location.hash.slice(9,14);
-	var number = location.hash.slice(14);
-	switch(page){
-		case "homex":
-			$("#singleBoard").hide();
-			$(".articleReadDiv").hide();
-			$(".articleWriteDiv").hide();
-			$(".homeMainDiv").show();
-			break;
-		case "board":
-			$(".homeMainDiv").hide();
-			$(".articleReadDiv").hide();
-			$(".articleWriteDiv").hide();
-			$("#singleBoard").show();
-			break;
-		case "readx":
-			$(".homeMainDiv").hide();
-			$("#singleBoard").hide();
-			$(".articleWriteDiv").hide();
-			$(".articleReadDiv").show();			
-			$('#boardTdSubject').empty();
-			$('#boardTdContent').empty();
-			$('.filelist_2').empty();
-			break;
-	}
-});
-
 //게시판 목록
 function getBoardListAjax(){
 	$.ajax({
@@ -62,8 +7,9 @@ function getBoardListAjax(){
 		data : "",
 		success : function(res){
 			let len = res.boardList.length;
+			$(".menudecoration > #menuButton").remove();
 			for (let index = 0; index < len; index++){
-				$(".menudecoration").append("<li style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
+				$(".menudecoration").append("<li id = \"menuButton\" style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
 				/* top의 board select에 추가*/
 				$("#board-select").append('<option value="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
 			}
@@ -91,7 +37,7 @@ function goHomeAjax(){
 			let len = res.boardList.length;
 			$(".menudecoration > #menuButton").remove();
 			for (let index = 0; index < len; index++){
-				$(".menudecoration").append("<li id = \"menuButton\"style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
+				$(".menudecoration").append("<li id = \"menuButton\" style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
 			}
 
 		//관리자가 조작한 순서대로 게시판을 출력하는 기능

@@ -1,5 +1,7 @@
 package com.worksmobile.openhome.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,16 +22,9 @@ private static final String NAMESPACE_API = "apiCall.";
  	 * Level 4 : 파일 업로드 호출 (file_upload)
  	 * Level 5 : 파일 다운로드 호출 (file_download)
  	 */	
-	public void insertApiCallLevel1() {
-		sqlsession.insert(NAMESPACE_API + "insertApiCallLevel1");	
-	}
-	public void insertApiCallLevel2() {
-		sqlsession.insert(NAMESPACE_API + "insertApiCallLevel2");	
-	}
-	public void insertApiCallLevel3() {
-		sqlsession.insert(NAMESPACE_API + "insertApiCallLevel3");	
-	}
-	public void insertApiCallLevel4() {
-		sqlsession.insert(NAMESPACE_API + "insertApiCallLevel4");	
+	public void insertApiCall(String apiLevel) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("apiLevel", apiLevel);
+		sqlsession.insert(NAMESPACE_API + "insertApiCall", paramMap);	
 	}
 }

@@ -78,7 +78,7 @@ function goStaticGraphAjax(){
 	var writeTraffics = new Array();
 	var downloadTraffics = new Array();
 	
-	jQuery.ajax({
+	$.ajax({
 		type : "GET",
 		url : "api/traffic/trafficData",
 		dataType : "json",
@@ -251,7 +251,7 @@ function goStaticGraphAjax(){
  */
 function trafficTracking(){
 	setInterval(function(){ 
-		jQuery.ajax({
+		$.ajax({
 			type : "GET",
 			url : "api/traffic/trafficData",
 			dataType : "json",

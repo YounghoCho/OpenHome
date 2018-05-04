@@ -14,41 +14,29 @@
  * Level 5 : 파일 다운로드 호출 (file_download)
  -->	
 <mapper namespace="apiCall">
+
+	<insert id="insertApiCall" parameterType="map">
+		INSERT
+	 	INTO
+	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
+		VALUES
+		<choose>
+			<when test = 'apiLevel.equals("apiLevel1")'>
+					(1, 0, 0, 0, 0, now())			
+			</when>
+			<when test = 'apiLevel.equals("apiLevel2")'>			 
+					(0, 1, 0, 0, 0, now())			
+			</when>
+			<when test = 'apiLevel.equals("apiLevel3")'>
+					(0, 0, 1, 0, 0, now())			
+			</when>
+			<when test = 'apiLevel.equals("apiLevel4")'>		 
+					(0, 0, 0, 1, 0, now())			
+			</when>			
+			<when test = 'apiLevel.equals("apiLevel5")'>		 
+					(0, 0, 0, 0, 1, now())			
+			</when>			
+		</choose>
+	</insert>
 	
-	<!-- 중복을 방지하기위해 api_call(#{여기에다가 쓰고싶지만 'article_list'처럼 들어와서 에러가난다.}) -->
-	<insert id="insertApiCallLevel1" parameterType="com.worksmobile.openhome.model.ApiCall">
-	 	INSERT
-	 	INTO
-	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
-		VALUES
-			(1, 0, 0, 0, 0, now())
-	</insert>
-	<insert id="insertApiCallLevel2" parameterType="com.worksmobile.openhome.model.ApiCall">
-	 	INSERT
-	 	INTO
-	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
-		VALUES
-			(0, 1, 0, 0, 0, now())
-	</insert>	
-	<insert id="insertApiCallLevel3" parameterType="com.worksmobile.openhome.model.ApiCall">
-	 	INSERT
-	 	INTO
-	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
-		VALUES
-			(0, 0, 1, 0, 0, now())
-	</insert>
-	<insert id="insertApiCallLevel4" parameterType="com.worksmobile.openhome.model.ApiCall">
-	 	INSERT
-	 	INTO
-	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
-		VALUES
-			(0, 0, 0, 1, 0, now())
-	</insert>
-	<insert id="insertApiCallLevel5" parameterType="com.worksmobile.openhome.model.ApiCall">
-	 	INSERT
-	 	INTO
-	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
-		VALUES
-			(0, 0, 0, 0, 1, now())
-	</insert>		
 </mapper>
