@@ -2,20 +2,13 @@ package com.worksmobile.openhome.model;
 
 import java.util.Date;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class AttachmentFile {
-	
-	private int fileNum;
-	private int articleNum;
-	private String originalFileName;
-	private String storedFileName;
-	private int fileSize;
-	private String fileAttacher;
-	private Date fileDate;
-	
-	public AttachmentFile() {
 		
-	}
-	
 	public AttachmentFile(int fileNum, String originalFileName, String storedFileName) {
 		this.fileNum = fileNum;
 		this.originalFileName = originalFileName;
@@ -29,62 +22,12 @@ public class AttachmentFile {
 		this.fileSize = fileSize;
 		this.fileAttacher = fileAttacher;
 	}
-
-	public int getFileNum() {
-		return fileNum;
-	}
-
-	public void setFileNum(int fileNum) {
-		this.fileNum = fileNum;
-	}
-
-	public int getArticleNum() {
-		return articleNum;
-	}
-
-	public void setArticleNum(int articleNum) {
-		this.articleNum = articleNum;
-	}
-
-	public String getOriginalFileName() {
-		return originalFileName;
-	}
-
-	public void setOriginalFileName(String originalFileName) {
-		this.originalFileName = originalFileName;
-	}
-
-	public String getStoredFileName() {
-		return storedFileName;
-	}
-
-	public void setStoredFileName(String storedFileName) {
-		this.storedFileName = storedFileName;
-	}
-
-	public int getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(int fileSize) {
-		this.fileSize = fileSize;
-	}
-
-	public String getFileAttacher() {
-		return fileAttacher;
-	}
-
-	public void setFileAttacher(String fileAttacher) {
-		this.fileAttacher = fileAttacher;
-	}
-
-	public Date getFileDate() {
-		return fileDate;
-	}
-
-	public void setFileDate(Date fileDate) {
-		this.fileDate = fileDate;
-	}
-
-
+	
+	private int fileNum;
+	private int articleNum;
+	private String originalFileName;
+	private String storedFileName;
+	private int fileSize;
+	private String fileAttacher;
+	private Date fileDate;
 }

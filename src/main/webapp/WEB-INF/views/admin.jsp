@@ -69,6 +69,7 @@
 	<li style="cursor:pointer;"><a onclick="javascript:goBoardManageAjax()">게시판 관리</a></li>
 	<li style="cursor:pointer;"><a onclick="javascript:goArticlesAjax(1)">게시글 관리</a></li>
 	<li style="cursor:pointer;"><a onclick="javasciprt:goStaticGraphAjax()">트래픽 통계</a></li>
+	<!--<li style="cursor:pointer;"><a onclick="javasciprt:goApiGraphAjax()">API 사용량</a></li>-->	
 </ul>
 </div>
 
@@ -92,7 +93,7 @@
 	<table class="table">
 		<thead>
 		<tr>
-			<th style="width:85%">게시글판목록</th>
+			<th style="width:85%">게시판목록</th>
 			<th style="width:5%"></th>
 			<th style="width:5%"></th>
 			<th style="width:5%"></th>
@@ -160,10 +161,11 @@
 		<script src="https://code.highcharts.com/modules/series-label.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	
-		<div id="container"></div>
-		
+		<div id="container"></div>	
 	</div>
 </div>
+
+<div id="BubbleChart"></div>
 
 </div>
 </div>
@@ -175,14 +177,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 1"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 1"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver=1"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/common-admin.js?ver=1"></script>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/billboard.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/billboard.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver=1"></script>
    
 <script>
 var LoginCheck = "<%=session.getAttribute("userLoginInfo")%>";
 //세션이 유효하면
 if(LoginCheck != null && LoginCheck != "null"){
-	goBoardManageAjax(); //게시판 관리 페이지 호출
 	$("#logOutButton").show();
 	trafficTracking(); //트래픽 감지 시작
 }

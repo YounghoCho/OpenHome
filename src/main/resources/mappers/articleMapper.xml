@@ -7,6 +7,15 @@
  * @Author : Youngho Jo
  -->	
 <mapper namespace="article">
+	<select id="getBoardList" resultType="com.worksmobile.openhome.model.Board">
+
+		SELECT 
+			boardOrderNum, boardTitle, boardNum
+		FROM 
+			board
+		ORDER BY
+			boardOrderNum
+	</select>
 	<select id="getArticleList" resultType="com.worksmobile.openhome.model.Article">
 		SELECT 
 			@ROWNUM := @ROWNUM +1 as ROWNUM,
@@ -34,17 +43,21 @@
 	</select>
 	<!-- admin -->
 	<select id="getArticleListAdmin" resultType="com.worksmobile.openhome.model.Article">
-		SELECT 
-			@ROWNUM := @ROWNUM +1 as ROWNUM,
-			b.boardTitle, a.boardNum, a.articleNum, articleSubject, articleTextContent, articleDate, articleWriter
-		FROM 
-			article a, board b, ( SELECT @ROWNUM := 0 ) R
-		WHERE
-			articleStatus = 'Y'
-		ORDER BY
-			articleNum DESC
-		LIMIT 
-			#{startNum}, #{pageSize} 
+		SELECT @ROWNUM := @ROWNUM +1 as ROWNUM, boardTitle, boardNum, articleNum, articleSubject, articleDate, articleWriter
+		FROM(
+			SELECT
+				b.boardTitle as boardTitle, a.boardNum as boardNum, a.articleNum as articleNum, articleSubject, articleDate, articleWriter
+			FROM
+				article a, board b
+			WHERE
+				a.boardNum = b.boardNum
+			AND
+				articleStatus = 'Y'
+			ORDER BY
+				articleNum DESC
+			LIMIT
+				#{startNum}, #{pageSize}
+			) c , ( SELECT @ROWNUM := 0 ) R
 	</select>		
 	<select id="getArticleTotalCountAdmin" resultType="int">
 		SELECT 

@@ -78,7 +78,6 @@
 	                 alert("10개까지 업로드가 가능합니다.");
 	                 return false;
 	              } else {
-	                 //중복되는 정보 확인 위해 콘솔에 찍음
 	                 if ((files[i].size / megaByte) > 20){
 	                    alert(files[i].name + "은(는) \n 20MB 보다 커서 업로드가 할 수 없습니다.");
 	                    return false;
@@ -210,6 +209,7 @@
 				if (res=="success") {
 					$('#check_pwd_hidden_area').css("display", "none");
 					alert("게시글이 삭제되었습니다.");
+					oldTotalFileCount--;
 					returnBoard($("#singleBoardTable").data("boardNum"), 1);
 				} else {
 					$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
@@ -323,6 +323,8 @@ function write() {
 	resetSelect();
 	removeLengthChecker();
 	$('.filelist').remove();
+	$('.oldfiletr').remove();
+	$('#oldFileList').css("display","none");
 	$("#singleBoard").hide();
 	$(".articleReadDiv").hide();
 	$(".homeMainDiv").hide();
@@ -370,9 +372,7 @@ function write() {
 			alert('statusText:' + err.statusText);
 			alert('responseText:' + err.responseText);
 		}
-	})
-	
-	history.pushState({ data: '5' }, 'title5', '?depth=5');
+	})	
 }
 
 function reg() {
@@ -588,7 +588,7 @@ function modify() {
 
 function formReset() {
 	fd = new FormData();
-	totalCount = 0;
+	totalFileCount = 0;
 	oldTotalFileCount = 0;
 }
 

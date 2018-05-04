@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.worksmobile.openhome.dao.ArticleDAO;
 import com.worksmobile.openhome.model.Article;
+import com.worksmobile.openhome.model.Board;
 
 @Service("ArticleBO")
 public class ArticleBOImpl implements ArticleBO{
@@ -15,6 +16,11 @@ public class ArticleBOImpl implements ArticleBO{
 	@Resource(name="ArticleDAO")
 	private ArticleDAO dao;
 
+	@Override
+	public List<Board> getBoardList() {
+		return dao.getBoardList();
+	}
+	
 	/*@author Suji Jang*/
 	@Override
 	public List<Article> searchArticle(Map<String, String> map) {

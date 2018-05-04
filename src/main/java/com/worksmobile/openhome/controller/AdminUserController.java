@@ -21,7 +21,7 @@ import com.worksmobile.openhome.status.ReturnStatus;
 
 @RestController
 @RequestMapping("/api/admin/")
-public class ManagerController {
+public class AdminUserController {
 	@Resource
 	private ManagerBO service;
 

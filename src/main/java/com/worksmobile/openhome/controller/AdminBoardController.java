@@ -18,23 +18,24 @@ import com.worksmobile.openhome.bo.BoardBO;
 import com.worksmobile.openhome.status.ReturnStatus;
 
 @RestController
-@RequestMapping("/api/board")
-public class BoardController {
+@RequestMapping("/api/admin")
+public class AdminBoardController {
 	@Resource
 	private BoardBO service;
 
 	ReturnStatus returnStatus = ReturnStatus.SUCCESS;
 	
-	//게시판 목록을 가져온다.
+	//게시판 목록을 가져온다(admin)
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getBoardList() throws Exception{
+		
 		Map<String, Object> result = new HashMap<>();
 		result.put("boardList", service.getBoardList());
 		return result;	
 	}
 	
-	//게시판을 삭제한다.
+	//게시판을 삭제한다.(admin)
 	@RequestMapping(value = "/boardRemove", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String removeBoard(HttpServletRequest req) throws Exception {
@@ -43,7 +44,7 @@ public class BoardController {
 	return returnStatus.name();
 	}
 	
-	//게시판을 추가한다.
+	//게시판을 추가한다.(admin)
 	@RequestMapping(value = "/newBoard", method = RequestMethod.POST)
 	@ResponseBody
 	public String createNewBoard(HttpServletRequest req) throws Exception {
@@ -51,7 +52,7 @@ public class BoardController {
 		return returnStatus.name();
 	}
 	
-	//게시판 순서를 변경한다.
+	//게시판 순서를 변경한다.(admin)
 	@RequestMapping(value = "/boardOrders", method = RequestMethod.PUT)
 	@ResponseBody
 	public String updateBoardOrders(HttpServletRequest req) throws Exception {
@@ -63,11 +64,10 @@ public class BoardController {
 		return returnStatus.name();
 	}
 	
-	//게시판 명을 변경한다.
+	//게시판 명을 변경한다.(admin)
 	@RequestMapping(value = "/boardTitles", method = RequestMethod.PUT)
 	@ResponseBody
 	public String updateBoardTitles(HttpServletRequest req) throws Exception {
-		System.out.println("*******************************게시판번호:"+req.getParameter("boardNum"));
 		service.updateBoardTitles(req.getParameter("boardTitle"), Integer.parseInt(req.getParameter("boardNum")));		
 		return returnStatus.name();
 	}
