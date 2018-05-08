@@ -61,11 +61,13 @@ function getBoardListAjax(){
 		dataType : "json",
 		data : "",
 		success : function(res){
+			$(".menudecoration > #menuButton").remove();
+			$(".board_select_list").remove();
 			let len = res.boardList.length;
 			for (let index = 0; index < len; index++){
 				$(".menudecoration").append("<li style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
 				/* top의 board select에 추가*/
-				$("#board-select").append('<option value="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
+				$("#board-select").append('<option class="board_select_list" value="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
 			}
 		},
 		error : function(err){
@@ -90,8 +92,11 @@ function goHomeAjax(){
 			//게시판 목록 그리기 기능
 			let len = res.boardList.length;
 			$(".menudecoration > #menuButton").remove();
+			$(".board_select_list").remove();
 			for (let index = 0; index < len; index++){
 				$(".menudecoration").append("<li id = \"menuButton\"style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
+				/* top의 board select에 추가*/
+				$("#board-select").append('<option class="board_select_list" value="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
 			}
 
 		//관리자가 조작한 순서대로 게시판을 출력하는 기능

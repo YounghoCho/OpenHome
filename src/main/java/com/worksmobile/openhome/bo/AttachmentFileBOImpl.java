@@ -40,8 +40,11 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 			dir.mkdirs();
 		}
 		
+		System.out.println(mreq.getCharacterEncoding());
 		List<AttachmentFile> fList = new ArrayList<AttachmentFile>();
 		Iterator<String> files = mreq.getFileNames();
+		
+		System.out.println(files.toString());
 		
 		//파일 저장 및 map리스트 생성
 		while (files.hasNext()) {

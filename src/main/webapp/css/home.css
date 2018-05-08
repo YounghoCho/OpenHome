@@ -407,8 +407,6 @@ rect .highcharts-button-box{
 	text-align: center;
 }
 
-<<<<<<< HEAD
-=======
 #top-search_div {
 	/* margin:0 auto; */
 	width:1200px;
@@ -527,3 +525,11 @@ rect .highcharts-button-box{
 	opacity:1;
 }
 
+#no_result {
+	height:20px;
+	line-height:20px;
+	text-align: center;
+	font-weight: bold;
+	font-size:20px;
+	padding:50px;
+}

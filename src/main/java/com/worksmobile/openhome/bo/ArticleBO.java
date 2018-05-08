@@ -15,9 +15,9 @@ public interface ArticleBO {
 	/*@ author Suji Jang*/
 	public String addArticle(Article article);
 	public void addArticleNum(Article article);
-	public String checkPwd(int articleNum, String articleAccessPwd);
-	public String delCheckedArticle(String check);
-	public Article getArticle(String check);
+/*	public String checkPwd(int articleNum, String articleAccessPwd);*/
+	public String delCheckedArticle(int articleNum, String articleAccessPwd);
+	public Article getCheckedArticle(int articleNum, String articleAccessPwd);
 	public String modArticle(Article article);
 	public List<Article> searchArticle(Map<String, String> map);
 
