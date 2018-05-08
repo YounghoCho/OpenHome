@@ -34,6 +34,7 @@ public class ArticleController {
 
 	@Resource
 	private ArticleBO service;
+	
 	@Resource
 	private AttachmentFileBO fileservice;
 
@@ -118,21 +119,28 @@ public class ArticleController {
 	//비밀번호 체크 후 게시글 삭제
 	@RequestMapping(value = "/checkAndDelArticle", method = RequestMethod.POST)
 	@ResponseBody
-	public String checkAndDelArticle(@RequestParam("articleNum") String articleNum, 
+	public String checkAndDelArticle(@RequestParam("articleNum") int articleNum, 
 			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
-		String articleDelResult = service.delCheckedArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
-		String fileDelResult = fileservice.removeFiles(Integer.parseInt(articleNum), req);
-		if (articleDelResult.equals("success") && (fileDelResult.equals("success") || fileDelResult.equals("none"))) {
-			return "success";
+		String articleDelResult = service.delCheckedArticle(articleNum, articleAccessPwd);
+		if (articleDelResult == "success") {
+			String fileDelResult = fileservice.removeFiles(articleNum, req);
+			if (fileDelResult.equals("success") || fileDelResult.equals("none")) {
+				return "success";
+			} else {
+				return "delfilefail";
+			}
+		} else {
+			return articleDelResult;
 		}
-		return "none";
+			
 	}
+	
 	//비밀번호 체크 후 게시글 가져오기(수정, 삭제)
 	@RequestMapping(value = "/checkAndGetArticle", method = RequestMethod.POST)
 	@ResponseBody
-	public Article checkAndGetArticle(@RequestParam("articleNum") String articleNum, 
+	public Article checkAndGetArticle(@RequestParam("articleNum") int articleNum, 
 			@RequestParam("articleAccessPwd") String articleAccessPwd, HttpServletRequest req, HttpServletResponse res) throws Exception { 
-		return service.getArticle(service.checkPwd(Integer.parseInt(articleNum), articleAccessPwd));
+		return service.getCheckedArticle(articleNum, articleAccessPwd);
 	}
 	//게시글 수정(Level 3)
 	@GetWriteTraffic
@@ -155,10 +163,7 @@ public class ArticleController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> map = new HashMap<String, String>();
 		map = mapper.readValue(paramData, new TypeReference<Map<String, String>>(){});
-		System.out.println(map);
-		System.out.println(map.get("writer"));
 		List<Article> ar = service.searchArticle(map);
-		System.out.println(ar);
 		return ar;
 	}
    

@@ -181,7 +181,7 @@
 				</if>
 				<if test = 'startDate != "" and endDate != ""'>
 				<![CDATA[
-				AND a.articleDate >= #{startDate} AND  a.articleDate <= #{endDate}
+				AND Date(a.articleDate) >= #{startDate} AND  Date(a.articleDate) <= #{endDate}
 				]]> 
 				</if>
 				GROUP BY a.articleNum

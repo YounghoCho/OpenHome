@@ -229,3 +229,4 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/common-home.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=9"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/search.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/plugin/jquery-uuid.js"></script>

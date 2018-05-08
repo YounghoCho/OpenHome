@@ -68,7 +68,7 @@
         
         for (var i = 0; i < files.length; i++) {
         	 if (((files[i].size/megaByte) <= 20 ) && ((totalFileCount + oldTotalFileCount) < 10)){
-                  fd.append(files[i].name, files[i]);
+                  fd.append($.uuid(), files[i]);
                   // 파일 이름과 정보를 추가해줌
                   var tag = createFile(files[i].name, files[i].size);
                   $('#fileTable').append(tag);
@@ -209,10 +209,15 @@
 				if (res=="success") {
 					$('#check_pwd_hidden_area').css("display", "none");
 					alert("게시글이 삭제되었습니다.");
-					oldTotalFileCount--;
 					returnBoard($("#singleBoardTable").data("boardNum"), 1);
-				} else {
+				} else if (res == "not equal") {
 					$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
+				}else if (res == "delfilefail") {
+					$('#check_pwd_hidden_area').css("display", "none");
+					alert("게시글이 삭제되지 않았습니다.(파일 삭제 error)");
+				} else {
+					$('#check_pwd_hidden_area').css("display", "none");
+					alert("게시글이 삭제되지 않았습니다.(게시글 삭제 error");
 				}
 			},
 			error : function(err) {
@@ -236,7 +241,7 @@
 			url : 'api/article/checkAndGetArticle',
 			data : 'articleNum=' + $("#readtable").data("articleNum") + '&articleAccessPwd=' + $("#pwd_text_field").val(),
 			success : function(res){
-					if(res.articleAccessPwd != "fail") {
+					if(res.articleAccessPwd != "not equal") {
 						$('.filelist').remove();
 						$('.oldfiletr').remove();
 							$.ajax({
@@ -244,7 +249,7 @@
 								dataType : 'json',
 								url : 'api/attachmentfile/checkAndGetAttachmentFile',
 								data : 'articleNum=' + $("#readtable").data("articleNum"),
-								success : function(res){
+								success : function(res) {
 									if (res != null) {
 										$.each(res, function(index, value) {
 											var sizeKB = value.fileSize / 1024;
@@ -308,14 +313,14 @@
 				$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');
 			}
 		},
-			error : function(err) {
+		error : function(err) {
 				alert('readyState:' + err.readyState);
 				alert('status:' + err.status);
 				alert('statusText:' + err.statusText);
 				alert('responseText:' + err.responseText);
-			}
-		})
-	});
+		}
+	})
+});
 	
 
 function write() {
@@ -417,10 +422,11 @@ function reg() {
 				dataType : 'text',
 				url : 'api/attachmentfile/addFile',
 				data : fd,
-			    contentType : false,
+				contentType: false,
 		        processData : false,
 		        cache : false,
 				success : function(res){
+					alert(res);
 					if(res == "success") {
 						$.ajax({
 							type : 'post',

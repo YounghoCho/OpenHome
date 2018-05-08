@@ -16,6 +16,9 @@ public class ArticleBOImpl implements ArticleBO{
 
 	@Resource(name="ArticleDAO")
 	private ArticleDAO dao;
+	
+/*	@Autowired
+	BCryptPasswordEncoder passwordEncoder;*/
 
 	@Override
 	public List<Board> getBoardList() {
@@ -36,6 +39,9 @@ public class ArticleBOImpl implements ArticleBO{
 	
 	@Override
 	public String addArticle(Article article) {
+		
+		/*article.setArticleAccessPwd(passwordEncoderarticle.getArticleAccessPwd());*/
+		
 		int num =  dao.addArticle(article);
 		if (num == 1) {
 			return "success";
@@ -43,40 +49,31 @@ public class ArticleBOImpl implements ArticleBO{
 			return "fail";
 		}
 	}
-	
-	//비밀번호체크
-	@Override
-	public String checkPwd(int articleNum, String articleAccessPwd) {
-		String accessPwd = dao.getArticleAccessPwd(articleNum).getArticleAccessPwd();
-		if (accessPwd.equals(articleAccessPwd)) {
-			return String.valueOf(articleNum);
-		} else {
-			return "fail";
-		}
-	}	
 		
 	//비번체크된 게시글 삭제
 	@Override
-	public String delCheckedArticle(String check) {
-		if (check.equals("fail")) {
-			return "fail";
-		} else {
-			if(dao.removeOwnArticle(Integer.parseInt(check)) == 1 ) {
+	public String delCheckedArticle(int articleNum, String articleAccessPwd) {
+		String accessPwd = dao.getArticleAccessPwd(articleNum).getArticleAccessPwd();
+		if (accessPwd.equals(articleAccessPwd)) {
+			if(dao.removeOwnArticle(articleNum) == 1 ) {
 				return "success";
 			} else {
 				return "fail";
 			}
+		} else {
+			return "not equal";
 		}
 	}
 	
 	//비번체크 된 수정할 게시글 가져오기
 	@Override
-	public Article getArticle(String check) {
-		if(check != "fail") {
-			return dao.getArticle(Integer.parseInt(check));
+	public Article getCheckedArticle(int articleNum, String articleAccessPwd) {
+		String accessPwd = dao.getArticleAccessPwd(articleNum).getArticleAccessPwd();
+		if (accessPwd.equals(articleAccessPwd)) {
+				return dao.getArticle(articleNum);
 		} else {
 			Article article = new Article();
-			article.setArticleAccessPwd(check);
+			article.setArticleAccessPwd("not equal");
 			return article;
 		}
 	}

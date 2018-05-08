@@ -24,7 +24,7 @@ function setStartDate(value) {
 		
 	while(day <= 0) {
 		month = month - 1; //이전 달
-		if (month <= 0) {  //이번 달이 1월 달인 경우 처리
+		if (month <= 0) {  //이번 달이 1월인 경우 처리
 			month = month + 12;
 			year = year - 1;
 		}
@@ -84,6 +84,11 @@ function searchArticle() {
 		setEndDate();
 	}
 	
+	if ($('#date-select').val() == "self" && ($('#date-start').val() > $('#date-end').val())) {
+		alert("검색 날짜범위를 다시 입력하세요.");
+		return false;
+	}
+	
 	if (($('#date-start').val() == "") && ($('#date-end').val() != "")) {
 		alert("검색 시작일을 입력하세요.");
 		return false;
@@ -111,28 +116,38 @@ function searchArticle() {
 		contentType	: 'application/json;charset=utf-8',
 		cache		: false,
 		success		: function(res) {
-			
-		//Removing Message Lists
-		$(".tbody > tr > td").remove();
-		//Setting Message Lists
-		$.each(res, function(index, value) {
-			$(".tbody").append("<tr id='"+ value.rownum + "'>"
-					 + "<td>" +value.rownum + "</td><td>"
-					 + "<a href=\"javascript:goRead(" + value.articleNum + ")\">"
-					 + value.articleSubject + "</a></td><td>"
-					 + value.articleTextContent + "</td><td>"
-					 + value.articleDate.substring(0,10) + "</td><td>"
-					 + value.articleWriter + "</td>" + 
-					"</tr>");
-			}
+			$(".homeMainDiv").hide();
+			$(".articleReadDiv").hide();
+			$(".articleWriteDiv").hide();
+			$("#singleBoard").show();
+//			alert(res.size);
+		//
+		$(".tbody > tr").remove();
+		$("#indexNow > a").remove();
+		$("#indexOthers > a").remove();
 		
-		$("#indexNow").append("<a href=\"javascript:goBoardAjax(" + boardNumber + "," + startPage + ")\">"
+		if(res.length == 0) {
+			$(".tbody").append('<tr><td colspan="5" id="no_result">검색결과가 없습니다.</td></tr>');
+		} else {
+			$.each(res, function(index, value) {
+				$(".tbody").append("<tr id='"+ value.rownum + "'>"
+						 + "<td>" +value.rownum + "</td><td>"
+						 + "<a href=\"javascript:goRead(" + value.articleNum + ")\">"
+						 + value.articleSubject + "</a></td><td>"
+						 + value.articleTextContent + "</td><td>"
+						 + value.articleDate.substring(0,10) + "</td><td>"
+						 + value.articleWriter + "</td>" + 
+						"</tr>");
+				})
+		}
+		
+		/*$("#indexNow").append("<a href=\"javascript:goBoardAjax(" + boardNumber + "," + startPage + ")\">"
 				 + "<b>" + i + "</b></a>");
 		
 		
 		}
 			
-/*		var pages = 1;
+		var pages = 1;
 		var countList = 10;
 		var countPage = 10;
 		var totalCount = res.getArticleTotalCount;
@@ -142,7 +157,7 @@ function searchArticle() {
 		//Exception Handling
 		if(totalCount % countList > 0){ totalPage++; }
 		if(totalPage < pages){ pages = totalPage;}
-		if(endPage > totalPage){ endPage = totalPage;}*/
+		if(endPage > totalPage){ endPage = totalPage;}
 		$("#indexNow > a").remove();
 		$("#indexOthers > a").remove();
 		//Listing Up Page Numbers
@@ -166,7 +181,7 @@ function searchArticle() {
 
 		$.each(res, function(index, value) {
 			alert(value.articleNum);
-		})
+		})*/
 	},
 	error		: function(err) {
 		alert('readyState:' + err.readyState);
@@ -175,12 +190,16 @@ function searchArticle() {
 		alert('responseText:' + err.responseText);
 	}
 });
+	/*location.hash = '/#/page:board'+boardNumber;*/
+
+}
 
 function goSearchBoard() {
 	$(".homeMainDiv").hide();
 	$(".articleReadDiv").hide();
 	$(".articleWriteDiv").hide();
 	$("#singleBoard").show();
+	
 	
 	
 }
