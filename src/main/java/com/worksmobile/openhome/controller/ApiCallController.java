@@ -5,12 +5,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.worksmobile.openhome.bo.ApiCallBO;
 import com.worksmobile.openhome.status.ReturnStatus;
 
@@ -27,16 +27,14 @@ public class ApiCallController {
 	@ResponseBody
 	public void insertApiCall(HttpServletRequest req) throws Exception {
 		String apiLevel = req.getParameter("apiLevel");
-		service.insertApiCall(apiLevel);		
+		service.insertApiCall(apiLevel);
 	}
 	//API 데이터를 호출한다.
 	@RequestMapping(value = "/apiList", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getTotalApiList(HttpServletRequest req) throws Exception{
 		Map<String, Object> result = new HashMap<>();
-		result.put("TotalApiList", service.getTotalApiList());
-		result.put("TotalapiCount", service.getTotalapiCount());
+		result.put("totalApiList", service.getTotalApiList());
 		return result;
 	}	
-	
 }

@@ -179,6 +179,7 @@ function goArticlesAjax(currentPageNo){ //default : 1
 	$(".staticGraphDiv").hide();
 	$(".homeReadDiv").hide();
 	$(".homeMainDiv").hide()
+	$("#BubbleChart").hide();
 	$("#singleBoard").show();
 	
 	$.ajax({

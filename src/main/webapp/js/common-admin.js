@@ -69,8 +69,8 @@ $(window).on('hashchange', function(){
 		$(".homeMainDiv").hide();
 		$("#singleBoard").hide();
 		$(".homeReadDiv").hide();	
-		$("#BubbleChart").hide();
-		$(".staticGraphDiv").show();	
+		$(".staticGraphDiv").hide();
+		$("#BubbleChart").show();
 		break;
 	}
 });

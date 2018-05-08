@@ -1,7 +1,8 @@
 package com.worksmobile.openhome.model;
 
-import lombok.Data;
+import java.sql.Date;
 
+import lombok.Data;
 @Data
 public class ApiCall {
 	 private int articleList;
@@ -9,6 +10,5 @@ public class ApiCall {
 	 private int articleWrite;
 	 private int fileUpload;
 	 private int fileDownload;
-	 private int apiDate;
-	 private int countAll;
+	 private Date apiDate;
 }

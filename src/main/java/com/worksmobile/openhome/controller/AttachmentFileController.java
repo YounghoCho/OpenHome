@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.worksmobile.openhome.bo.AttachmentFileBO;
 import com.worksmobile.openhome.controller.annotaion.GetArticleWriteApiCall;
 import com.worksmobile.openhome.controller.annotaion.GetFileUploadApiCall;
+import com.worksmobile.openhome.controller.annotaion.GetUploadTraffic;
 import com.worksmobile.openhome.controller.annotaion.GetWriteTraffic;
 import com.worksmobile.openhome.model.AttachmentFile;
 
@@ -26,7 +27,7 @@ public class AttachmentFileController {
 	private AttachmentFileBO service;
 	//author : Suji
 	//파일을 업로드한다(Level 4)
-	@GetWriteTraffic
+	@GetUploadTraffic
 	@GetFileUploadApiCall
 	@RequestMapping(value="/addFile", method = RequestMethod.POST)
 	@ResponseBody
@@ -48,7 +49,7 @@ public class AttachmentFileController {
 			return service.checkAndGetAttachmentFile(articleNum, req);
 	}
 	//파일을 수정한다.(Level 4)
-	@GetWriteTraffic
+	@GetUploadTraffic
 	@GetFileUploadApiCall
 	@RequestMapping(value="/modFile", method = RequestMethod.POST)
 	@ResponseBody

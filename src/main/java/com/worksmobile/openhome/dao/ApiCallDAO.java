@@ -1,10 +1,13 @@
 package com.worksmobile.openhome.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.worksmobile.openhome.model.ApiCall;
 
 @Repository("ApiCallDAO")
 public class ApiCallDAO {
@@ -25,10 +28,7 @@ private static final String NAMESPACE_API = "apiCall.";
 		paramMap.put("apiLevel", apiLevel);
 		sqlsession.insert(NAMESPACE_API + "insertApiCall", paramMap);	
 	}
-	public Object getTotalApiList() {
+	public List<ApiCall> getTotalApiList() {
 		return sqlsession.selectList(NAMESPACE_API + "getTotalApiList");
-	}
-	public Object getTotalapiCount() {
-		return sqlsession.selectList(NAMESPACE_API + "getTotalapiCount");
 	}
 }

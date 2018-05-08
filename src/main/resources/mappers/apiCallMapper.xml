@@ -41,13 +41,7 @@
 	
 	<select id="getTotalApiList" resultType="com.worksmobile.openhome.model.ApiCall">
 		SELECT
-			*
-		FROM
-			api_call
-	</select>
-	<select id="getTotalapiCount" resultType="com.worksmobile.openhome.model.ApiCall">
-		SELECT
-			count(api_num) as countAll
+			article_list as ArticleList, article_detail as articleDetail, article_write as articleWrite, file_upload as fileUpload, file_download as fileDownload, api_date as apiDate
 		FROM
 			api_call
 	</select>
