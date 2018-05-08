@@ -40,13 +40,10 @@ function goHomeAjax(){
 			$(".menudecoration > #menuButton").remove();
 			$(".board_select_list").remove();
 			for (let index = 0; index < len; index++){
-<<<<<<< HEAD
+
 				$(".menudecoration").append("<li id = \"menuButton\"style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
 				/* top의 board select에 추가*/
 				$("#board-select").append('<option class="board_select_list" value="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
-=======
-				$(".menudecoration").append("<li id = \"menuButton\" style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
->>>>>>> 7d9b07bc479085099e70cab0b45ae648276917f5
 			}
 
 		//관리자가 조작한 순서대로 게시판을 출력하는 기능

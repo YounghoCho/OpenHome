@@ -4,17 +4,12 @@
  *           Suji    Jang
  */
 package com.worksmobile.openhome.config;
-import java.util.EnumSet;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class WebInitializer implements WebApplicationInitializer {
@@ -34,8 +29,4 @@ public class WebInitializer implements WebApplicationInitializer {
         dispatcher.addMapping(MAPPING_URL);
     }
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> 7d9b07bc479085099e70cab0b45ae648276917f5
 }
