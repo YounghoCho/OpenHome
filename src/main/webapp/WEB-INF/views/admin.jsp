@@ -165,9 +165,9 @@
 	</div>
 </div>
 
-<div style="padding:20px;font-weight:bold;">< 일일별 API 사용량 ></div>
+<div id="BubbleChartHead" style="padding:20px;font-weight:bold;">< 일일별 API 사용량 ></div>
 <div id="BubbleChart"></div>
-<div style="margin-top:50px;padding:20px;font-weight:bold">< 5월달 API 사용량 ></div>
+<div id="DonutChartHead" style="margin-top:50px;padding:20px;font-weight:bold">< 5월달 API 사용량 ></div>
 <div id="DonutChart"></div>
 
 </div>
@@ -180,14 +180,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver=2"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/common-admin.js?ver=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/admin.js?ver=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/common-admin.js?ver=2"></script>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/billboard.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/billboard.css?ver=1">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver=19"></script>
-   
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph-traffic.js?ver=1"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph-api.js?ver=1"></script>  
 <script>
 var LoginCheck = "<%=session.getAttribute("userLoginInfo")%>";
 //세션이 유효하면

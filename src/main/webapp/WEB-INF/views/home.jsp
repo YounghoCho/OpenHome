@@ -225,7 +225,7 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=2"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/common-home.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/article.js?ver=9"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/search.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/home.js?ver=2"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/common-home.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=9"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/search.js"></script>

@@ -37,14 +37,20 @@ $(window).on('hashchange', function(){
 		$("#singleBoard").hide();
 		$(".homeReadDiv").hide();
 		$(".staticGraphDiv").hide();
+		$("#BubbleChartHead").hide();
 		$("#BubbleChart").hide();
+		$("#DonutChartHead").hide();
+		$("#DonutChart").hide();
 		$(".homeMainDiv").show();
 		break;
 	case "board":
 		$(".homeMainDiv").hide();
 		$(".articleReadDiv").hide();
 		$(".articleWriteDiv").hide();
+		$("#BubbleChartHead").hide();
 		$("#BubbleChart").hide();
+		$("#DonutChartHead").hide();
+		$("#DonutChart").hide();
 		$("#singleBoard").show();
 		break;
 	case "readx":
@@ -52,7 +58,10 @@ $(window).on('hashchange', function(){
 		$(".homeMainDiv").hide();
 		$("#singleBoard").hide();
 		$(".articleWriteDiv").hide();
+		$("#BubbleChartHead").hide();
 		$("#BubbleChart").hide();
+		$("#DonutChartHead").hide();
+		$("#DonutChart").hide();
 		$(".homeReadDiv").show();			
 		$('#boardTdSubject').empty();
 		$('#boardTdContent').empty();
@@ -62,7 +71,10 @@ $(window).on('hashchange', function(){
 		$(".homeMainDiv").hide();
 		$("#singleBoard").hide();
 		$(".homeReadDiv").hide();	
+		$("#BubbleChartHead").hide();
 		$("#BubbleChart").hide();
+		$("#DonutChartHead").hide();
+		$("#DonutChart").hide();
 		$(".staticGraphDiv").show();
 		break;		
 	case "apigp":
@@ -70,7 +82,10 @@ $(window).on('hashchange', function(){
 		$("#singleBoard").hide();
 		$(".homeReadDiv").hide();	
 		$(".staticGraphDiv").hide();
+		$("#BubbleChartHead").show();
 		$("#BubbleChart").show();
+		$("#DonutChartHead").show();
+		$("#DonutChart").show();
 		break;
 	}
 });
