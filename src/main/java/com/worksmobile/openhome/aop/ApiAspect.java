@@ -40,8 +40,8 @@ public class ApiAspect {
 
  		for (Object obj : joinPoint.getArgs()) {
 			if (obj instanceof HttpServletRequest || obj instanceof MultipartHttpServletRequest) {
-				log.info("#API Level 3: annotation method path : " + joinPoint.getSignature());
-				dao.insertApiCallLevel3();
+				log.info("Leve 3 발생 : annotation method path : " + joinPoint.getSignature());
+				dao.insertApiCall("apiLevel3");
 			}
 		}
 	}
@@ -51,8 +51,8 @@ public class ApiAspect {
 
  		for (Object obj : joinPoint.getArgs()) {
 			if (obj instanceof HttpServletRequest || obj instanceof MultipartHttpServletRequest) {
-				log.info("#API Level 4: annotation method path : " + joinPoint.getSignature());
-				dao.insertApiCallLevel4();
+				log.info("Leve 4 발생 : annotation method path : " + joinPoint.getSignature());
+				dao.insertApiCall("apiLevel4");
 			}
 		}
 	}

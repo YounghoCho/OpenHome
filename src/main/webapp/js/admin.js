@@ -6,7 +6,7 @@ function goBoardManageAjax(){
 	$("#BubbleChart").hide();
 	$(".homeMainDiv").show();	
 	
-	jQuery.ajax({
+	$.ajax({
 		type : "GET",
 		url : "api/admin/boardList",
 		dataType : "json",
@@ -43,7 +43,7 @@ function updateBoard(boardNum){
 	$(".boardTitleWindow").fadeIn(1000);
 	//최종 수정 버튼 클릭
 	$("#updateBoardButton").off().on("click", function(){
-		jQuery.ajax({
+		$.ajax({
 			type : "PUT",
 			url : "api/admin/boardTitles",
 			data : { "boardTitle" : $("#newTitle").val(), "boardNum" : boardNum},
@@ -86,7 +86,7 @@ function removeBoard(boardNum){
 
 //게시판 추가
 $("#newBoardButton").on("click", function(){
-	jQuery.ajax({
+	$.ajax({
 		type : "POST",
 		url : "api/admin/newBoard",
 		data : "boardTitle=" + $("#boardTitle").val(),
@@ -122,7 +122,7 @@ $("#orderButton").on("click", function(){
 			}
 		});
 		//게시판 목록 보이기
-		jQuery.ajax({
+		$.ajax({
 			type : "GET",
 			url : "api/admin/boardList",
 			dataType : "json",
@@ -140,7 +140,7 @@ $("#orderButton").on("click", function(){
 				//Custom Attribute로 데이터 전송
 				$("#saveOrderButton").on("click", function(){
 					//순서 저장
-					jQuery.ajax({
+					$.ajax({
 						type : "PUT",
 						url : "api/admin/boardOrders",
 						data :  {"tableOrder" : tableOrder},
@@ -179,9 +179,10 @@ function goArticlesAjax(currentPageNo){ //default : 1
 	$(".staticGraphDiv").hide();
 	$(".homeReadDiv").hide();
 	$(".homeMainDiv").hide()
+	$("#BubbleChart").hide();
 	$("#singleBoard").show();
 	
-	jQuery.ajax({
+	$.ajax({
 		type : "GET",
 		url : "api/admin/allArticles",
 		dataType : "json",
@@ -258,7 +259,7 @@ function goRead(articleNumber){
 	$(".homeMainDiv").hide()
 	$("#singleBoard").hide();
 	$(".homeReadDiv").show();
-	jQuery.ajax({
+	$.ajax({
 		type: "GET",
 		url: "api/article/articleDetails",
 		dataType: 'json',

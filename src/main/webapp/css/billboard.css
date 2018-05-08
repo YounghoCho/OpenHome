@@ -7,8 +7,12 @@
  * 
  * @version 1.4.1
  */
+.bb {
+	width : 90%
+}
 /*-- Chart --*/
 .bb svg {
+  width : 100%;
   font: 10px sans-serif;
   -webkit-tap-highlight-color: transparent; }
 

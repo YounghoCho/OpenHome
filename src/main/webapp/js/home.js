@@ -1,58 +1,3 @@
-//enum 선언
-var ReturnStatus = {"SUCCESS":"SUCCESS"};
-Object.freeze(ReturnStatus);
-
-//사용자 최초 진입, 페이지 새로 고침
-$(document).ready(function(){
-	var refresh = location.hash.slice(9,14);
-	var number = location.hash.slice(14);
-	switch(refresh){
-		case "":
-			goHomeAjax();
-			break;
-		case "homex":
-			goHomeAjax();
-			break;		
-		case "board":	
-			getBoardListAjax();
-			goBoardAjax(number, 1);//(게시판번호, 페이지번호)
-			break;
-		case "readx":
-			getBoardListAjax();
-			goRead(number);//(게시글번호)
-			break;
-	}
-});
-
-//페이지 뒤로가기
-$(window).on('hashchange', function(){
-	var page = location.hash.slice(9,14);
-	var number = location.hash.slice(14);
-	switch(page){
-		case "homex":
-			$("#singleBoard").hide();
-			$(".articleReadDiv").hide();
-			$(".articleWriteDiv").hide();
-			$(".homeMainDiv").show();
-			break;
-		case "board":
-			$(".homeMainDiv").hide();
-			$(".articleReadDiv").hide();
-			$(".articleWriteDiv").hide();
-			$("#singleBoard").show();
-			break;
-		case "readx":
-			$(".homeMainDiv").hide();
-			$("#singleBoard").hide();
-			$(".articleWriteDiv").hide();
-			$(".articleReadDiv").show();			
-			$('#boardTdSubject').empty();
-			$('#boardTdContent').empty();
-			$('.filelist_2').empty();
-			break;
-	}
-});
-
 //게시판 목록
 function getBoardListAjax(){
 	$.ajax({
@@ -64,8 +9,9 @@ function getBoardListAjax(){
 			$(".menudecoration > #menuButton").remove();
 			$(".board_select_list").remove();
 			let len = res.boardList.length;
+			$(".menudecoration > #menuButton").remove();
 			for (let index = 0; index < len; index++){
-				$(".menudecoration").append("<li style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
+				$(".menudecoration").append("<li id = \"menuButton\" style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
 				/* top의 board select에 추가*/
 				$("#board-select").append('<option class="board_select_list" value="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
 			}
@@ -94,9 +40,13 @@ function goHomeAjax(){
 			$(".menudecoration > #menuButton").remove();
 			$(".board_select_list").remove();
 			for (let index = 0; index < len; index++){
+<<<<<<< HEAD
 				$(".menudecoration").append("<li id = \"menuButton\"style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
 				/* top의 board select에 추가*/
 				$("#board-select").append('<option class="board_select_list" value="' + res.boardList[index].boardNum + '">' + res.boardList[index].boardTitle + '</option>');
+=======
+				$(".menudecoration").append("<li id = \"menuButton\" style = \"cursor:pointer;\" onclick = \"goBoardAjax(" + res.boardList[index].boardNum + ", 1)\">" + res.boardList[index].boardTitle + "</li>");
+>>>>>>> 7d9b07bc479085099e70cab0b45ae648276917f5
 			}
 
 		//관리자가 조작한 순서대로 게시판을 출력하는 기능
@@ -260,7 +210,7 @@ function goRead(articleNumber){
 		success: function(res) {
 			if (res.size != 0) {
 				$.each(res, function(index, value) {
-					$("#boardTdFiles > ul").append('<li class = "filelist_2"><span><i class = "far fa-file"></i></span><a href = "/OpenHome/file/' + value.storedFileName + '"' + 'download = "' + value.originalFileName + '">'
+					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a class="fileDownload" href="/OpenHome/file/' + value.storedFileName + '"' + ' data-filesize="' + value.fileSize + '" download="' + value.originalFileName + '" onclick="javascript:fileDownloadTraffic();">'
 							+ value.originalFileName + '</a></li>');
 				});
 			}
@@ -270,4 +220,37 @@ function goRead(articleNumber){
 		}
 	});
 	location.hash = '/#/page:readx'+articleNumber;
+}
+
+function fileDownloadTraffic(fileSize){
+	alert($(".fileDownload").data("filesize"));	
+	let trafficContentLength = $(".fileDownload").data("filesize");
+	//traffic에 file사이즈 저장
+	$.ajax({
+		type: "post",
+		url: "api/traffic/contentLength",
+		data: 'trafficContentLength='+ trafficContentLength + "&trafficKind=" + "fileDownload",
+		success: function(res) {
+			if (res == ReturnStatus.SUCCESS){W
+				alert("트래픽 저장 완료");
+			}
+		},
+		error : function(err) {
+			alert('fileDownloadTraffic error : ' + err);
+		}
+	});
+	//apiCall에 카운트 저장
+	$.ajax({
+		type: "post",
+		url: "api/apiCall/apiCount",
+		data: 'apiLevel=' + "apiLevel5",
+		success: function(res) {
+			if (res == ReturnStatus.SUCCESS){
+				alert("API 저장 완료");
+			}
+		},
+		error : function(err) {
+			alert('fileDownloadTraffic API error : ' + err);
+		}
+	});
 }

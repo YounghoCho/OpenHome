@@ -69,8 +69,8 @@ $(window).on('hashchange', function(){
 		$(".homeMainDiv").hide();
 		$("#singleBoard").hide();
 		$(".homeReadDiv").hide();	
-		$("#BubbleChart").hide();
-		$(".staticGraphDiv").show();	
+		$(".staticGraphDiv").hide();
+		$("#BubbleChart").show();
 		break;
 	}
 });
@@ -88,7 +88,7 @@ function loginPane(){
 function loginAjax(){
 		var id = $("#managerId").val();
 		var pwd = $("#managerPwd").val();
-		jQuery.ajax({
+		$.ajax({
 			type : "GET",
 			url : "api/admin/adminLogin",
 			dataType : "json",	//count로 1개인지 확인

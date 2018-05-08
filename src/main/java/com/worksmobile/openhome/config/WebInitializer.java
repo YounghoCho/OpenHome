@@ -34,5 +34,8 @@ public class WebInitializer implements WebApplicationInitializer {
         dispatcher.addMapping(MAPPING_URL);
     }
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 7d9b07bc479085099e70cab0b45ae648276917f5
 }
