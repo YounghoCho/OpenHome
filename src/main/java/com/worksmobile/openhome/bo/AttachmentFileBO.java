@@ -21,4 +21,3 @@ public interface AttachmentFileBO {
 	/*public String addPhotoFile(int articleNum, MultipartHttpServletRequest mreq);*/
 	public String removeFile(int fileNum, HttpServletRequest req);
 }
-

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import com.worksmobile.openhome.dao.ArticleDAO;
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.model.Board;
@@ -14,6 +16,9 @@ public class ArticleBOImpl implements ArticleBO{
 
 	@Resource(name="ArticleDAO")
 	private ArticleDAO dao;
+	
+/*	@Autowired
+	BCryptPasswordEncoder passwordEncoder;*/
 
 	@Override
 	public List<Board> getBoardList() {
@@ -34,6 +39,9 @@ public class ArticleBOImpl implements ArticleBO{
 	
 	@Override
 	public String addArticle(Article article) {
+		
+		/*article.setArticleAccessPwd(passwordEncoderarticle.getArticleAccessPwd());*/
+		
 		int num =  dao.addArticle(article);
 		if (num == 1) {
 			return "success";

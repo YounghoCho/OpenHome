@@ -147,8 +147,7 @@
 	<select id="searchArticle" parameterType="map" resultType="com.worksmobile.openhome.model.Article">
 		SELECT @ROWNUM := @ROWNUM +1 as ROWNUM, c.*
 		FROM
-			(	SELECT a.articleNum, a.boardNum, a.articleSubject, a.articleTextContent, a.articleContent, a.articleWriter, a.articleAccessPwd,
-					 date_add(a.articleDate, interval 1 day) AS articleDate, count(fileNum) AS fileCount, count(comment_num) AS commentCount
+			(	SELECT a.*, count(fileNum) AS fileCount, count(comment_num) AS commentCount
 				FROM article a
 				LEFT JOIN attachmentfile as f ON a.articleNum = f.articleNum
 		        LEFT JOIN article_comment as c ON a.articleNum = c.article_num
@@ -182,7 +181,7 @@
 				</if>
 				<if test = 'startDate != "" and endDate != ""'>
 				<![CDATA[
-				AND a.articleDate >= #{startDate} AND  a.articleDate <= #{endDate}
+				AND Date(a.articleDate) >= #{startDate} AND  Date(a.articleDate) <= #{endDate}
 				]]> 
 				</if>
 				GROUP BY a.articleNum
