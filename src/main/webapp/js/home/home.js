@@ -207,7 +207,7 @@ function goRead(articleNumber){
 		success: function(res) {
 			if (res.size != 0) {
 				$.each(res, function(index, value) {
-					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a class="fileDownload" href="/OpenHome/file/' + value.storedFileName + '"' + ' data-filesize="' + value.fileSize + '" download="' + value.originalFileName + '" onclick="javascript:fileDownloadTraffic();">'
+					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a class="fileDownload" href="/OpenHome/file/' + value.storedFileName + '"' + ' data-filesize="' + value.fileSize + '" download="' + value.originalFileName + '" onclick="javascript:fileDownloadTraffic(' + value.fileSize + ');">'
 							+ value.originalFileName + '</a></li>');
 				});
 			}
@@ -220,8 +220,7 @@ function goRead(articleNumber){
 }
 
 function fileDownloadTraffic(fileSize){
-	alert($(".fileDownload").data("filesize"));	
-	let trafficContentLength = $(".fileDownload").data("filesize");
+	let trafficContentLength = fileSize;
 	//traffic에 file사이즈 저장
 	$.ajax({
 		type: "post",

@@ -30,8 +30,9 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 		
 		//--첨부파일 등록--
 		//경로 설정
-		String root = mreq.getSession().getServletContext().getRealPath("/");
-		String saveDirectory = root + "file" + File.separator;
+		/*String root = mreq.getSession().getServletContext().getRealPath("/");
+		String saveDirectory = root + "file" + File.separator;*/
+		String saveDirectory = "C:\\Users\\USER\\eclipse-workspace\\OpenHome\\src\\main\\webapp\\file\\";
 		
 		System.out.println(saveDirectory);
 		//파일 디렉터리 생성

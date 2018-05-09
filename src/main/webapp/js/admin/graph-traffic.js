@@ -1,19 +1,18 @@
 //트래픽 알림이 1번만 동작하게 한다
-let flag1 = 1;
-let flag2 = 1;
-let flag3 = 1;
+var flag1 = 1;
+var flag2 = 1;
+var flag3 = 1;
 
+let allTraffic, readTraffic, writeTraffic, uploadTraffic, downloadTraffic;
 //그래프 그리기.
 function goStaticGraphAjax(){
 	$(".homeMainDiv").hide();
 	$("#singleBoard").hide();
 	$(".homeReadDiv").hide();
-	$("#BubbleChart").hide();
-	$("#BubbleChartHead").hide();
-	$("#BubbleChart").hide();
-	$("#DonutChartHead").hide();
-	$("#DonutChart").hide();
+	$(".apiGraphDiv").hide();
 	$(".staticGraphDiv").show();
+	$("#container2").hide();
+	$("#container").show();	
 	
 	var allTraffics = new Array();
 	var readTraffics = new Array();
@@ -119,11 +118,11 @@ function goStaticGraphAjax(){
 				colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655',
 					'#FFF263', '#6AF9C4'],
 			    title: {
-			        text: 'OPENWORKS 트래픽 그래프'
+			        text: '일일별 트래픽 사용량'
 			    },
-			    subtitle: {
-			        text: '트래픽 그래프는 과금 정책과 직접적인 관련이 있습니다.'
-			    },
+			    chart: {
+			        width: 1400
+			    },    
 			    xAxis:{
 			    	labels : {
 			    		formatter : function(){
@@ -154,7 +153,7 @@ function goStaticGraphAjax(){
 			        name: '전체 트래픽',
 			        data: allTraffics	
 			    }, {
-			        name: '게시판 읽기',
+			        name: '게시글 읽기',
 			        data: readTraffics
 			    }, {
 			        name: '게시글 쓰기',
@@ -180,8 +179,21 @@ function goStaticGraphAjax(){
 			            }
 			        }]
 			    }
-			});
-			//end Graph
+			});//end Traffic Graph
+	
+			//트래픽 총 합 구하기
+			allTraffic = sumMonthTraffic(allTraffics);
+			readTraffic = sumMonthTraffic(readTraffics);
+			writeTraffic = sumMonthTraffic(writeTraffics);
+			uploadTraffic = sumMonthTraffic(uploadTraffics);
+			downloadTraffic = sumMonthTraffic(downloadTraffics);		
+			
+			function sumMonthTraffic(arr){
+				let sum = 0;
+				for(let i = 0; i < arr.length; i++)
+					sum += arr[i];
+				return sum;
+			}			
 		},//end success
 		error: function(err){
 			alert("e"+err);
@@ -190,6 +202,77 @@ function goStaticGraphAjax(){
 	location.hash = '/#/page:graph';
 }
 
+//월별 트래픽 통계 그래프
+function goStaticGraphAjax2(){
+	$("#container").hide();
+	$("#container2").show();	
+	
+	Highcharts.chart('container2', {
+	    chart: {
+	        type: 'bar',
+	        width: 1400
+	    },
+	    title: {
+	        text: '5월 트래픽 통계'
+	    },
+	    xAxis: {
+	        categories: ['5월 트래픽'],
+	        title: {
+	            text: null
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: '트래픽 사용량 (Byte)',
+	            align: 'high'
+	        },
+	        labels: {
+	            overflow: 'justify'
+	        }
+	    },
+	    tooltip: {
+	        valueSuffix: ' millions'
+	    },
+	    plotOptions: {
+	        bar: {
+	            dataLabels: {
+	                enabled: true
+	            }
+	        }
+	    },
+	    legend: {
+	        layout: 'vertical',
+	        align: 'right',
+	        verticalAlign: 'bottom',
+	        x: -40,
+	        y: -80,
+	        floating: true,
+	        borderWidth: 1,
+	        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	        shadow: true
+	    },
+	    credits: {
+	        enabled: false
+	    },
+	    series: [{
+	        name: '전체 트래픽',
+	        data: [allTraffic]
+	    }, {
+	        name: '게시글 읽기',
+	        data: [readTraffic]
+	    }, {
+	        name: '게시글 쓰기',
+	        data: [writeTraffic]
+	    }, {
+	        name: '파일 업로드',
+	        data: [uploadTraffic]
+	    }, {
+	        name: '파일 다운로드',
+	        data: [downloadTraffic]
+	    }]
+	});
+}
 /*
  * 실시간 트래픽 관제 알고리즘
  * 

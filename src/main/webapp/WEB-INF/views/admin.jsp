@@ -5,7 +5,7 @@
 
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css?ver=1">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=1">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=3">
 </head>
 
 <div id="mask"></div>
@@ -160,16 +160,22 @@
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/series-label.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	
-		<div id="container"></div>	
+		
+		<a id="dailyTraffic" type="button" class="btn btn-success" style="margin-top:13px;margin-right:10px;padding:8px;">일일 그래프</a>
+		<a id="monthlyTraffic" type="button" class="btn btn-success" style="margin-top:13px;padding:8px;">월간 그래프</a>
+		<div id="container"  style="margin-top:20px"></div>	
+		<div id="container2" style="margin-top:20px"></div>
 	</div>
 </div>
 
-<div id="BubbleChartHead" style="padding:20px;font-weight:bold;">< 일일별 API 사용량 ></div>
-<div id="BubbleChart"></div>
-<div id="DonutChartHead" style="margin-top:50px;padding:20px;font-weight:bold">< 5월달 API 사용량 ></div>
-<div id="DonutChart"></div>
-
+<div class="apiGraphDiv">
+	<a id="dailyApi" type="button" class="btn btn-success" style="margin-top:13px;margin-left:13px;margin-right:10px;padding:8px;">일일 그래프</a>
+	<a id="monthlyApi" type="button" class="btn btn-success" style="margin-top:13px;padding:8px;">월간 그래프</a>
+	<div id="BubbleChartHead" style="margin-top:50px;padding:20px;font-weight:bold;">< 일일별 API 사용량 ></div>
+	<div id="BubbleChart"></div>
+	<div id="DonutChartHead" style="margin-top:50px;padding:20px;font-weight:bold">< 5월달 API 사용량 ></div>
+	<div id="DonutChart"></div>
+</div>
 </div>
 </div>
 </div>
@@ -181,13 +187,13 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/admin.js?ver=2"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/common-admin.js?ver=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/common-admin.js?ver=3"></script>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/billboard.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/billboard.css?ver=1">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph-traffic.js?ver=1"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph-api.js?ver=1"></script>  
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph-api.js?ver=3"></script>  
 <script>
 var LoginCheck = "<%=session.getAttribute("userLoginInfo")%>";
 //세션이 유효하면

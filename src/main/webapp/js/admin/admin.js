@@ -4,6 +4,9 @@ function goBoardManageAjax(){
 	$(".homeReadDiv").hide();
 	$("#singleBoard").hide();
 	$("#BubbleChart").hide();
+	$("#BubbleChartHead").hide();
+	$("#DonutChart").hide();
+	$("#DonutChartHead").hide();
 	$(".homeMainDiv").show();	
 	
 	$.ajax({
