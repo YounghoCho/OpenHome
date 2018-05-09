@@ -12,6 +12,7 @@ function goApiGraphAjax(){
 	$("#DonutChart").hide();
 	$("#BubbleChartHead").show();
 	$("#BubbleChart").show();		
+	
 	$.ajax({
 		type : "GET",
 		url : "api/apiCall/apiList", //response : totalApiList, totalApiCount

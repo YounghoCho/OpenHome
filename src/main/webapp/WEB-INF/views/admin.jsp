@@ -171,9 +171,9 @@
 <div class="apiGraphDiv">
 	<a id="dailyApi" type="button" class="btn btn-success" style="margin-top:13px;margin-left:13px;margin-right:10px;padding:8px;">일일 그래프</a>
 	<a id="monthlyApi" type="button" class="btn btn-success" style="margin-top:13px;padding:8px;">월간 그래프</a>
-	<div id="BubbleChartHead" style="margin-top:50px;padding:20px;font-weight:bold;">< 일일별 API 사용량 ></div>
+	<div id="BubbleChartHead" style="margin-top:50px;padding:20px;font-weight:bold;"><p style="font-size:18px;text-align:center;margin-right:8%;">일일별 API 사용량</p></div>
 	<div id="BubbleChart"></div>
-	<div id="DonutChartHead" style="margin-top:50px;padding:20px;font-weight:bold">< 5월달 API 사용량 ></div>
+	<div id="DonutChartHead" style="margin-top:50px;padding:20px;font-weight:bold"><p style="font-size:18px;text-align:center;margin-right:10%;">5월 API 사용량</p></div>
 	<div id="DonutChart"></div>
 </div>
 </div>
