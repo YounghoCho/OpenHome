@@ -6,7 +6,7 @@
 	
 <%-- 	<link href="../${pageContext.request.contextPath}/backbone/sample/vendor/css/bootstrap-2.3.1.css" rel="stylesheet" />
     <link href="../${pageContext.request.contextPath}/backbone/sample/vendor/css/bootstrap-responsive-2.3.1.css" rel="stylesheet" /> --%>
-    <link href="../${pageContext.request.contextPath}/backbone/css/backbone.upload-manager.css" rel="stylesheet" />
+<%--     <link href="../${pageContext.request.contextPath}/backbone/css/backbone.upload-manager.css" rel="stylesheet" /> --%>
 </head>
 
 <!-- header -->
@@ -191,7 +191,7 @@
 				               </table>
 					</div>
 					<!-- <div style="margin: 100px; width: 600px;" id="manager-area"></div> -->
-					<!-- <div id="reg_btn_area">
+					<div id="reg_btn_area">
 						<label for="my_pc_file_btn" class="btn btn-success pull-left" id="my_pc" style="margin-right:5px;">내 PC</label>
 						<input type="file" id="my_pc_file_btn" name="filename[]" multiple/>
 						<input type="button" class="btn btn-default pull-left" id="file_delete_btn" value="삭제"/>
@@ -212,7 +212,7 @@
 				               </table>
 				    	</div>
 					</div>
-					</div> -->
+					</div>
 					<div id="textarea_area" style="width:800px;height:550px;">
 						<textarea id="articleContent" name="articleContent" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
 					</div>
@@ -258,16 +258,7 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=9"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/search.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article_comment.js"></script>
-<%-- <script type="text/javascript" src="../${pageContext.request.contextPath}/js/plugin/uuid/jquery-uuid.js"></script> --%>
-
-<%-- <script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/underscore-1.4.4.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/backbone-1.0.0.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/jquery.iframe-transport.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/jquery.fileupload.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/backbone.defered-view-loader.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/js/backbone.upload-manager.js"></script> --%>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery-uuid.js"></script>
 
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/file.js"></script>

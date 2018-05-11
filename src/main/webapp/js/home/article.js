@@ -62,14 +62,20 @@
 	})
 	
 	
-    //formdata에 파일 추가
+	/*
+	 1.	article.js  handleFileUpload(files)
+	 a.	첨부파일을 추가할 때 파일을 검증하고 검증된 파일을 파일목록UI에 추가시키는 함수 입니다.
+	 b. 문제 > 추가한 데이터와 수정시 원래 파일 갯수를 포함하여 10개 이하의 파일이 첨부되어야합니다.
+	 		 파일을 등록할 때 이름이 같은 파일도 같이 등록될 수 있도록 해야합니다.
+	 	해결 > totalFileCount(새로 첨부하는 파일 갯수), oldTotalFileCount(원래 첨부파일 갯수) 변수를 이용하여 두개의 변수의 합이 10이하가 되도록 하였습니다.
+	 		jquery-uuid.js 플러그인을 이용하여 발생된 고유의 값을 파일의 Id로 처리하여 중복된 파일도 동록이 가능하도록 하였습니다. 
+	 */
     function handleFileUpload(files) {
         var megaByte = 1024 * 1024;
         
         for (var i = 0; i < files.length; i++) {
         	 if (((files[i].size/megaByte) <= 20 ) && ((totalFileCount + oldTotalFileCount) < 10)){
                   fd.append($.uuid(), files[i]);
-                  // 파일 이름과 정보를 추가해줌
                   var tag = createFile(files[i].name, files[i].size);
                   $('#fileTable').append(tag);
                   totalFileCount++;
@@ -380,6 +386,14 @@ function write() {
 	})	
 }
 
+/*
+ 2. article.js  reg()
+ a. 게시글을 등록하는 자바스크립트 함수 입니다.
+ b. 문제 > 게시글과 관련 파일 첨부를 따로 처리하였는데 게시글을 먼저 등록하고 파일첨부를 등록하는 과정에서 파일첨부 에러가 발생하면
+ 	첨부파일이 없는 상태에서 게시글이 등록되는 문제가 발생하였습니다.
+ 	해결 > 파일첨부를 우선적으로 해결하고 게시글을 등록하도록 변경하여 게시글만 등록되는 상황을 해결하였습니다.
+ 	* 현재 멀티 파일 첨부를 여러개를 한꺼번에 처리하지 않고 하나하나 처리하도록 변경할 예정입니다.
+ */
 function reg() {
 	if (!$('#articleWriter').val()) {
 		alert ( "작성자를 입력하세요." );

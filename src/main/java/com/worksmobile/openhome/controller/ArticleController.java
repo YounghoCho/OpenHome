@@ -155,7 +155,6 @@ public class ArticleController {
 	}
 	
 
-	//검색
 	@RequestMapping(value = "/searchArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Article> searchArticle(@RequestBody String paramData, HttpServletRequest req, HttpServletResponse res) throws Exception { 

@@ -31,8 +31,6 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 		
 		//--첨부파일 등록--
 		//경로 설정
-		/*String root = mreq.getSession().getServletContext().getRealPath("/");
-		String saveDirectory = root + "resources/file" + File.separator;*/
 		String saveDirectory = "C:\\Users\\USER\\eclipse-workspace\\OpenHome\\src\\main\\webapp\\file\\";
 		
 		System.out.println(saveDirectory);
@@ -42,11 +40,8 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 			dir.mkdirs();
 		}
 		
-		System.out.println(mreq.getCharacterEncoding());  
 		List<AttachmentFile> fList = new ArrayList<AttachmentFile>();
 		Iterator<String> files = mreq.getFileNames();
-		
-		System.out.println(files.toString());
 		
 		//파일 저장 및 map리스트 생성
 		while (files.hasNext()) {
