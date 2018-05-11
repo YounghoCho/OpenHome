@@ -672,4 +672,3 @@ function removeFile(fileNum) {
 			
 		}
 	}
-

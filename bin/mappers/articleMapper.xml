@@ -126,7 +126,13 @@
 		WHERE articleNum = #{articleNum}
 	</select>
 	
-	<delete id="removeOwnArticle" parameterType="int">
+	<select id="getArticleAccessPwd" parameterType="int" resultType="java.lang.String">
+		SELECT articleAccessPwd
+		FROM article
+		WHERE articleNum = #{articleNum}
+	</select>
+	
+	<delete id="delArticle" parameterType="int">
 		DELETE
 		FROM article
 		WHERE articleNum = #{articleNum}

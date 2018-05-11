@@ -13,6 +13,7 @@ import com.worksmobile.openhome.model.AttachmentFile;
 public interface AttachmentFileBO {
 
 	/*@author Suji Jang*/
+	public int checkFileExist(int articleNum);
 	public String addFile(String fileAttacher, int articleNum, MultipartHttpServletRequest mreq);
 	public List<AttachmentFile> getFiles(int aricleNumber);
 	public String removeFiles(int articleNumber, HttpServletRequest req);

@@ -25,6 +25,11 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 	private AttachmentFileDAO dao;
 
 /*	@ author Suji Jang */
+	@Override 
+	public int checkFileExist(int articleNum) {
+		return dao.checkFileExist(articleNum);
+	}
+	
 	@Override
 	public String addFile(String fileAttacher, int articleNum, MultipartHttpServletRequest mreq) {
 		
@@ -44,10 +49,12 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 		
 		//파일 저장 및 map리스트 생성
 		while (files.hasNext()) {
+			
 			String uploadFile = files.next();
 			MultipartFile multipartfile = mreq.getFile(uploadFile);
 			String originalFileName = multipartfile.getOriginalFilename();
 			System.out.println(originalFileName);
+			
 			//파일 중복 방지
 			String storedFileName = System.currentTimeMillis() + UUID.randomUUID().toString()
 					+ "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
@@ -55,12 +62,16 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 			//파일 저장하기
 			try {
 				multipartfile.transferTo(new File(saveDirectory+storedFileName));
+				
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
 			
 			AttachmentFile attachmentfile = new AttachmentFile(articleNum, originalFileName, storedFileName, (int)multipartfile.getSize(), fileAttacher);
+			dao.addFile(attachmentfile);
+			
 			fList.add(attachmentfile);
+			
 		}
 		
 		if (fList.size() != 0) {
@@ -91,22 +102,21 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 		
 		String root = req.getSession().getServletContext().getRealPath("/");
 		String saveDirectory = root + "file" + File.separator;
-		
-		if(dao.getFiles(articleNumber).size() != 0 ) {
 			
 			for(AttachmentFile attachmentfile : attachmentfileList) {
 				File file = new File(saveDirectory, attachmentfile.getStoredFileName()); 
-				file.delete();
+				if(file.delete()) {
+					continue;
+				} else {
+					return "serverfail";
+				}
 			}
 			
 			if (dao.removeFiles(articleNumber) == 1) {
 				return "success";
 			} else {
-				return "fail";
+				return "dbfail";
 			}
-		} else {
-			return "none";
-		}
 	}
 	
 	@Override

@@ -41,4 +41,9 @@ public class AttachmentFileDAO {
 	public AttachmentFile getFile(int fileNum) {
 		return sqlsession.selectOne(NAMESPACE_ATTACHMENTFILE + "getFile", fileNum);
 	}
+	
+	//첨부파일 유무확인
+	public int checkFileExist(int articleNum) {
+		return sqlsession.selectOne(NAMESPACE_ATTACHMENTFILE + "checkFileExist", articleNum);
+	}
 }
