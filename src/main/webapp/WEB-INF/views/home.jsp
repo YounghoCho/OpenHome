@@ -43,7 +43,6 @@
 					<option value="2">제목</option>
 					<option value="3">본문</option>
 					<option value="4">첨부파일</option>
-					<option value="5">덧글</option>
 				</select>
 				
 				<input type="text" id="content-text" placeholder="검색할 내용을 입력하세요."/>

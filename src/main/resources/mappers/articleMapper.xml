@@ -147,7 +147,7 @@
 	<select id="searchArticle" parameterType="map" resultType="com.worksmobile.openhome.model.Article">
 		SELECT @ROWNUM := @ROWNUM +1 as ROWNUM, c.*
 		FROM
-			(	SELECT a.*, count(fileNum) AS fileCount, count(comment_num) AS commentCount
+			(	SELECT a.*, count(fileNum) AS fileCount
 				FROM article a
 				LEFT JOIN attachmentfile as f ON a.articleNum = f.articleNum
 		        LEFT JOIN article_comment as c ON a.articleNum = c.article_num
@@ -175,8 +175,8 @@
 				<if test= 'searchType.equals("4")'>
 				AND f.originalFileName LIKE CONCAT('%', #{content}, '%')
 				</if>
-				<if test= 'searchType.equals("5")'>
-				AND c.comment_content LIKE CONCAT('%', #{content}, '%')
+				<if test= 'commentAnswer.equals("true")'>
+				OR c.comment_content LIKE CONCAT('%', #{content}, '%')
 				</if>
 				</if>
 				<if test = 'writer != ""'>
@@ -188,14 +188,8 @@
 				]]> 
 				</if>
 				GROUP BY a.articleNum
-				<if test = 'fileAnswer.equals("true") and commentAnswer.equals("false")'>
+				<if test = 'fileAnswer.equals("true")'>
 				HAVING fileCount > 0
-				</if>
-				<if test = 'fileAnswer.equals("false") and commentAnswer.equals("true")'>
-				HAVING commentCount > 0
-				</if>
-				<if test = 'fileAnswer.equals("true") and commentAnswer.equals("true")'>
-				HAVING fileCount > 0 AND commentCount > 0
 				</if>
 				ORDER BY a.articleNum desc ) c, ( SELECT @ROWNUM := 0 ) R
 	</select>
