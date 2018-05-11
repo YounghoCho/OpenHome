@@ -39,8 +39,14 @@ function drawDailyTrafficGraph(){
 			sumDailyTraffic(uploadTraffics, "fileUpload");
 			sumDailyTraffic(downloadTraffics, "fileDownload");
 			
+			/*
+			 * 외부 For문 : 하루 단위로 반복한다.
+			 * 내부 For문 : 각 트래픽별로 반복한다.
+			 * if문 : 트래픽의 합을 구한다.
+			 * else문 : 날짜가 변하는 시점에서, 현재 트래픽의 index를 기억시킨 뒤 내부 For문을 종료한다. 
+			 */
 			function sumDailyTraffic(arr, str){
-				let sum = 0, recentIndex = 0;										
+				let sum = 0, recentIndex = 0;		
 				
 				for (let index = startDate; index <= endDate; index += 86400000){
 					for (i = recentIndex; i < length; i++){						
@@ -58,7 +64,7 @@ function drawDailyTrafficGraph(){
 					arr.push(sum);
 					sum = 0;
 				}
-				//Level별 트래픽 합계를 모두 구하면, 비정상 트래픽 알람을 발생시킨다.
+				//트래픽 합계를 모두 구한 뒤, 비정상 트래픽 알람을 발생시킨다.
 				if(unusual.length != 0){
 					notice3(unusual, flag3);
 					flag3 = 0;
