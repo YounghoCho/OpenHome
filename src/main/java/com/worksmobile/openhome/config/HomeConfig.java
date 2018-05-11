@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
-public class ConfigOpenhome {
+public class HomeConfig {
 
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
@@ -56,7 +56,6 @@ public class ConfigOpenhome {
 	public ErrorPageFilter errorPageFilter() {
 		return new ErrorPageFilter();
 	}
-	//톰캣에러 해결중
 	@Bean
     public HttpMessageConverter<String> responseBodyConverter() {
         return new StringHttpMessageConverter(Charset.forName("UTF-8"));

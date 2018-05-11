@@ -52,6 +52,5 @@ dependencies {
 	compileOnly('org.projectlombok:lombok')
 	compile "org.slf4j:slf4j-api:1.7.7"
 		
-
 	compile("org.springframework.boot:spring-boot-starter-batch")
 }
