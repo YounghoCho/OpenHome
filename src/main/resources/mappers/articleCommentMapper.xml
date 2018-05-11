@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="articleComment">
+	<select id ="getComments" parameterType="int" resultType="com.worksmobile.openhome.model.ArticleComment">
+		SELECT
+			comment_num AS commentNum,
+			article_num AS articleNum,
+			comment_content AS commentContent,
+			date_format(comment_date,'%Y/%m/%d %H:%i:%s') AS commentDate,
+			comment_writer AS commentWriter,
+			comment_origin_upload AS commentOriginUpload,
+			comment_stored_upload AS commentStoredUpload,
+			comment_upload_size AS commentUploadSize
+		FROM
+			article_comment
+		WHERE
+			article_num = #{articleNum}
+	</select>
+	
+	<select id ="getCommentCount" parameterType="int" resultType="java.lang.Integer">
+		SELECT count(*) AS commentCount
+		FROM
+			article_comment
+		WHERE
+			article_num = #{articleNum}
+	</select>
+</mapper>

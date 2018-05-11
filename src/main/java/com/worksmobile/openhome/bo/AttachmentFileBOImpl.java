@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -30,8 +31,9 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 		
 		//--첨부파일 등록--
 		//경로 설정
-		String root = mreq.getSession().getServletContext().getRealPath("/");
-		String saveDirectory = root + "file" + File.separator;
+		/*String root = mreq.getSession().getServletContext().getRealPath("/");
+		String saveDirectory = root + "resources/file" + File.separator;*/
+		String saveDirectory = "C:\\Users\\USER\\eclipse-workspace\\OpenHome\\src\\main\\webapp\\file\\";
 		
 		System.out.println(saveDirectory);
 		//파일 디렉터리 생성
@@ -40,7 +42,7 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 			dir.mkdirs();
 		}
 		
-		System.out.println(mreq.getCharacterEncoding());
+		System.out.println(mreq.getCharacterEncoding());  
 		List<AttachmentFile> fList = new ArrayList<AttachmentFile>();
 		Iterator<String> files = mreq.getFileNames();
 		

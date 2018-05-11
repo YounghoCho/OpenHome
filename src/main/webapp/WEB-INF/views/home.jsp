@@ -4,7 +4,9 @@
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
 	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=28">
 	
-
+<%-- 	<link href="../${pageContext.request.contextPath}/backbone/sample/vendor/css/bootstrap-2.3.1.css" rel="stylesheet" />
+    <link href="../${pageContext.request.contextPath}/backbone/sample/vendor/css/bootstrap-responsive-2.3.1.css" rel="stylesheet" /> --%>
+    <link href="../${pageContext.request.contextPath}/backbone/css/backbone.upload-manager.css" rel="stylesheet" />
 </head>
 
 <!-- header -->
@@ -24,6 +26,9 @@
 <div id="center-right">
 <!-- top -->
 <div id="top">
+	<div id = "top-search-main_div">
+		<input type="text" id="content-text-main"/><input type="button" value="검색"/><input type="button" value="상세"/>
+	</div>
 	<div id="top-search_div">
 		<div id="search_div">
 			<div id="search_div_1">
@@ -38,6 +43,7 @@
 					<option value="2">제목</option>
 					<option value="3">본문</option>
 					<option value="4">첨부파일</option>
+					<option value="5">덧글</option>
 				</select>
 				
 				<input type="text" id="content-text" placeholder="검색할 내용을 입력하세요."/>
@@ -124,7 +130,29 @@
 						</tr>
 					</tbody>
 				</table>
-			
+				
+				<div id="comment-box">
+					<div>
+						<span>댓글(<span id="commentCount"></span>)</span>
+					</div>
+						<div>
+							<label for="comment-text-writer">작성자</label><input type="text" id="comment-text-writer" name="commentWriter"/>
+							<label for="comment-text-password">비밀번호</label><input type="text" id="comment-text-password" name="commentAccessPwd"/>
+							<form id="commentfile-reg_form">
+								<label for="comment-text-password">첨부파일</label><input type="file" id="comment-file" name=""/>
+							</form>
+							<div>
+								<textarea id="comment-text-content" cols="100" rows="7" style="resize:none"></textarea>
+								<input type="submit" value="등록"/>
+							</div>
+						</div>
+					<div>
+						<ul id="comment-list">
+							
+						</ul>
+					</div>	
+				</div>
+				
 				<!-- <a type="button" class="btn btn-default pull-right" style="margin-right:10px;width:80px;">취소</a>		
 				<a type="button" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a> -->
 				<!-- <a type="button" class="btn btn-default" style="margin-right:10px;width:80px;">취소</a>	 -->	
@@ -163,15 +191,16 @@
 				                   </tr>
 				               </table>
 					</div>
-					<div id="reg_btn_area">
+					<!-- <div style="margin: 100px; width: 600px;" id="manager-area"></div> -->
+					<!-- <div id="reg_btn_area">
 						<label for="my_pc_file_btn" class="btn btn-success pull-left" id="my_pc" style="margin-right:5px;">내 PC</label>
 						<input type="file" id="my_pc_file_btn" name="filename[]" multiple/>
 						<input type="button" class="btn btn-default pull-left" id="file_delete_btn" value="삭제"/>
 					</div>
 					<div>
-					<!-- <button type="button" id="file_area" aria-label="펼치기">
+					<button type="button" id="file_area" aria-label="펼치기">
 						<i class="fa fa-angle-up"></i>
-					</button> -->
+					</button>
 					
 					<div>
 						<div id="fileUpload" class="dragDropDiv">
@@ -182,10 +211,9 @@
 					                   <th id='tabFileSize'>사이즈</th>
 				                   </tr>
 				               </table>
-				        </div>
-					
+				    	</div>
 					</div>
-					</div>
+					</div> -->
 					<div id="textarea_area" style="width:800px;height:550px;">
 						<textarea id="articleContent" name="articleContent" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
 					</div>
@@ -225,8 +253,22 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article_comment.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/home.js?ver=2"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/common-home.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=9"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/search.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/plugin/jquery-uuid.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article_comment.js"></script>
+<%-- <script type="text/javascript" src="../${pageContext.request.contextPath}/js/plugin/uuid/jquery-uuid.js"></script> --%>
+
+<%-- <script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/underscore-1.4.4.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/backbone-1.0.0.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/sample/vendor/js/backbone.defered-view-loader.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/backbone/js/backbone.upload-manager.js"></script> --%>
+
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/file.js"></script>

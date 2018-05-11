@@ -1,6 +1,6 @@
 package com.worksmobile.openhome.model;
 
-import java.util.Date;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,10 @@ public class ArticleComment {
 	private int articleNum;
 	private String commentAccessPwd;
 	private String commentContent;
-	private Date commentDate;
-	private String commentWriter;	
+	private String commentDate;
+	private String commentWriter;
+	private String commentOriginUpload;
+	private String commentStoredUpload;
+	private int commentUploadSize;
+	private MultipartFile commentFile;
 }

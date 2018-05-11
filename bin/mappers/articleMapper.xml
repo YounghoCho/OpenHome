@@ -175,6 +175,9 @@
 				<if test= 'searchType.equals("4")'>
 				AND f.originalFileName LIKE CONCAT('%', #{content}, '%')
 				</if>
+				<if test= 'searchType.equals("5")'>
+				AND c.comment_content LIKE CONCAT('%', #{content}, '%')
+				</if>
 				</if>
 				<if test = 'writer != ""'>
 				AND a.articleWriter LIKE CONCAT('%', #{writer}, '%')

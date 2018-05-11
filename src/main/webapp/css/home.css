@@ -533,3 +533,7 @@ rect .highcharts-button-box{
 	font-size:20px;
 	padding:50px;
 }
+
+#commentDate::before{
+	content:" | ";
+}

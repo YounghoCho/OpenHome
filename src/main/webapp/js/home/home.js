@@ -179,7 +179,7 @@ function goRead(articleNumber){
 	$(".articleReadDiv").show();	
 	$('#boardTdSubject').empty();
 	$('#boardTdContent').empty();
-	$('.filelist_2').empty();
+	$('.filelist_2').remove();
 		
 	$.ajax({
 		type: "GET",
@@ -207,7 +207,7 @@ function goRead(articleNumber){
 		success: function(res) {
 			if (res.size != 0) {
 				$.each(res, function(index, value) {
-					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a class="fileDownload" href="/OpenHome/file/' + value.storedFileName + '"' + ' data-filesize="' + value.fileSize + '" download="' + value.originalFileName + '" onclick="javascript:fileDownloadTraffic();">'
+					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a class="fileDownload" href="/OpenHome/file/' + value.storedFileName + '"' + ' data-filesize="' + value.fileSize + '" download="' + value.originalFileName + '" onclick="javascript:fileDownloadTraffic(' + value.fileSize + ');">'
 							+ value.originalFileName + '</a></li>');
 				});
 			}
@@ -216,19 +216,22 @@ function goRead(articleNumber){
 			alert('fileDetails error : ' + err);
 		}
 	});
+	
+	getComments(articleNumber);
+	
 	location.hash = '/#/page:readx'+articleNumber;
 }
 
 function fileDownloadTraffic(fileSize){
-	alert($(".fileDownload").data("filesize"));	
-	let trafficContentLength = $(".fileDownload").data("filesize");
+	/*alert($(e).data("filesize"));*/	
+	let trafficContentLength = fileSize;
 	//traffic에 file사이즈 저장
 	$.ajax({
 		type: "post",
 		url: "api/traffic/contentLength",
 		data: 'trafficContentLength='+ trafficContentLength + "&trafficKind=" + "fileDownload",
 		success: function(res) {
-			if (res == ReturnStatus.SUCCESS){W
+			if (res == ReturnStatus.SUCCESS){
 				alert("트래픽 저장 완료");
 			}
 		},

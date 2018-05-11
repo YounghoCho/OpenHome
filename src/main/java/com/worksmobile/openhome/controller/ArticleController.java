@@ -159,12 +159,10 @@ public class ArticleController {
 	@RequestMapping(value = "/searchArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Article> searchArticle(@RequestBody String paramData, HttpServletRequest req, HttpServletResponse res) throws Exception { 
-		System.out.println(paramData);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> map = new HashMap<String, String>();
 		map = mapper.readValue(paramData, new TypeReference<Map<String, String>>(){});
-		List<Article> ar = service.searchArticle(map);
-		return ar;
+		return service.searchArticle(map);
 	}
    
 }
