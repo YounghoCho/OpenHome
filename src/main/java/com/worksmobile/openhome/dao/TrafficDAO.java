@@ -35,4 +35,10 @@ public class TrafficDAO {
 		paramMap.put("trafficKind", trafficKind);
 		sqlsession.insert(NAMESPACE_TRAFFIC + "insertContentLength", paramMap);	
 	}
+	public void moveTrafficData() {
+		sqlsession.insert(NAMESPACE_TRAFFIC + "moveTrafficData");		
+	}
+	public void optimizeTrafficTableVolume() {
+		sqlsession.insert(NAMESPACE_TRAFFIC + "optimizeTrafficTableVolume");		
+	}
 }

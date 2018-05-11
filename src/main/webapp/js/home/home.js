@@ -223,7 +223,6 @@ function goRead(articleNumber){
 }
 
 function fileDownloadTraffic(fileSize){
-	/*alert($(e).data("filesize"));*/	
 	let trafficContentLength = fileSize;
 	//traffic에 file사이즈 저장
 	$.ajax({

@@ -2,7 +2,6 @@
 var ReturnStatus = {"SUCCESS":"SUCCESS"};
 Object.freeze(ReturnStatus); //Object.freeze : 값 수정을 방지한다.
 
-
 //관리자 최초 진입, 페이지 새로 고침 
 $(document).ready(function(){
 	var refresh = location.hash.slice(9,14);
@@ -20,7 +19,7 @@ $(document).ready(function(){
 			goRead(number);
 			break;
 		case "graph":
-			goStaticGraphAjax();
+			drawDailyTrafficGraph();
 			break;	
 		case "apigp":
 			goApiGraphAjax();
@@ -37,20 +36,14 @@ $(window).on('hashchange', function(){
 		$("#singleBoard").hide();
 		$(".homeReadDiv").hide();
 		$(".staticGraphDiv").hide();
-		$("#BubbleChartHead").hide();
-		$("#BubbleChart").hide();
-		$("#DonutChartHead").hide();
-		$("#DonutChart").hide();
+		$(".apiGraphDiv").hide();
 		$(".homeMainDiv").show();
 		break;
 	case "board":
 		$(".homeMainDiv").hide();
 		$(".articleReadDiv").hide();
 		$(".articleWriteDiv").hide();
-		$("#BubbleChartHead").hide();
-		$("#BubbleChart").hide();
-		$("#DonutChartHead").hide();
-		$("#DonutChart").hide();
+		$(".apiGraphDiv").hide();
 		$("#singleBoard").show();
 		break;
 	case "readx":
@@ -58,10 +51,7 @@ $(window).on('hashchange', function(){
 		$(".homeMainDiv").hide();
 		$("#singleBoard").hide();
 		$(".articleWriteDiv").hide();
-		$("#BubbleChartHead").hide();
-		$("#BubbleChart").hide();
-		$("#DonutChartHead").hide();
-		$("#DonutChart").hide();
+		$(".apiGraphDiv").hide();
 		$(".homeReadDiv").show();			
 		$('#boardTdSubject').empty();
 		$('#boardTdContent').empty();
@@ -71,10 +61,7 @@ $(window).on('hashchange', function(){
 		$(".homeMainDiv").hide();
 		$("#singleBoard").hide();
 		$(".homeReadDiv").hide();	
-		$("#BubbleChartHead").hide();
-		$("#BubbleChart").hide();
-		$("#DonutChartHead").hide();
-		$("#DonutChart").hide();
+		$(".apiGraphDiv").hide();
 		$(".staticGraphDiv").show();
 		break;		
 	case "apigp":
@@ -82,10 +69,7 @@ $(window).on('hashchange', function(){
 		$("#singleBoard").hide();
 		$(".homeReadDiv").hide();	
 		$(".staticGraphDiv").hide();
-		$("#BubbleChartHead").show();
-		$("#BubbleChart").show();
-		$("#DonutChartHead").show();
-		$("#DonutChart").show();
+		$(".apiGraphDiv").show();
 		break;
 	}
 });
@@ -141,4 +125,18 @@ $("#logOutButton").on("click", function(){
 			alert(err);
 		}
 	});
+});
+
+//그래프 버튼
+$("#dailyTraffic").on("click", function(){
+	drawDailyTrafficGraph();
+});
+$("#monthlyTraffic").on("click", function(){	
+	drawMonthlyTrafficGraph();
+});
+$("#dailyApi").on("click", function(){
+	goApiGraphAjax();
+});
+$("#monthlyApi").on("click", function(){
+	goApiGraphAjax2();
 });

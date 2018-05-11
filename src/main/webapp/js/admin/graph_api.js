@@ -1,13 +1,17 @@
+//API 호출 합계
+var totalApiCall, totalArticleList, totalArticleDetail, totalArticleWrite, totalFileUpload, totalFileDownload;
+
 //API 그래프 그리기.
 function goApiGraphAjax(){
 	$(".homeMainDiv").hide();
 	$("#singleBoard").hide();
 	$(".homeReadDiv").hide();
 	$(".staticGraphDiv").hide();
+	$(".apiGraphDiv").show();
+	$("#DonutChartHead").hide();
+	$("#DonutChart").hide();
 	$("#BubbleChartHead").show();
-	$("#BubbleChart").show();
-	$("#DonutChartHead").show();
-	$("#DonutChart").show();
+	$("#BubbleChart").show();		
 	
 	$.ajax({
 		type : "GET",
@@ -82,7 +86,7 @@ function goApiGraphAjax(){
 			  },
 			  axis: {
 				y: {
-				  max : 100
+				  max : 170
 				},
 			    x: {
 			      type: "category"
@@ -136,8 +140,6 @@ function goApiGraphAjax(){
 				});
 			}, 1200);
 		
-			//API 통계 그래프
-			var totalApiCall, totalArticleList, totalArticleDetail, totalArticleWrite, totalFileUpload, totalFileDownload;
 			//위에서 구한 일일별 API 호출 합계를, API 종류 별로 합계를 구한다.
 			totalArticleList = getTotalData(articleList);
 			totalArticleDetail = getTotalData(articleDetail);
@@ -153,33 +155,7 @@ function goApiGraphAjax(){
 				}
 				return sum;
 			}
-				
-			var dounut = bb.generate({
-			  data: {
-			    columns: [
-					["게시판 목록", totalArticleList],
-					["게시글 내용", totalArticleDetail],
-					["게시글 쓰기", totalArticleWrite],
-					["파일 다운로드", totalFileUpload],
-					["파일 업로드", totalFileDownload]
-			    ],
-			    type: "donut",
-			    onclick: function(d, i) {
-				console.log("onclick", d, i);
-			},
-			    onover: function(d, i) {
-				console.log("onover", d, i);
-			},
-			    onout: function(d, i) {
-				console.log("onout", d, i);
-			}
-			  },
-			  donut: {
-			    title: "TOTAL : " + totalApiCall
-			  },
-			  bindto: "#DonutChart"
-			});
-	
+			
 		},
 		error : function(err){
 			alert("goApiGraphAjax error : " + err);
@@ -188,6 +164,68 @@ function goApiGraphAjax(){
 	location.hash = '/#/page:apigp';
 }
 
+function goApiGraphAjax2(){
+	$("#BubbleChartHead").hide();
+	$("#BubbleChart").hide();	
+	$("#DonutChartHead").show();
+	$("#DonutChart").show();
+	
+	var dounut = bb.generate({
+		  data: {
+		    columns: [							
+		    ],
+		    type: "donut",
+		    onclick: function(d, i) {
+			console.log("onclick", d, i);
+		},
+		    onover: function(d, i) {
+			console.log("onover", d, i);
+		},
+		    onout: function(d, i) {
+			console.log("onout", d, i);
+		}
+		  },
+		  donut: {
+		    title: "TOTAL : " + totalApiCall
+		  },
+		  bindto: "#DonutChart"
+		});
+	setTimeout(function() {
+		dounut.load({
+			columns: [
+				["게시판 목록", totalArticleList]
+			]
+		});
+	}, 100);	
+	setTimeout(function() {
+		dounut.load({
+			columns: [
+				["게시글 내용", totalArticleDetail]
+			]
+		});
+	}, 300);	
+	setTimeout(function() {
+		dounut.load({
+			columns: [
+				["게시글 쓰기", totalArticleWrite]
+			]
+		});
+	}, 600);	
+	setTimeout(function() {
+		dounut.load({
+			columns: [
+				["파일 다운로드", totalFileUpload]	
+			]
+		});
+	}, 900);	
+	setTimeout(function() {
+		dounut.load({
+			columns: [
+				["파일 업로드", totalFileDownload]
+			]
+		});
+	}, 1200);	
+}
 // 그래프의 x축 라벨을 ms단위에서 day단위로 변경한다.
 function dateFormating(index){
     var noticeDate;

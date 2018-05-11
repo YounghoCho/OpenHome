@@ -1,9 +1,9 @@
 //게시판 관리
 function goBoardManageAjax(){
 	$(".staticGraphDiv").hide();
+	$(".apiGraphDiv").hide();
 	$(".homeReadDiv").hide();
 	$("#singleBoard").hide();
-	$("#BubbleChart").hide();
 	$(".homeMainDiv").show();	
 	
 	$.ajax({

@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.worksmobile.openhome.bo.AttachmentFileBO;
-import com.worksmobile.openhome.controller.annotaion.GetArticleWriteApiCall;
-import com.worksmobile.openhome.controller.annotaion.GetFileUploadApiCall;
-import com.worksmobile.openhome.controller.annotaion.GetUploadTraffic;
-import com.worksmobile.openhome.controller.annotaion.GetWriteTraffic;
+import com.worksmobile.openhome.controller.annotaion.GetTrafficData;
 import com.worksmobile.openhome.model.AttachmentFile;
 
 @RestController
@@ -27,8 +24,7 @@ public class AttachmentFileController {
 	private AttachmentFileBO service;
 	//author : Suji
 	//파일을 업로드한다(Level 4)
-	@GetUploadTraffic
-	@GetFileUploadApiCall
+	@GetTrafficData
 	@RequestMapping(value="/addFile", method = RequestMethod.POST)
 	@ResponseBody
 	public String addFile(@RequestParam("articleWriter") String fileAttacher,
@@ -49,8 +45,7 @@ public class AttachmentFileController {
 			return service.checkAndGetAttachmentFile(articleNum, req);
 	}
 	//파일을 수정한다.(Level 4)
-	@GetUploadTraffic
-	@GetFileUploadApiCall
+	@GetTrafficData
 	@RequestMapping(value="/modFile", method = RequestMethod.POST)
 	@ResponseBody
 	public String modFile(@RequestParam("articleWriter") String fileAttacher,
@@ -65,8 +60,7 @@ public class AttachmentFileController {
 			return service.removeFile(Integer.parseInt(fileNum), req);
 	}
 	//에디터에 사진을 추가한다(Level 3)
-	@GetWriteTraffic
-	@GetArticleWriteApiCall
+	@GetTrafficData
 	@RequestMapping(value="/addPhotoFile", method = RequestMethod.POST)
 	public String addPhotoFile(MultipartHttpServletRequest mreq) throws Exception {
 			
