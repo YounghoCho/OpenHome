@@ -19,7 +19,7 @@ $(document).ready(function(){
 			goRead(number);
 			break;
 		case "graph":
-			goStaticGraphAjax();
+			drawDailyTrafficGraph();
 			break;	
 		case "apigp":
 			goApiGraphAjax();
@@ -129,10 +129,10 @@ $("#logOutButton").on("click", function(){
 
 //그래프 버튼
 $("#dailyTraffic").on("click", function(){
-	goStaticGraphAjax();
+	drawDailyTrafficGraph();
 });
 $("#monthlyTraffic").on("click", function(){	
-	goStaticGraphAjax2();
+	drawMonthlyTrafficGraph();
 });
 $("#dailyApi").on("click", function(){
 	goApiGraphAjax();

@@ -23,8 +23,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.worksmobile.openhome.bo.ArticleBO;
 import com.worksmobile.openhome.bo.AttachmentFileBO;
-import com.worksmobile.openhome.controller.annotaion.GetArticleWriteApiCall;
-import com.worksmobile.openhome.controller.annotaion.GetWriteTraffic;
+import com.worksmobile.openhome.controller.annotaion.GetTrafficData;
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.status.ReturnStatus;
 
@@ -96,8 +95,7 @@ public class ArticleController {
 	return returnStatus.name();
 	}
 	//새로운 게시글의 인덱스를 생성한다.(Level 3)
-	@GetWriteTraffic
-	@GetArticleWriteApiCall
+	@GetTrafficData
 	@RequestMapping(value = "/addArticleNum", method = RequestMethod.POST)
 	@ResponseBody
 	public String addArticleNum(HttpServletRequest req, HttpServletResponse res) throws Exception { 
@@ -106,8 +104,7 @@ public class ArticleController {
 		return String.valueOf(article.getArticleNum());
 	}
 	//게시글을 쓴다.(Level 3)
-	@GetWriteTraffic
-	@GetArticleWriteApiCall
+	@GetTrafficData
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public String addArticle(HttpServletRequest req, HttpServletResponse res) throws Exception { 
@@ -143,8 +140,7 @@ public class ArticleController {
 		return service.getCheckedArticle(articleNum, articleAccessPwd);
 	}
 	//게시글 수정(Level 3)
-	@GetWriteTraffic
-	@GetArticleWriteApiCall
+	@GetTrafficData
 	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public String modArticle(@RequestParam("articleNum") int articleNum, HttpServletRequest req, HttpServletResponse res) throws Exception { 

@@ -68,7 +68,7 @@
 <ul class="menudecoration">
 	<li style="cursor:pointer;"><a onclick="javascript:goBoardManageAjax()">게시판 관리</a></li>
 	<li style="cursor:pointer;"><a onclick="javascript:goArticlesAjax(1)">게시글 관리</a></li>
-	<li style="cursor:pointer;"><a onclick="javasciprt:goStaticGraphAjax()">트래픽 통계</a></li>
+	<li style="cursor:pointer;"><a onclick="javasciprt:drawDailyTrafficGraph()">트래픽 통계</a></li>
 	<li style="cursor:pointer;"><a onclick="javasciprt:goApiGraphAjax()">API 사용량</a></li>	
 </ul>
 </div>
@@ -187,13 +187,15 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/admin.js?ver=2"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/common-admin.js?ver=3"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/common_admin.js?ver=3"></script>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/billboard.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/billboard.css?ver=1">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph-traffic.js?ver=1"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph-api.js?ver=3"></script>  
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph_notice.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph_traffic_daily.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph_traffic_monthly.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph_api.js?ver=3"></script>  
 <script>
 var LoginCheck = "<%=session.getAttribute("userLoginInfo")%>";
 //세션이 유효하면

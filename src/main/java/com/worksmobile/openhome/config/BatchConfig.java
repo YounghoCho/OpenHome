@@ -39,7 +39,7 @@ public class BatchConfig {
 
 	// 애플리케이션 시작 후 60초 후에 첫 실행, 그 후 매 60초마다 주기적으로 실행하기
 	//@Scheduled(initialDelay = 1000, fixedDelay = 1000) 
-	@Scheduled(cron = "0 48 10 * * *") 
+	@Scheduled(cron = "0 0 0 * * *") 
 	public void execute() throws Exception{
 		log.info("Batch Started by Scheduler");
 		JobParameters param = new JobParametersBuilder().addString("JobID",
