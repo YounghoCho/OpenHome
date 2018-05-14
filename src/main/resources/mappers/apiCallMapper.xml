@@ -18,30 +18,14 @@
 	<insert id="insertApiCall" parameterType="map">
 		INSERT
 	 	INTO
-	 		api_call(article_list, article_detail, article_write, file_upload, file_download, api_date)
+	 		api_call(api_type, api_date)
 		VALUES
-		<choose>
-			<when test = 'apiLevel.equals("apiLevel1")'>
-					(1, 0, 0, 0, 0, now())			
-			</when>
-			<when test = 'apiLevel.equals("apiLevel2")'>			 
-					(0, 1, 0, 0, 0, now())			
-			</when>
-			<when test = 'apiLevel.equals("apiLevel3")'>
-					(0, 0, 1, 0, 0, now())			
-			</when>
-			<when test = 'apiLevel.equals("apiLevel4")'>		 
-					(0, 0, 0, 1, 0, now())			
-			</when>			
-			<when test = 'apiLevel.equals("apiLevel5")'>		 
-					(0, 0, 0, 0, 1, now())			
-			</when>			
-		</choose>
+			(#{apiType}, now())
 	</insert>
 	
 	<select id="getTotalApiList" resultType="com.worksmobile.openhome.model.ApiCall">
 		SELECT
-			article_list as ArticleList, article_detail as articleDetail, article_write as articleWrite, file_upload as fileUpload, file_download as fileDownload, api_date as apiDate
+			api_type as apiType, api_date as apiDate
 		FROM
 			api_call
 	</select>

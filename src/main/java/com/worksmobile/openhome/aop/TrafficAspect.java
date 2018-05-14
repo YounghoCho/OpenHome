@@ -8,14 +8,17 @@ package com.worksmobile.openhome.aop;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.worksmobile.openhome.dao.ApiCallDAO;
 import com.worksmobile.openhome.dao.TrafficDAO;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Aspect
@@ -48,7 +51,7 @@ public class TrafficAspect {
  		for (Object obj : joinPoint.getArgs()) { 						
  			if (obj instanceof HttpServletRequest) {					
  				log.info("Level 3 호출, 메소드 경로 : " + joinPoint.getSignature());
- 				apiCallDao.insertApiCall("apiLevel3");
+ 				apiCallDao.insertApiCall("article_write");
  		
  				HttpServletRequest req = (HttpServletRequest) obj;                      		
 				if (req.getContentLength() != -1) {
@@ -60,7 +63,7 @@ public class TrafficAspect {
             }
  			else if (obj instanceof MultipartHttpServletRequest) {			
 				log.info("Leve 4 호출, 메소드 경로 : " + joinPoint.getSignature());
-				apiCallDao.insertApiCall("apiLevel4");
+				apiCallDao.insertApiCall("file_upload");
 				
 				HttpServletRequest req = (HttpServletRequest) obj;                     	
 				if (req.getContentLength() != -1) {

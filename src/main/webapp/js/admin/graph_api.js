@@ -15,17 +15,14 @@ function goApiGraphAjax(){
 	
 	$.ajax({
 		type : "GET",
-		url : "api/apiCall/apiList", //response : totalApiList, totalApiCount
+		url : "api/apiCall/apiList", //response : totalApiList
 		dataType : "json",
 		success : function(res){
-			var totalApiCall = new Array();
-			
 			var articleList = new Array();
 			var articleDetail = new Array();
 			var articleWrite = new Array();
 			var fileUpload = new Array();
 			var fileDownload = new Array();
-			
 			var chartDate = new Array();
 			
 			//전체 api 개수만큼 반복한다.
@@ -41,11 +38,13 @@ function goApiGraphAjax(){
 				temp1 = 0, temp2 = 0, temp3 = 0, temp4 = 0, temp5 = 0;
 				//순차적으로 합계를 구하되, memo로 당일의 마지막 인덱스를 기억한다.
 				for(var i = memo; i < length; i++){	
-					if(res.totalApiList[i].articleList == 1) temp1++;
-					if(res.totalApiList[i].articleDetail == 1) temp2++;
-					if(res.totalApiList[i].articleWrite == 1) temp3++;
-					if(res.totalApiList[i].fileUpload == 1) temp4++;
-					if(res.totalApiList[i].fileDownload == 1) temp5++;
+					switch(res.totalApiList[i].apiType){
+						case 'article_list': temp1++; break;
+						case 'article_detail': temp2++; break;
+						case 'article_write': temp3++; break;
+						case 'file_upload': temp4++; break;
+						case 'file_download': temp5++; break;			
+					}
 					
 					//하루 단위가 증가한 것을 감지한다.
 					if(Date.parse(res.totalApiList[i].apiDate) > index){
@@ -73,7 +72,7 @@ function goApiGraphAjax(){
 			Array.prototype.push.apply(apiArticleWrite, articleWrite); 
 			Array.prototype.push.apply(apiFileUpload, fileUpload); 
 			Array.prototype.push.apply(apiFileDownload, fileDownload); 
-
+			
 			var chart = bb.generate({
 			  data: {
 			    columns: [
@@ -163,13 +162,11 @@ function goApiGraphAjax(){
 	});
 	location.hash = '/#/page:apigp';
 }
-
 function goApiGraphAjax2(){
 	$("#BubbleChartHead").hide();
 	$("#BubbleChart").hide();	
 	$("#DonutChartHead").show();
 	$("#DonutChart").show();
-	
 	var dounut = bb.generate({
 		  data: {
 		    columns: [							

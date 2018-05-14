@@ -48,7 +48,7 @@ public class ArticleDetailFilter implements Filter {
 
 		if(baos.toByteArray().length != 0) {
 			log.info("Leve 2 발생");
-			dao.insertApiCall("apiLevel2");
+			dao.insertApiCall("article_detail");
 		}
 	}
 	

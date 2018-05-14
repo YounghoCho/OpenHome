@@ -23,9 +23,9 @@ private static final String NAMESPACE_API = "apiCall.";
  	 * Level 4 : 파일 업로드 호출 (file_upload)
  	 * Level 5 : 파일 다운로드 호출 (file_download)
  	 */	
-	public void insertApiCall(String apiLevel) {
+	public void insertApiCall(String apiType) {
 		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("apiLevel", apiLevel);
+		paramMap.put("apiType", apiType);
 		sqlsession.insert(NAMESPACE_API + "insertApiCall", paramMap);	
 	}
 	public List<ApiCall> getTotalApiList() {
