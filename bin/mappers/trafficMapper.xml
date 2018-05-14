@@ -8,13 +8,13 @@
  -->	
 <mapper namespace="traffic">
 	
-	<select id="getTrafficData" resultType="com.worksmobile.openhome.model.Traffic">
-		SELECT trafficNum, trafficContentLength, trafficKind, trafficDate
-		FROM traffic
+	<select id="getTrafficData" resultType="com.worksmobile.openhome.model.TrafficMemo">
+		SELECT tm_type as tmType, tm_content_length as tmContentLength, tm_date as tmDate
+		FROM traffic_memo
 	</select>
 	<select id="getTrafficCount" resultType="int">
-		SELECT count(*) as countAll
-		FROM traffic
+		SELECT count(tm_num) as countAll
+		FROM traffic_memo
 	</select>
 	
 	<insert id="insertContentLength" parameterType="com.worksmobile.openhome.model.Traffic">
@@ -25,4 +25,17 @@
 			( #{trafficContentLength}, #{trafficKind}, now() )
 	</insert>	
 	
+	<insert id="copyTrafficData" parameterType="com.worksmobile.openhome.model.TrafficMemo">
+		INSERT
+		INTO
+			traffic_memo(tm_type, tm_content_length, tm_date)
+		VALUES 
+			(#{trafficKind}, (SELECT SUM(trafficContentLength) FROM traffic where trafficKind = #{trafficKind}), now())			
+	</insert>		
+	
+	<delete id="clearTrafficData">
+		DELETE
+		FROM
+			traffic
+	</delete>
 </mapper>

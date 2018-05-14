@@ -53,4 +53,5 @@ dependencies {
 	compile "org.slf4j:slf4j-api:1.7.7"
 		
 	compile("org.springframework.boot:spring-boot-starter-batch")
+	compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.2.1'
 }

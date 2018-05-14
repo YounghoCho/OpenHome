@@ -22,11 +22,22 @@
 		VALUES
 			(#{apiType}, now())
 	</insert>
-	
-	<select id="getTotalApiList" resultType="com.worksmobile.openhome.model.ApiCall">
+	<select id="getTotalApiList" resultType="com.worksmobile.openhome.model.ApiCallMemo">
 		SELECT
-			api_type as apiType, api_date as apiDate
+			acm_type as acmType, acm_count as acmCount, acm_date as acmDate
+		FROM
+			api_call_memo
+	</select>
+	<insert id="copyApiData" parameterType="com.worksmobile.openhome.model.ApiCallMemo">
+		INSERT
+		INTO
+			api_call_memo(acm_type, acm_count, acm_date)
+		VALUES 
+			(#{apiType}, (SELECT COUNT(api_num) FROM api_call where api_type = #{apiType}), now())		
+	</insert>
+	<delete id="clearApiData">
+		DELETE
 		FROM
 			api_call
-	</select>
+	</delete>
 </mapper>

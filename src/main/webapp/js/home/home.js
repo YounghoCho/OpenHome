@@ -242,7 +242,7 @@ function fileDownloadTraffic(fileSize){
 	$.ajax({
 		type: "post",
 		url: "api/apiCall/apiCount",
-		data: 'apiLevel=' + "file_download",
+		data: 'apiLevel=' + "fileDownload",
 		success: function(res) {
 //			if (res == ReturnStatus.SUCCESS){
 //				alert("API 저장 완료");

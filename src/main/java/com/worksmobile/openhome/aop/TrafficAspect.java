@@ -51,7 +51,7 @@ public class TrafficAspect {
  		for (Object obj : joinPoint.getArgs()) { 						
  			if (obj instanceof HttpServletRequest) {					
  				log.info("Level 3 호출, 메소드 경로 : " + joinPoint.getSignature());
- 				apiCallDao.insertApiCall("article_write");
+ 				apiCallDao.insertApiCall("articleWrite");
  		
  				HttpServletRequest req = (HttpServletRequest) obj;                      		
 				if (req.getContentLength() != -1) {
@@ -63,7 +63,7 @@ public class TrafficAspect {
             }
  			else if (obj instanceof MultipartHttpServletRequest) {			
 				log.info("Leve 4 호출, 메소드 경로 : " + joinPoint.getSignature());
-				apiCallDao.insertApiCall("file_upload");
+				apiCallDao.insertApiCall("fileUpload");
 				
 				HttpServletRequest req = (HttpServletRequest) obj;                     	
 				if (req.getContentLength() != -1) {

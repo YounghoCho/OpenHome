@@ -25,10 +25,20 @@ private static final String NAMESPACE_API = "apiCall.";
  	 */	
 	public void insertApiCall(String apiType) {
 		HashMap<String, Object> paramMap = new HashMap<>();
+		System.out.println("apiType : " + apiType);
 		paramMap.put("apiType", apiType);
 		sqlsession.insert(NAMESPACE_API + "insertApiCall", paramMap);	
 	}
 	public List<ApiCall> getTotalApiList() {
 		return sqlsession.selectList(NAMESPACE_API + "getTotalApiList");
+	}
+	public void copyApiData(String apiType) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("apiType", apiType);
+		sqlsession.insert(NAMESPACE_API + "copyApiData", paramMap);	
+		
+	}
+	public void clearApiData() {
+		sqlsession.delete(NAMESPACE_API + "clearApiData");	
 	}
 }
