@@ -25,25 +25,23 @@ public class TableOptimizer{
 	public void otherJob() { 
 		/* 테이블 최적화 
 		 * 
-		 * 1.매일 24시에 트래픽과 API호출 테이블을 정리해 DB용량을 최적화 시킨다.
-		 * 2. traffic, api_call 테이블들을 각각 Type별로 더한다.
-		 * 3. traffic_memo, api_call_memo 테이블에 일일별 총 합계를 기록한다.
-		 * 4. traffic. api_call 테이블의 데이터를 정리ㅇ한다.
+		 * 24시마다 트래픽, API 테이블의 합계를 게산해서 기록한다.
+		 * 기록이 완료되면 기존 테이블의 내용을 삭제한다.
 		 */
 		
 		//기록
-		trafficDAO.copyTrafficData("read");
-		trafficDAO.copyTrafficData("write");
-		trafficDAO.copyTrafficData("fileUpload");
-		trafficDAO.copyTrafficData("fileDownload");	
-		apiCallDAO.copyApiData("articleList");
-		apiCallDAO.copyApiData("articleDetail");
-		apiCallDAO.copyApiData("articleWrite");
-		apiCallDAO.copyApiData("fileUpload");
-		apiCallDAO.copyApiData("fileDownload");
-		
-		//삭제
-		trafficDAO.clearTrafficData();
-		apiCallDAO.clearApiData();
+//		trafficDAO.copyTrafficData("read");
+//		trafficDAO.copyTrafficData("write");
+//		trafficDAO.copyTrafficData("fileUpload");
+//		trafficDAO.copyTrafficData("fileDownload");	
+//		apiCallDAO.copyApiData("articleList");
+//		apiCallDAO.copyApiData("articleDetail");
+//		apiCallDAO.copyApiData("articleWrite");
+//		apiCallDAO.copyApiData("fileUpload");
+//		apiCallDAO.copyApiData("fileDownload");
+//		
+//		//삭제
+//		trafficDAO.clearTrafficData();
+//		apiCallDAO.clearApiData();
 	} 
 }

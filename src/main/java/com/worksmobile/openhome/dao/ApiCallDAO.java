@@ -39,6 +39,7 @@ private static final String NAMESPACE_API = "apiCall.";
 		
 	}
 	public void clearApiData() {
+		System.out.println("in?");
 		sqlsession.delete(NAMESPACE_API + "clearApiData");	
 	}
 }
