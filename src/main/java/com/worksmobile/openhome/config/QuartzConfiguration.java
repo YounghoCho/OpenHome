@@ -8,10 +8,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
-import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
 
+import com.worksmobile.openhome.dao.ApiCallDAO;
 import com.worksmobile.openhome.job.TableOptimizer;
 @Configuration 
 @ComponentScan("com.worksmobile.openhome.job") 
@@ -28,10 +27,16 @@ public class QuartzConfiguration {
 	
 	//복잡한 job이 필요한경우에 선언한다.(job이름 group이름 설정)
 	@Bean
+	public ApiCallDAO apiCallDAO() {
+		return new ApiCallDAO();
+	}
+	@Bean
 	public JobDetailFactoryBean jobDetailFactoryBean(){
 		JobDetailFactoryBean factory = new JobDetailFactoryBean();
+		
 		factory.setJobClass(TableOptimizer.class);
 		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("apiCallDAO", apiCallDAO());	//쿼츠와 스프링의 생명주기 관리 방식이 달라서, 객체를 주입해줍니다.
 		factory.setJobDataAsMap(map);
 		factory.setGroup("mygroup");
 		factory.setName("myjob");
@@ -45,7 +50,7 @@ public class QuartzConfiguration {
 		stFactory.setStartDelay(3000);
 		stFactory.setName("mytrigger");
 		stFactory.setGroup("mygroup");
-		stFactory.setCronExpression("0/10 * * * * ? *");
+		stFactory.setCronExpression("0 0 0 * * ? *");
 		return stFactory;
 	}
 	//두가지 트리거를 등록한다.

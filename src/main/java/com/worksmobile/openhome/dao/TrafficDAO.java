@@ -36,20 +36,4 @@ public class TrafficDAO {
 		paramMap.put("trafficKind", trafficKind);
 		sqlsession.insert(NAMESPACE_TRAFFIC + "insertContentLength", paramMap);	
 	}
-	public void moveTrafficData() {
-		sqlsession.insert(NAMESPACE_TRAFFIC + "moveTrafficData");		
-	}
-	public void optimizeTrafficTableVolume() {
-		sqlsession.insert(NAMESPACE_TRAFFIC + "optimizeTrafficTableVolume");		
-	}
-
-	public void copyTrafficData(String trafficKind) {
-		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("trafficKind", trafficKind);
-		sqlsession.insert(NAMESPACE_TRAFFIC + "copyTrafficData", paramMap);
-	}
-
-	public void clearTrafficData() {
-		sqlsession.delete(NAMESPACE_TRAFFIC + "clearTrafficData");		
-	}
 }

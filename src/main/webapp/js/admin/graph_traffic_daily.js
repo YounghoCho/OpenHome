@@ -19,7 +19,6 @@ function drawDailyTrafficGraph(){
 	var writeTraffics = new Array();
 	var uploadTraffics = new Array();
 	var downloadTraffics = new Array();
-	var trafficDate = new Array();
 	
 	$.ajax({
 		type : "GET",
@@ -28,67 +27,49 @@ function drawDailyTrafficGraph(){
 		success : function(res){
 
 			let length = res.trafficCount;
-			let startDate = Date.parse(res.trafficData[0].tmDate.substring(0,10));
+			let startDate = Date.parse(res.trafficData[0].trafficDate.substring(0,10));
+			let endDate = Date.parse(res.trafficData[length-1].trafficDate.substring(0,10));
 			var queue = new Array();
 			var unusual = new Array();
 			var front = 0, rear = 0, interval = 3;	
 			
-			sumDailyTraffic();
-			sumTotalTraffic();
+			sumDailyTraffic(allTraffics, "totalTraffic");
+			sumDailyTraffic(readTraffics, "read");
+			sumDailyTraffic(writeTraffics, "write");
+			sumDailyTraffic(uploadTraffics, "fileUpload");
+			sumDailyTraffic(downloadTraffics, "fileDownload");
+			
 			/*
 			 * 외부 For문 : 하루 단위로 반복한다.
 			 * 내부 For문 : 각 트래픽별로 반복한다.
 			 * if문 : 트래픽의 합을 구한다.
 			 * else문 : 날짜가 변하는 시점에서, 현재 트래픽의 index를 기억시킨 뒤 내부 For문을 종료한다. 
 			 */
-			function sumDailyTraffic(){
-				let recentIndex = 0;		
+			function sumDailyTraffic(arr, str){
+				let sum = 0, recentIndex = 0;		
 				
-				for (i = recentIndex; i < length; i++){	
-					switch(res.trafficData[i].tmType){
-					case 'read': 
-						readTraffics.push(res.trafficData[i].tmContentLength);
-						break;
-					case 'write':
-						writeTraffics.push(res.trafficData[i].tmContentLength);
-						break;
-					case 'fileUpload':
-						uploadTraffics.push(res.trafficData[i].tmContentLength);
-						break;
-					case 'fileDownload':
-						downloadTraffics.push(res.trafficData[i].tmContentLength);
-						break;			
+				for (let index = startDate; index <= endDate; index += 86400000){
+					for (i = recentIndex; i < length; i++){						
+						if (Date.parse(res.trafficData[i].trafficDate.substring(0,10)) == index){
+								if (str == "totalTraffic" || res.trafficData[i].trafficKind == str){
+									sum += res.trafficData[i].trafficContentLength;								
+								}				
+						}else {
+							recentIndex = i;
+							break;
+						}
 					}
-					if (Date.parse(res.trafficData[i].tmDate.substring(0,10)) > startDate){
-						trafficDate.push(startDate);
-						startDate = Date.parse(res.trafficData[i].tmDate.substring(0,10));
-						recentIndex = i;
-						continue;
-					}
+					//비 정상 트래픽을 검사한다.
+					testUnusualTraffic(sum, index, str);
+					arr.push(sum);
+					sum = 0;
 				}
-			
 				//트래픽 합계를 모두 구한 뒤, 비정상 트래픽 알람을 발생시킨다.
 				if(unusual.length != 0){
 					notice3(unusual, flag3);
 					flag3 = 0;
 				}
 			}
-
-			function sumTotalTraffic(){
-				let sum = 0;
-				for (let i = 0; i < readTraffics.length; i++){
-					sum += readTraffics[i];
-					sum += writeTraffics[i];
-					sum += uploadTraffics[i];
-					sum += downloadTraffics[i];
-
-					allTraffics.push(sum, trafficDate[i]);
-					//비 정상 트래픽을 검사한다.
-					testUnusualTraffic(sum, startDate);
-					sum = 0;
-				}				
-			}
-
 			
 			/*
 			 * 비 정상 트래픽 검사
@@ -97,7 +78,8 @@ function drawDailyTrafficGraph(){
 			 * 최초의 일주일(Interval = 7)은 EnQueue만 발생한다.
 			 * 일주일이 되는 시점부터 비정상 트래픽을 검사하고, Dequeue, Enqueue를 반복한다.
 			 */		
-			function testUnusualTraffic(sum, index){
+			function testUnusualTraffic(sum, index, str){
+				if (str == "totalTraffic"){
 					if (rear < (interval + front)){
 						queue.push(sum); //Enqueue
 						rear++;
@@ -112,7 +94,8 @@ function drawDailyTrafficGraph(){
 						front++; //Dequeue
 						queue.push(sum);
 						rear++;
-					}	
+					}
+				}	
 			}
 			
 			Highcharts.chart('container', {
