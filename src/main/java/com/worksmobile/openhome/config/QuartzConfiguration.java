@@ -50,7 +50,7 @@ public class QuartzConfiguration {
 		stFactory.setStartDelay(3000);
 		stFactory.setName("mytrigger");
 		stFactory.setGroup("mygroup");
-		stFactory.setCronExpression("0 0 0 * * ? *");
+		stFactory.setCronExpression("0 0 * * * ? *"); //min hour day mon dayOfWeek(Wen) user cmd
 		return stFactory;
 	}
 	//두가지 트리거를 등록한다.
