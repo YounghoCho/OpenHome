@@ -43,30 +43,6 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 		return dao.getFiles(articleNumber);
 	}
 	
-/*	@Override
-	public String removeFiles(int articleNumber, HttpServletRequest req) {
-		List<AttachmentFile> attachmentfileList = dao.getFiles(articleNumber);
-		
-		String root = req.getSession().getServletContext().getRealPath("/");
-		String saveDirectory = root + "file" + File.separator;
-		
-		if(dao.getFiles(articleNumber).size() != 0 ) {
-			
-			for(AttachmentFile attachmentfile : attachmentfileList) {
-				File file = new File(saveDirectory, attachmentfile.getStoredFileName()); 
-				file.delete();
-			}
-			
-			if (dao.removeFiles(articleNumber) == 1) {
-				return "success";
-			} else {
-				return "fail";
-			}
-		} else {
-			return "none";
-		}
-	}*/
-	
 	@Override
 	public List<AttachmentFile> checkAndGetAttachmentFile(@RequestParam("articleNumber") int articleNumber, HttpServletRequest req) throws Exception { 
 		List<AttachmentFile> attachmentfileList = dao.getFiles(articleNumber);
@@ -76,25 +52,6 @@ public class AttachmentFileBOImpl implements AttachmentFileBO{
 			return null;
 		}
 	}
-
-/*	@Override
-	public String removeFile(int fileNum, HttpServletRequest req) {
-		
-		String root = req.getSession().getServletContext().getRealPath("/");
-		String saveDirectory = root + "file" + File.separator;
-		
-		System.out.println(saveDirectory);
-		AttachmentFile attachmentfile = dao.getFile(fileNum);
-		
-		File file = new File(saveDirectory, attachmentfile.getStoredFileName()); 
-		file.delete();
-		
-		if (dao.removeFile(fileNum) == 1) {
-			return "success";
-		} else {
-			return "fail";
-		}
-	}*/
 
 	@Transactional
 	@Override
