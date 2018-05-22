@@ -24,11 +24,7 @@
 	</insert>
 	<select id="getTotalApiList" resultType="com.worksmobile.openhome.model.ApiCallMemo">
 		SELECT
-<<<<<<< HEAD
-			api_type as apiType, api_date as apiDate
-=======
 			acm_type as acmType, acm_count as acmCount, acm_date as acmDate
->>>>>>> 49a468475404efdd5270ff000b7c22e1fe0dabe4
 		FROM
 			api_call_memo
 	</select>
