@@ -96,5 +96,13 @@ public class ArticleDAO {
 	public void updateArticleCount(int articleNum) {
 		sqlsession.update(NAMESPACE_ARTICLE + "updateArticleCount", articleNum);
 	}
+	
+	public void increaseArticleCommentCount(int articleNum) {
+		sqlsession.update(NAMESPACE_ARTICLE + "increaseArticleCommentCount", articleNum);
+	}
+	
+	public void decreaseArticleCommentCount(int articleNum) {
+		sqlsession.update(NAMESPACE_ARTICLE + "decreaseArticleCommentCount", articleNum);
+	}
 
 }

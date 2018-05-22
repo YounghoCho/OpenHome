@@ -17,9 +17,8 @@
 	</select>
 	<select id="getArticleList" resultType="com.worksmobile.openhome.model.Article">	
 	SELECT @ROWNUM := @ROWNUM +1 as ROWNUM, e.*
-	FROM ( SELECT d.*, count(comment_num) as commentCount
-	  FROM ( SELECT 
-			a.boardNum, a.articleNum, articleSubject, articleTextContent, articleDate, articleWriter, articleCount,
+	FROM ( SELECT 
+			a.*,
 			count(fileNum) as fileCount
 		FROM 
 			article a
@@ -29,10 +28,7 @@
 		AND
 			a.articleStatus = 'Y'
 		GROUP BY a.articleNum
-		) d
-		LEFT JOIN article_comment as c ON d.articleNum = c.article_num
-		GROUP BY d.articleNum
-        ORDER BY d.articleNum DESC 
+        ORDER BY a.articleNum DESC 
 		LIMIT 
 			#{startNum}, #{pageSize} ) e, ( SELECT @ROWNUM := 0 ) R
 	</select>		
@@ -210,6 +206,24 @@
 	 		article 
 	 	SET 
 	 		articleCount = articleCount + 1
+	 	WHERE 
+	 		articleNum = #{articleNum}
+	</update>
+	
+	<update id="increaseArticleCommentCount"  parameterType="int">
+		UPDATE 
+	 		article 
+	 	SET 
+	 		commentCount = commentCount + 1
+	 	WHERE 
+	 		articleNum = #{articleNum}
+	</update>
+	
+	<update id="decreaseArticleCommentCount"  parameterType="int">
+		UPDATE 
+	 		article 
+	 	SET 
+	 		commentCount = commentCount - 1
 	 	WHERE 
 	 		articleNum = #{articleNum}
 	</update>

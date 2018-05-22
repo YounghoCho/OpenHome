@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nhncorp.lucy.security.xss.XssFilter;
 import com.nhncorp.lucy.security.xss.XssPreventer;
 import com.worksmobile.openhome.dao.ArticleCommentDAO;
+import com.worksmobile.openhome.dao.ArticleDAO;
 import com.worksmobile.openhome.model.ArticleComment;
 import com.worksmobile.openhome.model.AttachmentFile;
 
@@ -31,10 +32,11 @@ public class ArticleCommentBOImpl implements ArticleCommentBO {
 	@Resource(name="ArticleCommentDAO")
 	private ArticleCommentDAO dao;
 	
+	@Resource(name="ArticleDAO")
+	private ArticleDAO articledao;
+	
 	@Autowired
 	PasswordEncoder pwEncoder;
-	
-	/*XssFilter filter = XssFilter.getInstance("lucy-xss-superset.xml");*/
 	
 	private static final String FILE_PATH = "C:\\Users\\USER\\eclipse-workspace\\OpenHome\\src\\main\\webapp\\commentfile\\";
 
@@ -54,6 +56,7 @@ public class ArticleCommentBOImpl implements ArticleCommentBO {
 		articlecomment.setCommentWriter(XssPreventer.escape(articlecomment.getCommentWriter()));
 		articlecomment.setCommentContent(XssPreventer.escape(articlecomment.getCommentContent()));
 		if (dao.addComment(articlecomment) == 1) {
+			articledao.increaseArticleCommentCount(articlecomment.getArticleNum());
 			return "SUCCESS";
 		} else {
 			return "FAIL";
@@ -82,11 +85,12 @@ public class ArticleCommentBOImpl implements ArticleCommentBO {
 
 	@Transactional
 	@Override
-	public String chkAndDelComment(int commentNum, String commentAccessPwd, String commentStoredName) {
+	public String chkAndDelComment(int commentNum, String commentAccessPwd, String commentStoredName, int articleNum) {
 		if (pwEncoder.matches(commentAccessPwd, dao.getCommentPwd(commentNum).getCommentAccessPwd())) {
 			if (commentStoredName.equals(null)) {
 				if (delUploadedFile(commentStoredName) == true) {
 					if (dao.delComment(commentNum) == 1) {
+						articledao.decreaseArticleCommentCount(articleNum);
 						return "SUCCESS";
 					} else {
 						return "FAIL_DEL";
@@ -96,6 +100,7 @@ public class ArticleCommentBOImpl implements ArticleCommentBO {
 				}
 			} else {
 					if (dao.delComment(commentNum) == 1) {
+						articledao.decreaseArticleCommentCount(articleNum);
 						return "SUCCESS";
 					} else {
 						return "FAIL_DEL";

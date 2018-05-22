@@ -223,7 +223,8 @@
 			dataType: 'text',
 			data: 'commentNum=' + commentNum
 			+ '&commentAccessPwd=' + $("#pwd_text_field").val() 
-			+ '&commentStoredName=' + $('#comment-list li[id='+ commentNum+']').attr("data-storedname"),
+			+ '&commentStoredName=' + $('#comment-list li[id='+ commentNum+']').attr("data-storedname")
+			+ '&articleNum=' + $("#boardTdSubject").attr("data-articlenum"),
 			success: function(res) {
 				if (res == "SUCCESS") {
 					$('#check_pwd_hidden_area').css('display', 'none');

@@ -16,7 +16,7 @@ public interface ArticleCommentBO {
 	public String addComment(ArticleComment articlecomment);
 	public String chkCommentPwd(int commentNum, String commentAccessPwd);
 	public String modComment(ArticleComment articlecomment);
-	public String chkAndDelComment(int commentNum, String commentAccessPwd, String commentStoredName);
+	public String chkAndDelComment(int commentNum, String commentAccessPwd, String commentStoredName, int articleNum);
 	public ArticleComment uploadFile(MultipartFile file);
 	public boolean delUploadedFile(String storedFileName);
 	public void downloadCommentFile(String storedFileName, String originalFileName, HttpServletResponse response);

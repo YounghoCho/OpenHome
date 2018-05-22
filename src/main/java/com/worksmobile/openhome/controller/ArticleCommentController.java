@@ -65,8 +65,9 @@ public class ArticleCommentController {
 	@ResponseBody
 	public String chkAndDelComment(@RequestParam("commentNum") String commentNum,
 			@RequestParam("commentAccessPwd") String commentAccessPwd, 
-			@RequestParam("commentStoredName") String commentStoredName) {
-		return service.chkAndDelComment(Integer.parseInt(commentNum), commentAccessPwd, commentStoredName);
+			@RequestParam("commentStoredName") String commentStoredName,
+			@RequestParam("articleNum") String articleNum) {
+		return service.chkAndDelComment(Integer.parseInt(commentNum), commentAccessPwd, commentStoredName, (Integer.parseInt(articleNum)));
 	}
 	
 	@RequestMapping(value="/uploadCommentFile", method = RequestMethod.POST)
