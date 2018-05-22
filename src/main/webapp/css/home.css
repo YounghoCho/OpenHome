@@ -331,7 +331,7 @@ rect .highcharts-button-box{
 
 #reg_btn_area {
 	width:100%;
-	height:50px;
+	height:33px;
 	padding-top:10px;
 }
 
@@ -536,4 +536,50 @@ rect .highcharts-button-box{
 
 #commentDate::before{
 	content:" | ";
+}
+
+#file_area{
+	width:769px;
+	margin-bottom:20px;	
+}
+#file_list_area {
+	border: 1px solid #ccc;
+	overflow:auto;
+	width:769px;
+	height:150px;
+}
+
+#file_list_info_area {
+	text-align: right;
+	width:769px;
+	height:16px;
+}
+
+.comment_mod_div {
+	display:none;
+}
+
+.comment_modify_file {
+	display:none;
+}
+
+#comment-list > li + li {
+	border-top: 1px #ccc solid;
+}
+
+.file_list_li {
+	border:1px #ccc solid;
+	border-radius: 7px;
+	width:740px;
+	height:44px;
+	line-height:29px;
+	padding:5px;
+	margin:2px;
+}
+
+.article-file-name {
+	margin-left:7px;
+	margin-right:7px;
+	font-weight:bold;
+	font-size:15px;
 }

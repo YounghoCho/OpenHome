@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.model.Board;
+import com.worksmobile.openhome.model.SearchData;
 
 @Repository("ArticleDAO")
 public class ArticleDAO {
@@ -50,8 +51,8 @@ public class ArticleDAO {
 		return sqlsession.update(NAMESPACE_ARTICLE + "modArticle", article);
 	}
 	
-	public List<Article> searchArticle(Map<String, String> map) {
-		return sqlsession.selectList(NAMESPACE_ARTICLE + "searchArticle", map);
+	public List<Article> searchArticle(SearchData searchdata) {
+		return sqlsession.selectList(NAMESPACE_ARTICLE + "searchArticle", searchdata);
 	}
 	
 	/*@ author Youngho Jo*/
@@ -91,6 +92,8 @@ public class ArticleDAO {
 		paramMap.put("articleNum", articleNum);
 		sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", paramMap);
 	}
-
 	
+	public void updateArticleCount(int articleNum) {
+		sqlsession.update(NAMESPACE_ARTICLE + "updateArticleCount", articleNum);
+	}
 }

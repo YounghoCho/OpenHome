@@ -25,5 +25,21 @@ public class ArticleCommentDAO {
 	public int getCommentCount(int articleNum) {
 		return sqlsession.selectOne(NAMESPACE_ARTICLECOMMENT + "getCommentCount", articleNum);
 	}
+	
+	public int addComment(ArticleComment articlecomment) {
+		return sqlsession.insert(NAMESPACE_ARTICLECOMMENT + "addComment", articlecomment);
+	}
+	
+	public ArticleComment getCommentPwd(int commentNum) {
+		return sqlsession.selectOne(NAMESPACE_ARTICLECOMMENT + "getCommentPwd", commentNum);
+	}
+	
+	public int modComment(ArticleComment articlecomment) {
+		return sqlsession.update(NAMESPACE_ARTICLECOMMENT + "modComment", articlecomment);
+	}
+	
+	public int delComment(int commentNum) {
+		return sqlsession.update(NAMESPACE_ARTICLECOMMENT + "delComment", commentNum);
+	}
 
 }

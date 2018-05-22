@@ -21,6 +21,9 @@ public class Article {
 	private int ROWNUM;
 	private AttachmentFile attachmentfile;
 	private ArticleComment articlecomment;
+	private int commentCount;
+	private int fileCount;
+	private int articleCount;
 	
 	public Article(int boardNum) {
 		this.boardNum = boardNum;

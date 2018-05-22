@@ -23,4 +23,11 @@ public class HomeController {
 		mav.setViewName("admin");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/login")
+	public ModelAndView gologin() throws Exception{
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login");
+		return mav;
+	}
 }

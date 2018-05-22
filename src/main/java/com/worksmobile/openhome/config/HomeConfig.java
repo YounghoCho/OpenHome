@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.support.ErrorPageFilter;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter;
 
 @Configuration
 public class HomeConfig {
@@ -67,4 +70,13 @@ public class HomeConfig {
 		characterEncodingFilter.setForceEncoding(true);
 		return characterEncodingFilter;
 	}
+	
+/*	@Bean
+	public FilterRegistrationBean xssEscapeServletFilter() {
+	    FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+	    registrationBean.setFilter(new XssEscapeServletFilter());
+	    registrationBean.setOrder(1);
+	    registrationBean.addUrlPatterns("/*");
+	    return registrationBean;
+	}*/
 }

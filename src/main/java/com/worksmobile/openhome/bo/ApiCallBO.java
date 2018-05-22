@@ -9,6 +9,6 @@ import com.worksmobile.openhome.model.ApiCall;
 @Service
 public interface ApiCallBO {
 	public void insertApiCall(String apiLevel);
-
 	public List<ApiCall> getTotalApiList();
+	
 }

@@ -48,4 +48,5 @@ public class FilterConfig {
 		registration.addUrlPatterns("/api/article/articleDetails");
 		return registration;
 	}	
+	
 }

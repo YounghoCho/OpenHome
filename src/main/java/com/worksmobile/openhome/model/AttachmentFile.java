@@ -2,6 +2,8 @@ package com.worksmobile.openhome.model;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,12 +17,25 @@ public class AttachmentFile {
 		this.storedFileName = storedFileName;
 	}
 	
-	public AttachmentFile(int articleNum, String originalFileName, String storedFileName, int fileSize, String fileAttacher) {
+	public AttachmentFile(String originalFileName, String storedFileName, int fileSize) {
+		this.originalFileName = originalFileName;
+		this.storedFileName = storedFileName;
+		this.fileSize = fileSize;
+	}
+	
+	public AttachmentFile(int articleNum, String originalFileName, String storedFileName, int fileSize) {
 		this.articleNum = articleNum;
 		this.originalFileName = originalFileName;
 		this.storedFileName = storedFileName;
 		this.fileSize = fileSize;
-		this.fileAttacher = fileAttacher;
+	}
+	
+	public AttachmentFile(String originalFileName, String storedFileName, int fileSize, String uploadStatus, String databaseStatus) {
+		this.originalFileName = originalFileName;
+		this.storedFileName = storedFileName;
+		this.fileSize = fileSize;
+		this.uploadStatus = uploadStatus;
+		this.databaseStatus = databaseStatus;
 	}
 	
 	private int fileNum;
@@ -28,6 +43,9 @@ public class AttachmentFile {
 	private String originalFileName;
 	private String storedFileName;
 	private int fileSize;
-	private String fileAttacher;
 	private Date fileDate;
+	private MultipartFile fileupload;
+	private String uploadStatus;
+	private String databaseStatus;
+	
 }

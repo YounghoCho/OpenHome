@@ -97,9 +97,10 @@ function loginAjax(){
 					alert("입력 정보가 일치하지 않습니다");
 				else{
 					alert("로그인 되었습니다")
-					$('#mask, .window').hide();
+					/*$('#mask, .window').hide();
 					$('.window').hide();
-					$("#logOutButton").show();
+					$("#logOutButton").show();*/
+					location.href="admin";
 					
 					trafficTracking(); //트래픽 감지 시작
 				}
@@ -118,7 +119,7 @@ $("#logOutButton").on("click", function(){
 		success : function(res){
 			if(res == ReturnStatus.SUCCESS){
 				alert("로그아웃 되었습니다.");
-				location.href="admin";
+				location.href="login";
 			}
 		},
 		error : function(err){

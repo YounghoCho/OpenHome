@@ -41,7 +41,7 @@
 				if(!!oNavigator.safari && oNavigator.version <= 5){
 					bSupportDragAndDropAPI = false;
 				}else{
-					bSupportDragAndDropAPI = true;
+					bSupportDragAndDropAPI = false;
 				}
 			} else {
 				bSupportDragAndDropAPI = false;
@@ -335,7 +335,7 @@
     		sUploadURL;
     	
     	// sUploadURL= 'http://test.naver.com/popup/quick_photo/FileUploader_html5.php'; 	//upload URL
-    	sUploadURL= 'http://192.168.10.26:8090/myfinal/file_upload.do'; 	//upload URL
+    	sUploadURL= ''; 	//upload URL
     	alert(sUploadURL);
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {
@@ -477,7 +477,7 @@
  	 */
  	function callFileUploader (){
  		oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
- 			sUrl  : 'http://192.168.10.26:8090/myfinal/file_upload.do',	//샘플 URL입니다.
+ 			sUrl  : 'http://localhost:8090/OpenHome/api/editorphoto/uploadPhotoFile',	//샘플 URL입니다.
  			sCallback: 'editor/quick_photo_uploader/popup/callback.html',
  	        /*sCallback : location.href.replace(/\/[^\/]*$/, '') + '/callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
 */ 	    	sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)	

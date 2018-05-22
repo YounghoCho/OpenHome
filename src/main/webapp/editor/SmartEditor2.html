@@ -55,6 +55,10 @@ function submitContents(elClickedObj) {
 	} catch(e) {}
 }
 
+function pasteHTMLDemo(id, sHTML){
+    oEditors.getById[id].exec("PASTE_HTML", [sHTML]);
+}
+
 function setDefaultFont() {
 	var sDefaultFont = '궁서';
 	var nFontSize = 24;

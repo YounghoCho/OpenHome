@@ -151,17 +151,31 @@ function goBoardAjax(boardNumber, currentPageNo){
 			$('#singleBoardTable').removeData("boardNum");
 			$("#singleBoardTable").data("boardNum", boardNumber);		
 			//Removing Message Lists
-			$(".tbody > tr > td").remove();
+			$(".tbody > tr").remove();
 			//Setting Message Lists
 			for (var index = 0; index < res.articleList.length; index++){
-			$(".tbody").append("<tr>"
-					 + "<td>" + res.articleList[index].rownum + "</td><td>"
-					 + "<a href = \"javascript:goRead(" + res.articleList[index].articleNum + ")\">"
-					 + res.articleList[index].articleSubject + "</a></td><td>"
-					 + res.articleList[index].articleTextContent + "</td><td>"
-					 + res.articleList[index].articleDate.substring(0,10) + "</td><td>"
-					 + res.articleList[index].articleWriter + "</td>" +
-					"</tr>");
+				var html = "<tr><td>" + res.articleList[index].rownum + "</td>"
+							+ "<td>"
+							 + "<a href = \"javascript:goRead(" + res.articleList[index].articleNum + ")\">"
+							 + res.articleList[index].articleSubject;
+				if (res.articleList[index].commentCount > 0) {
+					html += "<span>(</span><span>"+ res.articleList[index].commentCount +"</span><span>)</span>";
+				}
+				
+				if (res.articleList[index].fileCount > 0) {
+					html += "<span><img src='/OpenHome/image/paper-clip.png' title=" + "'"+ res.articleList[index].fileCount + "'" + "/></span>";
+				}
+				
+				html+="</a></td>";
+				
+				html+= "<td>"
+				 + res.articleList[index].articleTextContent + "</td><td>"
+				 + res.articleList[index].articleDate.substring(0,10) + "</td><td>"
+				 + res.articleList[index].articleWriter + "</td><td>" +
+				 + res.articleList[index].articleCount + "</td><td>" + 
+				"</tr>";
+	
+				$(".tbody").append(html);
 			}
 		},
 		error : function(err){
@@ -177,20 +191,20 @@ function goRead(articleNumber){
 	$("#singleBoard").hide();
 	$(".articleWriteDiv").hide();
 	$(".articleReadDiv").show();	
-	$('#boardTdSubject').empty();
+	$('#subject_tr_area').empty();
 	$('#boardTdContent').empty();
 	$('.filelist_2').remove();
-		
+	
 	$.ajax({
 		type: "GET",
 		url: "api/article/articleDetails",
 		dataType: 'json',
 		data: 'articleNumber='+ articleNumber,
 		success: function(res){
-			$("#boardTdSubject").html(res.articleDetails[0].articleSubject);
+		
+			$("#subject_tr_area").html("<td data-articlenum='" + res.articleDetails[0].articleNum + "' style='height:50px' id='boardTdSubject'>"
+					+ res.articleDetails[0].articleSubject +"</td>");
 			$("#boardTdContent").html(res.articleDetails[0].articleContent);
-			$("#readtable").data("articleNum", res.articleDetails[0].articleNum);			
-			//add custom-data on table
 			$('#singleBoardTable').removeData("boardNum");
 			$("#singleBoardTable").data("boardNum", res.articleDetails[0].boardNum);	
 		},
@@ -207,7 +221,7 @@ function goRead(articleNumber){
 		success: function(res) {
 			if (res.size != 0) {
 				$.each(res, function(index, value) {
-					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><i class="far fa-file"></i></span><a class="fileDownload" href="/OpenHome/file/' + value.storedFileName + '"' + ' data-filesize="' + value.fileSize + '" download="' + value.originalFileName + '" onclick="javascript:fileDownloadTraffic(' + value.fileSize + ');">'
+					$("#boardTdFiles > ul").append('<li class="filelist_2"><span><img src="/OpenHome/image/download.png" /></i></span><a class="fileDownload" href="/OpenHome/api/attachmentfile/download/' + value.storedFileName + '/'+ value.originalFileName +'"' + ' data-filesize="' + value.fileSize + '">'
 							+ value.originalFileName + '</a></li>');
 				});
 			}

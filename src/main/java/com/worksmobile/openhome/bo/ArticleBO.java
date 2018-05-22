@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.worksmobile.openhome.model.Article;
 import com.worksmobile.openhome.model.Board;
+import com.worksmobile.openhome.model.SearchData;
 
 
 @Service
@@ -19,7 +20,8 @@ public interface ArticleBO {
 	public String delCheckedArticle(int articleNum, String articleAccessPwd);
 	public Article getCheckedArticle(int articleNum, String articleAccessPwd);
 	public String modArticle(Article article);
-	public List<Article> searchArticle(Map<String, String> map);
+	public List<Article> searchArticle(SearchData searchdata);
+	public void updateArticleCount(int articleNum);
 
 	/*@ author Youngho Jo*/
 	public List<Board> getBoardList();

@@ -2,24 +2,20 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+String id = (String)session.getAttribute("userLoginInfo");     
+if (id == null || id.equals("")) {                    
+response.sendRedirect("/OpenHome/login");    
+}
+%>
 
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css?ver=1">
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=3">
 </head>
 
-<div id="mask"></div>
-<!-- 로그인 팝업-->
-<div class="window">
-	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">
-		<img src="${pageContext.request.contextPath}/image/logo.png" style="width:65px;margin:5px;"/><br/>
-		<input type="text" id="managerId" placeholder="ID" style="width:280px;height:50px;margin:5px;padding-left:5px;"/><br/>
-		<input type="password" id="managerPwd" placeholder="PASSWORD" style="width:280px;height:50px;margin:5px;padding-left:5px;"/><br/>
-		<a type="button" class="btn btn-success" style="margin:5px;width:280px;height:50px;" onclick="javascript:loginAjax()">
-			<div style="margin-top:10px;">로그인</div>
-		</a>
-	</div>
-</div>
+
 <!-- 게시판 순서 조절 팝업 -->
 <div class="orderWindow">
 	<button class="btn btn-default pull-right" id="closeChange" style="margin:10px;"><font style="font-weight:bold;">x</font></button>

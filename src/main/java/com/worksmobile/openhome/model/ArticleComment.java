@@ -19,4 +19,15 @@ public class ArticleComment {
 	private String commentStoredUpload;
 	private int commentUploadSize;
 	private MultipartFile commentFile;
+	private String uploadStatus;
+	
+	public ArticleComment(String commentOriginUpload, String commentStoredUpload, int commentUploadSize,
+			String uploadStatus) {
+		this.commentOriginUpload = commentOriginUpload;
+		this.commentStoredUpload = commentStoredUpload;
+		this.commentUploadSize = commentUploadSize;
+		this.uploadStatus = uploadStatus;
+	}
+	
+	
 }

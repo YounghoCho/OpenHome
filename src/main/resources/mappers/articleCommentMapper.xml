@@ -20,6 +20,13 @@
 			article_num = #{articleNum}
 	</select>
 	
+	<insert id="addComment" parameterType="com.worksmobile.openhome.model.ArticleComment">
+		INSERT INTO
+			article_comment(article_num, comment_access_pwd, comment_content, comment_writer, comment_date, comment_origin_upload, comment_stored_upload, comment_upload_size)
+		VALUES
+			(#{articleNum}, #{commentAccessPwd}, #{commentContent}, #{commentWriter}, now(), #{commentOriginUpload}, #{commentStoredUpload}, #{commentUploadSize});
+	</insert>
+	
 	<select id ="getCommentCount" parameterType="int" resultType="java.lang.Integer">
 		SELECT count(*) AS commentCount
 		FROM
@@ -27,4 +34,30 @@
 		WHERE
 			article_num = #{articleNum}
 	</select>
+	
+	<select id="getCommentPwd" parameterType="java.lang.Integer" resultType="com.worksmobile.openhome.model.ArticleComment">
+		SELECT comment_access_pwd AS commentAccessPwd
+		FROM article_comment
+		WHERE comment_num = #{commentNum}
+	</select>
+	
+	<update id="modComment" parameterType="com.worksmobile.openhome.model.ArticleComment">
+		UPDATE
+			article_comment
+		SET
+			comment_content = #{commentContent},
+			comment_origin_upload = #{commentOriginUpload},
+			comment_stored_upload = #{commentStoredUpload},
+			comment_upload_size = #{commentUploadSize}
+	 	WHERE 
+	 		comment_num = #{commentNum}
+	</update>
+	
+	<delete id="delComment" parameterType="java.lang.Integer">
+		DELETE 
+		FROM
+			article_comment
+		WHERE
+			comment_num = #{commentNum}
+	</delete>
 </mapper>

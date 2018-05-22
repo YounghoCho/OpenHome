@@ -47,7 +47,7 @@ public class AdminUserController {
 	@ResponseBody
 	public String logOut(HttpServletRequest req, HttpSession session) throws Exception{
 
-		session.setAttribute("userLoginInfo", null);
+		session.removeAttribute("userLoginInfo");
 		
 		return returnStatus.name();
 	}

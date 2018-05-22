@@ -63,6 +63,17 @@ $('#date-select').on('change', function(){
 	}
 });
 
+$('#comment-checkbox').prop("disabled", true);
+
+$('#content-text').focusout(function(){
+	if($('#content-text').val().length > 0) {
+		$('#comment-checkbox').prop("disabled", false);
+	} else {
+		$('#comment-checkbox').prop("checked", false);
+		$('#comment-checkbox').prop("disabled", true);
+	}
+});
+
 $('#date-start').on('change', function() {
 	$('#date-select').val("self").prop("selected", true);
 });
@@ -95,10 +106,10 @@ function searchArticle() {
 	}
 	
 	var param = {
-			"boardnum"		: $('#board-select').val(), 
+			"boardNum"		: $('#board-select').val(), 
 			"searchType"	: $('#content-select').val(),
-			"content"		: $('#content-text').val(),
-			"writer"		: $('#writer-text').val(),
+			"searchContent"	: $('#content-text').val(),
+			"searchWriter"	: $('#writer-text').val(),
 			"fileAnswer"	: $('#file-checkbox').prop('checked'),
 			"commentAnswer"	: $('#comment-checkbox').prop('checked'),
 			"startDate"		: $('#date-start').val(),
@@ -106,7 +117,6 @@ function searchArticle() {
 	}
 	
 	var json_data = JSON.stringify(param);
-	/*alert(json_data);*/
 	
 	$.ajax({
 		url			: 'api/article/searchArticle',
@@ -120,7 +130,7 @@ function searchArticle() {
 			$(".articleReadDiv").hide();
 			$(".articleWriteDiv").hide();
 			$("#singleBoard").show();
-//			alert(res.size);
+
 		//
 		$(".tbody > tr").remove();
 		$("#indexNow > a").remove();
@@ -130,67 +140,38 @@ function searchArticle() {
 			$(".tbody").append('<tr><td colspan="5" id="no_result">검색결과가 없습니다.</td></tr>');
 		} else {
 			$.each(res, function(index, value) {
-				$(".tbody").append("<tr id='"+ value.rownum + "'>"
-						 + "<td>" +value.rownum + "</td><td>"
-						 + "<a href=\"javascript:goRead(" + value.articleNum + ")\">"
-						 + value.articleSubject + "</a></td><td>"
-						 + value.articleTextContent + "</td><td>"
-						 + value.articleDate.substring(0,10) + "</td><td>"
-						 + value.articleWriter + "</td>" + 
-						"</tr>");
-				})
+				var html = "<tr><td>" + value.rownum + "</td>"
+							+ "<td>"
+							 + "<a href = \"javascript:goRead(" + value.articleNum + ")\">"
+							 + value.articleSubject;
+				if (value.commentCount > 0) {
+					html += "<span>(</span><span>"+ value.commentCount +"</span><span>)</span>";
+				}
+				
+				if (value.fileCount > 0) {
+					html += "<span><img src='/OpenHome/image/paper-clip.png' title=" + "'"+ value.fileCount + "'" + "/></span>";
+				}
+				
+				html+="</a></td>";
+				
+				html+= "<td>"
+				 + value.articleTextContent + "</td><td>"
+				 + value.articleDate.substring(0,10) + "</td><td>"
+				 + value.articleWriter + "</td><td>" +
+				 + value.articleCount + "</td><td>" + 
+				"</tr>";
+	
+				$(".tbody").append(html);
+			});
 		}
-		
-		/*$("#indexNow").append("<a href=\"javascript:goBoardAjax(" + boardNumber + "," + startPage + ")\">"
-				 + "<b>" + i + "</b></a>");
-		
-		
-		}
-			
-		var pages = 1;
-		var countList = 10;
-		var countPage = 10;
-		var totalCount = res.getArticleTotalCount;
-		var totalPage = totalCount/countList;
-		var startPage = ((pages - 1) / 10) * 10 + 1;
-		var endPage = startPage + countPage - 1;
-		//Exception Handling
-		if(totalCount % countList > 0){ totalPage++; }
-		if(totalPage < pages){ pages = totalPage;}
-		if(endPage > totalPage){ endPage = totalPage;}
-		$("#indexNow > a").remove();
-		$("#indexOthers > a").remove();
-		//Listing Up Page Numbers
-		for (var i = startPage; i < endPage; i++){
-			if (startPage == i){	
-				$("#indexNow").append("<a href=\"javascript:goBoardAjax(" + boardNumber + "," + startPage + ")\">"
-									 + "<b>" + i + "</b></a>");
-			}
-			else{
-				$("#indexOthers").append("<a href=\"javascript:goBoardAjax(" + boardNumber + "," + ((i - 1) * 10 + 1) + ")\">"
-									 + "<b>" + i + "</b></a>");
-			}
-		}			
-		$("#article_reg_ok_btn").css("display", "block");
-		$("#article_modify_ok_btn").css("display", "none;");
-		
-		//add custom-data on table
-		$('#singleBoardTable').removeData("boardNum");
-		$("#singleBoardTable").data("boardNum", boardNumber);
-		
-
-		$.each(res, function(index, value) {
-			alert(value.articleNum);
-		})*/
 	},
-	error		: function(err) {
+	error	: function(err) {
 		alert('readyState:' + err.readyState);
 		alert('status:' + err.status);
 		alert('statusText:' + err.statusText);
 		alert('responseText:' + err.responseText);
 	}
 });
-	/*location.hash = '/#/page:board'+boardNumber;*/
 
 }
 
