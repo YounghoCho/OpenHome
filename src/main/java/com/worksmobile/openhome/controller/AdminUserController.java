@@ -21,7 +21,7 @@ import com.worksmobile.openhome.status.ReturnStatus;
 
 @RestController
 @RequestMapping("/api/admin/")
-public class ManagerController {
+public class AdminUserController {
 	@Resource
 	private ManagerBO service;
 
@@ -47,7 +47,7 @@ public class ManagerController {
 	@ResponseBody
 	public String logOut(HttpServletRequest req, HttpSession session) throws Exception{
 
-		session.setAttribute("userLoginInfo", null);
+		session.removeAttribute("userLoginInfo");
 		
 		return returnStatus.name();
 	}

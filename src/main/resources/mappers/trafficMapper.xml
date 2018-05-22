@@ -24,4 +24,5 @@
 		VALUES 
 			( #{trafficContentLength}, #{trafficKind}, now() )
 	</insert>	
+	
 </mapper>

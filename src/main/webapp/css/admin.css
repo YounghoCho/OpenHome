@@ -163,15 +163,10 @@ td{
 	color: black;
 }
 
-
-.homeMainDiv, .articleReadDiv, .staticGraphDiv, .realTimeGraphDiv, .articleWriteDiv{
+/*Traffic Graph*/
+.staticGraphDiv{
+	width:850px;
 }
-
-/*graph*/
-.staticGraphDiv, .realTimeGraphDiv{
-	width:100%;
-}
-	/*static*/
 #container {
 	width:70%;
 	height:500px;
@@ -180,8 +175,13 @@ td{
 rect .highcharts-button-box{
 	none;
 }
-
-
+#container2 {
+	display: none;
+}
+/*API Graph*/
+#DonutChartHead, #DonutChart {
+	display: none;
+}
 /*SUJI*/
 .container.write .uploadList {
 	width:100%;

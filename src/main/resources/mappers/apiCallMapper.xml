@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  
+ * Application java
+ * @Author : Youngho Jo
+ *
+ * [API 호출 트래픽 Level 5 Steps]
+ * Level 1 : 게시글 목록 호출 (article_list)
+ * Level 2 : 게시글 내용 호출 (article_detail)
+ * Level 3 : 게시글 쓰기 호출 (article_write)
+ * Level 4 : 파일 업로드 호출 (file_upload)
+ * Level 5 : 파일 다운로드 호출 (file_download)
+ -->	
+<mapper namespace="apiCall">
+
+	<insert id="insertApiCall" parameterType="map">
+		INSERT
+	 	INTO
+	 		api_call(api_type, api_date)
+		VALUES
+			(#{apiType}, now())
+	</insert>
+	<select id="getTotalApiList" resultType="com.worksmobile.openhome.model.ApiCallMemo">
+		SELECT
+			acm_type as acmType, acm_count as acmCount, acm_date as acmDate
+		FROM
+			api_call_memo
+	</select>
+	<insert id="copyApiData" parameterType="com.worksmobile.openhome.model.ApiCallMemo">
+		INSERT
+		INTO
+			api_call_memo(acm_type, acm_count, acm_date)
+		VALUES 
+			(#{apiType}, (SELECT COUNT(api_num) FROM api_call where api_type = #{apiType}), now())		
+	</insert>
+	<delete id="clearApiData">
+		DELETE
+		FROM
+			api_call
+	</delete>
+</mapper>

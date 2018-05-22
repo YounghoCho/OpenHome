@@ -331,7 +331,7 @@ rect .highcharts-button-box{
 
 #reg_btn_area {
 	width:100%;
-	height:50px;
+	height:33px;
 	padding-top:10px;
 }
 
@@ -462,16 +462,30 @@ rect .highcharts-button-box{
 }
 
 #top #search_div_2 #file-checkbox {
-	margin-right:10px;
+	margin-right:5px;
 }
 
 #top #search_div_2 #file-checkbox_label {
+	margin-right:20px;
+}
+
+#top #search_div_2 #comment-checkbox {
+	margin-right:5px;
+}
+
+#top #search_div_2 #comment-checkbox_label {
 	margin-right:40px;
 }
 
 
 #top #search_div_2 #date-label {
 	margin-right:10px;
+}
+
+#top #search_div_2 #date-select {
+	margin-right:10px;
+	height:27px;
+	line-height:27px;
 }
 
 
@@ -509,4 +523,63 @@ rect .highcharts-button-box{
 #top #search_div_1 #content-text::placeholder, #top #search_div_1 #writer-text::placeholder{
 	font-weight:normal;
 	opacity:1;
+}
+
+#no_result {
+	height:20px;
+	line-height:20px;
+	text-align: center;
+	font-weight: bold;
+	font-size:20px;
+	padding:50px;
+}
+
+#commentDate::before{
+	content:" | ";
+}
+
+#file_area{
+	width:769px;
+	margin-bottom:20px;	
+}
+#file_list_area {
+	border: 1px solid #ccc;
+	overflow:auto;
+	width:769px;
+	height:150px;
+}
+
+#file_list_info_area {
+	text-align: right;
+	width:769px;
+	height:16px;
+}
+
+.comment_mod_div {
+	display:none;
+}
+
+.comment_modify_file {
+	display:none;
+}
+
+#comment-list > li + li {
+	border-top: 1px #ccc solid;
+}
+
+.file_list_li {
+	border:1px #ccc solid;
+	border-radius: 7px;
+	width:740px;
+	height:44px;
+	line-height:29px;
+	padding:5px;
+	margin:2px;
+}
+
+.article-file-name {
+	margin-left:7px;
+	margin-right:7px;
+	font-weight:bold;
+	font-size:15px;
 }

@@ -4,10 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="attachmentfile">
-
-    <insert id="addFile" parameterType="com.worksmobile.openhome.model.AttachmentFile">
-		INSERT INTO attachmentfile(articleNum, originalFileName , storedFileName, fileDate, fileSize, fileAttacher) 
-		VALUES (#{articleNum}, #{originalFileName}, #{storedFileName}, now(), #{fileSize}, #{fileAttacher})
+    <insert id="addFile" parameterType="com.worksmobile.openhome.model.AttachmentFile" useGeneratedKeys="true" keyProperty="fileNum">
+		INSERT INTO attachmentfile(articleNum, originalFileName , storedFileName, fileDate, fileSize) 
+		VALUES (#{articleNum}, #{originalFileName}, #{storedFileName}, now(), #{fileSize})
+		<selectKey resultType="int" keyProperty="fileNum" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
 	<select id="getFiles" parameterType="int" resultType="com.worksmobile.openhome.model.AttachmentFile">
@@ -33,12 +35,4 @@
 		FROM attachmentfile
 		WHERE fileNum = #{fileNum}
 	</select>
-	
-	<select id="checkFileExist" parameterType="int" resultType="java.lang.Integer">
-		SELECT EXISTS (
-			SELECT * 
-			FROM attachmentfile
-			WHERE articleNum = #{articleNum} )
-	</select>
-	
 </mapper>

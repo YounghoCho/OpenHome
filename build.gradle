@@ -36,13 +36,25 @@ dependencies {
 	compile("org.mybatis:mybatis")
 	
     compile("mysql:mysql-connector-java:5.1.46")
-    compile('javax.servlet:jstl:1.2')
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     
+    compile group: 'org.webjars', name: 'jquery-file-upload', version: '9.8.1'
+    compile group: 'com.navercorp.lucy', name: 'lucy-xss-servlet', version: '2.0.0'
+    
+    compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4', version: '1.16'
+    compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.9.13'
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.2'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
-
+    
+	compile("org.springframework.boot:spring-boot-starter-security")
 	compile('org.springframework.boot:spring-boot-starter-web')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	runtime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	compile('org.projectlombok:lombok')
+	compile "org.slf4j:slf4j-api:1.7.7"
+		
+	compile("org.springframework.boot:spring-boot-starter-batch")
+	compile 'org.springframework:spring-context-support:4.1.6.RELEASE'
+	compile 'org.quartz-scheduler:quartz:2.2.1'
 }

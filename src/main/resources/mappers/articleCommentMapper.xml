@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="articleComment">
+	<select id ="getComments" parameterType="int" resultType="com.worksmobile.openhome.model.ArticleComment">
+		SELECT
+			comment_num AS commentNum,
+			article_num AS articleNum,
+			comment_content AS commentContent,
+			date_format(comment_date,'%Y/%m/%d %H:%i:%s') AS commentDate,
+			comment_writer AS commentWriter,
+			comment_origin_upload AS commentOriginUpload,
+			comment_stored_upload AS commentStoredUpload,
+			comment_upload_size AS commentUploadSize
+		FROM
+			article_comment
+		WHERE
+			article_num = #{articleNum}
+	</select>
+	
+	<insert id="addComment" parameterType="com.worksmobile.openhome.model.ArticleComment">
+		INSERT INTO
+			article_comment(article_num, comment_access_pwd, comment_content, comment_writer, comment_date, comment_origin_upload, comment_stored_upload, comment_upload_size)
+		VALUES
+			(#{articleNum}, #{commentAccessPwd}, #{commentContent}, #{commentWriter}, now(), #{commentOriginUpload}, #{commentStoredUpload}, #{commentUploadSize});
+	</insert>
+	
+	<select id ="getCommentCount" parameterType="int" resultType="java.lang.Integer">
+		SELECT count(*) AS commentCount
+		FROM
+			article_comment
+		WHERE
+			article_num = #{articleNum}
+	</select>
+	
+	<select id="getCommentPwd" parameterType="java.lang.Integer" resultType="com.worksmobile.openhome.model.ArticleComment">
+		SELECT comment_access_pwd AS commentAccessPwd
+		FROM article_comment
+		WHERE comment_num = #{commentNum}
+	</select>
+	
+	<update id="modComment" parameterType="com.worksmobile.openhome.model.ArticleComment">
+		UPDATE
+			article_comment
+		SET
+			comment_content = #{commentContent},
+			comment_origin_upload = #{commentOriginUpload},
+			comment_stored_upload = #{commentStoredUpload},
+			comment_upload_size = #{commentUploadSize}
+	 	WHERE 
+	 		comment_num = #{commentNum}
+	</update>
+	
+	<delete id="delComment" parameterType="java.lang.Integer">
+		DELETE 
+		FROM
+			article_comment
+		WHERE
+			comment_num = #{commentNum}
+	</delete>
+</mapper>

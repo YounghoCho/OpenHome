@@ -3,8 +3,11 @@
 <head>
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
 	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=28">
+	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/fileupload/jquery.fileupload.css">
 	
-
+<%-- 	<link href="../${pageContext.request.contextPath}/backbone/sample/vendor/css/bootstrap-2.3.1.css" rel="stylesheet" />
+    <link href="../${pageContext.request.contextPath}/backbone/sample/vendor/css/bootstrap-responsive-2.3.1.css" rel="stylesheet" /> --%>
+<%--     <link href="../${pageContext.request.contextPath}/backbone/css/backbone.upload-manager.css" rel="stylesheet" /> --%>
 </head>
 
 <!-- header -->
@@ -28,28 +31,39 @@
 		<div id="search_div">
 			<div id="search_div_1">
 				<select id="board-select" size="1">
-					<option id="allboard">전체게시판</option>
+					<option value="">전체게시판</option>
 				</select>
 				
 				<label for="content-select" id="content-select_label">내용</label>
 				<select id="content-select">
-					<option value="">전체</option>
-					<option value="">제목 + 본문</option>
-					<option value="">제목</option>
-					<option value="">본문</option>
-					<option value="">첨부파일</option>
+					<option value="0">전체</option>
+					<option value="1">제목 + 본문</option>
+					<option value="2">제목</option>
+					<option value="3">본문</option>
+					<option value="4">첨부파일</option>
 				</select>
 				
 				<input type="text" id="content-text" placeholder="검색할 내용을 입력하세요."/>
 				<label for="writer-text" id="writer-text_label">작성자</label>
 				<input type="text" id="writer-text" placeholder="검색할 작성자를 입력하세요."/>
 			</div>
-			<div id = "search_div_2">
+			<div id="search_div_2">
 				<input type="checkbox" id="file-checkbox" value="yes"/>
 				<label for="file-checkbox" id="file-checkbox_label">첨부파일 있음</label>
 				
-				<label for="date-start" id="date-label">기간</label>
-				<input type="date" id="date-start" name="bday-from" min="2018-04-01"/>-<input type="date" id="date-end" name="date-end" min="2018-04-01"/>
+				<input type="checkbox" id="comment-checkbox" value="yes"/>
+				<label for="comment-checkbox" id="comment-checkbox_label">덧글 포함</label>
+				
+				<label for="date-select" id="date-label">기간</label>
+				<select id="date-select">
+					<option value="all">전체</option>
+					<option value="1week">1주일</option>
+					<option value="1month">1개월</option>
+					<option value="3month">3개월</option>
+					<option value="self">직접선택</option>
+				</select>
+				
+				<input type="date" id="date-start" name="date-start" min="2018-04-01"/>-<input type="date" id="date-end" name="date-end" min="2018-04-01"/>
 			</div>
 		</div>
 		<div id="searchbtn_div">
@@ -73,13 +87,14 @@
 					<thead>
 						<tr>
 							<th style="width:5%">번호</th>
-							<th style="width:35%">제목</th>
+							<th style="width:25%">제목</th>
 							<th style="width:40%">미리보기</th>
-							<th style="width:10%">작성날짜</th>
+							<th style="width:15%">작성날짜</th>
 							<th style="width:10%">작성자</th>
+							<th style="width:5%">조회수</th>
 						</tr>
 					</thead>
-					<tbody class="tbody">	
+					<tbody class="tbody">
 					</tbody>
 				</table>
 			
@@ -100,35 +115,60 @@
 	<!-- read article -->
 		<div class="articleReadDiv">
 			<div id="wrap" class="container read">	<!--auto margin-->
-				<table class="table" style="height:400px;" id="readtable">			
+				<table class="table" style="height:400px;table-layout:fixed;" id="readtable">			
 					<tbody>
-						<tr>
+						<tr id="subject_tr_area">
 							<td style="height:50px" id="boardTdSubject"></td>
 						</tr>
 						<tr id="file_tr_area">
-								<td style="height:100px" id="boardTdFiles"><ul></ul></td>
+							<td style="height:100px" id="boardTdFiles"><ul></ul></td>
 						</tr>
 						<tr>
-							<td style="height:250px;border-bottom:1px solid #ddd;" id="boardTdContent"></td>
+							<td style="height:250px;border-bottom:1px #ddd solid;" id="boardTdContent">
+								
+							</td>
 						</tr>
 					</tbody>
 				</table>
+				
+				<div style="height:35px;">	
+					<a type="button" id="article_delete_btn" onclick="article_pwd_chk(2)" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">삭제</a>
+					<a type="button" id="article_modify_btn" onclick="article_pwd_chk(1)" class="btn btn-primary pull-right" style="margin-right:20px;width:80px;">수정</a>
+					<a type="button" id="article_write_btn" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a>
+				</div>
+				
+				<div id="comment-box">
+					<div style="margin-bottom:10px;font-weight:bold;font-size:16px;">
+						<span id="commentCount"></span>
+					</div>
+					<div>
+						<label for="comment-text-writer" style="margin-right:7px;font-weight:bold;">작성자</label><input type="text" id="comment-text-writer" name="commentWriter"/>
+						<label for="comment-text-password" style="margin-right:7px;margin-left:7px;font-weight:bold;">비밀번호</label><input type="password" id="comment-text-password" name="commentAccessPwd"/>
+						<label for="commentFile" style="margin-right:7px;margin-left:7px;font-weight:bold;">첨부파일</label><input type="file" style="display:none;" id="commentFile" name="commentFile"/><span id="comment-file-name" data-uploadstaus="N">첨부파일 없음</span>
+						<div style="margin-top:7px;">
+							<textarea id="comment-text-content" cols="96" rows="6" style="resize:none"></textarea>
+						</div>
+						<div style="width:742px;height:35px;margin-top:7px;">
+							<input type="button" class="btn btn-success pull-right" id="comment_reg_btn" value="등록"/>
+						</div>
+					</div>
+					<div>
+						<ul id="comment-list">
+							
+						</ul>
+					</div>	
+				</div>
 			
-				<!-- <a type="button" class="btn btn-default pull-right" style="margin-right:10px;width:80px;">취소</a>		
-				<a type="button" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a> -->
-				<!-- <a type="button" class="btn btn-default" style="margin-right:10px;width:80px;">취소</a>	 -->	
-				<a type="button" id="article_delete_btn" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">삭제</a>
-				<a type="button" id="article_modify_btn" class="btn btn-primary pull-right" style="margin-right:20px;width:80px;">수정</a>
-				<a type="button" id="article_write_btn" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a>
 			</div>	
 		</div>
 		
 	<!-- add article -->
 		<div class="articleWriteDiv">
+			<input type="hidden" id="hidden_articlenum"/>
 			<div id="wrap" class="container write">	<!--auto margin-->
 					<div>
-							<input type="text" placeholder="작성자명" name="articleWriter" id="articleWriter"/>
-							<input type="password" placeholder="비밀번호" name="articleAccessPwd" id="articleAccessPwd"/>
+						<input type="text" placeholder="작성자명" name="articleWriter" id="articleWriter"/>
+						<input type="password" placeholder="비밀번호" name="articleAccessPwd" id="articleAccessPwd"/>
 					</div>
 					<div>
 						<div id="articleWriter_div">
@@ -143,64 +183,52 @@
 						<input type="text" placeholder="제목" name="articleSubject" id="articleSubject"/>
 					</div>
 					
-					<div id="oldFileList">
-						<table id='oldFileTable'>
-				                   <tr>
-					                   <th id='tabOldFileName' width="65%">파일명</th>
-					                   <th id='tabOldFileSize' width="20%">사이즈</th>
-					                   <th id="tabOldFileDelBtn" width="15%">선택</th>
-				                   </tr>
-				               </table>
-					</div>
 					<div id="reg_btn_area">
-						<label for="my_pc_file_btn" class="btn btn-success pull-left" id="my_pc" style="margin-right:5px;">내 PC</label>
-						<input type="file" id="my_pc_file_btn" name="filename[]" multiple/>
-						<input type="button" class="btn btn-default pull-left" id="file_delete_btn" value="삭제"/>
+						<label for="fileupload" class="btn btn-success pull-left" id="my_pc" style="margin-right:5px;">내 PC</label>
+						<input type="file" id="fileupload" style="display:none;"name="fileupload" multiple/>
 					</div>
-					<div>
-					<!-- <button type="button" id="file_area" aria-label="펼치기">
-						<i class="fa fa-angle-up"></i>
-					</button> -->
 					
-					<div>
-						<div id="fileUpload" class="dragDropDiv">
-				               <table id='fileTable'>
-				                   <tr>
-					                   <th width='10%' id='tabFileCheck'><input type="checkbox" id="allcheck"/></th>
-					                   <th id='tabFileName'>파일명</th>
-					                   <th id='tabFileSize'>사이즈</th>
-				                   </tr>
-				               </table>
-				        </div>
-					
+					<div id="file_area">
+						<div id="file_list_info_area">
+							<span id="file_list_info" style="display:none">
+								<span id="file_count">0</span><span>개</span>
+								<!-- <span id="file_total_size">0</span> -->
+							</span>
+						</div>
+						<div id="file_list_area">
+							<ul id="file_list">
+								
+							</ul>
+						</div>
 					</div>
-					</div>
+			
 					<div id="textarea_area" style="width:800px;height:550px;">
 						<textarea id="articleContent" name="articleContent" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
 					</div>
 					<div id="write_btns">
 					<input type="button" value="취소" class="btn btn-default pull-right" id="article_reg_cancel_btn" style="margin-left:10px;margin-bottom:10px"/>
 						<div>
-						<input type="button" value="완료" class="btn btn-success pull-right" id="article_modify_ok_btn" style="margin-bottom:10px;"/>
-				        <input type="button" value="등록" class="btn btn-success pull-right" id="article_reg_ok_btn" style="margin-bottom:10px;"/>
+							<input type="button" value="완료" class="btn btn-success pull-right" id="article_modify_ok_btn" style="margin-bottom:10px;"/>
+					        <input type="button" value="등록" class="btn btn-success pull-right" id="article_reg_ok_btn" style="margin-bottom:10px;"/>
 				    	</div>
-
 					</div>
 				</div>
 			</div>
 		  <div id="check_pwd_hidden_area">
 			<div id="check_pwd_hidden">
-						<div id="userPwdInfo">
-							비밀번호를 입력해주세요
-						</div>
-						<div id="check_pwd_text">
-						  	<input id="pwd_text_field" type="password" name="articleAccessPwd"/>
-						</div>
-						<div id="userPwdBtn">
-							<a type="button" id="check_pwd_btn_del" class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>
-							<a type="button" id="check_pwd_btn_mod" class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>
-						  	<a type="button" id="check_pwd_cancel_btn" class="btn btn-default" style="width:80px;">취소</a>
-						</div>
+					<div id="userPwdInfo">
+						비밀번호를 입력해주세요
+					</div>
+					<div id="check_pwd_text">
+						  <input id="pwd_text_field" type="password" name="articleAccessPwd"/>
+					</div>
+					<div id="userPwdBtn">
+						<a type="button" id="check_pwd_btn_del" class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>
+						<a type="button" id="check_pwd_btn_mod"  class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>
+						<a type="button" id="check_pwd_btn_del_comment" class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>
+						<a type="button" id="check_pwd_btn_mod_comment" class="btn btn-default" style="margin-right:20px;width:80px;">확인</a>
+						<a type="button" id="check_pwd_cancel_btn" class="btn btn-default" style="width:80px;">취소</a>
+					</div>
 			</div>
 		</div>
 		</div>
@@ -214,6 +242,16 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home.js?ver=8"></script>
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/article.js?ver=9"></script>
 
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery-uuid.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.fileupload.js"></script>
+
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=9"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article_comment.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/home.js?ver=2"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/common-home.js"></script>
+
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/search.js"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.form.js"></script>

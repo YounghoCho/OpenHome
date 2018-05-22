@@ -2,24 +2,20 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+String id = (String)session.getAttribute("userLoginInfo");     
+if (id == null || id.equals("")) {                    
+response.sendRedirect("/OpenHome/login");    
+}
+%>
 
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.css?ver=1">
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=1">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?ver=3">
 </head>
 
-<div id="mask"></div>
-<!-- 로그인 팝업-->
-<div class="window">
-	<div style="width:80%;height:80%;margin-left:50px;margin-top:60px;text-align:center;">
-		<img src="${pageContext.request.contextPath}/image/logo.png" style="width:65px;margin:5px;"/><br/>
-		<input type="text" id="managerId" placeholder="ID" style="width:280px;height:50px;margin:5px;padding-left:5px;"/><br/>
-		<input type="password" id="managerPwd" placeholder="PASSWORD" style="width:280px;height:50px;margin:5px;padding-left:5px;"/><br/>
-		<a type="button" class="btn btn-success" style="margin:5px;width:280px;height:50px;" onclick="javascript:loginAjax()">
-			<div style="margin-top:10px;">로그인</div>
-		</a>
-	</div>
-</div>
+
 <!-- 게시판 순서 조절 팝업 -->
 <div class="orderWindow">
 	<button class="btn btn-default pull-right" id="closeChange" style="margin:10px;"><font style="font-weight:bold;">x</font></button>
@@ -68,7 +64,8 @@
 <ul class="menudecoration">
 	<li style="cursor:pointer;"><a onclick="javascript:goBoardManageAjax()">게시판 관리</a></li>
 	<li style="cursor:pointer;"><a onclick="javascript:goArticlesAjax(1)">게시글 관리</a></li>
-	<li style="cursor:pointer;"><a onclick="javasciprt:goStaticGraphAjax()">트래픽 통계</a></li>
+	<li style="cursor:pointer;"><a onclick="javasciprt:drawDailyTrafficGraph()">트래픽 통계</a></li>
+	<li style="cursor:pointer;"><a onclick="javasciprt:goApiGraphAjax()">API 사용량</a></li>	
 </ul>
 </div>
 
@@ -92,7 +89,7 @@
 	<table class="table">
 		<thead>
 		<tr>
-			<th style="width:85%">게시글판목록</th>
+			<th style="width:85%">게시판목록</th>
 			<th style="width:5%"></th>
 			<th style="width:5%"></th>
 			<th style="width:5%"></th>
@@ -159,12 +156,22 @@
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/series-label.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	
-		<div id="container"></div>
 		
+		<a id="dailyTraffic" type="button" class="btn btn-success" style="margin-top:13px;margin-right:10px;padding:8px;">일일 그래프</a>
+		<a id="monthlyTraffic" type="button" class="btn btn-success" style="margin-top:13px;padding:8px;">월간 그래프</a>
+		<div id="container"  style="margin-top:20px"></div>	
+		<div id="container2" style="margin-top:20px"></div>
 	</div>
 </div>
 
+<div class="apiGraphDiv">
+	<a id="dailyApi" type="button" class="btn btn-success" style="margin-top:13px;margin-left:13px;margin-right:10px;padding:8px;">일일 그래프</a>
+	<a id="monthlyApi" type="button" class="btn btn-success" style="margin-top:13px;padding:8px;">월간 그래프</a>
+	<div id="BubbleChartHead" style="margin-top:50px;padding:20px;font-weight:bold;"><p style="font-size:18px;text-align:center;margin-right:8%;">일일별 API 사용량</p></div>
+	<div id="BubbleChart"></div>
+	<div id="DonutChartHead" style="margin-top:50px;padding:20px;font-weight:bold"><p style="font-size:18px;text-align:center;margin-right:10%;">5월 API 사용량</p></div>
+	<div id="DonutChart"></div>
+</div>
 </div>
 </div>
 </div>
@@ -175,14 +182,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap/jquery-ui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin.js?ver = 2"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/graph.js?ver = 1"></script>
-   
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/admin.js?ver=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/common_admin.js?ver=3"></script>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/billboard.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/billboard.css?ver=1">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph_notice.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph_traffic_daily.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph_traffic_monthly.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/admin/graph_api.js?ver=3"></script>  
 <script>
 var LoginCheck = "<%=session.getAttribute("userLoginInfo")%>";
 //세션이 유효하면
 if(LoginCheck != null && LoginCheck != "null"){
-	goBoardManageAjax(); //게시판 관리 페이지 호출
 	$("#logOutButton").show();
 	trafficTracking(); //트래픽 감지 시작
 }

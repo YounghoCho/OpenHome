@@ -1,11 +1,15 @@
 package com.worksmobile.openhome.dao;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.worksmobile.openhome.model.Article;
+import com.worksmobile.openhome.model.Board;
+import com.worksmobile.openhome.model.SearchData;
 
 @Repository("ArticleDAO")
 public class ArticleDAO {
@@ -16,6 +20,10 @@ public class ArticleDAO {
 	private SqlSessionTemplate sqlsession;
 	
 	public ArticleDAO() {}
+	
+	public List<Board> getBoardList() {
+		return sqlsession.selectList(NAMESPACE_ARTICLE + "getBoardList");
+	}
 	
 	/*@ author Suji Jang*/
 	public int addArticle(Article article) {
@@ -41,6 +49,10 @@ public class ArticleDAO {
 	
 	public int modArticle(Article article) {
 		return sqlsession.update(NAMESPACE_ARTICLE + "modArticle", article);
+	}
+	
+	public List<Article> searchArticle(SearchData searchdata) {
+		return sqlsession.selectList(NAMESPACE_ARTICLE + "searchArticle", searchdata);
 	}
 	
 	/*@ author Youngho Jo*/
@@ -80,6 +92,8 @@ public class ArticleDAO {
 		paramMap.put("articleNum", articleNum);
 		sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", paramMap);
 	}
-
 	
+	public void updateArticleCount(int articleNum) {
+		sqlsession.update(NAMESPACE_ARTICLE + "updateArticleCount", articleNum);
+	}
 }
