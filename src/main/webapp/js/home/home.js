@@ -192,7 +192,7 @@ function goRead(articleNumber){
 	$(".articleWriteDiv").hide();
 	$(".articleReadDiv").show();	
 	$('#subject_tr_area').empty();
-	$('#boardTdContent').empty();
+	$('#boardTdContentdiv').empty();
 	$('.filelist_2').remove();
 	
 	$.ajax({
@@ -204,7 +204,7 @@ function goRead(articleNumber){
 		
 			$("#subject_tr_area").html("<td data-articlenum='" + res.articleDetails[0].articleNum + "' style='height:50px' id='boardTdSubject'>"
 					+ res.articleDetails[0].articleSubject +"</td>");
-			$("#boardTdContent").html(res.articleDetails[0].articleContent);
+			$("#boardTdContent").html('<div style="width:880px;word-break:break-all;white-space:pre-line;" id="boardTdContentdiv">' + res.articleDetails[0].articleContent + '</div>');
 			$('#singleBoardTable').removeData("boardNum");
 			$("#singleBoardTable").data("boardNum", res.articleDetails[0].boardNum);	
 		},

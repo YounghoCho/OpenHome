@@ -204,8 +204,7 @@
 								// 입력창 크기 조절바 사용 여부
 								bUseVerticalResizer : true,    
 								// 모드 탭(Editor | HTML | TEXT) 사용 여부
-								bUseModeChanger : true,
-								bSkipXssFilter : true,
+								bUseModeChanger : true
 				        },
 				        	fOnAppLoad : function() {
 				        	$("iframe").css("width","100%").css("height","500px");
@@ -267,7 +266,7 @@
 
 
 								} else if ((res.uploadStatus == "Y") && (res.databaseStatus== "N")) {
-									alert("데이터베이스 파일이 등록 되지 않았습니다.");
+									alert("데이터베이스 파일이 등록 되지 않았습니다. 다시 시도해주세요.");
 									$('#file_list').append('<li class="file_list_li" data-name="'+ res.originalFileName 
 										+ '" data-size="' + res.fileSize + '" data-keyname="' + res.originalFileName 
 										+'"><span><img src="/OpenHome/image/no.png" /></span><span class="article-file-name">' + res.originalFileName + '</span>' 
@@ -283,7 +282,7 @@
 										$('#file_list_info').css("display", "inline-block");
 									}
 								} else if (res.uploadStatus == "N") {
-									alert("서버에 파일이 업로드 되지 않았습니다.");
+									alert("서버에 파일이 업로드 되지 않았습니다. 다시 시도해주세요.");
 									$('#file_list').append('<li class="file_list_li" data-name="'+ res.originalFileName 
 											+ '" data-size="' + res.fileSize + '" data-keyname="' + res.originalFileName 
 											+'"><span><img src="/OpenHome/image/no.png" /></span><span class="article-file-name">' + res.originalFileName + '</span>' 
@@ -379,8 +378,7 @@
 				// 입력창 크기 조절바 사용 여부
 				bUseVerticalResizer : true,    
 				// 모드 탭(Editor | HTML | TEXT) 사용 여부
-				bUseModeChanger : true,
-				bSkipXssFilter : true,
+				bUseModeChanger : true
 	    },
 		    fOnAppLoad : function() {
 		    	$("iframe").css("width","100%").css("height","500px");
@@ -451,7 +449,7 @@
 
 
 						} else if ((res.uploadStatus == "Y") && (res.databaseStatus== "N")) {
-							alert("데이터베이스 파일이 등록 되지 않았습니다.");
+							alert("데이터베이스 파일이 등록 되지 않았습니다. 다시 시도해주세요.");
 							$('#file_list').append('<li class="file_list_li" data-name="'+ res.originalFileName 
 								+ '" data-size="' + res.fileSize + '" data-keyname="' + res.originalFileName 
 								+'"><span><img src="/OpenHome/image/no.png" /></span><span class="article-file-name">' + res.originalFileName + '</span>' 
@@ -467,7 +465,7 @@
 								$('#file_list_info').css("display", "inline-block");
 							}
 						} else if (res.uploadStatus == "N") {
-							alert("서버에 파일이 업로드 되지 않았습니다.");
+							alert("서버에 파일이 업로드 되지 않았습니다. 다시 시도해주세요.");
 							$('#file_list').append('<li class="file_list_li" data-name="'+ res.originalFileName 
 									+ '" data-size="' + res.fileSize + '" data-keyname="' + res.originalFileName 
 									+'"><span><img src="/OpenHome/image/no.png" /></span><span class="article-file-name">' + res.originalFileName + '</span>' 

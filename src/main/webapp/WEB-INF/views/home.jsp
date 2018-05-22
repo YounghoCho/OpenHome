@@ -118,7 +118,7 @@
 	<!-- read article -->
 		<div class="articleReadDiv">
 			<div id="wrap" class="container read">	<!--auto margin-->
-				<table class="table" style="height:400px;" id="readtable">			
+				<table class="table" style="height:400px;table-layout:fixed;" id="readtable">			
 					<tbody>
 						<tr id="subject_tr_area">
 							<td style="height:50px" id="boardTdSubject"></td>
@@ -127,15 +127,14 @@
 							<td style="height:100px" id="boardTdFiles"><ul></ul></td>
 						</tr>
 						<tr>
-							<td style="height:250px;border-bottom:1px solid #ddd;" id="boardTdContent"></td>
+							<td style="height:250px;border-bottom:1px #ddd solid;" id="boardTdContent">
+								
+							</td>
 						</tr>
 					</tbody>
 				</table>
 				
-				<div style="height:35px;">
-					<!-- <a type="button" class="btn btn-default pull-right" style="margin-right:10px;width:80px;">취소</a>		
-					<a type="button" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a> -->
-					<!-- <a type="button" class="btn btn-default" style="margin-right:10px;width:80px;">취소</a>	 -->	
+				<div style="height:35px;">	
 					<a type="button" id="article_delete_btn" onclick="article_pwd_chk(2)" class="btn btn-default pull-right" style="margin-right:20px;width:80px;">삭제</a>
 					<a type="button" id="article_modify_btn" onclick="article_pwd_chk(1)" class="btn btn-primary pull-right" style="margin-right:20px;width:80px;">수정</a>
 					<a type="button" id="article_write_btn" class="btn btn-success pull-right" style="margin-right:20px;width:80px;">글쓰기</a>
