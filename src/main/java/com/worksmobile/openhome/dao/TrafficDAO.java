@@ -5,6 +5,7 @@ package com.worksmobile.openhome.dao;
 
 import java.util.HashMap;
 import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,11 +35,5 @@ public class TrafficDAO {
 		paramMap.put("trafficContentLength", trafficContentLength);
 		paramMap.put("trafficKind", trafficKind);
 		sqlsession.insert(NAMESPACE_TRAFFIC + "insertContentLength", paramMap);	
-	}
-	public void moveTrafficData() {
-		sqlsession.insert(NAMESPACE_TRAFFIC + "moveTrafficData");		
-	}
-	public void optimizeTrafficTableVolume() {
-		sqlsession.insert(NAMESPACE_TRAFFIC + "optimizeTrafficTableVolume");		
 	}
 }

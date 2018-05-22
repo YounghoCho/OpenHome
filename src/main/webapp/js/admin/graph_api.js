@@ -15,51 +15,51 @@ function goApiGraphAjax(){
 	
 	$.ajax({
 		type : "GET",
-		url : "api/apiCall/apiList", //response : totalApiList, totalApiCount
+		url : "api/apiCall/apiList", //response : totalApiList
 		dataType : "json",
 		success : function(res){
-			var totalApiCall = new Array();
-			
 			var articleList = new Array();
 			var articleDetail = new Array();
 			var articleWrite = new Array();
 			var fileUpload = new Array();
 			var fileDownload = new Array();
-			
 			var chartDate = new Array();
 			
 			//전체 api 개수만큼 반복한다.
-			var memo = 0, temp1, temp2, temp3, temp4, temp5;
+			var memo = 0;
 			var length = res.totalApiList.length;
-			var startDate = Date.parse(res.totalApiList[0].apiDate.substring(0,10));//트래픽 시작날짜
-			var endDate = Date.parse(res.totalApiList[length-1].apiDate.substring(0,10));//트래픽 최신날짜
-			//alert(length + ", " + startDate + ", " + endDate);
+			var startDate = Date.parse(res.totalApiList[0].acmDate.substring(0,10));//트래픽 시작날짜
 			
-			//일일별 누적 api 호출 수를 계산한다.
-			for(var index = startDate; index <= endDate; index += 86400000){
-				chartDate.push(index);
-				temp1 = 0, temp2 = 0, temp3 = 0, temp4 = 0, temp5 = 0;
-				//순차적으로 합계를 구하되, memo로 당일의 마지막 인덱스를 기억한다.
-				for(var i = memo; i < length; i++){	
-					if(res.totalApiList[i].articleList == 1) temp1++;
-					if(res.totalApiList[i].articleDetail == 1) temp2++;
-					if(res.totalApiList[i].articleWrite == 1) temp3++;
-					if(res.totalApiList[i].fileUpload == 1) temp4++;
-					if(res.totalApiList[i].fileDownload == 1) temp5++;
-					
-					//하루 단위가 증가한 것을 감지한다.
-					if(Date.parse(res.totalApiList[i].apiDate) > index){
-						//마지막 날자의 인덱스는 계산하지 않고, 기억시켰다가 다시 반복될 때 계산된다. 
-						memo = i;
+			chartDate.push(startDate);
+			//일일별 합계를 구하되, memo로 당일의 마지막 인덱스를 기억한다.
+			for(var i = memo; i < length; i++){	
+				switch(res.totalApiList[i].acmType){
+					case 'articleList': 
+						articleList.push(res.totalApiList[i].acmCount);
 						break;
-					}
+					case 'articleDetail':
+						articleDetail.push(res.totalApiList[i].acmCount);
+						break;
+					case 'articleWrite':
+						articleWrite.push(res.totalApiList[i].acmCount);
+						break;
+					case 'fileUpload':
+						fileUpload.push(res.totalApiList[i].acmCount);
+						break;
+					case 'fileDownload':
+						fileDownload.push(res.totalApiList[i].acmCount);
+						break;			
 				}
-				//날짜별로 api 호출 수를 저장한다.
-				articleList.push(temp1);
-				articleDetail.push(temp2);
-				articleWrite.push(temp3);
-				fileUpload.push(temp4);
-				fileDownload.push(temp5);
+				
+				//하루 단위가 증가한 것을 감지한다.
+				if(Date.parse(res.totalApiList[i].acmDate) > startDate){
+					startDate = Date.parse(res.totalApiList[i].acmDate);
+
+					//마지막 날자의 인덱스는 계산하지 않고, 기억시켰다가 다시 반복될 때 계산된다. 
+					chartDate.push(Date.parse(res.totalApiList[i].acmDate.substring(0,10)));
+					memo = i;
+					continue;
+				}
 			}
 			//API 그래프 (BillBoard.js)
 			var apiArticleList = ["게시판 목록"];
@@ -73,7 +73,7 @@ function goApiGraphAjax(){
 			Array.prototype.push.apply(apiArticleWrite, articleWrite); 
 			Array.prototype.push.apply(apiFileUpload, fileUpload); 
 			Array.prototype.push.apply(apiFileDownload, fileDownload); 
-
+			
 			var chart = bb.generate({
 			  data: {
 			    columns: [
@@ -82,7 +82,7 @@ function goApiGraphAjax(){
 			    labels: true
 			  },
 			  bubble: {
-			    maxR: 50
+			    maxR: 70
 			  },
 			  axis: {
 				y: {
@@ -163,13 +163,11 @@ function goApiGraphAjax(){
 	});
 	location.hash = '/#/page:apigp';
 }
-
 function goApiGraphAjax2(){
 	$("#BubbleChartHead").hide();
 	$("#BubbleChart").hide();	
 	$("#DonutChartHead").show();
 	$("#DonutChart").show();
-	
 	var dounut = bb.generate({
 		  data: {
 		    columns: [							

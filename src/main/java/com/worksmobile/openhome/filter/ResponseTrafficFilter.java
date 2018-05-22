@@ -55,7 +55,6 @@ public class ResponseTrafficFilter implements Filter {
 			log.info("Servlet Response Body Length = " + baos.toByteArray().length);
 			int trafficContentLength = baos.toByteArray().length;
     		String trafficKind = "read";
-    		log.info("1 : " + trafficContentLength + ", 2 : " + trafficKind);
     		dao.insertContentLength(trafficContentLength, trafficKind);   
 		}
 	}

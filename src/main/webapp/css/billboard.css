@@ -153,7 +153,9 @@
 /*-- Arc --*/
 .bb-chart-arcs-title {
   dominant-baseline: middle;
-  font-size: 1.3em; }
+  font-size: 2em;
+  font-weight: bold; 
+ }
 
 .bb-chart-arcs .bb-chart-arcs-background {
   fill: #e0e0e0;

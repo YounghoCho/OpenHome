@@ -51,8 +51,10 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	runtime 'org.springframework.boot:spring-boot-starter-tomcat'
 
-	compileOnly('org.projectlombok:lombok')
+	compile('org.projectlombok:lombok')
 	compile "org.slf4j:slf4j-api:1.7.7"
 		
 	compile("org.springframework.boot:spring-boot-starter-batch")
+	compile 'org.springframework:spring-context-support:4.1.6.RELEASE'
+	compile 'org.quartz-scheduler:quartz:2.2.1'
 }
