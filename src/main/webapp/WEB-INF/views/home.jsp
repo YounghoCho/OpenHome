@@ -26,9 +26,7 @@
 <div id="center-right">
 <!-- top -->
 <div id="top">
-	<div id = "top-search-main_div">
-		<input type="text" id="content-text-main"/><input type="button" value="검색"/><input type="button" value="상세"/>
-	</div>
+
 	<div id="top-search_div">
 		<div id="search_div">
 			<div id="search_div_1">

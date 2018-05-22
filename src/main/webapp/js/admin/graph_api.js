@@ -82,7 +82,7 @@ function goApiGraphAjax(){
 			    labels: true
 			  },
 			  bubble: {
-			    maxR: 50
+			    maxR: 70
 			  },
 			  axis: {
 				y: {

@@ -24,8 +24,8 @@ function trafficTracking(){
 				for (index = 0; index < res.trafficData.length; index++){ //전체트래픽을 구한다.
 					totalTraffic += res.trafficData[index].trafficContentLength;
 				}
-				if (totalTraffic < 0){
-					if (totalTraffic < 0){		
+				if (totalTraffic > 7000000){	//7mb	
+					if (totalTraffic > 10000000){	//10mb	
 						notice1(flag1);
 						//컨텐트를 누르면 flag를 바꾼다.
 						flag1 = 0;
@@ -54,7 +54,7 @@ function notice1(flag){
 	if (flag != 0){
 	    modal.style.display = "block";
 	    $(".modal-header > h2").html("Urgent");
-	    $(".modal-body > p").html("<p>트래픽이 1000k를 초과했습니다.</p>");
+	    $(".modal-body > p").html("<p>트래픽이 10000K를 초과했습니다.</p>");
 	    $(".modal-header").css("background-color", "crimson");
 	    $(".modal-footer").css("background-color", "crimson");
 	}
@@ -63,7 +63,7 @@ function notice2(flag){
 	if (flag != 0){
 	    modal.style.display = "block";
 	    $(".modal-header > h2").html("Warning");
-	    $(".modal-body > p").html("<p>트래픽이 100k를 초과했습니다.</p>");
+	    $(".modal-body > p").html("<p>트래픽이 7000k를 초과했습니다.</p>");
 	    $(".modal-header").css("background-color", "sandybrown");
 	    $(".modal-footer").css("background-color", "sandybrown");
 	}
