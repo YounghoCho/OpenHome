@@ -153,7 +153,5 @@ public class ArticleController {
 	public List<Article> searchArticle(@RequestBody SearchData searchdata, HttpServletRequest req, HttpServletResponse res) throws Exception { 
 		return service.searchArticle(searchdata);
 	}
-	
-	
-   
+
 }

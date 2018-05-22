@@ -35,12 +35,12 @@ public class ArticleDAO {
 		return sqlsession.insert(NAMESPACE_ARTICLE + "addArticleNum", article);
 	}
 	
-	public String getArticleAccessPwd(int articleNum) {
-		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticleAccessPwd", articleNum);
+	public Article getArticleAccessPwd(int articleNum) {
+		return sqlsession.selectOne(NAMESPACE_ARTICLE + "getArticle", articleNum);
 	}
 	
-	public int delArticle(int articleNum) {
-		return sqlsession.delete(NAMESPACE_ARTICLE + "delArticle", articleNum);
+	public int removeOwnArticle(int articleNum) {
+		return sqlsession.delete(NAMESPACE_ARTICLE + "removeArticle", articleNum);
 	}
 	
 	public Article getArticle(int articleNum) {
@@ -96,4 +96,5 @@ public class ArticleDAO {
 	public void updateArticleCount(int articleNum) {
 		sqlsession.update(NAMESPACE_ARTICLE + "updateArticleCount", articleNum);
 	}
+
 }
