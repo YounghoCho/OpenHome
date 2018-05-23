@@ -4,10 +4,6 @@
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/bootstrap/bootstrap.css">
 	<link type="text/css" rel="stylesheet" href="../${pageContext.request.contextPath}/css/home.css?ver=28">
 	<link rel="stylesheet" href="../${pageContext.request.contextPath}/css/fileupload/jquery.fileupload.css">
-	
-<%-- 	<link href="../${pageContext.request.contextPath}/backbone/sample/vendor/css/bootstrap-2.3.1.css" rel="stylesheet" />
-    <link href="../${pageContext.request.contextPath}/backbone/sample/vendor/css/bootstrap-responsive-2.3.1.css" rel="stylesheet" /> --%>
-<%--     <link href="../${pageContext.request.contextPath}/backbone/css/backbone.upload-manager.css" rel="stylesheet" /> --%>
 </head>
 
 <!-- header -->
@@ -248,7 +244,7 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.iframe-transport.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.fileupload.js"></script>
 
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=9"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=10"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article_comment.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/home.js?ver=2"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/common-home.js"></script>

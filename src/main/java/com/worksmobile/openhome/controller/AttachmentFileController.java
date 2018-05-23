@@ -55,6 +55,7 @@ public class AttachmentFileController {
 	@RequestMapping(value="/uploadFile", method = RequestMethod.POST)
 	@ResponseBody
 	public AttachmentFile uploadFile(@RequestParam("articleNum") String articleNum, @RequestParam("fileupload") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("test");
 		return service.uploadAndAddFile(Integer.parseInt(articleNum), file);
 	}
 	

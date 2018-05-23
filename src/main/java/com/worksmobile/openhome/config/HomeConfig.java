@@ -71,12 +71,4 @@ public class HomeConfig {
 		return characterEncodingFilter;
 	}
 	
-/*	@Bean
-	public FilterRegistrationBean xssEscapeServletFilter() {
-	    FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-	    registrationBean.setFilter(new XssEscapeServletFilter());
-	    registrationBean.setOrder(1);
-	    registrationBean.addUrlPatterns("/*");
-	    return registrationBean;
-	}*/
 }

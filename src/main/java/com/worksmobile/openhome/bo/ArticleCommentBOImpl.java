@@ -50,6 +50,7 @@ public class ArticleCommentBOImpl implements ArticleCommentBO {
 		return dao.getCommentCount(articleNum);
 	}
 
+	@Transactional
 	@Override
 	public String addComment(ArticleComment articlecomment) {
 		articlecomment.setCommentAccessPwd(pwEncoder.encode(articlecomment.getCommentAccessPwd()));

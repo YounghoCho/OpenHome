@@ -164,27 +164,51 @@
 				AND a.boardNum = #{boardNum}
 				</if>
 				<if test = 'searchContent != ""'>
-				<if test= 'searchType.equals("0")'>
-				AND (a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
-				OR a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%')
-				OR f.originalFileName LIKE CONCAT('%', #{searchContent}, '%'))
-				</if>
-				<if test= 'searchType.equals("1")'>
-				AND ( a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
-				OR a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%'))
-				</if>
-				<if test= 'searchType.equals("2")'>
-				AND a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
-				</if>
-				<if test= 'searchType.equals("3")'>
-				AND a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%')
-				</if>
-				<if test= 'searchType.equals("4")'>
-				AND f.originalFileName LIKE CONCAT('%', #{searchContent}, '%')
-				</if>
-				<if test= 'commentAnswer.equals("true")'>
-				OR c.comment_content LIKE CONCAT('%', #{searchContent}, '%')
-				</if>
+					<if test= 'commentAnswer.equals("false")'>
+						<if test= 'searchType.equals("0")'>
+						AND (a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
+						OR a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%')
+						OR f.originalFileName LIKE CONCAT('%', #{searchContent}, '%'))
+						</if>
+						<if test= 'searchType.equals("1")'>
+						AND ( a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
+						OR a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%'))
+						</if>
+						<if test= 'searchType.equals("2")'>
+						AND a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
+						</if>
+						<if test= 'searchType.equals("3")'>
+						AND a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%')
+						</if>
+						<if test= 'searchType.equals("4")'>
+						AND f.originalFileName LIKE CONCAT('%', #{searchContent}, '%')
+						</if>
+					</if>
+					<if test= 'commentAnswer.equals("true")'>
+						<if test= 'searchType.equals("0")'>
+						AND ( a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
+						OR a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%')
+						OR f.originalFileName LIKE CONCAT('%', #{searchContent}, '%')
+						OR c.comment_content LIKE CONCAT('%', #{searchContent}, '%') )
+						</if>
+						<if test= 'searchType.equals("1")'>
+						AND ( a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
+						OR a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%')
+						OR c.comment_content LIKE CONCAT('%', #{searchContent}, '%') )
+						</if>
+						<if test= 'searchType.equals("2")'>
+						AND ( a.articleSubject LIKE CONCAT('%', #{searchContent}, '%')
+						OR c.comment_content LIKE CONCAT('%', #{searchContent}, '%') )
+						</if>
+						<if test= 'searchType.equals("3")'>
+						AND ( a.articleTextContent LIKE CONCAT('%', #{searchContent}, '%')
+						OR c.comment_content LIKE CONCAT('%', #{searchContent}, '%') )
+						</if>
+						<if test= 'searchType.equals("4")'>
+						AND (f.originalFileName LIKE CONCAT('%', #{searchContent}, '%')
+						OR c.comment_content LIKE CONCAT('%', #{searchContent}, '%'))
+						</if>
+					</if>
 				</if>
 				<if test = 'searchWriter != ""'>
 				AND a.articleWriter LIKE CONCAT('%', #{searchWriter}, '%')
