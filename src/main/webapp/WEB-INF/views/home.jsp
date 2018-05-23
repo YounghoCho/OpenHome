@@ -244,7 +244,7 @@
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.iframe-transport.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/jquery/jquery.fileupload.js"></script>
 
-<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=10"></script>
+<script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article.js?ver=11"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/article_comment.js"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/home.js?ver=2"></script>
 <script type="text/javascript" src="../${pageContext.request.contextPath}/js/home/common-home.js"></script>

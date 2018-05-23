@@ -4,7 +4,6 @@
  */
 package com.worksmobile.openhome.controller;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhncorp.lucy.security.xss.XssPreventer;
 import com.worksmobile.openhome.bo.ArticleBO;
 import com.worksmobile.openhome.bo.AttachmentFileBO;
 import com.worksmobile.openhome.controller.annotaion.GetTrafficData;
@@ -114,12 +112,8 @@ public class ArticleController {
 	@GetTrafficData
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
 	@ResponseBody
-	public String addArticle(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		
-		Article article = new Article(Integer.parseInt(req.getParameter("articleNum")), Integer.parseInt(req.getParameter("boardNum")),
-				req.getParameter("articleSubject"), req.getParameter("articleTextContent"), req.getParameter("articleContent"),
-				req.getParameter("articleWriter"), req.getParameter("articleAccessPwd"), "Y");
-		/*article.setArticleTextContent(XssPreventer.escape(article.getArticleTextContent()));*/
+	public String addArticle(Article article, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		article.setArticleStatus("Y");
 		return service.addArticle(article);
 	}
 	//비밀번호 체크 후 게시글 삭제
