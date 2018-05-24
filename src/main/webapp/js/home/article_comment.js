@@ -165,6 +165,7 @@
 				if(res == "SUCCESS") {
 					$('#check_pwd_hidden_area').css('display', 'none');
 					$('li[id='+ $('#check_pwd_btn_mod_comment').data('commentNum') +'] .comment_show_div').css('display', 'none');
+					$('li[id='+ $('#check_pwd_btn_mod_comment').data('commentNum') +'] .comment_uploaed_file').css('display', 'none');
 					$('li[id='+ $('#check_pwd_btn_mod_comment').data('commentNum') +'] .comment_mod_div').css('display', 'block');
 				} else {
 					$('#check_pwd_text').append('<p style="color:red;">비밀번호가 일치하지 않습니다.</p>');

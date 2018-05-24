@@ -163,7 +163,7 @@ function goBoardAjax(boardNumber, currentPageNo){
 				}
 				
 				if (res.articleList[index].fileCount > 0) {
-					html += "<span><img src='/OpenHome/image/paper-clip.png' title=" + "'"+ res.articleList[index].fileCount + "'" + "/></span>";
+					html += "<span><img src='/OpenHome/image/clip.png' title=" + "'"+ res.articleList[index].fileCount + "'" + "/></span>";
 				}
 				
 				html+="</a></td>";
@@ -244,9 +244,9 @@ function fileDownloadTraffic(fileSize){
 		url: "api/traffic/contentLength",
 		data: 'trafficContentLength='+ trafficContentLength + "&trafficKind=" + "fileDownload",
 		success: function(res) {
-			if (res == ReturnStatus.SUCCESS){
-				alert("트래픽 저장 완료");
-			}
+//			if (res == ReturnStatus.SUCCESS){
+//				alert("트래픽 저장 완료");
+//			}
 		},
 		error : function(err) {
 			alert('fileDownloadTraffic error : ' + err);
@@ -256,11 +256,11 @@ function fileDownloadTraffic(fileSize){
 	$.ajax({
 		type: "post",
 		url: "api/apiCall/apiCount",
-		data: 'apiLevel=' + "apiLevel5",
+		data: 'apiLevel=' + "fileDownload",
 		success: function(res) {
-			if (res == ReturnStatus.SUCCESS){
-				alert("API 저장 완료");
-			}
+//			if (res == ReturnStatus.SUCCESS){
+//				alert("API 저장 완료");
+//			}
 		},
 		error : function(err) {
 			alert('fileDownloadTraffic API error : ' + err);

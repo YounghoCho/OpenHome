@@ -149,7 +149,7 @@ function searchArticle() {
 				}
 				
 				if (value.fileCount > 0) {
-					html += "<span><img src='/OpenHome/image/paper-clip.png' title=" + "'"+ value.fileCount + "'" + "/></span>";
+					html += "<span><img src='/OpenHome/image/clip.png' title=" + "'"+ value.fileCount + "'" + "/></span>";
 				}
 				
 				html+="</a></td>";

@@ -522,12 +522,12 @@
 			alert("글 제목 50자 이하로 입력하세요.");
 			return false;
 		} else {
-			//editor값 textarea에 반영
-	        obj.getById["articleContent"].exec("UPDATE_CONTENTS_FIELD", []);
-	        
-			//내용값 html 태그 지움
-	        var articleTextContent = $('#articleContent').val().replace(/[<][^>]*[>]/gi, "").replace(/&nbsp;/g, " ").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/&quot;/g, "\"");;
-	     	
+			obj.getById["articleContent"].exec("UPDATE_CONTENTS_FIELD", []);
+			var articleContent = $('#articleContent').val();
+			/*alert("1: " + articleContent);*/
+			var articleTextContent = articleContent.replace(/[<][^>]*[>]/gi, "").replace(/&nbsp;/g, " ").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/&quot;/g, "\"");
+		/*	alert("2: " + articleTextContent);
+			alert("3: " + articleContent);*/
 	        //내용 null값 확인
 	        if (articleTextContent.replace(/ /g, "").length == 0) {
 	        	alert("글 내용을 입력하세요.");
@@ -540,7 +540,7 @@
 					url : 'api/article/addArticle',
 					data : 'articleNum=' + $('.articleWriteDiv').data("articleNum") + '&boardNum=' + $("#singleBoardTable").data("boardNum") 
 							+ '&articleWriter=' + $('#articleWriter').val() + '&articleAccessPwd=' + $('#articleAccessPwd').val() 
-							+ '&articleSubject=' + $('#articleSubject').val() + '&articleContent=' + $('#articleContent').val() 
+							+ '&articleSubject=' + $('#articleSubject').val() + '&articleContent=' + articleContent 
 							+ '&articleTextContent=' + articleTextContent,
 					success : function(res){
 						if (res == "success") {
